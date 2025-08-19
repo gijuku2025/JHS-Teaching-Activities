@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trade and Tariff Simulation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .game-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .instructions {
+      font-size: 14px;
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .product {
+      margin-bottom: 20px;
+    }
+    .product h3 {
+      margin: 0 0 10px 0;
+    }
+    .price-display {
+      margin: 5px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type=range] {
+      width: 100%;
+    }
+    button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Free Trade & Tariff Simulation</h1>
+    <div class="instructions">
+      <strong>Instructions:</strong><br>
+      Adjust the sliders to set import tariff levels for each product. Then click "Apply Tariffs" to see how the prices change. Higher tariffs make goods more expensive for consumers.
+    </div>
+    <div id="product-list"></div>
+    <button onclick="applyTariffs()">Apply Tariffs</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const products = [
+      { name: "TVs", basePrice: 200000 },
+      { name: "Food", basePrice: 1000 },
+      { name: "Clothing", basePrice: 5000 },
+    ];
+
+    function formatYen(value) {
+      return "\u00a5" + value.toLocaleString();
+    }
+
+    function renderProducts() {
+      const list = document.getElementById("product-list");
+      list.innerHTML = "";
+      products.forEach((product, index) => {
+        const container = document.createElement("div");
+        container.className = "product";
+
+        container.innerHTML = `
+          <h3>${product.name}</h3>
+          <div class="price-display">Base Price: <strong>${formatYen(product.basePrice)}</strong></div>
+          <label for="tariff-${index}">Import Tariff: <span id="tariff-val-${index}">0%</span></label>
+          <input type="range" id="tariff-${index}" min="0" max="50" value="0" oninput="updateTariffLabel(${index})" />
+        `;
+        list.appendChild(container);
+      });
+    }
+
+    function updateTariffLabel(index) {
+      const val = document.getElementById(`tariff-${index}`).value;
+      document.getElementById(`tariff-val-${index}`).innerText = `${val}%`;
+    }
+
+    function applyTariffs() {
+      const result = document.getElementById("result");
+      result.innerHTML = "<h2>Prices After Tariffs</h2>";
+
+      products.forEach((product, index) => {
+        const tariff = document.getElementById(`tariff-${index}`).value;
+        const finalPrice = Math.round(product.basePrice * (1 + tariff / 100));
+        result.innerHTML += `
+          <div>
+            <strong>${product.name}</strong><br>
+            Base Price: ${formatYen(product.basePrice)} → Tariff: ${tariff}% → Final Price: <strong>${formatYen(finalPrice)}</strong>
+          </div>
+          <br>
+        `;
+      });
+    }
+
+    renderProducts();
+  </script>
+</body>
+</html>
