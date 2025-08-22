@@ -89,7 +89,6 @@
       display: none;
     }
 
-    /* Progress bar styles */
     .progress-bar {
       width: 100%;
       height: 8px;
@@ -262,10 +261,11 @@
 
   function playWord() {
     const utter = new SpeechSynthesisUtterance(quizScreen.dataset.word);
-    if (/[一-龯ぁ-んァ-ン]/.test(quizScreen.dataset.word)) {
-      utter.lang = "ja-JP";
-    } else {
+    // Use isEnToJp flag to set language
+    if (quizScreen.dataset.isEnToJp === "true") {
       utter.lang = "en-US";
+    } else {
+      utter.lang = "ja-JP";
     }
     speechSynthesis.speak(utter);
   }
