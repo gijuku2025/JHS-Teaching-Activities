@@ -88,7 +88,6 @@
     .hidden {
       display: none;
     }
-
     .progress-bar {
       width: 100%;
       height: 8px;
@@ -103,36 +102,19 @@
       border-radius: 4px;
       transition: width 0.3s ease, background-color 0.3s ease;
     }
-
     #questionCounter {
       margin-bottom: 8px;
       font-weight: bold;
       color: #555;
       font-size: 16px;
     }
-
     @media (max-width: 768px) {
-      .container {
-        width: 90%;
-        padding: 20px;
-      }
-      #gameTitle {
-        font-size: 28px;
-      }
-      h1 {
-        font-size: 22px;
-      }
-      button {
-        font-size: 18px;
-        padding: 16px;
-      }
-      .choice-btn {
-        font-size: 20px;
-        padding: 18px;
-      }
-      .feedback {
-        font-size: 20px;
-      }
+      .container { width: 90%; padding: 20px; }
+      #gameTitle { font-size: 28px; }
+      h1 { font-size: 22px; }
+      button { font-size: 18px; padding: 16px; }
+      .choice-btn { font-size: 20px; padding: 18px; }
+      .feedback { font-size: 20px; }
     }
   </style>
 </head>
@@ -160,193 +142,189 @@
   </div>
 
 <script>
-  const allWords = [
-    { en: "caribou", jp: "カリブー" },
-    { en: "moss", jp: "苔" },
-    { en: "Tundra Climate", jp: "ツンドラ気候" },
-    { en: "Ice Cap Climate", jp: "氷雪気候" },
-    { en: "Inuit", jp: "イヌイット" },
-    { en: "traditional", jp: "伝統的な" },
-    { en: "nomad", jp: "移住生活者" },
-    { en: "seal", jp: "アザラシ" },
-    { en: "igloo", jp: "イグルー" },
-    { en: "brick", jp: "レンガ" },
-    { en: "raw", jp: "生の" },
-    { en: "environment", jp: "環境" },
-    { en: "daily life", jp: "日常生活" },
-    { en: "modern", jp: "現代的な" },
-    { en: "electricity", jp: "電気" },
-    { en: "snowmobile", jp: "スノーモービル" },
-    { en: "dogsled", jp: "犬ぞり" },
-    { en: "vegetables", jp: "野菜" },
-    { en: "day", jp: "昼" },
-    { en: "night", jp: "夜" },
-    { en: "low", jp: "低い" },
-    { en: "weak", jp: "弱い" }
-  ];
+const allWords = [
+  { en: "caribou", jp: "カリブー" },
+  { en: "moss", jp: "苔" },
+  { en: "Tundra Climate", jp: "ツンドラ気候" },
+  { en: "Ice Cap Climate", jp: "氷雪気候" },
+  { en: "Inuit", jp: "イヌイット" },
+  { en: "traditional", jp: "伝統的な" },
+  { en: "nomad", jp: "移住生活者" },
+  { en: "seal", jp: "アザラシ" },
+  { en: "igloo", jp: "イグルー" },
+  { en: "brick", jp: "レンガ" },
+  { en: "raw", jp: "生の" },
+  { en: "environment", jp: "環境" },
+  { en: "daily life", jp: "日常生活" },
+  { en: "modern", jp: "現代的な" },
+  { en: "electricity", jp: "電気" },
+  { en: "snowmobile", jp: "スノーモービル" },
+  { en: "dogsled", jp: "犬ぞり" },
+  { en: "vegetables", jp: "野菜" },
+  { en: "day", jp: "昼" },
+  { en: "night", jp: "夜" },
+  { en: "low", jp: "低い" },
+  { en: "weak", jp: "弱い" }
+];
 
-  let words = [];
-  let nickname = "";
-  let currentQuestion = 0;
-  let score = 0;
-  let firstTry = true;
-  let startTime;
+let words = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
 
-  const startScreen = document.getElementById("startScreen");
-  const quizScreen = document.getElementById("quizScreen");
-  const endScreen = document.getElementById("endScreen");
-  const choicesDiv = document.getElementById("choices");
-  const feedbackDiv = document.getElementById("feedback");
-  const finalResult = document.getElementById("finalResult");
-  const questionCounterDiv = document.getElementById("questionCounter");
-  const progressFill = document.getElementById("progressFill");
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
 
-  function startQuiz() {
-    nickname = document.getElementById("nickname").value.trim() || "Player";
-    startTime = new Date();
-    words = [...allWords];
-    shuffle(words);
-    words = words.slice(0, 10); // pick 10 random words
-    startScreen.classList.add("hidden");
-    quizScreen.classList.remove("hidden");
-    currentQuestion = 0;
-    score = 0;
-    showQuestion();
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  words = [...allWords];
+  shuffle(words);
+  words = words.slice(0, 10); // pick 10 random words
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.classList.remove("correct");
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = words[currentQuestion % words.length];
+  const isEnToJp = currentQuestion % 2 === 0;
+
+  quizScreen.dataset.isEnToJp = isEnToJp;
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.word = isEnToJp ? q.en : q.jp;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${words.length}`;
+  const progress = (currentQuestion + 1) / words.length;
+  progressFill.style.width = (progress * 100) + "%";
+  if (progress < 0.5) progressFill.style.backgroundColor = "#FFA500";
+  else if (progress < 1) progressFill.style.backgroundColor = "#FFD700";
+  else progressFill.style.backgroundColor = "#4CAF50";
+
+  let options = words.map(w => isEnToJp ? w.jp : w.en);
+  shuffle(options);
+  options = options.slice(0,3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random()*3)] = quizScreen.dataset.answer;
   }
 
-  function showQuestion() {
-    feedbackDiv.textContent = "";
-    feedbackDiv.classList.remove("correct");
-    firstTry = true;
-    choicesDiv.innerHTML = "";
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"]; 
+  options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[index % colors.length];
+    btn.style.color = "#fff";
+    btn.style.fontSize = "18px";
+    btn.style.padding = "14px";
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
 
-    const q = words[currentQuestion % words.length];
-    const isEnToJp = currentQuestion % 2 === 0;
-
-    quizScreen.dataset.isEnToJp = isEnToJp;
-    quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
-    quizScreen.dataset.word = isEnToJp ? q.en : q.jp;
-
-    questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${words.length}`;
-    const progress = (currentQuestion + 1) / words.length;
-    progressFill.style.width = (progress * 100) + "%";
-
-    let color;
-    if (progress < 0.5) color = "#FFA500";
-    else if (progress < 1) color = "#FFD700";
-    else color = "#4CAF50";
-    progressFill.style.backgroundColor = color;
-
-    let options = words.map(w => isEnToJp ? w.jp : w.en);
-    shuffle(options);
-    options = options.slice(0,3);
-    if (!options.includes(quizScreen.dataset.answer)) {
-      options[Math.floor(Math.random()*3)] = quizScreen.dataset.answer;
-    }
-
-    const colors = ["#FFA500", "#FF4C4C", "#4CAF50"]; 
-
-    options.forEach((opt, index) => {
-      const btn = document.createElement("button");
-      btn.textContent = opt;
-      btn.className = "choice-btn";
-      btn.style.backgroundColor = colors[index % colors.length];
-      btn.style.color = "#fff";
-      btn.style.fontSize = "18px";
-      btn.style.padding = "14px";
-      btn.onclick = () => checkAnswer(opt, btn);
-      choicesDiv.appendChild(btn);
-    });
+function playWord() {
+  const utter = new SpeechSynthesisUtterance(quizScreen.dataset.word);
+  const voices = speechSynthesis.getVoices();
+  let voice;
+  if (quizScreen.dataset.isEnToJp === "true") {
+    voice = voices.find(v => v.lang.startsWith("en"));
+  } else {
+    voice = voices.find(v => v.lang.startsWith("ja"));
   }
+  if (voice) utter.voice = voice;
+  speechSynthesis.speak(utter);
+}
 
-  function playWord() {
-    const utter = new SpeechSynthesisUtterance(quizScreen.dataset.word);
-    // Use isEnToJp flag to set language
-    if (quizScreen.dataset.isEnToJp === "true") {
-      utter.lang = "en-US";
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.classList.add("correct");
+    feedbackDiv.textContent = "Correct!";
+    btn.classList.add("correct");
+    if (firstTry) score += 2; else score += 1;
+  } else {
+    if (firstTry) {
+      feedbackDiv.style.color = "orange";
+      feedbackDiv.textContent = "Try again!";
+      firstTry = false;
+      enableChoices();
+      return;
     } else {
-      utter.lang = "ja-JP";
-    }
-    speechSynthesis.speak(utter);
-  }
-
-  function checkAnswer(choice, btn) {
-    const correct = quizScreen.dataset.answer;
-    disableChoices();
-
-    if (choice === correct) {
-      feedbackDiv.classList.add("correct");
-      feedbackDiv.textContent = "Correct!";
-      btn.classList.add("correct");
-      if (firstTry) score += 2; else score += 1;
-    } else {
-      if (firstTry) {
-        feedbackDiv.style.color = "orange";
-        feedbackDiv.textContent = "Try again!";
-        firstTry = false;
-        enableChoices();
-        return;
-      } else {
-        feedbackDiv.style.color = "red";
-        feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
-      }
-    }
-
-    if (currentQuestion === words.length - 1) {
-      progressFill.style.width = "100%";
-      progressFill.style.backgroundColor = "#4CAF50";
-      setTimeout(endQuiz, 1000);
-    } else {
-      const nextBtn = document.createElement("button");
-      nextBtn.textContent = "Next Question →";
-      nextBtn.style.backgroundColor = "#800080"; 
-      nextBtn.style.color = "#fff";
-      nextBtn.style.fontSize = "16px";
-      nextBtn.style.padding = "12px";
-      nextBtn.style.marginTop = "10px";
-      nextBtn.style.borderRadius = "8px";
-      nextBtn.onclick = nextQuestion;
-      choicesDiv.appendChild(nextBtn);
+      feedbackDiv.style.color = "red";
+      feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
     }
   }
 
-  function disableChoices() {
-    const buttons = choicesDiv.querySelectorAll(".choice-btn");
-    buttons.forEach(btn => btn.disabled = true);
+  if (currentQuestion === words.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080"; 
+    nextBtn.style.color = "#fff";
+    nextBtn.style.fontSize = "16px";
+    nextBtn.style.padding = "12px";
+    nextBtn.style.marginTop = "10px";
+    nextBtn.style.borderRadius = "8px";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
   }
+}
 
-  function enableChoices() {
-    const buttons = choicesDiv.querySelectorAll(".choice-btn");
-    buttons.forEach(btn => btn.disabled = false);
+function disableChoices() {
+  const buttons = choicesDiv.querySelectorAll(".choice-btn");
+  buttons.forEach(btn => btn.disabled = true);
+}
+
+function enableChoices() {
+  const buttons = choicesDiv.querySelectorAll(".choice-btn");
+  buttons.forEach(btn => btn.disabled = false);
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  let endTime = new Date();
+  let totalSeconds = Math.floor((endTime - startTime)/1000);
+  let minutes = Math.floor(totalSeconds / 60);
+  let seconds = totalSeconds % 60;
+  let dateString = endTime.toLocaleDateString() + " " + endTime.toLocaleTimeString();
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${words.length * 2}<br>
+    Time played: ${minutes} min ${seconds} sec<br>
+    Date: ${dateString}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
-
-  function nextQuestion() {
-    currentQuestion++;
-    showQuestion();
-  }
-
-  function endQuiz() {
-    quizScreen.classList.add("hidden");
-    endScreen.classList.remove("hidden");
-    let endTime = new Date();
-    let totalSeconds = Math.floor((endTime - startTime)/1000);
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
-    let dateString = endTime.toLocaleDateString() + " " + endTime.toLocaleTimeString();
-
-    finalResult.innerHTML = `
-      ${nickname}'s score: ${score} / ${words.length * 2}<br>
-      Time played: ${minutes} min ${seconds} sec<br>
-      Date: ${dateString}
-    `;
-  }
-
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
+}
 </script>
 </body>
 </html>
