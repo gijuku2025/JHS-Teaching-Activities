@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listening Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+    #quiz, #endScreen { display: none; }
+    button { margin: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    .hidden { display: none; }
+    #progress { margin: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div id="startScreen">
+    <h2>Enter your nickname</h2>
+    <input type="text" id="nicknameInput" placeholder="Nickname">
+    <button onclick="startQuiz()">Start</button>
+  </div>
+
+  <div id="quiz">
+    <p id="progress"></p>
+    <button onclick="playWord()">🔊 Play Word</button>
+    <div id="choices"></div>
+  </div>
+
+  <div id="endScreen">
+    <h2>Quiz Finished!</h2>
+    <p id="score"></p>
+    <button onclick="location.reload()">Play Again</button>
+    <button onclick="window.location.href='https://gijuku2025.github.io/JHS-Teaching-Activities/'">Home</button>
+  </div>
+
+  <script>
+    // ===== Vocabulary with MP3 paths =====
+    let words = [
+      { en: "free trade", jp: "自由貿易", enAudio: "audio/free_trade_en.mp3", jpAudio: "audio/自由貿易_jp.mp3" },
+      { en: "agreement", jp: "協定", enAudio: "audio/agreement_en.mp3", jpAudio: "audio/協定_jp.mp3" },
+      { en: "mountain range", jp: "山脈", enAudio: "audio/mountain_range_en.mp3", jpAudio: "audio/山脈_jp.mp3" },
+      { en: "flat land", jp: "平地", enAudio: "audio/flat_land_en.mp3", jpAudio: "audio/平地_jp.mp3" },
+      { en: "hurricane", jp: "ハリケーン", enAudio: "audio/hurricane_en.mp3", jpAudio: "audio/ハリケーン_jp.mp3" },
+      { en: "tropical storm", jp: "熱帯低気圧", enAudio: "audio/tropical_storm_en.mp3", jpAudio: "audio/熱帯低気圧_jp.mp3" },
+      { en: "damage", jp: "被害", enAudio: "audio/damage_en.mp3", jpAudio: "audio/被害_jp.mp3" },
+      { en: "satellite", jp: "人工衛星", enAudio: "audio/satellite_en.mp3", jpAudio: "audio/人工衛星_jp.mp3" },
+      { en: "measure", jp: "測定する", enAudio: "audio/measure_en.mp3", jpAudio: "audio/測定する_jp.mp3" },
+      { en: "wind speed", jp: "風速", enAudio: "audio/wind_speed_en.mp3", jpAudio: "audio/風速_jp.mp3" },
+      { en: "air pressure", jp: "気圧", enAudio: "audio/air_pressure_en.mp3", jpAudio: "audio/気圧_jp.mp3" },
+      { en: "warn", jp: "警告する", enAudio: "audio/warn_en.mp3", jpAudio: "audio/警告する_jp.mp3" }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let nickname = "";
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function startQuiz() {
+      nickname = document.getElementById("nicknameInput").value || "Player";
+      shuffle(words);
+      words = words.slice(0, 10); // pick 10 random words
+      currentIndex = 0;
+      score = 0;
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("quiz").style.display = "block";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      if (currentIndex >= words.length) {
+        endQuiz();
+        return;
+      }
+      document.getElementById("progress").innerText = 
+        `Question ${currentIndex + 1} of ${words.length}`;
+      
+      const currentWord = words[currentIndex];
+      let choices = [currentWord.jp];
+
+      // Pick 3 random wrong answers
+      while (choices.length < 4) {
+        const rand = words[Math.floor(Math.random() * words.length)].jp;
+        if (!choices.includes(rand)) choices.push(rand);
+      }
+      shuffle(choices);
+
+      const choiceContainer = document.getElementById("choices");
+      choiceContainer.innerHTML = "";
+      choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.onclick = () => checkAnswer(choice, currentWord.jp);
+        choiceContainer.appendChild(btn);
+      });
+    }
+
+    function playWord() {
+      const currentWord = words[currentIndex];
+      const audio = new Audio(currentWord.enAudio); // plays ENGLISH voice
+      audio.play();
+    }
+
+    function checkAnswer(selected, correct) {
+      if (selected === correct) score++;
+      currentIndex++;
+      showQuestion();
+    }
+
+    function endQuiz() {
+      document.getElementById("quiz").style.display = "none";
+      document.getElementById("endScreen").style.display = "block";
+      document.getElementById("score").innerText = 
+        `${nickname}, your score is ${score} / ${words.length}`;
+    }
+  </script>
+</body>
+</html>
