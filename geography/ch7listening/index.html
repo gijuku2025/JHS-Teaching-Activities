@@ -76,8 +76,8 @@
 </div>
 
 <script>
-// ======= Replace this array with your generated words_array.txt =======
-const words = [
+// ====== Replace with your generated array including MP3 paths ======
+const allWords = [
   { en: "caribou", jp: "カリブー", enAudio: "audio/caribou_en.mp3", jpAudio: "audio/カリブー_jp.mp3" },
   { en: "moss", jp: "苔", enAudio: "audio/moss_en.mp3", jpAudio: "audio/苔_jp.mp3" },
   { en: "Tundra Climate", jp: "ツンドラ気候", enAudio: "audio/tundra_climate_en.mp3", jpAudio: "audio/ツンドラ気候_jp.mp3" },
@@ -99,11 +99,11 @@ const words = [
   { en: "day", jp: "昼", enAudio: "audio/day_en.mp3", jpAudio: "audio/昼_jp.mp3" },
   { en: "night", jp: "夜", enAudio: "audio/night_en.mp3", jpAudio: "audio/夜_jp.mp3" },
   { en: "low", jp: "低い", enAudio: "audio/low_en.mp3", jpAudio: "audio/低い_jp.mp3" },
-  { en: "weak", jp: "弱い", enAudio: "audio/weak_en.mp3", jpAudio: "audio/弱い_jp.mp3" },
+  { en: "weak", jp: "弱い", enAudio: "audio/weak_en.mp3", jpAudio: "audio/弱い_jp.mp3" }
 ];
 
-
 // ====== Quiz logic ======
+let words = [];
 let nickname = "";
 let currentQuestion = 0;
 let score = 0;
@@ -122,8 +122,9 @@ const progressFill = document.getElementById("progressFill");
 function startQuiz() {
   nickname = document.getElementById("nickname").value.trim() || "Player";
   startTime = new Date();
+  words = [...allWords];
   shuffle(words);
-  words.splice(10); // take only first 10 words
+  words = words.slice(0, 10); // take 10 random words
   startScreen.classList.add("hidden");
   quizScreen.classList.remove("hidden");
   currentQuestion = 0;
