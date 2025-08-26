@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrowing Cost Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7fb;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .inputs {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .inputs label {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+    .inputs input {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      min: 0;
+    }
+    .inputs input[type=number]::-webkit-inner-spin-button, 
+    .inputs input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .results {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      flex: 1 1 300px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.08);
+      padding: 20px;
+    }
+    .card h2 {
+      margin-top: 0;
+    }
+    .summary {
+      display: flex;
+      justify-content: space-around;
+      margin: 10px 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      transition: all 0.5s ease;
+    }
+    th, td {
+      text-align: center;
+      padding: 6px;
+      border-bottom: 1px solid #ddd;
+    }
+    tbody tr:nth-child(odd) { background-color: #ffffff; }
+    tbody tr:nth-child(even) { background-color: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h1>Borrowing Cost Simulator</h1>
+  
+  <div class="inputs">
+    <label>Loan Amount (¥)
+      <input type="number" id="loan" value="0" min="0">
+    </label>
+    <label>Interest Rate (%)
+      <input type="number" id="rate" value="0" min="0" step="0.1">
+    </label>
+    <label>Years
+      <input type="number" id="years" value="0" min="0">
+    </label>
+    <button onclick="calculate()">Calculate</button>
+  </div>
+
+  <div class="results">
+    <div class="card simple">
+      <h2>Simple Interest</h2>
+      <div class="summary">
+        <div>Borrowed: <span id="simple-principal">0</span></div>
+        <div>Extra: <span id="simple-interest">0</span></div>
+        <div>Total: <span id="simple-total">0</span></div>
+      </div>
+      <table id="simple-table">
+        <thead>
+          <tr><th>Year</th><th>Extra</th><th>Total</th><th>Calculation</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="card compound">
+      <h2>Compound Interest</h2>
+      <div class="summary">
+        <div>Borrowed: <span id="compound-principal">0</span></div>
+        <div>Extra: <span id="compound-interest">0</span></div>
+        <div>Total: <span id="compound-total">0</span></div>
+      </div>
+      <table id="compound-table">
+        <thead>
+          <tr><th>Year</th><th>Extra</th><th>Total</th><th>Calculation</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function calculate(){
+      const loan = Math.max(0, parseFloat(document.getElementById('loan').value));
+      const rate = Math.max(0, parseFloat(document.getElementById('rate').value)/100);
+      const years = Math.max(0, parseInt(document.getElementById('years').value));
+
+      // Simple Interest
+      const simpleExtra = loan * rate * years;
+      const simpleTotal = loan + simpleExtra;
+      document.getElementById('simple-principal').textContent = loan.toLocaleString();
+      document.getElementById('simple-interest').textContent = simpleExtra.toLocaleString();
+      document.getElementById('simple-total').textContent = simpleTotal.toLocaleString();
+
+      const simpleBody = document.querySelector('#simple-table tbody');
+      simpleBody.innerHTML = '';
+      for(let y=1; y<=years; y++){
+        const yearExtra = loan * rate;
+        const yearTotal = loan + yearExtra*y;
+        const calculation = `${loan} × ${ (rate*100).toFixed(1) }% = ${yearExtra.toFixed(0)} → ${loan + yearExtra*(y-1)} + ${yearExtra.toFixed(0)} = ${yearTotal.toFixed(0)}`;
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${y}</td><td>${yearExtra.toFixed(0)}</td><td>${yearTotal.toFixed(0)}</td><td>${calculation}</td>`;
+        simpleBody.appendChild(row);
+      }
+
+      // Compound Interest
+      let compoundTotal = loan;
+      const compoundBody = document.querySelector('#compound-table tbody');
+      compoundBody.innerHTML = '';
+      for(let y=1; y<=years; y++){
+        const before = compoundTotal;
+        compoundTotal = compoundTotal * (1+rate);
+        const yearExtra = compoundTotal - before;
+        const calculation = `${before.toFixed(0)} × ${ (rate*100).toFixed(1) }% = ${yearExtra.toFixed(0)} → ${before.toFixed(0)} + ${yearExtra.toFixed(0)} = ${compoundTotal.toFixed(0)}`;
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${y}</td><td>${yearExtra.toFixed(0)}</td><td>${compoundTotal.toFixed(0)}</td><td>${calculation}</td>`;
+        compoundBody.appendChild(row);
+      }
+      const compoundExtra = compoundTotal - loan;
+      document.getElementById('compound-principal').textContent = loan.toLocaleString();
+      document.getElementById('compound-interest').textContent = compoundExtra.toFixed(0);
+      document.getElementById('compound-total').textContent = compoundTotal.toFixed(0);
+    }
+
+    // Initial calculation
+    calculate();
+  </script>
+</body>
+</html>
