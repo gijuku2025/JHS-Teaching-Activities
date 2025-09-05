@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Minute Challenge</title>
+<style>
+  /* General Styles */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+  }
+
+  #game-container {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    color: white;
+  }
+
+  /* Start Screen */
+  #start-screen, #end-screen {
+    display: none;
+  }
+
+  .button {
+    padding: 15px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+
+  .button:active {
+    transform: scale(0.95);
+  }
+
+  #start-button {
+    background-color: #00c853;
+    color: white;
+  }
+
+  .timer-button {
+    background-color: #2196f3;
+    color: white;
+  }
+
+  /* Word Card */
+  #word-card {
+    display: none;
+    background-color: rgba(0,0,0,0.2);
+    padding: 40px 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Feedback Flashes */
+  .correct {
+    background-color: rgba(76, 175, 80, 0.7);
+  }
+
+  .skip {
+    background-color: rgba(255, 152, 0, 0.7);
+  }
+
+  /* Controls */
+  #controls {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .control-button {
+    flex: 1;
+    margin: 0 5px;
+    font-size: 1.2rem;
+  }
+
+  /* Timer */
+  #timer-container {
+    margin-top: 10px;
+  }
+
+  #timer-bar {
+    width: 100%;
+    height: 15px;
+    background-color: green;
+    border-radius: 10px;
+    transition: width 0.2s linear, background-color 0.2s linear;
+  }
+
+  #timer-text {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+<div id="game-container">
+  <!-- Start Screen -->
+  <div id="start-screen">
+    <h1>One Minute Challenge</h1>
+    <p>Select Timer:</p>
+    <button class="button timer-button" data-time="30">30 Seconds</button>
+    <button class="button timer-button" data-time="60">1 Minute</button>
+    <br>
+    <button class="button" id="start-button">Start Game</button>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen">
+    <div id="timer-container">
+      <div id="timer-text"></div>
+      <div id="timer-bar"></div>
+    </div>
+    <div id="word-card"></div>
+    <div id="controls">
+      <button class="button control-button" id="skip-button">⏭ Skip</button>
+      <button class="button control-button" id="correct-button">✅ Correct</button>
+    </div>
+  </div>
+
+  <!-- End Screen -->
+  <div id="end-screen">
+    <h1>Time’s Up!</h1>
+    <h2 id="final-score"></h2>
+    <button class="button" id="play-again">Play Again</button>
+    <button class="button" id="back-to-start">Back to Start</button>
+  </div>
+</div>
+
+<script>
+  // Word List
+  const words = [
+    "individuals",
+    "happiness",
+    "society",
+    "conflict",
+    "agreement",
+    "efficiency",
+    "fair",
+    "decisions",
+    "personal happiness",
+    "adolescence",
+    "life cycle",
+    "growth",
+    "childhood",
+    "adulthood",
+    "independence",
+    "puberty",
+    "desires",
+    "identity",
+    "marriage",
+    "Sacrifice",
+    "Baby",
+    "Old age"
+  ];
+
+  // Elements
+  const startScreen = document.getElementById('start-screen');
+  const gameScreen = document.getElementById('game-screen');
+  const endScreen = document.getElementById('end-screen');
+  const wordCard = document.getElementById('word-card');
+  const timerBar = document.getElementById('timer-bar');
+  const timerText = document.getElementById('timer-text');
+  const finalScore = document.getElementById('final-score');
+
+  const startButton = document.getElementById('start-button');
+  const timerButtons = document.querySelectorAll('.timer-button');
+  const correctButton = document.getElementById('correct-button');
+  const skipButton = document.getElementById('skip-button');
+  const playAgainButton = document.getElementById('play-again');
+  const backToStartButton = document.getElementById('back-to-start');
+
+  let shuffledWords = [];
+  let currentWordIndex = 0;
+  let score = 0;
+  let timer = 60;
+  let timerInterval;
+
+  // Selected Timer
+  let selectedTime = 60;
+
+  timerButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedTime = parseInt(btn.getAttribute('data-time'));
+      timerButtons.forEach(b => b.style.opacity = 0.5);
+      btn.style.opacity = 1;
+    });
+  });
+
+  startButton.addEventListener('click', startGame);
+  correctButton.addEventListener('click', () => handleGuess(true));
+  skipButton.addEventListener('click', () => handleGuess(false));
+  playAgainButton.addEventListener('click', startGame);
+  backToStartButton.addEventListener('click', () => {
+    endScreen.style.display = 'none';
+    startScreen.style.display = 'block';
+  });
+
+  // Swipe Detection
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  wordCard.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  wordCard.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) handleGuess(true); // Swipe Right = Correct
+      else handleGuess(false); // Swipe Left = Skip
+    }
+  }
+
+  function startGame() {
+    startScreen.style.display = 'none';
+    endScreen.style.display = 'none';
+    gameScreen.style.display = 'block';
+
+    // Initialize game
+    score = 0;
+    timer = selectedTime;
+    shuffledWords = [...words].sort(() => Math.random() - 0.5);
+    currentWordIndex = 0;
+
+    showWord();
+    updateTimer();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(countdown, 1000);
+  }
+
+  function showWord() {
+    if (currentWordIndex >= shuffledWords.length) {
+      currentWordIndex = 0; // Loop if run out of words
+    }
+    wordCard.textContent = shuffledWords[currentWordIndex];
+    wordCard.style.backgroundColor = 'rgba(0,0,0,0.2)';
+    wordCard.style.display = 'flex';
+  }
+
+  function handleGuess(correct) {
+    if (correct) {
+      score++;
+      flashWord('correct');
+    } else {
+      flashWord('skip');
+    }
+    currentWordIndex++;
+    setTimeout(showWord, 200); // Short delay for flash effect
+  }
+
+  function flashWord(type) {
+    wordCard.classList.add(type);
+    setTimeout(() => wordCard.classList.remove(type), 200);
+  }
+
+  function countdown() {
+    timer--;
+    updateTimer();
+    if (timer <= 0) {
+      endGame();
+    }
+  }
+
+  function updateTimer() {
+    timerText.textContent = `${timer}s`;
+    const percentage = (timer / selectedTime) * 100;
+    timerBar.style.width = percentage + '%';
+    if (percentage > 50) timerBar.style.backgroundColor = 'green';
+    else if (percentage > 20) timerBar.style.backgroundColor = 'yellow';
+    else timerBar.style.backgroundColor = 'red';
+  }
+
+  function endGame() {
+    clearInterval(timerInterval);
+    gameScreen.style.display = 'none';
+    finalScore.textContent = `You got ${score} point${score !== 1 ? 's' : ''}!`;
+    endScreen.style.display = 'block';
+  }
+
+  // Initialize start screen
+  startScreen.style.display = 'block';
+  gameScreen.style.display = 'none';
+  endScreen.style.display = 'none';
+</script>
+</body>
+</html>
