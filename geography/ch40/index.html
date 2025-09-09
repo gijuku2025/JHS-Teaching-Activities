@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>One Minute Challenge</title>
 <style>
-  /* General Styles */
-  html, body {
+  body {
     margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Montserrat', sans-serif;
-    background-color: #fff; /* Neutral base */
+    height: 100vh;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f5f5f7; /* soft neutral */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,23 +18,21 @@
   #game-container {
     width: 100%;
     max-width: 1200px;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    text-align: center;
   }
 
-  /* Gradient Header */
+  /* Header */
   #header-bar {
     width: 100%;
     padding: 20px;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    color: white;
-    font-size: 2rem;
-    font-weight: bold;
     text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    color: white;
   }
 
   /* Screens */
@@ -46,6 +42,61 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  #game-screen {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+  }
+
+  /* Word Card */
+  #word-card {
+    width: 85%;
+    max-width: 700px;
+    padding: 40px;
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 600;
+    color: #222;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #word-card.show {
+    opacity: 1;
+  }
+
+  /* Timer */
+  #timer-container {
+    width: 85%;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+
+  #timer-text {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  #timer-bar {
+    width: 100%;
+    height: 18px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2) inset;
+    transition: width 0.3s linear;
   }
 
   /* Buttons */
@@ -53,133 +104,58 @@
     padding: 20px 30px;
     margin: 15px;
     border: none;
-    border-radius: 12px;
+    border-radius: 20px;
     font-size: 1.5rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: transform 0.1s;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
     width: 70%;
     max-width: 400px;
+    color: #fff;
   }
 
   .button:active {
-    transform: scale(0.95);
+    transform: scale(0.97);
+    box-shadow: none;
   }
 
   #start-button {
-    background-color: #00c853;
-    color: white;
+    background: #4caf50;
+    box-shadow: 0 6px 14px rgba(76,175,80,0.4);
   }
 
   .timer-button {
-    background-color: #2196f3;
-    color: white;
+    background: #2196f3;
+    box-shadow: 0 6px 14px rgba(33,150,243,0.4);
   }
 
-  /* Word Card */
-  #word-card {
-    flex: 1;
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: clamp(2rem, 8vw, 6rem);
-    padding: 20px;
-    border-radius: 20px;
-    background-color: rgba(0,0,0,0.1);
+  #skip-button {
+    background: #ff9800;
+    box-shadow: 0 6px 14px rgba(255,152,0,0.4);
   }
 
-  /* Feedback Flashes */
-  .correct {
-    background-color: rgba(76, 175, 80, 0.7);
-  }
-
-  .skip {
-    background-color: rgba(255, 152, 0, 0.7);
+  #correct-button {
+    background: #4caf50;
+    box-shadow: 0 6px 14px rgba(76,175,80,0.4);
   }
 
   /* Controls */
   #controls {
-    width: 100%;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    padding: 0 20px;
+    gap: 20px;
+    width: 85%;
+    max-width: 700px;
+    justify-content: space-between;
   }
 
   .control-button {
     flex: 1;
-    padding: 25px;
-    margin: 0 10px;
-    font-size: 1.8rem;
-    border-radius: 15px;
-  }
-
-  #skip-button {
-    background-color: #ff9800;
-    color: white;
-  }
-
-  #correct-button {
-    background-color: #4caf50;
-    color: white;
-  }
-
-  /* Timer */
-  #timer-container {
-    width: 90%;
-    margin-top: 10px;
-  }
-
-  #timer-text {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-
-  #timer-bar {
-    width: 100%;
-    height: 25px;
-    background-color: green;
-    border-radius: 12px;
-    transition: width 0.2s linear, background-color 0.2s linear;
-  }
-
-  /* 📱 Landscape Mode */
-  @media (orientation: landscape) {
-    #game-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      align-items: stretch;
-      padding: 20px;
-      gap: 20px;
-    }
-
-    #word-card {
-      flex: 2;
-      font-size: clamp(2rem, 6vw, 5rem);
-    }
-
-    #controls {
-      flex: 1;
-      flex-direction: column;
-      justify-content: center;
-      align-items: stretch;
-    }
-
-    .control-button {
-      margin: 15px 0;
-      font-size: 2rem;
-    }
-
-    #timer-container {
-      margin-bottom: 30px;
-    }
+    font-size: 1.5rem;
   }
 </style>
 </head>
 <body>
 <div id="game-container">
-  <!-- Header -->
   <div id="header-bar">One Minute Challenge</div>
 
   <!-- Start Screen -->
@@ -187,7 +163,6 @@
     <p style="font-size:1.5rem;">Select Timer:</p>
     <button class="button timer-button" data-time="30">30 Seconds</button>
     <button class="button timer-button" data-time="60">1 Minute</button>
-    <br>
     <button class="button" id="start-button">Start Game</button>
   </div>
 
@@ -214,33 +189,13 @@
 </div>
 
 <script>
-  // Word List
   const words = [
-    "individuals",
-    "happiness",
-    "society",
-    "conflict",
-    "agreement",
-    "efficiency",
-    "fair",
-    "decisions",
-    "personal happiness",
-    "adolescence",
-    "life cycle",
-    "growth",
-    "childhood",
-    "adulthood",
-    "independence",
-    "puberty",
-    "desires",
-    "identity",
-    "marriage",
-    "Sacrifice",
-    "Baby",
-    "Old age"
+    "individuals","happiness","society","conflict","agreement","efficiency",
+    "fair","decisions","personal happiness","adolescence","life cycle","growth",
+    "childhood","adulthood","independence","puberty","desires","identity",
+    "marriage","Sacrifice","Baby","Old age"
   ];
 
-  // Elements
   const startScreen = document.getElementById('start-screen');
   const gameScreen = document.getElementById('game-screen');
   const endScreen = document.getElementById('end-screen');
@@ -261,7 +216,6 @@
   let score = 0;
   let timer = 60;
   let timerInterval;
-
   let selectedTime = 60;
 
   timerButtons.forEach(btn => {
@@ -281,14 +235,11 @@
     startScreen.style.display = 'flex';
   });
 
-  // Swipe Detection
   let touchStartX = 0;
   let touchEndX = 0;
-
   wordCard.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
   });
-
   wordCard.addEventListener('touchend', e => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
@@ -306,8 +257,6 @@
     startScreen.style.display = 'none';
     endScreen.style.display = 'none';
     gameScreen.style.display = 'flex';
-    gameScreen.style.flexDirection = 'column';
-    gameScreen.style.flex = '1';
 
     score = 0;
     timer = selectedTime;
@@ -321,45 +270,28 @@
   }
 
   function showWord() {
-    if (currentWordIndex >= shuffledWords.length) {
-      currentWordIndex = 0;
-    }
+    if (currentWordIndex >= shuffledWords.length) currentWordIndex = 0;
     wordCard.textContent = shuffledWords[currentWordIndex];
-    wordCard.style.backgroundColor = 'rgba(0,0,0,0.1)';
-    wordCard.style.display = 'flex';
+    wordCard.classList.remove('show');
+    setTimeout(() => wordCard.classList.add('show'), 50);
   }
 
   function handleGuess(correct) {
-    if (correct) {
-      score++;
-      flashWord('correct');
-    } else {
-      flashWord('skip');
-    }
+    if (correct) score++;
     currentWordIndex++;
     setTimeout(showWord, 200);
-  }
-
-  function flashWord(type) {
-    wordCard.classList.add(type);
-    setTimeout(() => wordCard.classList.remove(type), 200);
   }
 
   function countdown() {
     timer--;
     updateTimer();
-    if (timer <= 0) {
-      endGame();
-    }
+    if (timer <= 0) endGame();
   }
 
   function updateTimer() {
     timerText.textContent = `${timer}s`;
     const percentage = (timer / selectedTime) * 100;
     timerBar.style.width = percentage + '%';
-    if (percentage > 50) timerBar.style.backgroundColor = 'green';
-    else if (percentage > 20) timerBar.style.backgroundColor = 'yellow';
-    else timerBar.style.backgroundColor = 'red';
   }
 
   function endGame() {
@@ -369,10 +301,8 @@
     endScreen.style.display = 'flex';
   }
 
-  // Initialize start screen
+  // Initialize
   startScreen.style.display = 'flex';
-  gameScreen.style.display = 'none';
-  endScreen.style.display = 'none';
 </script>
 </body>
 </html>
