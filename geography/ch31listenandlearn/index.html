@@ -88,7 +88,7 @@ const sentences = [
   { en: "Aerospace and ICT industries grew in the Sunbelt.", jp: "サンベルトでは航空宇宙産業とICT産業が発展しました。", enAudio: "audio/14_aerospace_and_ict_industries_g_en.mp3", jpAudio: "audio/14_aerospace_and_ict_industries_g_jp.mp3" },
   { en: "Some factories moved to Mexico and Central America for cheaper wages.", jp: "いくつかの工場はより安い賃金を求めてメキシコや中央アメリカに移りました。", enAudio: "audio/15_some_factories_moved_to_mexico_en.mp3", jpAudio: "audio/15_some_factories_moved_to_mexico_jp.mp3" },
 ];
-
+  
 let questions = [];
 let nickname = "";
 let currentQuestion = 0;
@@ -116,10 +116,11 @@ function startQuiz() {
   shuffle(questions);
   questions = questions.slice(0, 10);
 
-  // Randomize direction per question
-  questions = questions.map(q => {
-    const enToJp = Math.random() < 0.5;
-    return { ...q, direction: enToJp ? "en" : "jp" };
+  // Alternate directions with random starting side
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => {
+    const isEn = (i % 2 === 0) ? startEn : !startEn;
+    return { ...q, direction: isEn ? "en" : "jp" };
   });
 
   startScreen.classList.add("hidden");
