@@ -116,10 +116,11 @@ function startQuiz() {
   shuffle(questions);
   questions = questions.slice(0, 10);
 
-  // Randomize direction per question
-  questions = questions.map(q => {
-    const enToJp = Math.random() < 0.5;
-    return { ...q, direction: enToJp ? "en" : "jp" };
+  // Alternate directions with random starting side
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => {
+    const isEn = (i % 2 === 0) ? startEn : !startEn;
+    return { ...q, direction: isEn ? "en" : "jp" };
   });
 
   startScreen.classList.add("hidden");
