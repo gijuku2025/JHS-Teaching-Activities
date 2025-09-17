@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Swipe Match Game</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    background: #f5f5f5;
+    overflow: hidden;
+  }
+
+  h1 {
+    margin: 20px 0;
+    font-size: 2em;
+  }
+
+  #game {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .card {
+    position: absolute;
+    width: 80%;
+    max-width: 400px;
+    height: 200px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    touch-action: none;
+    user-select: none;
+    transition: box-shadow 0.2s;
+  }
+
+  .card.correct {
+    box-shadow: 0 5px 20px rgba(0,255,0,0.6);
+  }
+
+  .card.wrong {
+    box-shadow: 0 5px 20px rgba(255,0,0,0.6);
+  }
+
+  #buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+  }
+
+  .action-btn {
+    font-size: 2em;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .yes {
+    background: #28a745;
+  }
+
+  .no {
+    background: #dc3545;
+  }
+
+  #result {
+    display: none;
+    text-align: center;
+  }
+
+  #result h2 {
+    font-size: 2em;
+  }
+
+  #playAgain {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 12px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Concept: Renewable Energy</h1>
+<div id="game"></div>
+
+<div id="buttons">
+  <button class="action-btn no">❌</button>
+  <button class="action-btn yes">✅</button>
+</div>
+
+<div id="result">
+  <h2 id="score"></h2>
+  <button id="playAgain">Play Again</button>
+</div>
+
+<script>
+  const data = [
+    { text: "Solar Power", match: true },
+    { text: "Coal", match: false },
+    { text: "Wind", match: true },
+    { text: "Natural Gas", match: false }
+  ];
+
+  let currentIndex = 0;
+  let score = 0;
+  const game = document.getElementById("game");
+  const result = document.getElementById("result");
+  const scoreEl = document.getElementById("score");
+  const playAgainBtn = document.getElementById("playAgain");
+
+  function createCard(item) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.textContent = item.text;
+    game.appendChild(card);
+
+    let startX = 0, currentX = 0, offsetX = 0;
+    let dragging = false;
+
+    function start(e) {
+      dragging = true;
+      startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+    }
+
+    function move(e) {
+      if (!dragging) return;
+      currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+      offsetX = currentX - startX;
+      card.style.transform = `translateX(${offsetX}px) rotate(${offsetX/10}deg)`;
+      if (offsetX > 80) {
+        card.classList.add("correct");
+        card.classList.remove("wrong");
+      } else if (offsetX < -80) {
+        card.classList.add("wrong");
+        card.classList.remove("correct");
+      } else {
+        card.classList.remove("correct","wrong");
+      }
+    }
+
+    function end() {
+      dragging = false;
+      if (offsetX > 120) {
+        handleChoice(true, card);
+      } else if (offsetX < -120) {
+        handleChoice(false, card);
+      } else {
+        card.style.transition = "transform 0.3s";
+        card.style.transform = "translateX(0px) rotate(0deg)";
+        setTimeout(()=> card.style.transition = "", 300);
+      }
+    }
+
+    card.addEventListener("mousedown", start);
+    card.addEventListener("mousemove", move);
+    card.addEventListener("mouseup", end);
+    card.addEventListener("mouseleave", end);
+
+    card.addEventListener("touchstart", start);
+    card.addEventListener("touchmove", move);
+    card.addEventListener("touchend", end);
+  }
+
+  function handleChoice(choice, card) {
+    const item = data[currentIndex];
+    if (choice === item.match) score++;
+
+    card.style.transition = "transform 0.5s ease-out";
+    card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
+
+    setTimeout(() => {
+      game.removeChild(card);
+      currentIndex++;
+      if (currentIndex < data.length) {
+        createCard(data[currentIndex]);
+      } else {
+        endGame();
+      }
+    }, 500);
+  }
+
+  function endGame() {
+    document.getElementById("buttons").style.display = "none";
+    result.style.display = "block";
+    scoreEl.textContent = `You got ${score} out of ${data.length} correct!`;
+  }
+
+  function startGame() {
+    game.innerHTML = "";
+    result.style.display = "none";
+    document.getElementById("buttons").style.display = "flex";
+    currentIndex = 0;
+    score = 0;
+    createCard(data[currentIndex]);
+  }
+
+  document.querySelector(".yes").addEventListener("click", () => {
+    const card = document.querySelector(".card");
+    if (card) handleChoice(true, card);
+  });
+
+  document.querySelector(".no").addEventListener("click", () => {
+    const card = document.querySelector(".card");
+    if (card) handleChoice(false, card);
+  });
+
+  playAgainBtn.addEventListener("click", startGame);
+
+  startGame();
+</script>
+
+</body>
+</html>
