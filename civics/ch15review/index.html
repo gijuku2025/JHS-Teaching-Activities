@@ -21,6 +21,41 @@
     font-size: 2em;
   }
 
+  #startScreen, #gameScreen, #endScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #startScreen input {
+    font-size: 1.5em;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 250px;
+    text-align: center;
+  }
+
+  #startScreen button, #endScreen button {
+    font-size: 1.5em;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+  }
+
+  #gameScreen h1 {
+    font-size: 2em;
+    margin-top: 20px;
+  }
+
   #game {
     position: relative;
     flex: 1;
@@ -32,8 +67,8 @@
 
   .card {
     position: absolute;
-    width: 80%;
-    max-width: 400px;
+    width: 60%;
+    max-width: 500px;
     height: 200px;
     background: white;
     border-radius: 20px;
@@ -45,96 +80,119 @@
     touch-action: none;
     user-select: none;
     transition: box-shadow 0.2s;
+    overflow: hidden;
   }
 
-  .card.correct {
-    box-shadow: 0 5px 20px rgba(0,255,0,0.6);
-  }
-
-  .card.wrong {
-    box-shadow: 0 5px 20px rgba(255,0,0,0.6);
-  }
-
-  #buttons {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 20px 0;
-  }
-
-  .action-btn {
-    font-size: 2em;
-    padding: 20px 40px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    color: white;
-  }
-
-  .yes {
-    background: #28a745;
-  }
-
-  .no {
-    background: #dc3545;
-  }
-
-  #result {
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    background: rgba(0,255,0,0.5);
     display: none;
-    text-align: center;
+    z-index: 2;
   }
 
-  #result h2 {
+  .overlay.wrong {
+    background: rgba(255,0,0,0.5);
+  }
+
+  #endScreen h1 {
     font-size: 2em;
+    margin-bottom: 20px;
   }
 
-  #playAgain {
-    margin-top: 20px;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 12px;
-    background: #007bff;
-    color: white;
-    cursor: pointer;
+  #endScreen h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
   }
+
 </style>
 </head>
 <body>
 
-<h1>Concept: Renewable Energy</h1>
-<div id="game"></div>
-
-<div id="buttons">
-  <button class="action-btn no">❌</button>
-  <button class="action-btn yes">✅</button>
+<div id="startScreen">
+  <input type="text" id="nickname" placeholder="Enter your nickname">
+  <button id="startBtn">Start</button>
 </div>
 
-<div id="result">
-  <h2 id="score"></h2>
-  <button id="playAgain">Play Again</button>
+<div id="gameScreen" style="display:none;">
+  <h1 id="concept"></h1>
+  <div id="game"></div>
+</div>
+
+<div id="endScreen" style="display:none;">
+  <h1 id="gameTitle"></h1>
+  <h2 id="nicknameDisplay"></h2>
+  <h2 id="scoreDisplay"></h2>
+  <button id="playAgainBtn">Play Again</button>
 </div>
 
 <script>
-  const data = [
-    { text: "Solar Power", match: true },
-    { text: "Coal", match: false },
-    { text: "Wind", match: true },
-    { text: "Natural Gas", match: false }
-  ];
+  // ======= Game Data =======
+  const gameData = {
+    title: document.title,
+    concept: "Renewable Energy",
+    examples: [
+      { text: "Solar Power", match: true },
+      { text: "Coal", match: false },
+      { text: "Wind", match: true },
+      { text: "Natural Gas", match: false }
+    ]
+  };
 
+  // ======= Game State =======
+  let nickname = "";
   let currentIndex = 0;
   let score = 0;
-  const game = document.getElementById("game");
-  const result = document.getElementById("result");
-  const scoreEl = document.getElementById("score");
-  const playAgainBtn = document.getElementById("playAgain");
 
+  const startScreen = document.getElementById("startScreen");
+  const gameScreen = document.getElementById("gameScreen");
+  const endScreen = document.getElementById("endScreen");
+  const conceptEl = document.getElementById("concept");
+  const gameContainer = document.getElementById("game");
+  const gameTitleEl = document.getElementById("gameTitle");
+  const nicknameDisplay = document.getElementById("nicknameDisplay");
+  const scoreDisplay = document.getElementById("scoreDisplay");
+
+  // ======= Start Game =======
+  document.getElementById("startBtn").addEventListener("click", () => {
+    const input = document.getElementById("nickname").value.trim();
+    if (input === "") {
+      alert("Please enter your nickname");
+      return;
+    }
+    nickname = input;
+    startScreen.style.display = "none";
+    gameScreen.style.display = "flex";
+    currentIndex = 0;
+    score = 0;
+    conceptEl.textContent = gameData.concept;
+    gameContainer.innerHTML = "";
+    createCard(gameData.examples[currentIndex]);
+  });
+
+  // ======= Play Again =======
+  document.getElementById("playAgainBtn").addEventListener("click", () => {
+    endScreen.style.display = "none";
+    startScreen.style.display = "flex";
+    document.getElementById("nickname").value = "";
+  });
+
+  // ======= Create Card =======
   function createCard(item) {
     const card = document.createElement("div");
     card.className = "card";
     card.textContent = item.text;
-    game.appendChild(card);
+
+    // overlay for feedback
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    card.appendChild(overlay);
+
+    gameContainer.appendChild(card);
 
     let startX = 0, currentX = 0, offsetX = 0;
     let dragging = false;
@@ -149,23 +207,14 @@
       currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
       offsetX = currentX - startX;
       card.style.transform = `translateX(${offsetX}px) rotate(${offsetX/10}deg)`;
-      if (offsetX > 80) {
-        card.classList.add("correct");
-        card.classList.remove("wrong");
-      } else if (offsetX < -80) {
-        card.classList.add("wrong");
-        card.classList.remove("correct");
-      } else {
-        card.classList.remove("correct","wrong");
-      }
     }
 
     function end() {
       dragging = false;
       if (offsetX > 120) {
-        handleChoice(true, card);
+        handleChoice(true, card, overlay);
       } else if (offsetX < -120) {
-        handleChoice(false, card);
+        handleChoice(false, card, overlay);
       } else {
         card.style.transition = "transform 0.3s";
         card.style.transform = "translateX(0px) rotate(0deg)";
@@ -183,52 +232,42 @@
     card.addEventListener("touchend", end);
   }
 
-  function handleChoice(choice, card) {
-    const item = data[currentIndex];
-    if (choice === item.match) score++;
+  // ======= Handle Choice =======
+  function handleChoice(choice, card, overlay) {
+    const item = gameData.examples[currentIndex];
+    const correct = choice === item.match;
+    if (correct) score++;
 
-    card.style.transition = "transform 0.5s ease-out";
-    card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
+    // show overlay
+    overlay.classList.toggle("wrong", !correct);
+    overlay.style.display = "block";
+
+    // continue animation after brief flash
+    setTimeout(() => {
+      overlay.style.display = "none";
+      card.style.transition = "transform 0.5s ease-out";
+      card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
+    }, 300);
 
     setTimeout(() => {
-      game.removeChild(card);
+      gameContainer.removeChild(card);
       currentIndex++;
-      if (currentIndex < data.length) {
-        createCard(data[currentIndex]);
+      if (currentIndex < gameData.examples.length) {
+        createCard(gameData.examples[currentIndex]);
       } else {
         endGame();
       }
-    }, 500);
+    }, 800);
   }
 
+  // ======= End Game =======
   function endGame() {
-    document.getElementById("buttons").style.display = "none";
-    result.style.display = "block";
-    scoreEl.textContent = `You got ${score} out of ${data.length} correct!`;
+    gameScreen.style.display = "none";
+    endScreen.style.display = "flex";
+    gameTitleEl.textContent = gameData.title;
+    nicknameDisplay.textContent = `Well done, ${nickname}!`;
+    scoreDisplay.textContent = `You got ${score} out of ${gameData.examples.length} correct!`;
   }
-
-  function startGame() {
-    game.innerHTML = "";
-    result.style.display = "none";
-    document.getElementById("buttons").style.display = "flex";
-    currentIndex = 0;
-    score = 0;
-    createCard(data[currentIndex]);
-  }
-
-  document.querySelector(".yes").addEventListener("click", () => {
-    const card = document.querySelector(".card");
-    if (card) handleChoice(true, card);
-  });
-
-  document.querySelector(".no").addEventListener("click", () => {
-    const card = document.querySelector(".card");
-    if (card) handleChoice(false, card);
-  });
-
-  playAgainBtn.addEventListener("click", startGame);
-
-  startGame();
 </script>
 
 </body>
