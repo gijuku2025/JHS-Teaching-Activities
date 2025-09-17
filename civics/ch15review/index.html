@@ -44,26 +44,23 @@
     font-size: 1.5em;
     touch-action: none;
     user-select: none;
-    overflow: hidden;
+    overflow: visible;
   }
 
-  .overlay {
+  .feedback {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    top: 0;
-    left: 0;
+    font-size: 2em;
+    font-weight: bold;
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    border-radius: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
+    pointer-events: none;
     z-index: 2;
-  }
-
-  .overlay.correct {
-    background: rgba(0,255,0,0.5);
-  }
-
-  .overlay.wrong {
-    background: rgba(255,0,0,0.5);
   }
 
   #endScreen {
@@ -108,9 +105,9 @@ function createCard(item) {
   card.className = "card";
   card.textContent = item.text;
 
-  const overlay = document.createElement("div");
-  overlay.className = "overlay";
-  card.appendChild(overlay);
+  const feedback = document.createElement("div");
+  feedback.className = "feedback";
+  card.appendChild(feedback);
 
   gameContainer.appendChild(card);
 
@@ -133,9 +130,9 @@ function createCard(item) {
   function end() {
     dragging = false;
     if (offsetX > 120) {
-      handleChoice(true, card, overlay);
+      handleChoice(true, card, feedback);
     } else if (offsetX < -120) {
-      handleChoice(false, card, overlay);
+      handleChoice(false, card, feedback);
     } else {
       card.style.transition = "transform 0.3s";
       card.style.transform = "translateX(0px) rotate(0deg)";
@@ -152,19 +149,19 @@ function createCard(item) {
   card.addEventListener("touchend", end);
 }
 
-function handleChoice(choice, card, overlay) {
+function handleChoice(choice, card, feedback) {
   const item = examples[currentIndex];
   const correct = choice === item.match;
   if (correct) score++;
 
-  overlay.className = correct ? "overlay correct" : "overlay wrong";
-  overlay.style.display = "block";
+  feedback.textContent = correct ? "Correct!" : "Wrong!";
+  feedback.style.display = "block";
 
   setTimeout(() => {
-    overlay.style.display = "none";
+    feedback.style.display = "none";
     card.style.transition = "transform 0.5s ease-out";
     card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
-  }, 300);
+  }, 500);
 
   setTimeout(() => {
     gameContainer.removeChild(card);
@@ -174,7 +171,7 @@ function handleChoice(choice, card, overlay) {
     } else {
       endGame();
     }
-  }, 800);
+  }, 1000);
 }
 
 function endGame() {
