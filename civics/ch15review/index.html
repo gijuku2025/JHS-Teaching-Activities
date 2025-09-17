@@ -21,6 +21,13 @@
     font-size: 2em;
   }
 
+  #feedback {
+    font-size: 2em;
+    height: 2em;
+    margin-top: 10px;
+    text-align: center;
+  }
+
   #game {
     position: relative;
     flex: 1;
@@ -44,23 +51,7 @@
     font-size: 1.5em;
     touch-action: none;
     user-select: none;
-    overflow: visible;
-  }
-
-  .feedback {
-    position: absolute;
-    font-size: 2em;
-    font-weight: bold;
-    color: #000;
-    background: rgba(255,255,255,0.8);
-    padding: 10px 20px;
-    border-radius: 12px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    pointer-events: none;
-    z-index: 2;
+    overflow: hidden;
   }
 
   #endScreen {
@@ -78,6 +69,7 @@
 <body>
 
 <h1 id="concept">Renewable Energy</h1>
+<div id="feedback"></div>
 <div id="game"></div>
 
 <div id="endScreen">
@@ -99,15 +91,12 @@ let score = 0;
 const gameContainer = document.getElementById("game");
 const endScreen = document.getElementById("endScreen");
 const scoreDisplay = document.getElementById("scoreDisplay");
+const feedbackEl = document.getElementById("feedback");
 
 function createCard(item) {
   const card = document.createElement("div");
   card.className = "card";
   card.textContent = item.text;
-
-  const feedback = document.createElement("div");
-  feedback.className = "feedback";
-  card.appendChild(feedback);
 
   gameContainer.appendChild(card);
 
@@ -130,9 +119,9 @@ function createCard(item) {
   function end() {
     dragging = false;
     if (offsetX > 120) {
-      handleChoice(true, card, feedback);
+      handleChoice(true, card);
     } else if (offsetX < -120) {
-      handleChoice(false, card, feedback);
+      handleChoice(false, card);
     } else {
       card.style.transition = "transform 0.3s";
       card.style.transform = "translateX(0px) rotate(0deg)";
@@ -149,16 +138,19 @@ function createCard(item) {
   card.addEventListener("touchend", end);
 }
 
-function handleChoice(choice, card, feedback) {
+function handleChoice(choice, card) {
   const item = examples[currentIndex];
   const correct = choice === item.match;
   if (correct) score++;
 
-  feedback.textContent = correct ? "Correct!" : "Wrong!";
-  feedback.style.display = "block";
-
+  // Show feedback below concept
+  feedbackEl.textContent = correct ? "Correct!" : "Wrong!";
   setTimeout(() => {
-    feedback.style.display = "none";
+    feedbackEl.textContent = "";
+  }, 500);
+
+  // Slide card off-screen
+  setTimeout(() => {
     card.style.transition = "transform 0.5s ease-out";
     card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
   }, 500);
@@ -176,6 +168,7 @@ function handleChoice(choice, card, feedback) {
 
 function endGame() {
   gameContainer.innerHTML = "";
+  feedbackEl.textContent = "";
   scoreDisplay.textContent = `You got ${score} out of ${examples.length} correct!`;
   endScreen.style.display = "flex";
 }
