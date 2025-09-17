@@ -102,6 +102,7 @@ function createCard(item) {
 
   let startX = 0, currentX = 0, offsetX = 0;
   let dragging = false;
+  let ticking = false;
 
   function start(e) {
     dragging = true;
@@ -113,7 +114,14 @@ function createCard(item) {
     if (!dragging) return;
     currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
     offsetX = currentX - startX;
-    card.style.transform = `translateX(${offsetX}px) rotate(${offsetX/10}deg)`;
+
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        card.style.transform = `translateX(${offsetX}px) rotate(${offsetX/10}deg)`;
+        ticking = false;
+      });
+      ticking = true;
+    }
   }
 
   function end() {
@@ -150,10 +158,8 @@ function handleChoice(choice, card) {
   }, 500);
 
   // Slide card off-screen
-  setTimeout(() => {
-    card.style.transition = "transform 0.5s ease-out";
-    card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
-  }, 500);
+  card.style.transition = "transform 0.5s ease-out";
+  card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
 
   setTimeout(() => {
     gameContainer.removeChild(card);
@@ -163,7 +169,7 @@ function handleChoice(choice, card) {
     } else {
       endGame();
     }
-  }, 1000);
+  }, 500);
 }
 
 function endGame() {
