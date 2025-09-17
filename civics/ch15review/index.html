@@ -97,7 +97,6 @@ function createCard(item) {
   const card = document.createElement("div");
   card.className = "card";
   card.textContent = item.text;
-
   gameContainer.appendChild(card);
 
   let startX = 0, currentX = 0, offsetX = 0;
@@ -107,7 +106,7 @@ function createCard(item) {
   function start(e) {
     dragging = true;
     startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
-    card.style.transition = "";
+    card.style.transition = ""; // remove transition while dragging
   }
 
   function move(e) {
@@ -151,17 +150,18 @@ function handleChoice(choice, card) {
   const correct = choice === item.match;
   if (correct) score++;
 
-  // Show feedback below concept
+  // Show feedback below the concept
   feedbackEl.textContent = correct ? "Correct!" : "Wrong!";
-  setTimeout(() => {
-    feedbackEl.textContent = "";
-  }, 500);
+  setTimeout(() => { feedbackEl.textContent = ""; }, 500);
 
-  // Slide card off-screen
-  card.style.transition = "transform 0.5s ease-out";
-  card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
+  // Slide card off-screen smoothly
+  requestAnimationFrame(() => {
+    card.style.transition = "transform 0.5s ease-out";
+    card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
+  });
 
-  setTimeout(() => {
+  // Remove card after transition ends
+  card.addEventListener("transitionend", () => {
     gameContainer.removeChild(card);
     currentIndex++;
     if (currentIndex < examples.length) {
@@ -169,7 +169,7 @@ function handleChoice(choice, card) {
     } else {
       endGame();
     }
-  }, 500);
+  }, { once: true });
 }
 
 function endGame() {
