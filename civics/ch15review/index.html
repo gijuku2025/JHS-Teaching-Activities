@@ -7,18 +7,17 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     height: 100vh;
     background: #f5f5f5;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   h1 {
-    margin: 20px 0;
     font-size: 2em;
+    margin: 0;
   }
 
   #startScreen, #gameScreen, #endScreen {
@@ -51,14 +50,20 @@
     color: white;
   }
 
-  #gameScreen h1 {
-    font-size: 2em;
+  #gameScreen {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  #concept {
     margin-top: 20px;
+    font-size: 2em;
   }
 
   #game {
-    position: relative;
     flex: 1;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,24 +84,23 @@
     font-size: 1.5em;
     touch-action: none;
     user-select: none;
-    transition: box-shadow 0.2s;
-    overflow: hidden;
+    overflow: visible;
   }
 
-  .overlay {
+  .feedback {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    top: 0;
-    left: 0;
-    background: rgba(0,255,0,0.5);
+    font-size: 2em;
+    font-weight: bold;
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    border-radius: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
+    pointer-events: none;
     z-index: 2;
-  }
-
-  .overlay.wrong {
-    background: rgba(255,0,0,0.5);
   }
 
   #endScreen h1 {
@@ -106,9 +110,8 @@
 
   #endScreen h2 {
     font-size: 1.5em;
-    margin-bottom: 10px;
+    margin: 10px 0;
   }
-
 </style>
 </head>
 <body>
@@ -118,7 +121,7 @@
   <button id="startBtn">Start</button>
 </div>
 
-<div id="gameScreen" style="display:none;">
+<div id="gameScreen">
   <h1 id="concept"></h1>
   <div id="game"></div>
 </div>
@@ -187,10 +190,9 @@
     card.className = "card";
     card.textContent = item.text;
 
-    // overlay for feedback
-    const overlay = document.createElement("div");
-    overlay.className = "overlay";
-    card.appendChild(overlay);
+    const feedback = document.createElement("div");
+    feedback.className = "feedback";
+    card.appendChild(feedback);
 
     gameContainer.appendChild(card);
 
@@ -200,6 +202,7 @@
     function start(e) {
       dragging = true;
       startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+      card.style.transition = ""; // remove transition while dragging
     }
 
     function move(e) {
@@ -212,13 +215,12 @@
     function end() {
       dragging = false;
       if (offsetX > 120) {
-        handleChoice(true, card, overlay);
+        handleChoice(true, card, feedback);
       } else if (offsetX < -120) {
-        handleChoice(false, card, overlay);
+        handleChoice(false, card, feedback);
       } else {
         card.style.transition = "transform 0.3s";
         card.style.transform = "translateX(0px) rotate(0deg)";
-        setTimeout(()=> card.style.transition = "", 300);
       }
     }
 
@@ -233,21 +235,20 @@
   }
 
   // ======= Handle Choice =======
-  function handleChoice(choice, card, overlay) {
+  function handleChoice(choice, card, feedback) {
     const item = gameData.examples[currentIndex];
     const correct = choice === item.match;
     if (correct) score++;
 
-    // show overlay
-    overlay.classList.toggle("wrong", !correct);
-    overlay.style.display = "block";
+    // show feedback message
+    feedback.textContent = correct ? "Correct!" : "Wrong!";
+    feedback.style.display = "block";
 
-    // continue animation after brief flash
     setTimeout(() => {
-      overlay.style.display = "none";
+      feedback.style.display = "none";
       card.style.transition = "transform 0.5s ease-out";
       card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
-    }, 300);
+    }, 500);
 
     setTimeout(() => {
       gameContainer.removeChild(card);
@@ -257,7 +258,7 @@
       } else {
         endGame();
       }
-    }, 800);
+    }, 1000);
   }
 
   // ======= End Game =======
