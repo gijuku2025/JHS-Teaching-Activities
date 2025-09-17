@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Swipe Match Demo</title>
+<title>Swipe Match Game</title>
 <style>
   body {
     margin: 0;
@@ -16,8 +16,19 @@
     overflow: hidden;
   }
 
-  #concept {
+  #header {
     margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 600px;
+  }
+
+  #concept {
+    font-size: 2em;
+  }
+
+  #timer {
     font-size: 2em;
   }
 
@@ -68,7 +79,10 @@
 </head>
 <body>
 
-<h1 id="concept">Renewable Energy</h1>
+<div id="header">
+  <div id="concept">Concept</div>
+  <div id="timer">60</div>
+</div>
 <div id="feedback"></div>
 <div id="game"></div>
 
@@ -78,26 +92,61 @@
 </div>
 
 <script>
-const examples = [
-  { text: "Solar Power", match: true },
-  { text: "Coal", match: false },
-  { text: "Wind", match: true },
-  { text: "Natural Gas", match: false }
+// Hardcoded concepts and examples
+const concepts = [
+  {
+    topic: "Renewable Energy",
+    examples: [
+      { text: "Solar Power", match: true },
+      { text: "Coal", match: false },
+      { text: "Wind", match: true },
+      { text: "Natural Gas", match: false }
+    ]
+  },
+  {
+    topic: "Fruits",
+    examples: [
+      { text: "Apple", match: true },
+      { text: "Carrot", match: false },
+      { text: "Banana", match: true },
+      { text: "Potato", match: false }
+    ]
+  },
+  {
+    topic: "Animals",
+    examples: [
+      { text: "Cat", match: true },
+      { text: "Car", match: false },
+      { text: "Dog", match: true },
+      { text: "Bike", match: false }
+    ]
+  }
 ];
 
-let currentIndex = 0;
+let currentCard = null;
 let score = 0;
+let timeLeft = 60;
+let gameActive = true;
 
 const gameContainer = document.getElementById("game");
+const conceptEl = document.getElementById("concept");
+const feedbackEl = document.getElementById("feedback");
+const timerEl = document.getElementById("timer");
 const endScreen = document.getElementById("endScreen");
 const scoreDisplay = document.getElementById("scoreDisplay");
-const feedbackEl = document.getElementById("feedback");
 
-function createCard(item) {
+function getRandomCard() {
+  const concept = concepts[Math.floor(Math.random() * concepts.length)];
+  const example = concept.examples[Math.floor(Math.random() * concept.examples.length)];
+  return { concept: concept.topic, example };
+}
+
+function createCard(cardData) {
   const card = document.createElement("div");
   card.className = "card";
-  card.textContent = item.text;
+  card.textContent = cardData.example.text;
   gameContainer.appendChild(card);
+  conceptEl.textContent = cardData.concept;
 
   let startX = 0, currentX = 0, offsetX = 0;
   let dragging = false;
@@ -106,7 +155,7 @@ function createCard(item) {
   function start(e) {
     dragging = true;
     startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
-    card.style.transition = ""; // remove transition while dragging
+    card.style.transition = "";
   }
 
   function move(e) {
@@ -126,9 +175,9 @@ function createCard(item) {
   function end() {
     dragging = false;
     if (offsetX > 120) {
-      handleChoice(true, card);
+      handleChoice(true, card, cardData);
     } else if (offsetX < -120) {
-      handleChoice(false, card);
+      handleChoice(false, card, cardData);
     } else {
       card.style.transition = "transform 0.3s";
       card.style.transform = "translateX(0px) rotate(0deg)";
@@ -143,44 +192,55 @@ function createCard(item) {
   card.addEventListener("touchstart", start);
   card.addEventListener("touchmove", move);
   card.addEventListener("touchend", end);
+
+  currentCard = card;
 }
 
-function handleChoice(choice, card) {
-  const item = examples[currentIndex];
-  const correct = choice === item.match;
+function handleChoice(choice, card, cardData) {
+  if (!gameActive) return;
+
+  const correct = choice === cardData.example.match;
   if (correct) score++;
 
-  // Show feedback below the concept
   feedbackEl.textContent = correct ? "Correct!" : "Wrong!";
   setTimeout(() => { feedbackEl.textContent = ""; }, 500);
 
-  // Slide card off-screen smoothly
   requestAnimationFrame(() => {
     card.style.transition = "transform 0.5s ease-out";
     card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
   });
 
-  // Remove card after transition ends
   card.addEventListener("transitionend", () => {
     gameContainer.removeChild(card);
-    currentIndex++;
-    if (currentIndex < examples.length) {
-      createCard(examples[currentIndex]);
-    } else {
-      endGame();
+    if (gameActive) {
+      createCard(getRandomCard());
     }
   }, { once: true });
 }
 
+// Timer
+const timerInterval = setInterval(() => {
+  timeLeft--;
+  timerEl.textContent = timeLeft;
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    endGame();
+  }
+}, 1000);
+
 function endGame() {
-  gameContainer.innerHTML = "";
+  gameActive = false;
+  if (currentCard) {
+    gameContainer.removeChild(currentCard);
+    currentCard = null;
+  }
   feedbackEl.textContent = "";
-  scoreDisplay.textContent = `You got ${score} out of ${examples.length} correct!`;
   endScreen.style.display = "flex";
+  scoreDisplay.textContent = `You got ${score} correct!`;
 }
 
-// Start the first card
-createCard(examples[currentIndex]);
+// Start first card
+createCard(getRandomCard());
 </script>
 
 </body>
