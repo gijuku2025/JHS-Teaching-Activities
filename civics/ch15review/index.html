@@ -52,7 +52,7 @@
       position: relative;
       width: 80%;
       max-width: 400px;
-      height: 60%;
+      height: 300px; /* fixed compact size */
       margin-top: 20px;
     }
 
@@ -193,29 +193,33 @@
       card.textContent = example.text;
       gameEl.appendChild(card);
 
-      let offsetX = 0, offsetY = 0;
+      let startX = 0, currentX = 0, offsetX = 0;
 
-      function onMouseDown(e) {
-        e.preventDefault();
-        document.addEventListener("mousemove", onMouseMove);
-        document.addEventListener("mouseup", onMouseUp);
+      function onStart(e) {
+        startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+        document.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseup", onEnd);
+        document.addEventListener("touchmove", onMove);
+        document.addEventListener("touchend", onEnd);
       }
 
-      function onMouseMove(e) {
-        offsetX = e.movementX;
-        offsetY = e.movementY;
-        card.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${offsetX/10}deg)`;
+      function onMove(e) {
+        currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+        offsetX = currentX - startX;
+        card.style.transform = `translate(${offsetX}px, 0) rotate(${offsetX/10}deg)`;
       }
 
-      function onMouseUp() {
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
+      function onEnd() {
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onEnd);
+        document.removeEventListener("touchmove", onMove);
+        document.removeEventListener("touchend", onEnd);
 
         if (Math.abs(offsetX) > 100) {
           const isRight = offsetX > 0;
           handleChoice(isRight, example.match);
           card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
-          card.style.transform = `translate(${isRight ? 500 : -500}px, ${offsetY}px) rotate(${offsetX/10}deg)`;
+          card.style.transform = `translate(${isRight ? 500 : -500}px, 0) rotate(${offsetX/10}deg)`;
           card.style.opacity = 0;
           setTimeout(() => {
             gameEl.removeChild(card);
@@ -227,7 +231,8 @@
         }
       }
 
-      card.addEventListener("mousedown", onMouseDown);
+      card.addEventListener("mousedown", onStart);
+      card.addEventListener("touchstart", onStart);
     }
 
     function handleChoice(swipeRight, isMatch) {
