@@ -52,7 +52,7 @@
       position: relative;
       width: 80%;
       max-width: 400px;
-      height: 300px; /* fixed compact size */
+      height: 300px; /* compact card height */
       margin-top: 20px;
     }
 
@@ -69,6 +69,35 @@
       font-size: 1.5em;
       cursor: grab;
       transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Left/Right indicators */
+    .indicator {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0.5;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    #leftIndicator {
+      left: -80px;
+      color: red;
+    }
+
+    #rightIndicator {
+      right: -80px;
+      color: green;
+    }
+
+    .indicator svg {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 5px;
     }
 
     /* End screen */
@@ -108,7 +137,22 @@
     <div id="timer">60</div>
   </div>
 
-  <div id="game"></div>
+  <div id="game">
+    <!-- Left indicator -->
+    <div id="leftIndicator" class="indicator">
+      <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.364 5.636l-1.414-1.414L12 9.172 7.05 4.222 5.636 5.636 10.586 10.586 5.636 15.536l1.414 1.414L12 12l4.95 4.95 1.414-1.414L13.414 10.586z"/>
+      </svg>
+      No Match
+    </div>
+    <!-- Right indicator -->
+    <div id="rightIndicator" class="indicator">
+      <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.285 6.709l-11.285 11.29-5.285-5.29 1.42-1.418 3.865 3.871 9.865-9.873z"/>
+      </svg>
+      Match
+    </div>
+  </div>
 
   <div id="endScreen">
     <h2 id="finalTitle"></h2>
@@ -158,7 +202,7 @@
       gameActive = true;
       feedbackEl.textContent = "";
       endScreen.style.display = "none";
-      gameEl.innerHTML = "";
+      gameEl.querySelectorAll('.card').forEach(c => c.remove());
       timerEl.textContent = timeLeft;
 
       timerInterval = setInterval(() => {
@@ -173,7 +217,7 @@
     function endGame() {
       gameActive = false;
       clearInterval(timerInterval);
-      gameEl.innerHTML = "";
+      gameEl.querySelectorAll('.card').forEach(c => c.remove());
       endScreen.style.display = "flex";
       finalTitle.textContent = "Concept Match Game";
       scoreEl.textContent = "Your score: " + score;
@@ -182,7 +226,6 @@
     function nextCard() {
       if (!gameActive) return;
 
-      // Pick random concept + example
       const concept = concepts[Math.floor(Math.random() * concepts.length)];
       const example = concept.examples[Math.floor(Math.random() * concept.examples.length)];
 
@@ -250,7 +293,6 @@
 
     restartBtn.addEventListener("click", startGame);
 
-    // Start automatically for demo
     startGame();
   </script>
 </body>
