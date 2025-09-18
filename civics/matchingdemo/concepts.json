@@ -1,0 +1,20 @@
+[
+  {
+    "topic": "Renewable Energy",
+    "examples": [
+      { "text": "Solar Power", "match": true },
+      { "text": "Coal", "match": false },
+      { "text": "Wind", "match": true },
+      { "text": "Natural Gas", "match": false }
+    ]
+  },
+  {
+    "topic": "Fruits",
+    "examples": [
+      { "text": "Apple", "match": true },
+      { "text": "Carrot", "match": false },
+      { "text": "Banana", "match": true },
+      { "text": "Potato", "match": false }
+    ]
+  }
+]
