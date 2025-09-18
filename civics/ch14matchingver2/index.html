@@ -45,6 +45,13 @@
     opacity: 0.6;
   }
 
+  #feedbackIcon {
+    font-size: 60px;      /* bigger icon size */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    margin-bottom: 8px;
+  }
+
   .card {
     background: #fff;
     border-radius: 16px;
@@ -86,20 +93,6 @@
     color: #fff;
     cursor: pointer;
   }
-
-  .feedback {
-    position: absolute;
-    top: 20px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-  }
-  .feedback.show {
-    opacity: 1;
-  }
 </style>
 </head>
 <body>
@@ -109,6 +102,9 @@
     <div id="timer">Time: 60s</div>
     <div id="score">Score: 0</div>
   </div>
+
+  <!-- Feedback icon above instructions -->
+  <div id="feedbackIcon"></div>
 
   <div class="instructions">
     <span class="icon">❌</span>
@@ -121,7 +117,6 @@
       <div class="concept" id="concept">Concept</div>
       <div class="example" id="example">Example</div>
     </div>
-    <div class="feedback" id="feedback"></div>
   </div>
 </div>
 
@@ -147,7 +142,7 @@ const scoreDiv = document.getElementById("score");
 const gameScreen = document.getElementById("gameScreen");
 const endScreen = document.getElementById("endScreen");
 const finalScore = document.getElementById("finalScore");
-const feedbackDiv = document.getElementById("feedback");
+const feedbackIcon = document.getElementById("feedbackIcon");
 
 // ==== Shuffle Array ====
 function shuffle(array) {
@@ -181,7 +176,7 @@ fetch('concepts.json')
 function showCard() {
   if (currentIndex >= examples.length) currentIndex = 0;
   const item = examples[currentIndex];
-  conceptDiv.textContent = item.topic;  // No prefix
+  conceptDiv.textContent = item.topic;  // Display topic only
   exampleDiv.textContent = item.text;
 }
 
@@ -209,19 +204,21 @@ function handleSwipe(direction) {
   if (correct) {
     score++;
     scoreDiv.textContent = "Score: " + score;
-    feedbackDiv.textContent = "✔ Correct!";
+    feedbackIcon.textContent = "✅";
   } else {
-    feedbackDiv.textContent = "✖ Wrong!";
+    feedbackIcon.textContent = "❌";
   }
 
-  feedbackDiv.classList.add("show");
+  // Show icon briefly
+  feedbackIcon.style.opacity = 1;
+  setTimeout(() => {
+    feedbackIcon.style.opacity = 0;
+  }, 500);
 
   // Move card off screen
   card.style.transform = direction === "right" ? "translateX(120%)" : "translateX(-120%)";
 
   setTimeout(() => {
-    feedbackDiv.classList.remove("show");
-
     card.style.transition = "none";
     card.style.transform = "translateX(0)";
     void card.offsetWidth;
@@ -229,7 +226,7 @@ function handleSwipe(direction) {
 
     currentIndex++;
     showCard();
-  }, 600); // Show feedback briefly
+  }, 600);
 }
 
 // ==== Timer ====
