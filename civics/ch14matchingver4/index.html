@@ -1,304 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Concept Matching</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  <meta charset="UTF-8">
+  <title>Concept Match Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f7fa;
+    }
 
-  .game-container {
-    width: 800px;
-    height: 600px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
+    /* Game container like your quiz code */
+    #gameContainer {
+      width: 380px;
+      padding: 30px;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: relative;
+      text-align: center;
+    }
 
-  .game-header {
-    width: 100%;
-    padding: 15px;
-    background: #4CAF50;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-  }
+    #header {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
 
-  .concept-display {
-    margin-top: 10px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-  }
+    #concept {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
 
-  .game-area {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-  }
+    #instructions {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
 
-  .card {
-    width: 320px;
-    height: 180px;
-    background: #ffeb3b;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    font-weight: bold;
-    text-align: center;
-    padding: 20px;
-    position: absolute;
-    /* card vertically centered, slightly lower so concept sits above it */
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    user-select: none;
-    touch-action: none; /* we'll manage touch */
-    cursor: grab;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-    will-change: transform, opacity;
-  }
+    #feedback {
+      font-size: 16px;
+      font-weight: bold;
+      height: 20px;
+      margin-bottom: 10px;
+    }
 
-  .swipe-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 60px;
-    height: 60px;
-    opacity: 0.5;
-    pointer-events: none;
-  }
+    #timer {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-  .swipe-left { left: 40px; }
-  .swipe-right { right: 40px; }
+    #game {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin-top: 10px;
+    }
 
-  .done-card {
-    background: #c8e6c9 !important;
-    color: #1b5e20 !important;
-  }
+    .card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      height: 100px;
+      background: #FFA500;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: grab;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
 
-  @media (max-width: 900px) {
-    .game-container { width: 90%; height: 85vh; }
-    .card { width: 80%; height: 160px; font-size: 22px; }
-  }
-</style>
+    /* Left/Right check/X indicators */
+    .indicator {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.6;
+    }
+    #leftIndicator { left: -70px; }
+    #rightIndicator { right: -70px; }
+    .indicator svg { width: 50px; height: 50px; }
+
+    #endScreen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    #endScreen h2 { font-size: 22px; margin-bottom: 10px; }
+    #restartBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #1E90FF;
+      color: #fff;
+      cursor: pointer;
+    }
+    #restartBtn:hover { background: #1C86EE; }
+  </style>
 </head>
 <body>
-  <div class="game-container" aria-live="polite">
-    <div class="game-header">Concept Matching</div>
-    <div class="concept-display" id="conceptDisplay">Loading…</div>
-
-    <div class="game-area" id="gameArea">
-      <svg class="swipe-icon swipe-left" viewBox="0 0 24 24" fill="red" aria-hidden="true">
-        <path d="M15 6l-6 6 6 6" />
-      </svg>
-      <svg class="swipe-icon swipe-right" viewBox="0 0 24 24" fill="green" aria-hidden="true">
-        <path d="M9 6l6 6-6 6" />
-      </svg>
-      <!-- cards will be inserted here -->
+  <div id="gameContainer">
+    <div id="header">Concept Match Game <span id="timer">60</span></div>
+    <div id="instructions">Swipe right (✅) if it matches, left (❌) if not.</div>
+    <div id="concept">Concept</div>
+    <div id="feedback"></div>
+    <div id="game">
+      <div id="leftIndicator" class="indicator">
+        <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6l12 12" stroke="red" stroke-width="2"/>
+        </svg>
+      </div>
+      <div id="rightIndicator" class="indicator">
+        <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 13l4 4L19 7" stroke="green" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+    <div id="endScreen">
+      <h2 id="finalTitle"></h2>
+      <p id="score"></p>
+      <button id="restartBtn">Play Again</button>
     </div>
   </div>
 
 <script>
-/*
-  Robust loader + UI fix:
-  - Accepts examples as strings OR objects ({ text: "...", match: true })
-  - Displays example text correctly (no "[object Object]" issue)
-  - Shows current concept above the card
-  - Swipe left/right to advance (no correctness logic here)
-*/
+let concepts = [];
+let allExamples = [];
+let usedExamples = [];
+let score = 0;
+let timeLeft = 60;
+let timerInterval;
+let lastExample = null;
 
-let cards = [];              // flattened list of { concept, text, match? }
-let currentCardIndex = 0;
+const conceptEl = document.getElementById("concept");
+const feedbackEl = document.getElementById("feedback");
+const timerEl = document.getElementById("timer");
+const gameEl = document.getElementById("game");
+const endScreen = document.getElementById("endScreen");
+const finalTitle = document.getElementById("finalTitle");
+const scoreEl = document.getElementById("score");
+const restartBtn = document.getElementById("restartBtn");
 
-const conceptDisplay = document.getElementById('conceptDisplay');
-const gameArea = document.getElementById('gameArea');
+fetch('concepts.json')
+  .then(res => res.json())
+  .then(data => { concepts = data; startGame(); })
+  .catch(err => { console.error(err); alert('Failed to load concepts.json'); });
 
-async function loadConcepts() {
-  try {
-    const resp = await fetch('concepts.json');
-    if (!resp.ok) throw new Error('fetch failed');
-    const data = await resp.json();
-    flattenData(data);
-  } catch (err) {
-    console.warn('Could not load concepts.json — make sure file exists. Using fallback.', err);
-    // fallback minimal data
-    const fallback = [
-      { concept: "Volcano", examples: ["A mountain that erupts", "Lava comes out"] },
-      { concept: "River",   examples: ["Flows to the sea", "Fresh water moving"] },
-      { concept: "Desert",  examples: ["Hot and dry", "Very little rain"] }
-    ];
-    flattenData(fallback);
-  }
-  shuffle(cards);
-  currentCardIndex = 0;
-  showCardAt(currentCardIndex);
+function startGame() {
+  // Flatten all examples
+  allExamples = concepts.flatMap(c => c.examples.map(e => ({...e, topic: c.topic})));
+  usedExamples = [];
+  score = 0;
+  timeLeft = 60;
+  feedbackEl.textContent = "";
+  endScreen.style.display = "none";
+  gameEl.querySelectorAll('.card').forEach(c => c.remove());
+  timerEl.textContent = timeLeft;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+
+  nextCard();
 }
 
-/* Convert incoming JSON into cards[] with safe text prop */
-function flattenData(data) {
-  cards = [];
-  if (!Array.isArray(data)) return;
-  data.forEach(item => {
-    const concept = item.concept ?? item.topic ?? item.title ?? 'Concept';
-    const examples = Array.isArray(item.examples) ? item.examples : (Array.isArray(item.examples) ? item.examples : []);
-    // support older/alternate property names too
-    (examples || []).forEach(example => {
-      let text = '';
-      let match = null;
-      if (typeof example === 'string') {
-        text = example;
-      } else if (typeof example === 'object' && example !== null) {
-        // try common fields
-        text = example.text ?? example.label ?? example.example ?? JSON.stringify(example);
-        match = ('match' in example) ? !!example.match : null;
-      } else {
-        text = String(example);
-      }
-      cards.push({ concept, text, match });
-    });
-  });
-}
+function nextCard() {
+  if (allExamples.length === 0) { endGame(); return; }
 
-function shuffle(arr){
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-}
+  // Pick a random example not just used
+  let example;
+  do {
+    example = allExamples[Math.floor(Math.random() * allExamples.length)];
+  } while (example === lastExample && allExamples.length > 1);
+  lastExample = example;
 
-/* show card at index (removes any existing card DOM) */
-function showCardAt(index) {
-  // clear existing card(s)
-  gameArea.querySelectorAll('.card').forEach(n => n.remove());
+  conceptEl.textContent = example.topic;
 
-  if (!cards.length) {
-    conceptDisplay.textContent = 'No cards available';
-    return;
-  }
-  if (index >= cards.length) {
-    conceptDisplay.textContent = '';
-    const done = document.createElement('div');
-    done.className = 'card done-card';
-    done.textContent = '🎉 Well done!';
-    gameArea.appendChild(done);
-    return;
-  }
+  const card = document.createElement("div");
+  card.className = "card";
+  card.textContent = example.text;
+  gameEl.appendChild(card);
 
-  const cardData = cards[index];
-  conceptDisplay.textContent = cardData.concept ?? 'Concept';
-
-  const card = document.createElement('div');
-  card.className = 'card';
-  // set background color from palette for nicer look
-  const palette = ['#FFA500','#FF4C4C','#4CAF50','#2196F3'];
-  card.style.background = palette[index % palette.length];
-
-  // text is already a string (flattenData ensures this)
-  card.textContent = cardData.text;
-
-  // center baseline transform (top 55% + translate -50% keeps it slightly lower than header)
-  card.style.transform = 'translate(-50%,-50%)';
-  card.style.left = '50%';
-  card.style.top = '55%';
-
-  // add drag/swipe handling
-  attachSwipeHandlers(card, cardData);
-
-  gameArea.appendChild(card);
-}
-
-/* attach mouse + touch drag handlers to a card */
-function attachSwipeHandlers(cardEl, cardData) {
-  let startX = 0;
-  let offsetX = 0;
-  let dragging = false;
+  let startX = 0, currentX = 0, offsetX = 0;
 
   function onStart(e) {
-    dragging = true;
-    startX = e.type.startsWith('mouse') ? e.clientX : e.touches[0].clientX;
-    offsetX = 0;
-    cardEl.style.transition = 'none';
-    document.addEventListener('mousemove', onMove, {passive: true});
-    document.addEventListener('mouseup', onEnd);
-    document.addEventListener('touchmove', onMove, {passive: false});
-    document.addEventListener('touchend', onEnd);
+    startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onEnd);
+    document.addEventListener("touchmove", onMove);
+    document.addEventListener("touchend", onEnd);
   }
 
   function onMove(e) {
-    if (!dragging) return;
-    // prevent page scroll on touch
-    if (e.type === 'touchmove') e.preventDefault();
-    const x = e.type.startsWith('mouse') ? e.clientX : e.touches[0].clientX;
-    offsetX = x - startX;
-    // keep vertical offset stable (top 55% => translateY(-50%))
-    cardEl.style.transform = `translate(calc(-50% + ${offsetX}px), -50%) rotate(${offsetX/14}deg)`;
+    currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+    offsetX = currentX - startX;
+    card.style.transform = `translate(${offsetX}px, -50%) rotate(${offsetX/10}deg)`;
   }
 
   function onEnd() {
-    dragging = false;
-    document.removeEventListener('mousemove', onMove);
-    document.removeEventListener('mouseup', onEnd);
-    document.removeEventListener('touchmove', onMove);
-    document.removeEventListener('touchend', onEnd);
+    document.removeEventListener("mousemove", onMove);
+    document.removeEventListener("mouseup", onEnd);
+    document.removeEventListener("touchmove", onMove);
+    document.removeEventListener("touchend", onEnd);
 
-    const threshold = 100;
-    if (Math.abs(offsetX) > threshold) {
+    if (Math.abs(offsetX) > 100) {
       const isRight = offsetX > 0;
-      // animation: fly out horizontally, keep vertical position
-      cardEl.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
-      cardEl.style.transform = `translate(${isRight ? 900 : -900}px, -50%) rotate(${offsetX/8}deg)`;
-      cardEl.style.opacity = '0';
-      // advance after animation
+      handleChoice(isRight, example);
+      card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+      card.style.transform = `translate(${isRight ? 900 : -900}px, -50%) rotate(${offsetX/10}deg)`;
+      card.style.opacity = 0;
       setTimeout(() => {
-        // remove the card elem
-        if (cardEl.parentNode) cardEl.parentNode.removeChild(cardEl);
-        currentCardIndex++;
-        showCardAt(currentCardIndex);
-      }, 360);
+        gameEl.removeChild(card);
+        nextCard();
+      }, 300);
     } else {
-      // snap back
-      cardEl.style.transition = 'transform 0.25s ease';
-      cardEl.style.transform = 'translate(-50%,-50%)';
+      card.style.transition = "transform 0.3s ease";
+      card.style.transform = "translate(-50%, -50%)";
     }
   }
 
-  cardEl.addEventListener('mousedown', onStart);
-  cardEl.addEventListener('touchstart', onStart, {passive: true});
-
-  // also allow tap (quick click) to advance for convenience
-  cardEl.addEventListener('click', (e) => {
-    // avoid click event when it was a drag (offset > small)
-    if (Math.abs(offsetX) > 10) return;
-    currentCardIndex++;
-    showCardAt(currentCardIndex);
-  });
+  card.addEventListener("mousedown", onStart);
+  card.addEventListener("touchstart", onStart);
 }
 
-/* begin */
-loadConcepts();
-</script>
-</body>
-</html>
+function handleChoice(swipeRight, example) {
+  const correct = (swipeRight && example.match) || (!swipeRight && !example.match);
+  if (correct) {
+    score++;
+    feedbackEl.textContent = "Correct!";
+    feedbackEl.style.color = "green";
+    usedExamples.push(example);
+    allExamples = allExamples.filter(e => e !== example);
+  } else {
