@@ -251,3 +251,21 @@ function handleChoice(swipeRight, example) {
     usedExamples.push(example);
     allExamples = allExamples.filter(e => e !== example);
   } else {
+    feedbackEl.textContent = "Wrong!";
+    feedbackEl.style.color = "red";
+  }
+  setTimeout(() => feedbackEl.textContent = "", 700);
+}
+
+function endGame() {
+  clearInterval(timerInterval);
+  gameEl.querySelectorAll('.card').forEach(c => c.remove());
+  endScreen.style.display = "flex";
+  finalTitle.textContent = document.title;
+  scoreEl.textContent = `Your score: ${score}`;
+}
+
+restartBtn.addEventListener("click", startGame);
+</script>
+</body>
+</html>
