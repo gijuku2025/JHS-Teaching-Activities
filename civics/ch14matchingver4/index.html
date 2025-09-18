@@ -1,127 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8" />
 <title>Concept Match Game</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f7fa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
 
-.game-container {
-  background: #fff;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  width: 380px;
-  max-width: 90%;
-  text-align: center;
-  position: relative;
-  min-height: 450px;
-}
+  .game-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 380px;       /* matches your quiz container */
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    min-height: 450px;
+  }
 
-#header {
-  position: relative;
-  margin-bottom: 20px;
-}
+  #header { position: relative; margin-bottom: 20px; }
+  #concept { font-size: 24px; font-weight: bold; margin: 0; color: #333; }
+  #feedback { font-size: 18px; font-weight: bold; margin-top: 8px; min-height: 24px; color: #333; }
+  #timer { position: absolute; right: 0; top: 0; font-size: 18px; font-weight: bold; color: #333; }
 
-#concept {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-  color: #333;
-}
+  #game {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    overflow: visible;
+  }
 
-#feedback {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 8px;
-  min-height: 24px;
-  color: #333;
-}
+  /* card centered horizontally and slightly lower vertically */
+  .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-30%); /* centered horizontally, slightly below vertical center */
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;      /* increased text size */
+    color: #fff;
+    cursor: grab;
+    padding: 16px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    will-change: transform, opacity;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+  }
 
-#timer {
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
+  .indicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+  }
+  #leftIndicator { left: -80px; }
+  #rightIndicator { right: -80px; }
+  .indicator svg { width: 50px; height: 50px; }
 
-#game {
-  position: relative;
-  width: 100%;
-  height: 150px;
-  margin-top: 10px;
-}
+  #endScreen { display: none; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
+  #endScreen h2 { font-size: 24px; margin-bottom: 12px; color: #333; }
+  #restartBtn { padding: 12px; font-size: 16px; border: none; border-radius: 8px; background: #1E90FF; color: #fff; cursor: pointer; }
+  #restartBtn:hover { background: #1C86EE; }
 
-.card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -30%); /* moved slightly down */
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 20px;
-  color: #fff;
-  cursor: grab;
-  padding: 16px;
-  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
-}
-
-.indicator {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  opacity: 0.5;
-}
-
-#leftIndicator { left: -80px; }
-#rightIndicator { right: -80px; }
-
-.indicator svg { width: 50px; height: 50px; }
-
-#endScreen {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#endScreen h2 { font-size: 24px; margin-bottom: 12px; color: #333; }
-#restartBtn {
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  background: #1E90FF;
-  color: #fff;
-  cursor: pointer;
-}
-#restartBtn:hover { background: #1C86EE; }
-
-@media (max-width: 768px) {
-  .game-container { width: 90%; padding: 20px; }
-  #concept { font-size: 20px; }
-  #timer { font-size: 16px; }
-  .card { font-size: 18px; height: 120px; padding: 12px; }
-}
+  @media (max-width: 768px) {
+    .game-container { width: 90%; padding: 20px; }
+    #concept { font-size: 20px; }
+    #timer { font-size: 16px; }
+    .card { font-size: 18px; height: 120px; padding: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -135,14 +101,10 @@ body {
 
   <div id="game">
     <div id="leftIndicator" class="indicator">
-      <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18.364 5.636l-1.414-1.414L12 9.172 7.05 4.222 5.636 5.636 10.586 10.586 5.636 15.536l1.414 1.414L12 12l4.95 4.95 1.414-1.414L13.414 10.586z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg"><path d="M18.364 5.636l-1.414-1.414L12 9.172 7.05 4.222 5.636 5.636 10.586 10.586 5.636 15.536l1.414 1.414L12 12l4.95 4.95 1.414-1.414L13.414 10.586z"/></svg>
     </div>
     <div id="rightIndicator" class="indicator">
-      <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.285 6.709l-11.285 11.29-5.285-5.29 1.42-1.418 3.865 3.871 9.865-9.873z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg"><path d="M20.285 6.709l-11.285 11.29-5.285-5.29 1.42-1.418 3.865 3.871 9.865-9.873z"/></svg>
     </div>
   </div>
 
@@ -154,13 +116,16 @@ body {
 </div>
 
 <script>
+/* color palette from your quiz */
 const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+
 let score = 0;
 let timeLeft = 60;
 let timerInterval;
 let gameActive = false;
-let allExamples = [];
-let usedExamples = new Set();
+
+let allExamples = [];          // flattened examples loaded from JSON
+let usedExamples = new Set();  // examples removed only after a correct response
 
 const conceptEl = document.getElementById("concept");
 const feedbackEl = document.getElementById("feedback");
@@ -171,26 +136,57 @@ const finalTitle = document.getElementById("finalTitle");
 const scoreEl = document.getElementById("score");
 const restartBtn = document.getElementById("restartBtn");
 
-// Load JSON concepts
+/* fallback data if concepts.json can't be fetched */
+const fallbackData = [
+  { topic: "Renewable Energy", examples: [
+    { text: "Solar Power", match: true },
+    { text: "Coal", match: false },
+    { text: "Wind", match: true },
+    { text: "Natural Gas", match: false }
+  ]},
+  { topic: "Fruits", examples: [
+    { text: "Apple", match: true },
+    { text: "Carrot", match: false },
+    { text: "Banana", match: true },
+    { text: "Potato", match: false }
+  ]}
+];
+
+/* load JSON, fallback to internal data if loading fails */
 fetch('concepts.json')
-  .then(res => res.json())
+  .then(r => {
+    if (!r.ok) throw new Error('not ok');
+    return r.json();
+  })
   .then(data => {
-    allExamples = [];
-    data.forEach(concept => {
-      concept.examples.forEach(ex => {
-        allExamples.push({ topic: concept.topic, text: ex.text, match: ex.match });
-      });
-    });
+    flattenDataToAllExamples(data);
+    startGame();
+  })
+  .catch(err => {
+    console.warn('concepts.json load failed, using fallback data.', err);
+    flattenDataToAllExamples(fallbackData);
     startGame();
   });
 
+function flattenDataToAllExamples(data) {
+  allExamples = [];
+  data.forEach(concept => {
+    (concept.examples || []).forEach(ex => {
+      allExamples.push({ topic: concept.topic, text: ex.text, match: !!ex.match });
+    });
+  });
+}
+
+/* start / end game */
 function startGame() {
   score = 0;
   timeLeft = 60;
-  gameActive = true;
   usedExamples.clear();
+  gameActive = true;
   feedbackEl.textContent = "";
+  feedbackEl.style.color = '#333';
   endScreen.style.display = "none";
+  clearInterval(timerInterval);
   gameEl.querySelectorAll('.card').forEach(c => c.remove());
   timerEl.textContent = timeLeft;
 
@@ -212,55 +208,104 @@ function endGame() {
   scoreEl.textContent = "Your score: " + score;
 }
 
+/* pick next card from available (not-used) examples */
 function nextCard() {
-  if (!gameActive || allExamples.length === 0) return;
+  if (!gameActive) return;
 
-  let example;
-  do {
-    example = allExamples[Math.floor(Math.random() * allExamples.length)];
-  } while (usedExamples.has(example.text) && usedExamples.size < allExamples.length);
+  // compute available (not yet correctly answered)
+  const available = allExamples.filter(e => !usedExamples.has(e.text));
+  if (available.length === 0) {
+    endGame();
+    return;
+  }
 
-  usedExamples.add(example.text);
-
+  // random pick
+  const example = available[Math.floor(Math.random() * available.length)];
   conceptEl.textContent = example.topic;
 
-  const card = document.createElement("div");
-  card.className = "card";
+  // create card
+  const card = document.createElement('div');
+  card.className = 'card';
   card.textContent = example.text;
   card.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+  // ensure centered CSS baseline
+  card.style.transform = 'translate(-50%,-30%)';
   gameEl.appendChild(card);
 
+  // swipe handling (mouse + touch)
   let startX = 0, currentX = 0, offsetX = 0;
 
   function onStart(e) {
-    startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onEnd);
-    document.addEventListener("touchmove", onMove);
-    document.addEventListener("touchend", onEnd);
+    startX = (e.type.startsWith('mouse')) ? e.clientX : e.touches[0].clientX;
+    document.addEventListener('mousemove', onMove, {passive: true});
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchmove', onMove, {passive: false});
+    document.addEventListener('touchend', onEnd);
   }
 
   function onMove(e) {
-    currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+    // prevent scrolling while dragging on touch
+    if (e.type === 'touchmove') e.preventDefault();
+    currentX = (e.type.startsWith('mouse')) ? e.clientX : e.touches[0].clientX;
     offsetX = currentX - startX;
-    card.style.transform = `translate(${offsetX}px, -30%) rotate(${offsetX/10}deg)`;
+    // offset from the centered X using calc so it stays centered vertically
+    card.style.transform = `translate(calc(-50% + ${offsetX}px), -30%) rotate(${offsetX/10}deg)`;
   }
 
   function onEnd() {
-    document.removeEventListener("mousemove", onMove);
-    document.removeEventListener("mouseup", onEnd);
-    document.removeEventListener("touchmove", onMove);
-    document.removeEventListener("touchend", onEnd);
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onEnd);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onEnd);
 
+    // threshold to register swipe
     if (Math.abs(offsetX) > 100) {
       const isRight = offsetX > 0;
-      handleChoice(isRight, example.match);
-      card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+      const wasCorrect = handleChoice(isRight, example.match);
+
+      // only mark example as used when the user answers correctly
+      if (wasCorrect) usedExamples.add(example.text);
+
+      // fly the card out (keep -30% vertical offset)
+      card.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
       card.style.transform = `translate(${isRight ? 500 : -500}px, -30%) rotate(${offsetX/10}deg)`;
-      card.style.opacity = 0;
+      card.style.opacity = '0';
       setTimeout(() => {
-        gameEl.removeChild(card);
+        if (card.parentNode) card.parentNode.removeChild(card);
         if (gameActive) nextCard();
-      }, 300);
+      }, 360);
     } else {
-      card.style.transition = "transform 0.
+      // snap back to centered (slightly lower)
+      card.style.transition = 'transform 0.25s ease';
+      card.style.transform = 'translate(-50%,-30%)';
+      // reset variables
+      offsetX = 0;
+    }
+  }
+
+  // attach start listeners
+  card.addEventListener('mousedown', onStart);
+  card.addEventListener('touchstart', onStart, {passive: true});
+}
+
+/* handle answer; returns true when correct */
+function handleChoice(swipeRight, isMatch) {
+  const correct = (swipeRight && isMatch) || (!swipeRight && !isMatch);
+  if (correct) {
+    score++;
+    feedbackEl.textContent = 'Correct!';
+    feedbackEl.style.color = '#4CAF50';
+  } else {
+    feedbackEl.textContent = 'Wrong!';
+    feedbackEl.style.color = '#FF4C4C';
+  }
+  setTimeout(() => { feedbackEl.textContent = ''; feedbackEl.style.color = '#333'; }, 700);
+  return correct;
+}
+
+/* restart button */
+restartBtn.addEventListener('click', startGame);
+</script>
+
+</body>
+</html>
