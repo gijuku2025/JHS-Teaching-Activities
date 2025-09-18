@@ -1,247 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Swipe Match Game</title>
-<style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    overflow: hidden;
-  }
+  <meta charset="UTF-8">
+  <title>Concept Match Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      background: #f0f4f8;
+      overflow: hidden;
+    }
 
-  #header {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 600px;
-  }
+    /* Header with concept + timer */
+    #header {
+      position: relative;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-  #concept {
-    font-size: 2em;
-  }
+    #concept {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 0;
+    }
 
-  #timer {
-    font-size: 2em;
-  }
+    #timer {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
 
-  #feedback {
-    font-size: 2em;
-    height: 2em;
-    margin-top: 10px;
-    text-align: center;
-  }
+    #feedback {
+      font-size: 1.5em;
+      color: #333;
+      height: 1.5em;
+      margin-top: 5px;
+    }
 
-  #game {
-    position: relative;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
+    /* Game area */
+    #game {
+      position: relative;
+      width: 80%;
+      max-width: 400px;
+      height: 60%;
+      margin-top: 20px;
+    }
 
-  .card {
-    position: absolute;
-    width: 60%;
-    max-width: 500px;
-    height: 200px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    touch-action: none;
-    user-select: none;
-    overflow: hidden;
-  }
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      cursor: grab;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
 
-  #endScreen {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 2em;
-  }
-</style>
+    /* End screen */
+    #endScreen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    #endScreen h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    #restartBtn {
+      padding: 12px 24px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    #restartBtn:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
 <body>
+  <div id="header">
+    <h1 id="concept">Concept</h1>
+    <div id="feedback"></div>
+    <div id="timer">60</div>
+  </div>
 
-<div id="header">
-  <div id="concept">Concept</div>
-  <div id="timer">60</div>
-</div>
-<div id="feedback"></div>
-<div id="game"></div>
+  <div id="game"></div>
 
-<div id="endScreen">
-  <div id="scoreDisplay"></div>
-  <button onclick="location.reload()">Play Again</button>
-</div>
+  <div id="endScreen">
+    <h2 id="finalTitle"></h2>
+    <p id="score"></p>
+    <button id="restartBtn">Play Again</button>
+  </div>
 
-<script>
-// Hardcoded concepts and examples
-const concepts = [
-  {
-    topic: "Renewable Energy",
-    examples: [
-      { text: "Solar Power", match: true },
-      { text: "Coal", match: false },
-      { text: "Wind", match: true },
-      { text: "Natural Gas", match: false }
-    ]
-  },
-  {
-    topic: "Fruits",
-    examples: [
-      { text: "Apple", match: true },
-      { text: "Carrot", match: false },
-      { text: "Banana", match: true },
-      { text: "Potato", match: false }
-    ]
-  },
-  {
-    topic: "Animals",
-    examples: [
-      { text: "Cat", match: true },
-      { text: "Car", match: false },
-      { text: "Dog", match: true },
-      { text: "Bike", match: false }
-    ]
-  }
-];
+  <script>
+    const concepts = [
+      {
+        topic: "Renewable Energy",
+        examples: [
+          { text: "Solar Power", match: true },
+          { text: "Coal", match: false },
+          { text: "Wind", match: true },
+          { text: "Natural Gas", match: false }
+        ]
+      },
+      {
+        topic: "Fruits",
+        examples: [
+          { text: "Apple", match: true },
+          { text: "Carrot", match: false },
+          { text: "Banana", match: true },
+          { text: "Potato", match: false }
+        ]
+      }
+    ];
 
-let currentCard = null;
-let score = 0;
-let timeLeft = 60;
-let gameActive = true;
+    let score = 0;
+    let timeLeft = 60;
+    let timerInterval;
+    let gameActive = false;
 
-const gameContainer = document.getElementById("game");
-const conceptEl = document.getElementById("concept");
-const feedbackEl = document.getElementById("feedback");
-const timerEl = document.getElementById("timer");
-const endScreen = document.getElementById("endScreen");
-const scoreDisplay = document.getElementById("scoreDisplay");
+    const conceptEl = document.getElementById("concept");
+    const feedbackEl = document.getElementById("feedback");
+    const timerEl = document.getElementById("timer");
+    const gameEl = document.getElementById("game");
+    const endScreen = document.getElementById("endScreen");
+    const finalTitle = document.getElementById("finalTitle");
+    const scoreEl = document.getElementById("score");
+    const restartBtn = document.getElementById("restartBtn");
 
-function getRandomCard() {
-  const concept = concepts[Math.floor(Math.random() * concepts.length)];
-  const example = concept.examples[Math.floor(Math.random() * concept.examples.length)];
-  return { concept: concept.topic, example };
-}
+    function startGame() {
+      score = 0;
+      timeLeft = 60;
+      gameActive = true;
+      feedbackEl.textContent = "";
+      endScreen.style.display = "none";
+      gameEl.innerHTML = "";
+      timerEl.textContent = timeLeft;
 
-function createCard(cardData) {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.textContent = cardData.example.text;
-  gameContainer.appendChild(card);
-  conceptEl.textContent = cardData.concept;
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
 
-  let startX = 0, currentX = 0, offsetX = 0;
-  let dragging = false;
-  let ticking = false;
-
-  function start(e) {
-    dragging = true;
-    startX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
-    card.style.transition = "";
-  }
-
-  function move(e) {
-    if (!dragging) return;
-    currentX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
-    offsetX = currentX - startX;
-
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        card.style.transform = `translateX(${offsetX}px) rotate(${offsetX/10}deg)`;
-        ticking = false;
-      });
-      ticking = true;
+      nextCard();
     }
-  }
 
-  function end() {
-    dragging = false;
-    if (offsetX > 120) {
-      handleChoice(true, card, cardData);
-    } else if (offsetX < -120) {
-      handleChoice(false, card, cardData);
-    } else {
-      card.style.transition = "transform 0.3s";
-      card.style.transform = "translateX(0px) rotate(0deg)";
+    function endGame() {
+      gameActive = false;
+      clearInterval(timerInterval);
+      gameEl.innerHTML = "";
+      endScreen.style.display = "flex";
+      finalTitle.textContent = "Concept Match Game";
+      scoreEl.textContent = "Your score: " + score;
     }
-  }
 
-  card.addEventListener("mousedown", start);
-  card.addEventListener("mousemove", move);
-  card.addEventListener("mouseup", end);
-  card.addEventListener("mouseleave", end);
+    function nextCard() {
+      if (!gameActive) return;
 
-  card.addEventListener("touchstart", start);
-  card.addEventListener("touchmove", move);
-  card.addEventListener("touchend", end);
+      // Pick random concept + example
+      const concept = concepts[Math.floor(Math.random() * concepts.length)];
+      const example = concept.examples[Math.floor(Math.random() * concept.examples.length)];
 
-  currentCard = card;
-}
+      conceptEl.textContent = concept.topic;
 
-function handleChoice(choice, card, cardData) {
-  if (!gameActive) return;
+      const card = document.createElement("div");
+      card.className = "card";
+      card.textContent = example.text;
+      gameEl.appendChild(card);
 
-  const correct = choice === cardData.example.match;
-  if (correct) score++;
+      let offsetX = 0, offsetY = 0;
 
-  feedbackEl.textContent = correct ? "Correct!" : "Wrong!";
-  setTimeout(() => { feedbackEl.textContent = ""; }, 500);
+      function onMouseDown(e) {
+        e.preventDefault();
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      }
 
-  requestAnimationFrame(() => {
-    card.style.transition = "transform 0.5s ease-out";
-    card.style.transform = choice ? "translateX(1000px) rotate(30deg)" : "translateX(-1000px) rotate(-30deg)";
-  });
+      function onMouseMove(e) {
+        offsetX = e.movementX;
+        offsetY = e.movementY;
+        card.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${offsetX/10}deg)`;
+      }
 
-  card.addEventListener("transitionend", () => {
-    gameContainer.removeChild(card);
-    if (gameActive) {
-      createCard(getRandomCard());
+      function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+
+        if (Math.abs(offsetX) > 100) {
+          const isRight = offsetX > 0;
+          handleChoice(isRight, example.match);
+          card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+          card.style.transform = `translate(${isRight ? 500 : -500}px, ${offsetY}px) rotate(${offsetX/10}deg)`;
+          card.style.opacity = 0;
+          setTimeout(() => {
+            gameEl.removeChild(card);
+            if (gameActive) nextCard();
+          }, 300);
+        } else {
+          card.style.transition = "transform 0.3s ease";
+          card.style.transform = "translate(0,0)";
+        }
+      }
+
+      card.addEventListener("mousedown", onMouseDown);
     }
-  }, { once: true });
-}
 
-// Timer
-const timerInterval = setInterval(() => {
-  timeLeft--;
-  timerEl.textContent = timeLeft;
-  if (timeLeft <= 0) {
-    clearInterval(timerInterval);
-    endGame();
-  }
-}, 1000);
+    function handleChoice(swipeRight, isMatch) {
+      const correct = (swipeRight && isMatch) || (!swipeRight && !isMatch);
+      if (correct) {
+        score++;
+        feedbackEl.textContent = "Correct!";
+        feedbackEl.style.color = "green";
+      } else {
+        feedbackEl.textContent = "Wrong!";
+        feedbackEl.style.color = "red";
+      }
+      setTimeout(() => feedbackEl.textContent = "", 700);
+    }
 
-function endGame() {
-  gameActive = false;
-  if (currentCard) {
-    gameContainer.removeChild(currentCard);
-    currentCard = null;
-  }
-  feedbackEl.textContent = "";
-  endScreen.style.display = "flex";
-  scoreDisplay.textContent = `You got ${score} correct!`;
-}
+    restartBtn.addEventListener("click", startGame);
 
-// Start first card
-createCard(getRandomCard());
-</script>
-
+    // Start automatically for demo
+    startGame();
+  </script>
 </body>
 </html>
