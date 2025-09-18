@@ -1,271 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Concept Match Game</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f5f7fa;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Matching Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    /* Game container like your quiz code */
-    #gameContainer {
-      width: 380px;
-      padding: 30px;
-      border-radius: 16px;
-      background: #fff;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      position: relative;
-      text-align: center;
-    }
+  .container {
+    width: 70%;
+    max-width: 900px;
+    text-align: center;
+  }
 
-    #header {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
+  #timerScore {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #333;
+  }
 
-    #concept {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
+  .instructions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #333;
+  }
 
-    #instructions {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 10px;
-    }
+  .instructions .icon {
+    font-size: 28px;
+    opacity: 0.6;
+  }
 
-    #feedback {
-      font-size: 16px;
-      font-weight: bold;
-      height: 20px;
-      margin-bottom: 10px;
-    }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 20px 30px;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    touch-action: pan-y;
+    transition: transform 0.3s ease-out;
+  }
 
-    #timer {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-weight: bold;
-      font-size: 16px;
-    }
+  .card-text {
+    font-size: clamp(18px, 2.5vw, 28px);
+    text-align: center;
+    line-height: 1.4;
+  }
 
-    #game {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      margin-top: 10px;
-    }
+  .concept {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
 
-    .card {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      height: 100px;
-      background: #FFA500;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      cursor: grab;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
+  #endScreen {
+    display: none;
+  }
 
-    /* Left/Right check/X indicators */
-    .indicator {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.6;
-    }
-    #leftIndicator { left: -70px; }
-    #rightIndicator { right: -70px; }
-    .indicator svg { width: 50px; height: 50px; }
-
-    #endScreen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    #endScreen h2 { font-size: 22px; margin-bottom: 10px; }
-    #restartBtn {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #1E90FF;
-      color: #fff;
-      cursor: pointer;
-    }
-    #restartBtn:hover { background: #1C86EE; }
-  </style>
+  button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1E90FF;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
-  <div id="gameContainer">
-    <div id="header">Concept Match Game <span id="timer">60</span></div>
-    <div id="instructions">Swipe right (✅) if it matches, left (❌) if not.</div>
-    <div id="concept">Concept</div>
-    <div id="feedback"></div>
-    <div id="game">
-      <div id="leftIndicator" class="indicator">
-        <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18M6 6l12 12" stroke="red" stroke-width="2"/>
-        </svg>
-      </div>
-      <div id="rightIndicator" class="indicator">
-        <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 13l4 4L19 7" stroke="green" stroke-width="2"/>
-        </svg>
-      </div>
-    </div>
-    <div id="endScreen">
-      <h2 id="finalTitle"></h2>
-      <p id="score"></p>
-      <button id="restartBtn">Play Again</button>
-    </div>
+
+<div class="container" id="gameScreen">
+  <div id="timerScore">
+    <div id="timer">Time: 60s</div>
+    <div id="score">Score: 0</div>
   </div>
 
+  <div class="instructions">
+    <span class="icon">❌</span>
+    <span>Swipe Right = Match, Swipe Left = No Match</span>
+    <span class="icon">✅</span>
+  </div>
+
+  <div class="card" id="card">
+    <div class="card-text">
+      <div class="concept" id="concept">Concept</div>
+      <div class="example" id="example">Example</div>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="endScreen">
+  <h1>Time's Up!</h1>
+  <p id="finalScore"></p>
+  <button onclick="location.reload()">Play Again</button>
+</div>
+
 <script>
-let concepts = [];
-let allExamples = [];
-let usedExamples = [];
+// ==== Game State ====
+let examples = [];
+let currentIndex = 0;
 let score = 0;
 let timeLeft = 60;
 let timerInterval;
-let lastExample = null;
 
-const conceptEl = document.getElementById("concept");
-const feedbackEl = document.getElementById("feedback");
-const timerEl = document.getElementById("timer");
-const gameEl = document.getElementById("game");
+const card = document.getElementById("card");
+const conceptDiv = document.getElementById("concept");
+const exampleDiv = document.getElementById("example");
+const timerDiv = document.getElementById("timer");
+const scoreDiv = document.getElementById("score");
+const gameScreen = document.getElementById("gameScreen");
 const endScreen = document.getElementById("endScreen");
-const finalTitle = document.getElementById("finalTitle");
-const scoreEl = document.getElementById("score");
-const restartBtn = document.getElementById("restartBtn");
+const finalScore = document.getElementById("finalScore");
 
+// ==== Shuffle Array ====
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// ==== Load JSON and Start Game ====
 fetch('concepts.json')
-  .then(res => res.json())
-  .then(data => { concepts = data; startGame(); })
-  .catch(err => { console.error(err); alert('Failed to load concepts.json'); });
+  .then(response => response.json())
+  .then(data => {
+    // Flatten all examples
+    data.forEach(topic => {
+      topic.examples.forEach(ex => {
+        examples.push({
+          topic: topic.topic,
+          text: ex.text,
+          match: ex.match
+        });
+      });
+    });
+    shuffle(examples);
+    showCard();
+    startTimer();
+  })
+  .catch(err => console.error("Failed to load JSON:", err));
 
-function startGame() {
-  // Flatten all examples
-  allExamples = concepts.flatMap(c => c.examples.map(e => ({...e, topic: c.topic})));
-  usedExamples = [];
-  score = 0;
-  timeLeft = 60;
-  feedbackEl.textContent = "";
-  endScreen.style.display = "none";
-  gameEl.querySelectorAll('.card').forEach(c => c.remove());
-  timerEl.textContent = timeLeft;
+// ==== Show Card ====
+function showCard() {
+  if (currentIndex >= examples.length) currentIndex = 0;
+  const item = examples[currentIndex];
+  conceptDiv.textContent = "Concept: " + item.topic;
+  exampleDiv.textContent = "Example: " + item.text;
+}
 
+// ==== Swipe Handling ====
+let startX = 0;
+
+card.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+card.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  const diff = endX - startX;
+
+  if (diff > 50) handleSwipe("right");
+  else if (diff < -50) handleSwipe("left");
+});
+
+function handleSwipe(direction) {
+  const item = examples[currentIndex];
+
+  if ((direction === "right" && item.match) || (direction === "left" && !item.match)) {
+    score++;
+    scoreDiv.textContent = "Score: " + score;
+  }
+
+  card.style.transform = direction === "right" ? "translateX(120%)" : "translateX(-120%)";
+
+  setTimeout(() => {
+    card.style.transition = "none";
+    card.style.transform = "translateX(0)";
+    void card.offsetWidth;
+    card.style.transition = "transform 0.3s ease-out";
+
+    currentIndex++;
+    showCard();
+  }, 200);
+}
+
+// ==== Timer ====
+function startTimer() {
+  timerDiv.textContent = `Time: ${timeLeft}s`;
   timerInterval = setInterval(() => {
     timeLeft--;
-    timerEl.textContent = timeLeft;
-    if (timeLeft <= 0) endGame();
-  }, 1000);
-
-  nextCard();
-}
-
-function nextCard() {
-  if (allExamples.length === 0) { endGame(); return; }
-
-  // Pick a random example not just used
-  let example;
-  do {
-    example = allExamples[Math.floor(Math.random() * allExamples.length)];
-  } while (example === lastExample && allExamples.length > 1);
-  lastExample = example;
-
-  conceptEl.textContent = example.topic;
-
-  const card = document.createElement("div");
-  card.className = "card";
-  card.textContent = example.text;
-  gameEl.appendChild(card);
-
-  let startX = 0, currentX = 0, offsetX = 0;
-
-  function onStart(e) {
-    startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onEnd);
-    document.addEventListener("touchmove", onMove);
-    document.addEventListener("touchend", onEnd);
-  }
-
-  function onMove(e) {
-    currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-    offsetX = currentX - startX;
-    card.style.transform = `translate(${offsetX}px, -50%) rotate(${offsetX/10}deg)`;
-  }
-
-  function onEnd() {
-    document.removeEventListener("mousemove", onMove);
-    document.removeEventListener("mouseup", onEnd);
-    document.removeEventListener("touchmove", onMove);
-    document.removeEventListener("touchend", onEnd);
-
-    if (Math.abs(offsetX) > 100) {
-      const isRight = offsetX > 0;
-      handleChoice(isRight, example);
-      card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
-      card.style.transform = `translate(${isRight ? 900 : -900}px, -50%) rotate(${offsetX/10}deg)`;
-      card.style.opacity = 0;
-      setTimeout(() => {
-        gameEl.removeChild(card);
-        nextCard();
-      }, 300);
-    } else {
-      card.style.transition = "transform 0.3s ease";
-      card.style.transform = "translate(-50%, -50%)";
+    timerDiv.textContent = `Time: ${timeLeft}s`;
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      endGame();
     }
-  }
-
-  card.addEventListener("mousedown", onStart);
-  card.addEventListener("touchstart", onStart);
+  }, 1000);
 }
 
-function handleChoice(swipeRight, example) {
-  const correct = (swipeRight && example.match) || (!swipeRight && !example.match);
-  if (correct) {
-    score++;
-    feedbackEl.textContent = "Correct!";
-    feedbackEl.style.color = "green";
-    usedExamples.push(example);
-    allExamples = allExamples.filter(e => e !== example);
-  } else {
-    feedbackEl.textContent = "Wrong!";
-    feedbackEl.style.color = "red";
-  }
-  setTimeout(() => feedbackEl.textContent = "", 700);
-}
-
+// ==== End Game ====
 function endGame() {
-  clearInterval(timerInterval);
-  gameEl.querySelectorAll('.card').forEach(c => c.remove());
-  endScreen.style.display = "flex";
-  finalTitle.textContent = document.title;
-  scoreEl.textContent = `Your score: ${score}`;
+  gameScreen.style.display = "none";
+  endScreen.style.display = "block";
+  finalScore.textContent = `Your score: ${score}`;
 }
-
-restartBtn.addEventListener("click", startGame);
 </script>
+
 </body>
 </html>
