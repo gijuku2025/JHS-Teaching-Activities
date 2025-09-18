@@ -2,200 +2,167 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Concept Matching Game</title>
+  <title>Concept Matching</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f5f7fa;
+      background-color: #f2f2f2;
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
 
     .game-container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 380px;
-      height: 600px; /* same as quiz container */
+      width: 800px;
+      height: 600px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       position: relative;
       overflow: hidden;
     }
 
-    #gameTitle {
+    .game-header {
+      width: 100%;
+      padding: 15px;
+      background: #4CAF50;
+      color: white;
       font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .concept-display {
+      margin-top: 10px;
+      font-size: 22px;
+      font-weight: bold;
       color: #333;
-      margin-bottom: 12px;
+    }
+
+    .game-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     .card {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -45%); /* card midway */
-      width: 280px;
-      max-width: 80%;
-      height: 160px;
-      background: #FFA500;
-      color: #fff;
+      width: 320px;
+      height: 180px;
+      background: #ffeb3b;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 26px;
       font-weight: bold;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-      cursor: grab;
+      text-align: center;
+      padding: 20px;
+      position: absolute;
+      top: 55%; /* Move card slightly lower to leave room for concept */
+      transform: translateY(-50%);
       user-select: none;
-      transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    .icon {
+    .swipe-icon {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      opacity: 0.7;
+      width: 60px;
+      height: 60px;
+      opacity: 0.5;
     }
 
-    .icon-left {
-      left: 10px;
+    .swipe-left {
+      left: 40px;
     }
 
-    .icon-right {
-      right: 10px;
-    }
-
-    #endScreen {
-      display: none;
-    }
-
-    button {
-      padding: 12px;
-      margin-top: 20px;
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.2s;
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    button:hover {
-      background-color: #45a049;
+    .swipe-right {
+      right: 40px;
     }
   </style>
 </head>
 <body>
-  <div class="game-container" id="gameArea">
-    <h1 id="gameTitle">Concept Matching</h1>
-    <svg class="icon icon-left" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24">
-      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-    </svg>
-    <svg class="icon icon-right" xmlns="http://www.w3.org/2000/svg" fill="green" viewBox="0 0 24 24">
-      <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
-    </svg>
-    <div id="cardContainer"></div>
-    <div id="endScreen">
-      <h2>Game Over!</h2>
-      <button onclick="restartGame()">Play Again</button>
+  <div class="game-container">
+    <div class="game-header">Concept Matching</div>
+    <div class="concept-display" id="conceptDisplay"></div>
+    <div class="game-area">
+      <svg class="swipe-icon swipe-left" viewBox="0 0 24 24" fill="red">
+        <path d="M15 6l-6 6 6 6" />
+      </svg>
+      <svg class="swipe-icon swipe-right" viewBox="0 0 24 24" fill="green">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
     </div>
   </div>
 
   <script>
-    const concepts = [
-      { concept: "unit of money" },
-      { concept: "barter" },
-      { concept: "inconvenient" },
-      { concept: "bank note" },
-      { concept: "coin" },
-      { concept: "bank" },
-      { concept: "finance" },
-      { concept: "direct" },
-      { concept: "indirect" },
-      { concept: "corporate bond" },
-      { concept: "certificate" },
-      { concept: "active" },
-      { concept: "borrow" },
-      { concept: "lend" }
-    ];
+    let cards = [];
+    let currentCardIndex = 0;
 
-    let currentIndex = 0;
-    const cardContainer = document.getElementById("cardContainer");
-    const endScreen = document.getElementById("endScreen");
+    async function loadConcepts() {
+      try {
+        const response = await fetch("concepts.json");
+        const data = await response.json();
 
-    function createCard(text) {
+        // Flatten into cards (concept + example text)
+        cards = data.flatMap(item => 
+          item.examples.map(example => ({
+            concept: item.concept,
+            text: example
+          }))
+        );
+
+        shuffle(cards);
+        showNextCard();
+      } catch (err) {
+        console.error("Error loading JSON:", err);
+      }
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function showNextCard() {
+      const gameArea = document.querySelector(".game-area");
+      const conceptDisplay = document.getElementById("conceptDisplay");
+
+      gameArea.querySelectorAll(".card").forEach(c => c.remove());
+
+      if (currentCardIndex >= cards.length) {
+        conceptDisplay.textContent = "";
+        const done = document.createElement("div");
+        done.className = "card";
+        done.style.background = "#c8e6c9";
+        done.textContent = "🎉 Well done!";
+        gameArea.appendChild(done);
+        return;
+      }
+
+      const cardData = cards[currentCardIndex];
+      conceptDisplay.textContent = cardData.concept;
+
       const card = document.createElement("div");
       card.className = "card";
-      card.textContent = text;
+      card.textContent = cardData.text;
 
-      let offsetX = 0;
-      let startX;
-
-      card.addEventListener("mousedown", startDrag);
-      card.addEventListener("touchstart", startDrag);
-
-      function startDrag(e) {
-        startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-        document.addEventListener("mousemove", drag);
-        document.addEventListener("mouseup", endDrag);
-        document.addEventListener("touchmove", drag);
-        document.addEventListener("touchend", endDrag);
-      }
-
-      function drag(e) {
-        const x = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-        offsetX = x - startX;
-        card.style.transform = `translate(calc(-50% + ${offsetX}px), -45%) rotate(${offsetX/10}deg)`;
-      }
-
-      function endDrag() {
-        document.removeEventListener("mousemove", drag);
-        document.removeEventListener("mouseup", endDrag);
-        document.removeEventListener("touchmove", drag);
-        document.removeEventListener("touchend", endDrag);
-
-        if (Math.abs(offsetX) > 100) {
-          const isRight = offsetX > 0;
-          card.style.transform = `translate(${isRight ? 500 : -500}px, -45%) rotate(${offsetX/10}deg)`;
-          card.style.opacity = 0;
-          setTimeout(() => {
-            card.remove();
-            nextCard();
-          }, 300);
-        } else {
-          card.style.transform = "translate(-50%, -45%)";
-        }
-      }
-
-      cardContainer.appendChild(card);
+      gameArea.appendChild(card);
     }
 
-    function nextCard() {
-      currentIndex++;
-      if (currentIndex < concepts.length) {
-        createCard(concepts[currentIndex].concept);
-      } else {
-        endScreen.style.display = "block";
-      }
-    }
-
-    function restartGame() {
-      endScreen.style.display = "none";
-      cardContainer.innerHTML = "";
-      currentIndex = 0;
-      createCard(concepts[currentIndex].concept);
-    }
-
-    // Start game
-    createCard(concepts[currentIndex].concept);
+    loadConcepts();
   </script>
 </body>
 </html>
