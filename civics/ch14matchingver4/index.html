@@ -1,311 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Concept Match Game</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+  <meta charset="UTF-8">
+  <title>Concept Matching Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-  .game-container {
-    background: #fff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    width: 380px;       /* matches your quiz container */
-    max-width: 90%;
-    text-align: center;
-    position: relative;
-    min-height: 450px;
-  }
+    .game-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 380px;
+      height: 600px; /* same as quiz container */
+      position: relative;
+      overflow: hidden;
+    }
 
-  #header { position: relative; margin-bottom: 20px; }
-  #concept { font-size: 24px; font-weight: bold; margin: 0; color: #333; }
-  #feedback { font-size: 18px; font-weight: bold; margin-top: 8px; min-height: 24px; color: #333; }
-  #timer { position: absolute; right: 0; top: 0; font-size: 18px; font-weight: bold; color: #333; }
+    #gameTitle {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 12px;
+    }
 
-  #game {
-    position: relative;
-    width: 100%;
-    height: 150px;
-    margin-top: 10px;
-    overflow: visible;
-  }
+    .card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -45%); /* card midway */
+      width: 280px;
+      max-width: 80%;
+      height: 160px;
+      background: #FFA500;
+      color: #fff;
+      font-size: 26px;
+      font-weight: bold;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
 
-  /* card centered horizontally and slightly lower vertically */
-  .card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-30%); /* centered horizontally, slightly below vertical center */
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 20px;      /* increased text size */
-    color: #fff;
-    cursor: grab;
-    padding: 16px;
-    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
-    will-change: transform, opacity;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: pan-y;
-  }
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      opacity: 0.7;
+    }
 
-  .indicator {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    opacity: 0.5;
-  }
-  #leftIndicator { left: -80px; }
-  #rightIndicator { right: -80px; }
-  .indicator svg { width: 50px; height: 50px; }
+    .icon-left {
+      left: 10px;
+    }
 
-  #endScreen { display: none; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
-  #endScreen h2 { font-size: 24px; margin-bottom: 12px; color: #333; }
-  #restartBtn { padding: 12px; font-size: 16px; border: none; border-radius: 8px; background: #1E90FF; color: #fff; cursor: pointer; }
-  #restartBtn:hover { background: #1C86EE; }
+    .icon-right {
+      right: 10px;
+    }
 
-  @media (max-width: 768px) {
-    .game-container { width: 90%; padding: 20px; }
-    #concept { font-size: 20px; }
-    #timer { font-size: 16px; }
-    .card { font-size: 18px; height: 120px; padding: 12px; }
-  }
-</style>
+    #endScreen {
+      display: none;
+    }
+
+    button {
+      padding: 12px;
+      margin-top: 20px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-
-<div class="game-container">
-  <div id="header">
-    <h1 id="concept">Concept</h1>
-    <div id="feedback"></div>
-    <div id="timer">60</div>
-  </div>
-
-  <div id="game">
-    <div id="leftIndicator" class="indicator">
-      <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg"><path d="M18.364 5.636l-1.414-1.414L12 9.172 7.05 4.222 5.636 5.636 10.586 10.586 5.636 15.536l1.414 1.414L12 12l4.95 4.95 1.414-1.414L13.414 10.586z"/></svg>
-    </div>
-    <div id="rightIndicator" class="indicator">
-      <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg"><path d="M20.285 6.709l-11.285 11.29-5.285-5.29 1.42-1.418 3.865 3.871 9.865-9.873z"/></svg>
+  <div class="game-container" id="gameArea">
+    <h1 id="gameTitle">Concept Matching</h1>
+    <svg class="icon icon-left" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24">
+      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    </svg>
+    <svg class="icon icon-right" xmlns="http://www.w3.org/2000/svg" fill="green" viewBox="0 0 24 24">
+      <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+    </svg>
+    <div id="cardContainer"></div>
+    <div id="endScreen">
+      <h2>Game Over!</h2>
+      <button onclick="restartGame()">Play Again</button>
     </div>
   </div>
 
-  <div id="endScreen">
-    <h2 id="finalTitle"></h2>
-    <p id="score"></p>
-    <button id="restartBtn">Play Again</button>
-  </div>
-</div>
+  <script>
+    const concepts = [
+      { concept: "unit of money" },
+      { concept: "barter" },
+      { concept: "inconvenient" },
+      { concept: "bank note" },
+      { concept: "coin" },
+      { concept: "bank" },
+      { concept: "finance" },
+      { concept: "direct" },
+      { concept: "indirect" },
+      { concept: "corporate bond" },
+      { concept: "certificate" },
+      { concept: "active" },
+      { concept: "borrow" },
+      { concept: "lend" }
+    ];
 
-<script>
-/* color palette from your quiz */
-const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+    let currentIndex = 0;
+    const cardContainer = document.getElementById("cardContainer");
+    const endScreen = document.getElementById("endScreen");
 
-let score = 0;
-let timeLeft = 60;
-let timerInterval;
-let gameActive = false;
+    function createCard(text) {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.textContent = text;
 
-let allExamples = [];          // flattened examples loaded from JSON
-let usedExamples = new Set();  // examples removed only after a correct response
+      let offsetX = 0;
+      let startX;
 
-const conceptEl = document.getElementById("concept");
-const feedbackEl = document.getElementById("feedback");
-const timerEl = document.getElementById("timer");
-const gameEl = document.getElementById("game");
-const endScreen = document.getElementById("endScreen");
-const finalTitle = document.getElementById("finalTitle");
-const scoreEl = document.getElementById("score");
-const restartBtn = document.getElementById("restartBtn");
+      card.addEventListener("mousedown", startDrag);
+      card.addEventListener("touchstart", startDrag);
 
-/* fallback data if concepts.json can't be fetched */
-const fallbackData = [
-  { topic: "Renewable Energy", examples: [
-    { text: "Solar Power", match: true },
-    { text: "Coal", match: false },
-    { text: "Wind", match: true },
-    { text: "Natural Gas", match: false }
-  ]},
-  { topic: "Fruits", examples: [
-    { text: "Apple", match: true },
-    { text: "Carrot", match: false },
-    { text: "Banana", match: true },
-    { text: "Potato", match: false }
-  ]}
-];
+      function startDrag(e) {
+        startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+        document.addEventListener("mousemove", drag);
+        document.addEventListener("mouseup", endDrag);
+        document.addEventListener("touchmove", drag);
+        document.addEventListener("touchend", endDrag);
+      }
 
-/* load JSON, fallback to internal data if loading fails */
-fetch('concepts.json')
-  .then(r => {
-    if (!r.ok) throw new Error('not ok');
-    return r.json();
-  })
-  .then(data => {
-    flattenDataToAllExamples(data);
-    startGame();
-  })
-  .catch(err => {
-    console.warn('concepts.json load failed, using fallback data.', err);
-    flattenDataToAllExamples(fallbackData);
-    startGame();
-  });
+      function drag(e) {
+        const x = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+        offsetX = x - startX;
+        card.style.transform = `translate(calc(-50% + ${offsetX}px), -45%) rotate(${offsetX/10}deg)`;
+      }
 
-function flattenDataToAllExamples(data) {
-  allExamples = [];
-  data.forEach(concept => {
-    (concept.examples || []).forEach(ex => {
-      allExamples.push({ topic: concept.topic, text: ex.text, match: !!ex.match });
-    });
-  });
-}
+      function endDrag() {
+        document.removeEventListener("mousemove", drag);
+        document.removeEventListener("mouseup", endDrag);
+        document.removeEventListener("touchmove", drag);
+        document.removeEventListener("touchend", endDrag);
 
-/* start / end game */
-function startGame() {
-  score = 0;
-  timeLeft = 60;
-  usedExamples.clear();
-  gameActive = true;
-  feedbackEl.textContent = "";
-  feedbackEl.style.color = '#333';
-  endScreen.style.display = "none";
-  clearInterval(timerInterval);
-  gameEl.querySelectorAll('.card').forEach(c => c.remove());
-  timerEl.textContent = timeLeft;
+        if (Math.abs(offsetX) > 100) {
+          const isRight = offsetX > 0;
+          card.style.transform = `translate(${isRight ? 500 : -500}px, -45%) rotate(${offsetX/10}deg)`;
+          card.style.opacity = 0;
+          setTimeout(() => {
+            card.remove();
+            nextCard();
+          }, 300);
+        } else {
+          card.style.transform = "translate(-50%, -45%)";
+        }
+      }
 
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    timerEl.textContent = timeLeft;
-    if (timeLeft <= 0) endGame();
-  }, 1000);
-
-  nextCard();
-}
-
-function endGame() {
-  gameActive = false;
-  clearInterval(timerInterval);
-  gameEl.querySelectorAll('.card').forEach(c => c.remove());
-  endScreen.style.display = "flex";
-  finalTitle.textContent = "Concept Match Game";
-  scoreEl.textContent = "Your score: " + score;
-}
-
-/* pick next card from available (not-used) examples */
-function nextCard() {
-  if (!gameActive) return;
-
-  // compute available (not yet correctly answered)
-  const available = allExamples.filter(e => !usedExamples.has(e.text));
-  if (available.length === 0) {
-    endGame();
-    return;
-  }
-
-  // random pick
-  const example = available[Math.floor(Math.random() * available.length)];
-  conceptEl.textContent = example.topic;
-
-  // create card
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.textContent = example.text;
-  card.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-  // ensure centered CSS baseline
-  card.style.transform = 'translate(-50%,-30%)';
-  gameEl.appendChild(card);
-
-  // swipe handling (mouse + touch)
-  let startX = 0, currentX = 0, offsetX = 0;
-
-  function onStart(e) {
-    startX = (e.type.startsWith('mouse')) ? e.clientX : e.touches[0].clientX;
-    document.addEventListener('mousemove', onMove, {passive: true});
-    document.addEventListener('mouseup', onEnd);
-    document.addEventListener('touchmove', onMove, {passive: false});
-    document.addEventListener('touchend', onEnd);
-  }
-
-  function onMove(e) {
-    // prevent scrolling while dragging on touch
-    if (e.type === 'touchmove') e.preventDefault();
-    currentX = (e.type.startsWith('mouse')) ? e.clientX : e.touches[0].clientX;
-    offsetX = currentX - startX;
-    // offset from the centered X using calc so it stays centered vertically
-    card.style.transform = `translate(calc(-50% + ${offsetX}px), -30%) rotate(${offsetX/10}deg)`;
-  }
-
-  function onEnd() {
-    document.removeEventListener('mousemove', onMove);
-    document.removeEventListener('mouseup', onEnd);
-    document.removeEventListener('touchmove', onMove);
-    document.removeEventListener('touchend', onEnd);
-
-    // threshold to register swipe
-    if (Math.abs(offsetX) > 100) {
-      const isRight = offsetX > 0;
-      const wasCorrect = handleChoice(isRight, example.match);
-
-      // only mark example as used when the user answers correctly
-      if (wasCorrect) usedExamples.add(example.text);
-
-      // fly the card out (keep -30% vertical offset)
-      card.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
-      card.style.transform = `translate(${isRight ? 500 : -500}px, -30%) rotate(${offsetX/10}deg)`;
-      card.style.opacity = '0';
-      setTimeout(() => {
-        if (card.parentNode) card.parentNode.removeChild(card);
-        if (gameActive) nextCard();
-      }, 360);
-    } else {
-      // snap back to centered (slightly lower)
-      card.style.transition = 'transform 0.25s ease';
-      card.style.transform = 'translate(-50%,-30%)';
-      // reset variables
-      offsetX = 0;
+      cardContainer.appendChild(card);
     }
-  }
 
-  // attach start listeners
-  card.addEventListener('mousedown', onStart);
-  card.addEventListener('touchstart', onStart, {passive: true});
-}
+    function nextCard() {
+      currentIndex++;
+      if (currentIndex < concepts.length) {
+        createCard(concepts[currentIndex].concept);
+      } else {
+        endScreen.style.display = "block";
+      }
+    }
 
-/* handle answer; returns true when correct */
-function handleChoice(swipeRight, isMatch) {
-  const correct = (swipeRight && isMatch) || (!swipeRight && !isMatch);
-  if (correct) {
-    score++;
-    feedbackEl.textContent = 'Correct!';
-    feedbackEl.style.color = '#4CAF50';
-  } else {
-    feedbackEl.textContent = 'Wrong!';
-    feedbackEl.style.color = '#FF4C4C';
-  }
-  setTimeout(() => { feedbackEl.textContent = ''; feedbackEl.style.color = '#333'; }, 700);
-  return correct;
-}
+    function restartGame() {
+      endScreen.style.display = "none";
+      cardContainer.innerHTML = "";
+      currentIndex = 0;
+      createCard(concepts[currentIndex].concept);
+    }
 
-/* restart button */
-restartBtn.addEventListener('click', startGame);
-</script>
-
+    // Start game
+    createCard(concepts[currentIndex].concept);
+  </script>
 </body>
 </html>
