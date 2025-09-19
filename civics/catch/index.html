@@ -54,9 +54,9 @@
   }
   .fallingItem {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    font-size: 2.5em; /* makes emoji large enough to tap */
     touch-action: none;
+    user-select: none;
   }
 </style>
 </head>
@@ -128,16 +128,15 @@ function startCatchingPhase() {
   const totalItems = 20;
   const duration = 10000; // 10 seconds
   const spawnInterval = duration / totalItems;
-  let caughtItems = 0;
 
   const spawnItem = () => {
     const item = document.createElement('div');
     item.classList.add('fallingItem');
     const isGem = Math.random() < 0.7; // 70% gems
     item.dataset.type = isGem ? 'gem' : 'trash';
+    item.textContent = isGem ? '💎' : '🗑️';
     item.style.left = Math.random() * (window.innerWidth - 50) + 'px';
     item.style.top = '-50px';
-    item.style.background = isGem ? 'url(https://i.imgur.com/8oQj6lQ.png) no-repeat center/contain' : 'url(https://i.imgur.com/Oa2v5bU.png) no-repeat center/contain';
     gameContainer.appendChild(item);
     items.push(item);
 
@@ -148,7 +147,7 @@ function startCatchingPhase() {
         item.style.top = top + fallSpeed + 'px';
         requestAnimationFrame(fall);
       } else {
-        gameContainer.removeChild(item);
+        if(item.parentNode) gameContainer.removeChild(item);
       }
     };
     fall();
@@ -157,7 +156,7 @@ function startCatchingPhase() {
       if(item.dataset.type === 'gem') score++;
       else score--;
       scoreBoard.textContent = `Score: ${score}`;
-      gameContainer.removeChild(item);
+      if(item.parentNode) gameContainer.removeChild(item);
     });
   };
 
