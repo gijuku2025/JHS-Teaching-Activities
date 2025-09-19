@@ -58,6 +58,12 @@
     padding: 10px;
     box-sizing: border-box;
     user-select: none;
+    text-align: center;
+  }
+
+  /* Bold example inside card */
+  #card b {
+    font-weight: bold;
   }
 
   /* Side Icons */
@@ -197,17 +203,14 @@ function startGame() {
 // Show next random card
 function showNextCard() {
   currentCard = concepts[Math.floor(Math.random() * concepts.length)];
-  cardEl.textContent = currentCard.example;
+  cardEl.innerHTML = `<span>${currentCard.concept}: <b>${currentCard.example}</b></span>`;
   flashIcon.style.opacity = 0;
 }
 
 // Swipe Handling
 let startX = 0;
 
-cardEl.addEventListener('touchstart', e => {
-  startX = e.touches[0].clientX;
-});
-
+cardEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
 cardEl.addEventListener('touchend', e => {
   let endX = e.changedTouches[0].clientX;
   let diff = endX - startX;
@@ -232,7 +235,7 @@ function handleSwipe(direction){
     incorrectAnswers.push(currentCard);
     flash('✖');
   }
-  showNextCard();
+  setTimeout(showNextCard, 300); // Slight delay so flash is visible
 }
 
 function updateScore(){ scoreEl.textContent = `Score: ${score}`; }
@@ -241,7 +244,7 @@ function flash(symbol){
   flashIcon.textContent = symbol;
   flashIcon.style.opacity = 1;
   flashIcon.style.transform = 'scale(1.2)';
-  setTimeout(() => { flashIcon.style.opacity = 0; flashIcon.style.transform = 'scale(1)'; }, 400);
+  setTimeout(() => { flashIcon.style.opacity = 0; flashIcon.style.transform = 'scale(1)'; }, 600);
 }
 
 // End Game
