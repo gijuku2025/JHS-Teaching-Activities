@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Catch Game</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #87CEFA, #ffffff);
+    touch-action: manipulation;
+  }
+  #gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #questionBox {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    font-size: 1.5em;
+    background: rgba(255,255,255,0.8);
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .answerBtn {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+  }
+  .answerBtn:hover {
+    background: #45a049;
+    cursor: pointer;
+  }
+  #scoreBoard {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    font-size: 1.2em;
+    background: rgba(255,255,255,0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .fallingItem {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    touch-action: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="gameContainer">
+  <div id="questionBox"></div>
+  <div id="scoreBoard">Score: 0</div>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "During an economic boom, what usually happens to prices?",
+    options: ["They fall", "They rise"],
+    answer: 1
+  },
+  {
+    text: "If a country increases tariffs on imported goods, what is likely to happen?",
+    options: ["Imports decrease", "Imports increase"],
+    answer: 0
+  },
+  {
+    text: "Why did industries grow near the Great Lakes?",
+    options: ["Access to coal and iron ore", "More schools"],
+    answer: 0
+  },
+  {
+    text: "Immigrants from Europe came to America mainly to…",
+    options: ["Start farms", "Work in factories"],
+    answer: 1
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+const gameContainer = document.getElementById('gameContainer');
+const questionBox = document.getElementById('questionBox');
+const scoreBoard = document.getElementById('scoreBoard');
+
+function showQuestion() {
+  if(currentQuestion >= questions.length) {
+    questionBox.innerHTML = `<h2>Game Over!</h2><p>Total Score: ${score}</p>`;
+    return;
+  }
+  const q = questions[currentQuestion];
+  questionBox.innerHTML = `<p>${q.text}</p>`;
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.classList.add('answerBtn');
+    btn.addEventListener('click', () => checkAnswer(idx));
+    questionBox.appendChild(btn);
+  });
+}
+
+function checkAnswer(selected) {
+  const q = questions[currentQuestion];
+  if(selected === q.answer) {
+    startCatchingPhase();
+  } else {
+    alert("Try again!");
+  }
+}
+
+function startCatchingPhase() {
+  questionBox.style.display = 'none';
+  const items = [];
+  const totalItems = 20;
+  const duration = 10000; // 10 seconds
+  const spawnInterval = duration / totalItems;
+  let caughtItems = 0;
+
+  const spawnItem = () => {
+    const item = document.createElement('div');
+    item.classList.add('fallingItem');
+    const isGem = Math.random() < 0.7; // 70% gems
+    item.dataset.type = isGem ? 'gem' : 'trash';
+    item.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+    item.style.top = '-50px';
+    item.style.background = isGem ? 'url(https://i.imgur.com/8oQj6lQ.png) no-repeat center/contain' : 'url(https://i.imgur.com/Oa2v5bU.png) no-repeat center/contain';
+    gameContainer.appendChild(item);
+    items.push(item);
+
+    const fallSpeed = 2 + Math.random() * 3; // 2-5 px/frame
+    const fall = () => {
+      const top = parseFloat(item.style.top);
+      if(top < window.innerHeight) {
+        item.style.top = top + fallSpeed + 'px';
+        requestAnimationFrame(fall);
+      } else {
+        gameContainer.removeChild(item);
+      }
+    };
+    fall();
+
+    item.addEventListener('touchstart', () => {
+      if(item.dataset.type === 'gem') score++;
+      else score--;
+      scoreBoard.textContent = `Score: ${score}`;
+      gameContainer.removeChild(item);
+    });
+  };
+
+  let spawned = 0;
+  const interval = setInterval(() => {
+    spawnItem();
+    spawned++;
+    if(spawned >= totalItems) clearInterval(interval);
+  }, spawnInterval);
+
+  setTimeout(() => {
+    // End catching phase
+    items.forEach(item => {
+      if(item.parentNode) gameContainer.removeChild(item);
+    });
+    questionBox.style.display = 'block';
+    currentQuestion++;
+    showQuestion();
+  }, duration);
+}
+
+// Start the game
+showQuestion();
+</script>
+
+</body>
+</html>
