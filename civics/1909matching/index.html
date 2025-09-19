@@ -99,12 +99,16 @@
       color: #fff;
       font-size: 24px;
       z-index: 5;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
     }
     #review {
       text-align: left;
       max-width: 800px;
       margin: 20px auto;
       font-size: 20px;
+      color: #fff;
     }
     #review ul {
       list-style: disc;
@@ -261,8 +265,9 @@
         <div>Your score: ${score}</div>
         <div id="review">
           <h3>Review Mistakes:</h3>
-          ${mistakes.length === 0 ? "<p>Great job! No mistakes 🎉</p>" :
-            "<ul>" + mistakes.map(m => `<li><strong>${m.topic}</strong>: ${m.text}</li>`).join("") + "</ul>"}
+          ${mistakes.length === 0 
+            ? "<p>Great job! No mistakes 🎉</p>" 
+            : "<ul>" + mistakes.map(m => `<li><strong>${m.topic}</strong>: ${m.text}</li>`).join("") + "</ul>"}
         </div>
         <button onclick="startGame()">Play Again</button>
       `;
