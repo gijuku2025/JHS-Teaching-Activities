@@ -1,0 +1,168 @@
+[
+  {
+    "topic": "Economic Boom",
+    "examples": [
+      {
+        "text": "Household incomes go up",
+        "match": true
+      },
+      {
+        "text": "Families earn more money",
+        "match": true
+      },
+      {
+        "text": "People’s salaries increase",
+        "match": true
+      },
+      {
+        "text": "Workers get higher pay at their jobs",
+        "match": true
+      },
+      {
+        "text": "A family has extra money to buy a new TV",
+        "match": true
+      },
+      {
+        "text": "Commodities sell well even if they are expensive",
+        "match": true
+      },
+      {
+        "text": "People keep buying things even when prices are high",
+        "match": true
+      },
+      {
+        "text": "Expensive products still sell a lot",
+        "match": true
+      },
+      {
+        "text": "Household incomes go down",
+        "match": false
+      },
+      {
+        "text": "Families earn less money",
+        "match": false
+      },
+      {
+        "text": "People’s salaries get smaller",
+        "match": false
+      },
+      {
+        "text": "A worker’s pay is cut by the company",
+        "match": false
+      },
+      {
+        "text": "A family has less money to buy clothes",
+        "match": false
+      },
+      {
+        "text": "Commodities don’t sell well even if they are cheap",
+        "match": false
+      },
+      {
+        "text": "People don’t buy much even when things are cheap",
+        "match": false
+      },
+      {
+        "text": "Low prices still don’t bring many sales",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Economic Recession (Bust)",
+    "examples": [
+      {
+        "text": "Household incomes go down",
+        "match": true
+      },
+      {
+        "text": "Families earn less money",
+        "match": true
+      },
+      {
+        "text": "People’s salaries get smaller",
+        "match": true
+      },
+      {
+        "text": "A worker’s pay is cut by the company",
+        "match": true
+      },
+      {
+        "text": "A family has less money to buy clothes",
+        "match": true
+      },
+      {
+        "text": "Commodities don’t sell well even if they are cheap",
+        "match": true
+      },
+      {
+        "text": "People don’t buy much even when things are cheap",
+        "match": true
+      },
+      {
+        "text": "Low prices still don’t bring many sales",
+        "match": true
+      },
+      {
+        "text": "A shop sells clothes at discount but no one buys",
+        "match": true
+      },
+      {
+        "text": "A car company lowers prices but customers don’t come",
+        "match": true
+      },
+      {
+        "text": "Demand is lower than supply",
+        "match": true
+      },
+      {
+        "text": "There are too many goods but not enough buyers",
+        "match": true
+      },
+      {
+        "text": "Companies make more than people want to buy",
+        "match": true
+      },
+      {
+        "text": "A factory produces 1000 shoes but only 300 are sold",
+        "match": true
+      },
+      {
+        "text": "Farmers have extra vegetables that no one buys",
+        "match": true
+      },
+      {
+        "text": "Household incomes go up",
+        "match": false
+      },
+      {
+        "text": "Families earn more money",
+        "match": false
+      },
+      {
+        "text": "People’s salaries increase",
+        "match": false
+      },
+      {
+        "text": "Workers get higher pay at their jobs",
+        "match": false
+      },
+      {
+        "text": "A family has extra money to buy a new TV",
+        "match": false
+      },
+      {
+        "text": "Commodities sell well even if they are expensive",
+        "match": false
+      },
+      {
+        "text": "People keep buying things even when prices are high",
+        "match": false
+      },
+      {
+        "text": "Expensive products still sell a lot",
+        "match": false
+      }
+    ]
+  }
+]
