@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz Catch Game</title>
+<title>Horizontal Gem Catch Game</title>
 <style>
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    overflow: hidden;
     background: linear-gradient(to bottom, #87CEFA, #ffffff);
+    overflow: hidden;
     touch-action: manipulation;
   }
   #gameContainer {
@@ -52,9 +52,30 @@
     padding: 5px 10px;
     border-radius: 5px;
   }
+  #streakIndicator {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    font-size: 2em;
+  }
+  .pop {
+    animation: pop 0.3s ease;
+  }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+  }
+  .flash {
+    animation: flash 1s ease;
+  }
+  @keyframes flash {
+    0%, 100% { color: #ff0; }
+    50% { color: #fff; }
+  }
   .fallingItem {
     position: absolute;
-    font-size: 2.5em; /* makes emoji large enough to tap */
+    font-size: 2.5em;
     touch-action: none;
     user-select: none;
   }
@@ -65,37 +86,24 @@
 <div id="gameContainer">
   <div id="questionBox"></div>
   <div id="scoreBoard">Score: 0</div>
+  <div id="streakIndicator">⚪ ⚪ ⚪</div>
 </div>
 
 <script>
 const questions = [
-  {
-    text: "During an economic boom, what usually happens to prices?",
-    options: ["They fall", "They rise"],
-    answer: 1
-  },
-  {
-    text: "If a country increases tariffs on imported goods, what is likely to happen?",
-    options: ["Imports decrease", "Imports increase"],
-    answer: 0
-  },
-  {
-    text: "Why did industries grow near the Great Lakes?",
-    options: ["Access to coal and iron ore", "More schools"],
-    answer: 0
-  },
-  {
-    text: "Immigrants from Europe came to America mainly to…",
-    options: ["Start farms", "Work in factories"],
-    answer: 1
-  }
+  { text: "During an economic boom, what usually happens to prices?", options: ["They fall", "They rise"], answer: 1 },
+  { text: "If a country increases tariffs on imported goods, what is likely to happen?", options: ["Imports decrease", "Imports increase"], answer: 0 },
+  { text: "Why did industries grow near the Great Lakes?", options: ["Access to coal and iron ore", "More schools"], answer: 0 },
+  { text: "Immigrants from Europe came to America mainly to…", options: ["Start farms", "Work in factories"], answer: 1 }
 ];
 
 let currentQuestion = 0;
 let score = 0;
+let streak = 0;
 const gameContainer = document.getElementById('gameContainer');
 const questionBox = document.getElementById('questionBox');
 const scoreBoard = document.getElementById('scoreBoard');
+const streakIndicator = document.getElementById('streakIndicator');
 
 function showQuestion() {
   if(currentQuestion >= questions.length) {
@@ -113,11 +121,46 @@ function showQuestion() {
   });
 }
 
+function updateStreakDisplay() {
+  let display = '';
+  for(let i=0;i<3;i++){
+    display += (i<streak) ? '💎 ' : '⚪ ';
+  }
+  streakIndicator.innerHTML = display.trim();
+}
+
+function popGem() {
+  streakIndicator.classList.remove('pop');
+  void streakIndicator.offsetWidth;
+  streakIndicator.classList.add('pop');
+}
+
+function flashGems(callback) {
+  streakIndicator.classList.remove('flash');
+  void streakIndicator.offsetWidth;
+  streakIndicator.classList.add('flash');
+  setTimeout(callback, 1000);
+}
+
 function checkAnswer(selected) {
   const q = questions[currentQuestion];
   if(selected === q.answer) {
-    startCatchingPhase();
+    streak++;
+    popGem();
+    updateStreakDisplay();
+    if(streak >= 3){
+      flashGems(() => {
+        streak = 0;
+        updateStreakDisplay();
+        startCatchingPhase();
+      });
+    } else {
+      currentQuestion++;
+      showQuestion();
+    }
   } else {
+    streak = 0;
+    updateStreakDisplay();
     alert("Try again!");
   }
 }
@@ -126,34 +169,37 @@ function startCatchingPhase() {
   questionBox.style.display = 'none';
   const items = [];
   const totalItems = 20;
-  const duration = 10000; // 10 seconds
+  const duration = 12000; // 12 seconds
   const spawnInterval = duration / totalItems;
+
+  const goodItems = ['💎'];
+  const badItems = ['🍌','💩','🐛'];
 
   const spawnItem = () => {
     const item = document.createElement('div');
     item.classList.add('fallingItem');
-    const isGem = Math.random() < 0.7; // 70% gems
-    item.dataset.type = isGem ? 'gem' : 'trash';
-    item.textContent = isGem ? '💎' : '🗑️';
-    item.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-    item.style.top = '-50px';
+    const isGood = Math.random() < 0.7;
+    item.dataset.type = isGood ? 'gem' : 'bad';
+    item.textContent = isGood ? goodItems[0] : badItems[Math.floor(Math.random()*badItems.length)];
+    item.style.top = Math.random()*(window.innerHeight-100) + 'px';
+    item.style.left = '0px';
     gameContainer.appendChild(item);
     items.push(item);
 
-    const fallSpeed = 2 + Math.random() * 3; // 2-5 px/frame
-    const fall = () => {
-      const top = parseFloat(item.style.top);
-      if(top < window.innerHeight) {
-        item.style.top = top + fallSpeed + 'px';
-        requestAnimationFrame(fall);
+    const speed = 2 + Math.random()*3; // px/frame
+    const animate = () => {
+      const left = parseFloat(item.style.left);
+      if(left < window.innerWidth){
+        item.style.left = left + speed + 'px';
+        requestAnimationFrame(animate);
       } else {
         if(item.parentNode) gameContainer.removeChild(item);
       }
     };
-    fall();
+    animate();
 
     item.addEventListener('touchstart', () => {
-      if(item.dataset.type === 'gem') score++;
+      if(item.dataset.type==='gem') score++;
       else score--;
       scoreBoard.textContent = `Score: ${score}`;
       if(item.parentNode) gameContainer.removeChild(item);
@@ -167,19 +213,18 @@ function startCatchingPhase() {
     if(spawned >= totalItems) clearInterval(interval);
   }, spawnInterval);
 
-  setTimeout(() => {
-    // End catching phase
-    items.forEach(item => {
+  setTimeout(()=>{
+    items.forEach(item=>{
       if(item.parentNode) gameContainer.removeChild(item);
     });
-    questionBox.style.display = 'block';
-    currentQuestion++;
+    questionBox.style.display='block';
     showQuestion();
   }, duration);
 }
 
-// Start the game
+// Start game
 showQuestion();
+updateStreakDisplay();
 </script>
 
 </body>
