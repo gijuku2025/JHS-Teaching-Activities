@@ -31,6 +31,15 @@
     color: #333;
   }
 
+  /* Flash Icon above instructions */
+  #flash-icon {
+    font-size: 4em;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
   /* Instructions */
   #instructions {
     margin-bottom: 15px;
@@ -65,6 +74,7 @@
     top: 0;
     left: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
   }
 
   /* Side Icons */
@@ -77,18 +87,6 @@
   }
   #icon-left { left: -50px; color: #FF4C4C; }
   #icon-right { right: -50px; color: #4CAF50; }
-
-  /* Flash Icon */
-  #flash-icon {
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 4em;
-    opacity: 0;
-    z-index: 10;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
 
   /* Review Section */
   #review-container {
@@ -137,13 +135,14 @@
     <div id="timer">60</div>
     <div id="score">Score: 0</div>
   </div>
+
+  <div id="flash-icon">✔</div>
   <div id="instructions">Swipe right = Match, Swipe left = No Match</div>
 
   <div id="card-container">
     <div id="card"></div>
     <div id="icon-left">❌</div>
     <div id="icon-right">✅</div>
-    <div id="flash-icon">✔</div>
   </div>
 
   <div id="review-container">
