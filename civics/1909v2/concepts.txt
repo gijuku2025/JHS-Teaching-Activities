@@ -1,0 +1,42 @@
+Topic: Economic Boom
+Household incomes go up, true
+Families earn more money, true
+People’s salaries increase, true
+Workers get higher pay at their jobs, true
+A family has extra money to buy a new TV, true
+Commodities sell well even if they are expensive, true
+People keep buying things even when prices are high, true
+Expensive products still sell a lot, true
+Household incomes go down, false
+Families earn less money, false
+People’s salaries get smaller, false
+A worker’s pay is cut by the company, false
+A family has less money to buy clothes, false
+Commodities don’t sell well even if they are cheap, false
+People don’t buy much even when things are cheap, false
+Low prices still don’t bring many sales, false
+
+Topic: Economic Recession (Bust)
+Household incomes go down, true
+Families earn less money, true
+People’s salaries get smaller, true
+A worker’s pay is cut by the company, true
+A family has less money to buy clothes, true
+Commodities don’t sell well even if they are cheap, true
+People don’t buy much even when things are cheap, true
+Low prices still don’t bring many sales, true
+A shop sells clothes at discount but no one buys, true
+A car company lowers prices but customers don’t come, true
+Demand is lower than supply, true
+There are too many goods but not enough buyers, true
+Companies make more than people want to buy, true
+A factory produces 1000 shoes but only 300 are sold, true
+Farmers have extra vegetables that no one buys, true
+Household incomes go up, false
+Families earn more money, false
+People’s salaries increase, false
+Workers get higher pay at their jobs, false
+A family has extra money to buy a new TV, false
+Commodities sell well even if they are expensive, false
+People keep buying things even when prices are high, false
+Expensive products still sell a lot, false

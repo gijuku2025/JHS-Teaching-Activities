@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Concept Matching Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+
+  #game-container {
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+  }
+
+  /* Top Bar */
+  #top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Instructions */
+  #instructions {
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #555;
+  }
+
+  /* Card Area */
+  #card-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+  }
+  #card {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    padding: 10px;
+    box-sizing: border-box;
+    user-select: none;
+    text-align: center;
+  }
+
+  /* Side Icons */
+  #icon-left, #icon-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3em;
+    opacity: 0.3;
+  }
+  #icon-left { left: -50px; color: #FF4C4C; }
+  #icon-right { right: -50px; color: #4CAF50; }
+
+  /* Flash Icon */
+  #flash-icon {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4em;
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* Review Section */
+  #review-container {
+    display: none;
+    width: 100%;
+    height: 30vh;
+    overflow-y: auto;
+    margin-top: 20px;
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    text-align: left;
+  }
+  #review-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #review-container li {
+    margin-bottom: 8px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Play Again Button */
+  #play-again-btn {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+<div id="game-container">
+  <div id="top-bar">
+    <div id="timer">60</div>
+    <div id="score">Score: 0</div>
+  </div>
+  <div id="instructions">Swipe right = Match, Swipe left = No Match</div>
+
+  <div id="card-container">
+    <div id="card"></div>
+    <div id="icon-left">❌</div>
+    <div id="icon-right">✅</div>
+    <div id="flash-icon">✔</div>
+  </div>
+
+  <div id="review-container">
+    <h3>Review Incorrect Matches:</h3>
+    <ul id="review-list"></ul>
+  </div>
+  <button id="play-again-btn">Play Again</button>
+</div>
+
+<script>
+let concepts = [];
+let currentCard = {};
+let score = 0;
+let timer = 60;
+let timerInterval;
+let incorrectAnswers = [];
+
+// Fetch concepts from JSON file
+fetch('concepts.json')
+  .then(res => res.json())
+  .then(data => {
+    concepts = [];
+    data.forEach(topic => {
+      topic.examples.forEach(ex => {
+        concepts.push({concept: topic.topic, example: ex.text, match: ex.match});
+      });
+    });
+    startGame();
+  });
+
+// DOM Elements
+const cardEl = document.getElementById('card');
+const iconLeft = document.getElementById('icon-left');
+const iconRight = document.getElementById('icon-right');
+const flashIcon = document.getElementById('flash-icon');
+const scoreEl = document.getElementById('score');
+const timerEl = document.getElementById('timer');
+const reviewContainer = document.getElementById('review-container');
+const reviewList = document.getElementById('review-list');
+const playAgainBtn = document.getElementById('play-again-btn');
+
+// Start Game
+function startGame() {
+  score = 0;
+  timer = 60;
+  incorrectAnswers = [];
+  updateScore();
+  showNextCard();
+  timerInterval = setInterval(() => {
+    timer--;
+    timerEl.textContent = timer;
+    if(timer <= 0){
+      endGame();
+    }
+  }, 1000);
+}
+
+// Show next random card
+function showNextCard() {
+  currentCard = concepts[Math.floor(Math.random() * concepts.length)];
+  cardEl.innerHTML = `<div><b>${currentCard.concept}</b></div><div>${currentCard.example}</div>`;
+  flashIcon.style.opacity = 0;
+}
+
+// Swipe Handling
+let startX = 0;
+
+cardEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+cardEl.addEventListener('touchend', e => {
+  let endX = e.changedTouches[0].clientX;
+  let diff = endX - startX;
+  if(diff > 30){ handleSwipe('right'); }
+  else if(diff < -30){ handleSwipe('left'); }
+});
+
+cardEl.addEventListener('mousedown', e => { startX = e.clientX; });
+cardEl.addEventListener('mouseup', e => {
+  let diff = e.clientX - startX;
+  if(diff > 30){ handleSwipe('right'); }
+  else if(diff < -30){ handleSwipe('left'); }
+});
+
+function handleSwipe(direction){
+  let correct = (direction === 'right' && currentCard.match) || (direction === 'left' && !currentCard.match);
+  if(correct){
+    score += 1;
+    updateScore();
+    flash('✔');
+  } else {
+    incorrectAnswers.push(currentCard);
+    flash('✖');
+  }
+  setTimeout(showNextCard, 300); // Slight delay so flash is visible
+}
+
+function updateScore(){ scoreEl.textContent = `Score: ${score}`; }
+
+function flash(symbol){
+  flashIcon.textContent = symbol;
+  flashIcon.style.opacity = 1;
+  flashIcon.style.transform = 'scale(1.2)';
+  setTimeout(() => { flashIcon.style.opacity = 0; flashIcon.style.transform = 'scale(1)'; }, 600);
+}
+
+// End Game
+function endGame(){
+  clearInterval(timerInterval);
+  reviewContainer.style.display = 'block';
+  reviewList.innerHTML = '';
+  if(incorrectAnswers.length === 0){
+    let li = document.createElement('li');
+    li.textContent = 'No mistakes! Great job!';
+    reviewList.appendChild(li);
+  } else {
+    incorrectAnswers.forEach(item => {
+      let li = document.createElement('li');
+      li.innerHTML = `<strong>Concept:</strong> ${item.concept}<br><strong>Example:</strong> ${item.example}`;
+      reviewList.appendChild(li);
+    });
+  }
+  playAgainBtn.style.display = 'inline-block';
+  playAgainBtn.onclick = () => location.reload();
+}
+</script>
+</body>
+</html>
