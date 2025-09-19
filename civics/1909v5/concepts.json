@@ -1,0 +1,76 @@
+[
+  {
+    "topic": "Household incomes go up",
+    "examples": [
+      {
+        "text": "Families earn more money",
+        "match": true
+      },
+      {
+        "text": "People’s salaries increase",
+        "match": true
+      },
+      {
+        "text": "Workers get higher pay at their jobs",
+        "match": true
+      },
+      {
+        "text": "A family has extra money to buy a new TV",
+        "match": true
+      },
+      {
+        "text": "Families earn less money",
+        "match": false
+      },
+      {
+        "text": "People's salaries decrease",
+        "match": false
+      },
+      {
+        "text": "Workers get lower pay at their jobs",
+        "match": false
+      },
+      {
+        "text": "A family doesn't have extra money to buy a new TV",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Household incomes go down",
+    "examples": [
+      {
+        "text": "Families earn less money",
+        "match": true
+      },
+      {
+        "text": "People’s salaries get smaller",
+        "match": true
+      },
+      {
+        "text": "A worker’s pay is cut by the company",
+        "match": true
+      },
+      {
+        "text": "A family has less money to buy clothes",
+        "match": true
+      },
+      {
+        "text": "Families earn more money",
+        "match": false
+      },
+      {
+        "text": "People's salaries get bigger",
+        "match": false
+      },
+      {
+        "text": "A worker's pay is increased by the company",
+        "match": false
+      },
+      {
+        "text": "A family has more money to buy luxuries",
+        "match": false
+      }
+    ]
+  }
+]
