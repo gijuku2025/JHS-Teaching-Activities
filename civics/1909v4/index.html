@@ -70,9 +70,7 @@
     box-sizing: border-box;
     user-select: none;
     text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 1;
   }
@@ -83,12 +81,12 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 3em;
-    opacity: 0.3; /* faint so they don’t distract */
-    pointer-events: none; /* don’t block swipe */
+    opacity: 0.3; 
+    pointer-events: none; 
     z-index: 2;
   }
-  #icon-left { left: -30px; color: #FF4C4C; }
-  #icon-right { right: -30px; color: #4CAF50; }
+  #icon-left { left: -80px; color: #FF4C4C; }   /* fully outside left */
+  #icon-right { right: -80px; color: #4CAF50; } /* fully outside right */
 
   /* Review Section */
   #review-container {
