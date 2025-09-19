@@ -1,271 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ch 14 Matching Game</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      height: 100vh;
-      background: #f0f4f8;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Concept Matching Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
 
-    #header {
-      position: relative;
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-      text-align: center;
-    }
+  #game-container {
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+  }
 
-    #concept {
-      font-size: 2em;
-      font-weight: bold;
-      margin: 0;
-    }
+  /* Top Bar */
+  #top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
 
-    #timer {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
+  /* Flash Icon above instructions */
+  #flash-icon {
+    font-size: 4em;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-    #feedback {
-      font-size: 1.5em;
-      color: #333;
-      height: 1.5em;
-      margin-top: 5px;
-    }
+  /* Instructions */
+  #instructions {
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #555;
+  }
 
-    #game {
-      position: relative;
-      width: 80%;
-      max-width: 400px;
-      height: 300px;
-      margin-top: 20px;
-    }
+  /* Card Area */
+  #card-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+    overflow: visible; /* allow icons to show outside */
+  }
+  #card {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    padding: 10px;
+    box-sizing: border-box;
+    user-select: none;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
+  }
 
-    .card {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5em;
-      cursor: grab;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
+  /* Persistent Side Icons */
+  #icon-left, #icon-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3em;
+    opacity: 0.3; 
+    pointer-events: none; 
+    z-index: 2;
+  }
+  #icon-left { left: -80px; color: #FF4C4C; }   /* fully outside left */
+  #icon-right { right: -80px; color: #4CAF50; } /* fully outside right */
 
-    .indicator {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      opacity: 0.5;
-    }
+  /* Review Section */
+  #review-container {
+    display: none;
+    width: 100%;
+    height: 30vh;
+    overflow-y: auto;
+    margin-top: 20px;
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    text-align: left;
+  }
+  #review-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #review-container li {
+    margin-bottom: 8px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 
-    #leftIndicator { left: -100px; }
-    #rightIndicator { right: -100px; }
+  /* Play Again Button */
+  #play-again-btn {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
 
-    .indicator svg { width: 60px; height: 60px; }
-
-    #endScreen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    #endScreen h2 { font-size: 2.5em; margin-bottom: 20px; }
-
-    #restartBtn {
-      padding: 12px 24px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 8px;
-      background: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-
-    #restartBtn:hover { background: #0056b3; }
-  </style>
+</style>
 </head>
 <body>
-  <div id="header">
-    <h1 id="concept">Concept</h1>
-    <div id="feedback"></div>
+<div id="game-container">
+  <div id="top-bar">
     <div id="timer">60</div>
+    <div id="score">Score: 0</div>
   </div>
 
-  <div id="game">
-    <div id="leftIndicator" class="indicator">
-      <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18.364 5.636l-1.414-1.414L12 9.172 7.05 4.222 5.636 5.636 10.586 10.586 5.636 15.536l1.414 1.414L12 12l4.95 4.95 1.414-1.414L13.414 10.586z"/>
-      </svg>
-    </div>
-    <div id="rightIndicator" class="indicator">
-      <svg viewBox="0 0 24 24" fill="green" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.285 6.709l-11.285 11.29-5.285-5.29 1.42-1.418 3.865 3.871 9.865-9.873z"/>
-      </svg>
-    </div>
+  <div id="flash-icon">✔</div>
+  <div id="instructions">Swipe right = Match, Swipe left = No Match</div>
+
+  <div id="card-container">
+    <div id="card"></div>
+    <div id="icon-left">❌</div>
+    <div id="icon-right">✅</div>
   </div>
 
-  <div id="endScreen">
-    <h2 id="finalTitle"></h2>
-    <p id="score"></p>
-    <button id="restartBtn">Play Again</button>
+  <div id="review-container">
+    <h3>Review Incorrect Matches:</h3>
+    <ul id="review-list"></ul>
   </div>
+  <button id="play-again-btn">Play Again</button>
+</div>
 
-  <script>
-    let concepts = [];
-    let examplePool = [];
-    let score = 0;
-    let timeLeft = 60;
-    let timerInterval;
-    let gameActive = false;
+<script>
+let concepts = [];
+let currentCard = {};
+let score = 0;
+let timer = 60;
+let timerInterval;
+let incorrectAnswers = [];
+let cardEl = document.getElementById('card');
 
-    const conceptEl = document.getElementById("concept");
-    const feedbackEl = document.getElementById("feedback");
-    const timerEl = document.getElementById("timer");
-    const gameEl = document.getElementById("game");
-    const endScreen = document.getElementById("endScreen");
-    const finalTitle = document.getElementById("finalTitle");
-    const scoreEl = document.getElementById("score");
-    const restartBtn = document.getElementById("restartBtn");
-
-    // Load concepts from external JSON file
-    fetch("concepts.json")
-      .then(response => response.json())
-      .then(data => {
-        concepts = data;
-        startGame();
-      })
-      .catch(err => console.error("Error loading concepts:", err));
-
-    function startGame() {
-      // Build example pool across all concepts
-      examplePool = [];
-      concepts.forEach(concept => {
-        concept.examples.forEach(example => {
-          examplePool.push({ ...example, topic: concept.topic });
-        });
+// Fetch concepts from JSON file
+fetch('concepts.json')
+  .then(res => res.json())
+  .then(data => {
+    concepts = [];
+    data.forEach(topic => {
+      topic.examples.forEach(ex => {
+        concepts.push({concept: topic.topic, example: ex.text, match: ex.match});
       });
+    });
+    startGame();
+  });
 
-      score = 0;
-      timeLeft = 60;
-      gameActive = true;
-      feedbackEl.textContent = "";
-      endScreen.style.display = "none";
-      gameEl.querySelectorAll('.card').forEach(c => c.remove());
-      timerEl.textContent = timeLeft;
+// DOM Elements
+const iconLeft = document.getElementById('icon-left');
+const iconRight = document.getElementById('icon-right');
+const flashIcon = document.getElementById('flash-icon');
+const scoreEl = document.getElementById('score');
+const timerEl = document.getElementById('timer');
+const reviewContainer = document.getElementById('review-container');
+const reviewList = document.getElementById('review-list');
+const playAgainBtn = document.getElementById('play-again-btn');
 
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        timerEl.textContent = timeLeft;
-        if (timeLeft <= 0) endGame();
-      }, 1000);
-
-      nextCard();
+// Start Game
+function startGame() {
+  score = 0;
+  timer = 60;
+  incorrectAnswers = [];
+  updateScore();
+  showNextCard();
+  timerInterval = setInterval(() => {
+    timer--;
+    timerEl.textContent = timer;
+    if(timer <= 0){
+      endGame();
     }
+  }, 1000);
+}
 
-    function endGame() {
-      gameActive = false;
-      clearInterval(timerInterval);
-      gameEl.querySelectorAll('.card').forEach(c => c.remove());
-      endScreen.style.display = "flex";
-      finalTitle.textContent = "Concept Match Game";
-      scoreEl.textContent = "Your score: " + score;
-    }
+// Show next random card
+function showNextCard() {
+  currentCard = concepts[Math.floor(Math.random() * concepts.length)];
+  cardEl.style.transition = 'none';
+  cardEl.style.transform = 'translateX(0) rotate(0deg)';
+  cardEl.style.opacity = 1;
+  cardEl.innerHTML = `<div><b>${currentCard.concept}</b></div><div>${currentCard.example}</div>`;
+  flashIcon.style.opacity = 0;
+}
 
-    function nextCard() {
-      if (!gameActive || examplePool.length === 0) {
-        endGame();
-        return;
-      }
+// Swipe Handling
+let startX = 0;
 
-      const index = Math.floor(Math.random() * examplePool.length);
-      const example = examplePool[index];
-      conceptEl.textContent = example.topic;
+cardEl.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+cardEl.addEventListener('touchend', e => {
+  let endX = e.changedTouches[0].clientX;
+  let diff = endX - startX;
+  if(diff > 30){ handleSwipe('right'); }
+  else if(diff < -30){ handleSwipe('left'); }
+});
 
-      const card = document.createElement("div");
-      card.className = "card";
-      card.textContent = example.text;
-      gameEl.appendChild(card);
+cardEl.addEventListener('mousedown', e => { startX = e.clientX; });
+cardEl.addEventListener('mouseup', e => {
+  let diff = e.clientX - startX;
+  if(diff > 30){ handleSwipe('right'); }
+  else if(diff < -30){ handleSwipe('left'); }
+});
 
-      let startX = 0, currentX = 0, offsetX = 0;
+function handleSwipe(direction){
+  let correct = (direction === 'right' && currentCard.match) || (direction === 'left' && !currentCard.match);
+  if(!correct){
+    incorrectAnswers.push(currentCard);
+  }
 
-      function onStart(e) {
-        startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-        document.addEventListener("mousemove", onMove);
-        document.addEventListener("mouseup", onEnd);
-        document.addEventListener("touchmove", onMove);
-        document.addEventListener("touchend", onEnd);
-      }
+  flash(correct ? '✔' : '✖');
 
-      function onMove(e) {
-        currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-        offsetX = currentX - startX;
-        card.style.transform = `translate(${offsetX}px, 0) rotate(${offsetX/10}deg)`;
-      }
+  // Animate card swipe
+  cardEl.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+  cardEl.style.transform = direction === 'right' ? 'translateX(120%) rotate(15deg)' : 'translateX(-120%) rotate(-15deg)';
+  cardEl.style.opacity = 0;
 
-      function onEnd() {
-        document.removeEventListener("mousemove", onMove);
-        document.removeEventListener("mouseup", onEnd);
-        document.removeEventListener("touchmove", onMove);
-        document.removeEventListener("touchend", onEnd);
+  // After animation, show next card
+  setTimeout(() => {
+    if(timer <= 0) return;
+    if(correct) score += 1;
+    updateScore();
+    showNextCard();
+  }, 300);
+}
 
-        if (Math.abs(offsetX) > 100) {
-          const isRight = offsetX > 0;
-          handleChoice(isRight, example.match, index);
-          card.style.transition = "transform 0.3s ease, opacity 0.3s ease";
-          card.style.transform = `translate(${isRight ? 500 : -500}px, 0) rotate(${offsetX/10}deg)`;
-          card.style.opacity = 0;
-          setTimeout(() => {
-            gameEl.removeChild(card);
-            if (gameActive) nextCard();
-          }, 300);
-        } else {
-          card.style.transition = "transform 0.3s ease";
-          card.style.transform = "translate(0,0)";
-        }
-      }
+function updateScore(){ scoreEl.textContent = `Score: ${score}`; }
 
-      card.addEventListener("mousedown", onStart);
-      card.addEventListener("touchstart", onStart);
-    }
+function flash(symbol){
+  flashIcon.textContent = symbol;
+  flashIcon.style.opacity = 1;
+  flashIcon.style.transform = 'scale(1.2)';
+  setTimeout(() => { flashIcon.style.opacity = 0; flashIcon.style.transform = 'scale(1)'; }, 600);
+}
 
-    function handleChoice(swipeRight, isMatch, index) {
-      const correct = (swipeRight && isMatch) || (!swipeRight && !isMatch);
-      if (correct) {
-        score++;
-        feedbackEl.textContent = "Correct!";
-        feedbackEl.style.color = "green";
-        examplePool.splice(index, 1); // remove correctly matched example
-      } else {
-        feedbackEl.textContent = "Wrong!";
-        feedbackEl.style.color = "red";
-      }
-      setTimeout(() => feedbackEl.textContent = "", 700);
-    }
+// End Game
+function endGame(){
+  clearInterval(timerInterval);
+  reviewContainer.style.display = 'block';
+  reviewList.innerHTML = '';
+  if(incorrectAnswers.length === 0){
+    let li = document.createElement('li');
+    li.textContent = 'No mistakes! Great job!';
+    reviewList.appendChild(li);
+  } else {
+    incorrectAnswers.forEach(item => {
+      let li = document.createElement('li');
+      li.innerHTML = `<strong>Concept:</strong> ${item.concept}<br><strong>Example:</strong> ${item.example}`;
+      reviewList.appendChild(li);
+    });
+  }
+  playAgainBtn.style.display = 'inline-block';
+  playAgainBtn.onclick = () => location.reload();
+}
 
-    restartBtn.addEventListener("click", startGame);
-  </script>
+</script>
 </body>
 </html>
