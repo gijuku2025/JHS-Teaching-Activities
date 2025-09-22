@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pair Generator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+    background: #f7f7f7;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .input-container, .controls, .slots-container {
+    margin: 20px 0;
+  }
+
+  input#numStudents {
+    width: 80px;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .slot {
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    line-height: 140px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #333;
+    font-size: 40px;
+    margin: 0 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  table {
+    margin: 30px auto;
+    border-collapse: collapse;
+    width: 70%;
+    background: #fff;
+    text-align: center;
+  }
+
+  th, td {
+    border: 1px solid #333;
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  tr.group-of-3 {
+    background-color: #ffe0b2;
+    font-weight: bold;
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Pair Generator</h1>
+
+<div class="input-container">
+  <label for="numStudents">Number of Students:</label>
+  <input type="number" id="numStudents" value="39">
+</div>
+
+<div class="controls">
+  <button id="spinButton">Spin to Reveal Pair</button>
+</div>
+
+<div class="slots-container">
+  <div id="slot1" class="slot">--</div>
+  <div id="slot2" class="slot">--</div>
+  <div id="slot3" class="slot">--</div>
+</div>
+
+<table id="pairsTable">
+  <thead>
+    <tr>
+      <th>Pair #</th>
+      <th>Student 1</th>
+      <th>Student 2</th>
+      <th>Student 3</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+const pairs = [
+  [1,18], [3,10], [7,38], [4,5], [25,16], [6,31], [27,8], [9,12],
+  [11,13], [21,19], [14,36], [15,24], [17,26], [30,22], [28,20],
+  [33,34], [2,37], [23,35], [29,32,39]
+];
+
+let currentIndex = 0;
+
+const spinButton = document.getElementById('spinButton');
+const slot1 = document.getElementById('slot1');
+const slot2 = document.getElementById('slot2');
+const slot3 = document.getElementById('slot3');
+const pairsTable = document.getElementById('pairsTable').querySelector('tbody');
+
+// Function to spin slots and reveal pair/trio
+function spinSlots() {
+  if(currentIndex >= pairs.length) {
+    alert('All pairs and the group of 3 have been revealed!');
+    spinButton.disabled = true;
+    return;
+  }
+
+  const pair = pairs[currentIndex];
+  const slots = [slot1, slot2, slot3];
+
+  // Reset slots
+  slots.forEach(s => s.textContent = '--');
+
+  let spinCount = 0;
+  const interval = setInterval(() => {
+    slots.forEach((s, i) => {
+      if(i < pair.length){
+        s.textContent = Math.floor(Math.random() * 39) + 1;
+      } else {
+        s.textContent = '';
+      }
+    });
+    spinCount++;
+    if(spinCount > 25) {
+      // Stop spinning and show actual pair/trio
+      pair.forEach((num, i) => slots[i].textContent = num);
+      addPairToTable(pair);
+      currentIndex++;
+      clearInterval(interval);
+    }
+  }, 50);
+}
+
+// Add pair/trio to table
+function addPairToTable(pair) {
+  const row = document.createElement('tr');
+  if(pair.length === 3) row.classList.add('group-of-3');
+
+  const pairNumberCell = document.createElement('td');
+  pairNumberCell.textContent = currentIndex + 1;
+  row.appendChild(pairNumberCell);
+
+  for(let i = 0; i < 3; i++){
+    const cell = document.createElement('td');
+    cell.textContent = pair[i] !== undefined ? pair[i] : '';
+    row.appendChild(cell);
+  }
+
+  pairsTable.appendChild(row);
+}
+
+// Event listener
+spinButton.addEventListener('click', spinSlots);
+
+</script>
+
+</body>
+</html>
