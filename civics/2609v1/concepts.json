@@ -1,0 +1,616 @@
+[
+  {
+    "topic": "Household incomes go up",
+    "examples": [
+      {
+        "text": "Families earn more money",
+        "match": true
+      },
+      {
+        "text": "People’s salaries increase",
+        "match": true
+      },
+      {
+        "text": "Workers get higher pay at their jobs",
+        "match": true
+      },
+      {
+        "text": "A family has extra money to buy a new TV",
+        "match": true
+      },
+      {
+        "text": "Households earn less money",
+        "match": false
+      },
+      {
+        "text": "People’s salaries decrease",
+        "match": false
+      },
+      {
+        "text": "Workers get lower pay at their jobs",
+        "match": false
+      },
+      {
+        "text": "A family has less money to buy a new TV",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Household incomes go down",
+    "examples": [
+      {
+        "text": "Families earn less money",
+        "match": true
+      },
+      {
+        "text": "People’s salaries get smaller",
+        "match": true
+      },
+      {
+        "text": "A worker’s pay is cut by the company",
+        "match": true
+      },
+      {
+        "text": "A family has less money to buy clothes",
+        "match": true
+      },
+      {
+        "text": "Households earn more money",
+        "match": false
+      },
+      {
+        "text": "People’s salaries increase",
+        "match": false
+      },
+      {
+        "text": "Workers get higher pay at their jobs",
+        "match": false
+      },
+      {
+        "text": "A family has extra money to buy clothes",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Commodities sell well even if they are expensive",
+    "examples": [
+      {
+        "text": "People keep buying things even when prices are high",
+        "match": true
+      },
+      {
+        "text": "Expensive products still sell a lot",
+        "match": true
+      },
+      {
+        "text": "Many people buy new smartphones even when the price goes up",
+        "match": true
+      },
+      {
+        "text": "Luxury bags sell quickly at the store",
+        "match": true
+      },
+      {
+        "text": "People stop buying things when prices are high",
+        "match": false
+      },
+      {
+        "text": "Expensive products do not sell well",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Commodities don’t sell well even if they are cheap",
+    "examples": [
+      {
+        "text": "People don’t buy much even when things are cheap",
+        "match": true
+      },
+      {
+        "text": "Low prices still don’t bring many sales",
+        "match": true
+      },
+      {
+        "text": "A shop sells clothes at discount but no one buys",
+        "match": true
+      },
+      {
+        "text": "A car company lowers prices but customers don’t come",
+        "match": true
+      },
+      {
+        "text": "A shop sells discounted clothes quickly",
+        "match": false
+      },
+      {
+        "text": "A car company lowers prices and customers come",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Demand is higher than supply",
+    "examples": [
+      {
+        "text": "Many people want products but there are not enough",
+        "match": true
+      },
+      {
+        "text": "More buyers than goods available",
+        "match": true
+      },
+      {
+        "text": "A new game console is sold out everywhere",
+        "match": true
+      },
+      {
+        "text": "Tickets for a concert run out quickly",
+        "match": true
+      },
+      {
+        "text": "There are enough goods for everyone",
+        "match": false
+      },
+      {
+        "text": "More goods than buyers",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Demand is lower than supply",
+    "examples": [
+      {
+        "text": "There are too many goods but not enough buyers",
+        "match": true
+      },
+      {
+        "text": "Companies make more than people want to buy",
+        "match": true
+      },
+      {
+        "text": "A factory produces 1000 shoes but only 300 are sold",
+        "match": true
+      },
+      {
+        "text": "Farmers have extra vegetables that no one buys",
+        "match": true
+      },
+      {
+        "text": "There are too few goods for buyers",
+        "match": false
+      },
+      {
+        "text": "Companies make less than people want",
+        "match": false
+      },
+      {
+        "text": "A factory sells all 1000 shoes",
+        "match": false
+      },
+      {
+        "text": "Farmers sell all their vegetables",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Prices go up",
+    "examples": [
+      {
+        "text": "Things become more expensive",
+        "match": true
+      },
+      {
+        "text": "Costs rise",
+        "match": true
+      },
+      {
+        "text": "The price of milk rises from $2 to $3",
+        "match": true
+      },
+      {
+        "text": "Bus fares increase in the city",
+        "match": true
+      },
+      {
+        "text": "Things become cheaper",
+        "match": false
+      },
+      {
+        "text": "Costs fall",
+        "match": false
+      },
+      {
+        "text": "The price of milk drops from $3 to $2",
+        "match": false
+      },
+      {
+        "text": "Bus fares decrease in the city",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Prices go down",
+    "examples": [
+      {
+        "text": "Things become cheaper",
+        "match": true
+      },
+      {
+        "text": "Costs fall",
+        "match": true
+      },
+      {
+        "text": "The price of bread drops from $2 to $1",
+        "match": true
+      },
+      {
+        "text": "A TV is on sale for half price",
+        "match": true
+      },
+      {
+        "text": "Things become more expensive",
+        "match": false
+      },
+      {
+        "text": "Costs rise",
+        "match": false
+      },
+      {
+        "text": "The price of bread rises from $1 to $2",
+        "match": false
+      },
+      {
+        "text": "A TV is sold at full price",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Inflation",
+    "examples": [
+      {
+        "text": "Prices keep rising",
+        "match": true
+      },
+      {
+        "text": "Money buys less than before",
+        "match": true
+      },
+      {
+        "text": "Last year bread cost $1 now it’s $1.50",
+        "match": true
+      },
+      {
+        "text": "Families need more money to buy the same food",
+        "match": true
+      },
+      {
+        "text": "Prices fall",
+        "match": false
+      },
+      {
+        "text": "Money buys more than before",
+        "match": false
+      },
+      {
+        "text": "Last year bread cost $1.50 now it’s $1",
+        "match": false
+      },
+      {
+        "text": "Families need less money to buy the same food",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Deflation",
+    "examples": [
+      {
+        "text": "Prices keep falling",
+        "match": true
+      },
+      {
+        "text": "Things get cheaper over time",
+        "match": true
+      },
+      {
+        "text": "A computer that was $500 is now $400",
+        "match": true
+      },
+      {
+        "text": "Shops lower prices each month to sell products",
+        "match": true
+      },
+      {
+        "text": "Prices rise",
+        "match": false
+      },
+      {
+        "text": "Things get more expensive over time",
+        "match": false
+      },
+      {
+        "text": "A computer that was $400 is now $500",
+        "match": false
+      },
+      {
+        "text": "Shops increase prices each month",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Prices continue to go up",
+    "examples": [
+      {
+        "text": "Costs rise again and again",
+        "match": true
+      },
+      {
+        "text": "Goods stay expensive and keep getting higher",
+        "match": true
+      },
+      {
+        "text": "Gasoline price increases every week",
+        "match": true
+      },
+      {
+        "text": "Rent becomes higher each year",
+        "match": true
+      },
+      {
+        "text": "Costs fall again and again",
+        "match": false
+      },
+      {
+        "text": "Goods stay cheap",
+        "match": false
+      },
+      {
+        "text": "Gasoline price decreases every week",
+        "match": false
+      },
+      {
+        "text": "Rent becomes lower each year",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Prices continue to go down",
+    "examples": [
+      {
+        "text": "Costs fall again and again",
+        "match": true
+      },
+      {
+        "text": "Goods stay cheap and keep getting lower",
+        "match": true
+      },
+      {
+        "text": "Laptop prices drop every month",
+        "match": true
+      },
+      {
+        "text": "Vegetables get cheaper each season",
+        "match": true
+      },
+      {
+        "text": "Costs rise again and again",
+        "match": false
+      },
+      {
+        "text": "Goods stay expensive",
+        "match": false
+      },
+      {
+        "text": "Laptop prices increase every month",
+        "match": false
+      },
+      {
+        "text": "Vegetables get more expensive each season",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Companies increase production",
+    "examples": [
+      {
+        "text": "Factories make more products",
+        "match": true
+      },
+      {
+        "text": "Businesses produce more goods",
+        "match": true
+      },
+      {
+        "text": "A toy company doubles its output for Christmas",
+        "match": true
+      },
+      {
+        "text": "Factories make fewer products",
+        "match": false
+      },
+      {
+        "text": "Businesses produce less goods",
+        "match": false
+      },
+      {
+        "text": "A car factory builds fewer cars this year",
+        "match": false
+      },
+      {
+        "text": "A toy company halves its output for Christmas",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Prices and demand are high",
+    "examples": [
+      {
+        "text": "Goods are expensive and many people want them",
+        "match": true
+      },
+      {
+        "text": "Phones cost more but still sell fast",
+        "match": true
+      },
+      {
+        "text": "Hotel rooms are expensive but always full",
+        "match": true
+      },
+      {
+        "text": "Things are cheap and not wanted",
+        "match": false
+      },
+      {
+        "text": "Hotel rooms are cheap and empty",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Companies decrease production",
+    "examples": [
+      {
+        "text": "Factories make fewer products",
+        "match": true
+      },
+      {
+        "text": "Businesses produce less",
+        "match": true
+      },
+      {
+        "text": "A farm plants less wheat this year",
+        "match": true
+      },
+      {
+        "text": "Factories make more products",
+        "match": false
+      },
+      {
+        "text": "Businesses produce more",
+        "match": false
+      },
+      {
+        "text": "A farm plants more wheat this year",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Prices and demand are low",
+    "examples": [
+      {
+        "text": "Goods are cheap but people don’t want them",
+        "match": true
+      },
+      {
+        "text": "Prices are low but sales are weak",
+        "match": true
+      },
+      {
+        "text": "A farmer sells apples at low cost but buyers are few",
+        "match": true
+      },
+      {
+        "text": "Goods are expensive and people want them",
+        "match": false
+      },
+      {
+        "text": "Prices are high and sales are strong",
+        "match": false
+      },
+      {
+        "text": "Clothes are expensive and sell fast",
+        "match": false
+      },
+      {
+        "text": "A farmer sells apples at high cost and buyers are many",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Recession",
+    "examples": [
+      {
+        "text": "The economy slows down",
+        "match": true
+      },
+      {
+        "text": "People lose jobs and spend less",
+        "match": true
+      },
+      {
+        "text": "Shops close because sales fall",
+        "match": true
+      },
+      {
+        "text": "Many workers are unemployed",
+        "match": true
+      },
+      {
+        "text": "The economy grows",
+        "match": false
+      },
+      {
+        "text": "People gain jobs and spend more",
+        "match": false
+      },
+      {
+        "text": "Shops open because sales rise",
+        "match": false
+      },
+      {
+        "text": "Few workers are unemployed",
+        "match": false
+      }
+    ]
+  },
+  {
+    "topic": "Demand continues to go down",
+    "examples": [
+      {
+        "text": "Fewer and fewer people buy products",
+        "match": true
+      },
+      {
+        "text": "Sales drop again and again",
+        "match": true
+      },
+      {
+        "text": "Each month fewer customers buy new cars",
+        "match": true
+      },
+      {
+        "text": "A store sells less food every week",
+        "match": true
+      },
+      {
+        "text": "More and more people buy products",
+        "match": false
+      },
+      {
+        "text": "Sales increase every month",
+        "match": false
+      },
+      {
+        "text": "Each month more customers buy new cars",
+        "match": false
+      },
+      {
+        "text": "A store sells more food every week",
+        "match": false
+      }
+    ]
+  }
+]
