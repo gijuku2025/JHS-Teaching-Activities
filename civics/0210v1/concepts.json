@@ -1,0 +1,82 @@
+[
+  {
+    "statement": "Tropical rainforest is found all over the Amazon Basin.",
+    "answer": true
+  },
+  {
+    "statement": "Farmers use ashes as fertilizer for their crops.",
+    "answer": true
+  },
+  {
+    "statement": "Banana potatoes beans and corn are grown using slash-and-burn agriculture.",
+    "answer": true
+  },
+  {
+    "statement": "Soil in slash-and-burn agriculture loses nutrition after a few years.",
+    "answer": true
+  },
+  {
+    "statement": "Farmers move to new locations when the soil loses its nutrition.",
+    "answer": true
+  },
+  {
+    "statement": "Old fields from slash-and-burn agriculture eventually become forests again.",
+    "answer": true
+  },
+  {
+    "statement": "Slash-and-burn agriculture helps forests regrow over time.",
+    "answer": true
+  },
+  {
+    "statement": "The Arapaima fish can grow more than three meters long.",
+    "answer": true
+  },
+  {
+    "statement": "Fish are an important source of protein for the people in the Amazon Basin.",
+    "answer": true
+  },
+  {
+    "statement": "One old fishing method used by people in the Amazon Basin involves poisonous plants.",
+    "answer": true
+  },
+  {
+    "statement": "Farmers cut down trees only in the dry season.",
+    "answer": false
+  },
+  {
+    "statement": "Once farmers move to a new location old fields remain barren forever.",
+    "answer": false
+  },
+  {
+    "statement": "Slash-and-burn agriculture permanently damages the forest.",
+    "answer": false
+  },
+  {
+    "statement": "The Galapagos Islands are located to the east of South America.",
+    "answer": false
+  },
+  {
+    "statement": "The Galapagos Islands were formed by earthquakes.",
+    "answer": false
+  },
+  {
+    "statement": "The species on the Galapagos Islands are the same as in South America.",
+    "answer": false
+  },
+  {
+    "statement": "The Galapagos Islands are not protected by any official designation.",
+    "answer": false
+  },
+  {
+    "statement": "Tourists are free to roam the Galapagos Islands without guides.",
+    "answer": false
+  },
+  {
+    "statement": "Some tourists caused no harm to the environment when visiting the Galapagos Islands.",
+    "answer": false
+  },
+  {
+    "statement": "Fish are never eaten by people in the Amazon Basin because they are sacred.",
+    "answer": false
+  }
+]
