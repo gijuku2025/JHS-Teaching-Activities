@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heads Up Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="game-container">
+    <h1>Heads Up Game</h1>
+
+    <!-- Chapter Selection Screen -->
+    <div id="chapter-screen">
+      <h2>Select Chapters:</h2>
+      <form id="chapter-form">
+        <!-- Dynamic chapter checkboxes will be loaded here -->
+      </form>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game" class="hidden">
+      <p id="timer">Time Left: <span id="time">60</span> seconds</p>
+      <div id="word-display">Get Ready!</div>
+      <div class="buttons">
+        <button id="correct-btn">Correct</button>
+        <button id="incorrect-btn">Incorrect</button>
+      </div>
+      <p id="score">Score: <span id="current-score">0</span></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
