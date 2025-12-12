@@ -3,9 +3,9 @@ let teams = null; // Array to hold team/player data
 let currentTeamIndex = 0; // Tracks which team's turn it is
 let currentPlayerIndex = 0; // Tracks which player on the current team is up
 let wordPool = {}; // Full word pool from the JSON file
-let remainingWords = []; // Words left to show
+let remainingWords = []; // Words left to show for rounds
 let incorrectWords = []; // Words marked as incorrect
-let correctWords = []; // Words marked as correct
+let allWords = []; // Combined pool of all correct and incorrect words
 let timer = null; // Timer reference for each round
 let timeLeft = 30; // 30-second timer for each round
 
@@ -14,12 +14,9 @@ const startScreen = document.getElementById("start-screen");
 const setupForm = document.getElementById("setup-form");
 const chapterSelection = document.getElementById("chapter-selection");
 const gameScreen = document.getElementById("game-screen");
-const wordDisplay = document.getElementById("word-display");
+const wordDisplayContainer = document.getElementById("word-display-container");
 const rollDiceBtn = document.getElementById("roll-dice-btn");
 const startRoundBtn = document.getElementById("start-round-btn");
-const correctBtn = document.getElementById("correct-btn");
-const incorrectBtn = document.getElementById("incorrect-btn");
-const answerButtons = document.getElementById("answer-buttons");
 const timerDisplay = document.getElementById("time-left");
 const diceResultMessage = document.getElementById("dice-result-message");
 const currentPlayerDisplay = document.getElementById("current-player");
@@ -28,22 +25,24 @@ const turnSummary = document.getElementById("turn-summary");
 const nextPlayerDisplay = document.getElementById("next-player");
 
 // Constants
+const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0, 1]; // Dice can roll 0 or 1
 
-// **1. Load chapters from JSON and render checkboxes**
+// **1. Load Chapters from JSON and Render Checkboxes**
 async function loadChapters() {
-  console.log("Loading chapters..."); // Debugging: Check if the function is called
+  console.log("Loading chapters..."); // Debugging
   try {
     const response = await fetch("chapters.json"); // Fetch JSON file
     if (!response.ok) {
       throw new Error(`Failed to fetch chapters.json. Status: ${response.status}`);
     }
-    const data = await response.json(); // Parse JSON data
-    console.log("Parsed JSON data:", data); // Debugging: Log parsed JSON
 
-    // Dynamically render checkboxes
+    const data = await response.json(); // Parse JSON data
+    console.log("Parsed JSON data:", data); // Debugging
+    wordPool = data;
+
+    // Dynamically render chapter checkboxes as a clean vertical list
     for (const chapter in data) {
-      console.log(`Rendering chapter: ${chapter}`); // Debugging: Log each chapter key
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.value = chapter;
@@ -53,22 +52,23 @@ async function loadChapters() {
       label.setAttribute("for", chapter);
       label.textContent = chapter.replace("chapter", "Chapter ");
 
-      chapterSelection.appendChild(checkbox);
-      chapterSelection.appendChild(label);
-      chapterSelection.appendChild(document.createElement("br"));
-    }
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("checkbox-item");
+      wrapper.appendChild(checkbox);
+      wrapper.appendChild(label);
 
-    wordPool = data; // Store the full word pool
-    console.log("Chapters successfully rendered!"); // Debugging
+      chapterSelection.appendChild(wrapper);
+    }
+    console.log("Chapters successfully rendered!");
   } catch (err) {
     alert("Failed to load chapters. Please refresh the page.");
-    console.error("Error loading chapters:", err); // Debugging: Log error
+    console.error("Error loading chapters:", err);
   }
 }
 
-// **2. Setup the game when the form is submitted**
+// **2. Set up the game when the form is submitted**
 setupForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent default form submission behavior
+  event.preventDefault();
 
   // Capture player names
   teams = [
@@ -90,13 +90,13 @@ setupForm.addEventListener("submit", (event) => {
     },
   ];
 
-  // Validate that all names are entered
+  // Validate player names
   if (teams.some((team) => team.players.some((player) => player === ""))) {
     alert("Please enter names for all players.");
     return;
   }
 
-  // Build the word list based on selected chapters
+  // Get selected chapters
   const selectedChapters = Array.from(
     setupForm.querySelectorAll("input[type='checkbox']:checked")
   ).map((input) => wordPool[input.value]);
@@ -106,111 +106,128 @@ setupForm.addEventListener("submit", (event) => {
     return;
   }
 
-  remainingWords = selectedChapters.flat(); // Flatten selected chapter arrays
+  // Initialize the word pool and reset variables
+  remainingWords = selectedChapters.flat();
+  allWords = [...remainingWords]; // Save all words in the "allWords" array
   startScreen.classList.add("hidden"); // Hide start screen
   gameScreen.classList.remove("hidden"); // Show game screen
 
   startTurn(); // Begin the first turn
 });
 
-// **3. Start the turn for the current player**
+// **3. Start the current player's turn**
 function startTurn() {
-  clearInterval(timer); // Clear the previous timer (if any)
+  clearInterval(timer); // Clear any previous timers
 
   const currentTeam = teams[currentTeamIndex];
   const currentPlayer = currentTeam.players[currentPlayerIndex];
 
-  // Reset UI elements
+  // Update the UI to show the current player's turn
   currentPlayerDisplay.textContent = `${currentPlayer} (${currentTeam.name})`;
-  wordDisplay.textContent = "Roll the Dice";
+  wordDisplayContainer.innerHTML = ""; // Clear previous round's words
   diceResultMessage.textContent = "";
-  rollDiceBtn.disabled = false; // Allow dice rolling
-  resultsDisplay.classList.add("hidden"); // Hide results section
-  answerButtons.classList.add("hidden"); // Hide answer buttons
+  rollDiceBtn.disabled = false; // Enable the dice roll button
+  resultsDisplay.classList.add("hidden"); // Hide results display
   startRoundBtn.classList.add("hidden"); // Hide "Start Round" button
 
-  correctWords = []; // Reset correct words list for this turn
+  console.log(`It's ${currentPlayer} (${currentTeam.name})'s turn!`); // Debugging
 }
 
-// **4. Roll the dice and allow round to start**
+// **4. Roll the dice and prepare the round**
 rollDiceBtn.addEventListener("click", () => {
   const diceRoll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
-  diceResultMessage.textContent = `Dice roll: ${diceRoll}`;
-  rollDiceBtn.disabled = true; // Disable dice roll button
+  diceResultMessage.textContent = `Dice Roll: ${diceRoll}`;
+  rollDiceBtn.disabled = true; // Disable the dice roll
   startRoundBtn.classList.remove("hidden"); // Show "Start Round" button
 });
 
-// **5. Start the round (30-second timer)**
+// **5. Start a round (display 5 words and track guesses)**
 startRoundBtn.addEventListener("click", () => {
-  startRoundBtn.classList.add("hidden"); // Hide the "Start Round" button
-  answerButtons.classList.remove("hidden"); // Show answer buttons
+  startRoundBtn.classList.add("hidden"); // Hide the button
   timeLeft = 30; // Reset timer
   timerDisplay.textContent = timeLeft;
 
-  // Start the timer countdown
+  // Select exactly 5 words from the remainingWords pool
+  let roundWords = [];
+  for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
+    if (remainingWords.length === 0) {
+      // Refill remainingWords if empty
+      if (incorrectWords.length > 0) {
+        remainingWords = [...incorrectWords];
+        incorrectWords = [];
+      } else {
+        remainingWords = [...allWords]; // Recycle all words if all are empty
+      }
+      shuffleArray(remainingWords); // Shuffle the pool
+    }
+    // Pull one word and remove it from the pool
+    roundWords.push(remainingWords.pop());
+  }
+
+  // Render each word in the UI
+  for (const word of roundWords) {
+    const wordRow = document.createElement("div");
+    wordRow.classList.add("word-row");
+
+    const wordText = document.createElement("span");
+    wordText.textContent = word;
+
+    const correctButton = document.createElement("button");
+    correctButton.textContent = "Correct";
+    correctButton.addEventListener("click", () => {
+      correctButton.disabled = true; // Disable button after clicking
+      wordRow.dataset.correct = true; // Mark the word as correct
+    });
+
+    wordRow.appendChild(wordText);
+    wordRow.appendChild(correctButton);
+    wordDisplayContainer.appendChild(wordRow);
+  }
+
+  // Start the round timer
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
 
     if (timeLeft <= 0) {
       clearInterval(timer); // Stop the timer
-      endTurn(); // End the turn
+      endRound(roundWords); // Calculate results for the round
     }
   }, 1000);
-
-  showNextWord(); // Display the first word
 });
 
-// **6. Show the next word**
-function showNextWord() {
-  if (remainingWords.length > 0) {
-    const wordIndex = Math.floor(Math.random() * remainingWords.length);
-    const word = remainingWords.splice(wordIndex, 1)[0]; // Remove word from pool
-    wordDisplay.textContent = word;
-  } else if (incorrectWords.length > 0) {
-    remainingWords = [...incorrectWords]; // Reuse incorrect words
-    incorrectWords = [];
-    showNextWord();
-  } else if (correctWords.length > 0) {
-    remainingWords = [...correctWords]; // Reuse correct words
-    correctWords = [];
-    showNextWord();
-  } else {
-    wordDisplay.textContent = "No more words available.";
-    correctBtn.disabled = true;
-    incorrectBtn.disabled = true;
-  }
-}
+// **6. End the round and calculate results**
+function endRound(words) {
+  let correctCount = 0;
 
-// **7. Handle correct/incorrect answers**
-correctBtn.addEventListener("click", () => {
-  correctWords.push(wordDisplay.textContent); // Mark word as correct
-  showNextWord();
-});
+  // Loop through words and count correct guesses
+  words.forEach((wordRow) => {
+    const isCorrect = wordRow.dataset.correct === "true";
+    if (isCorrect) {
+      correctCount++;
+    } else {
+      incorrectWords.push(wordRow.textContent); // Add to incorrect list
+    }
+  });
 
-incorrectBtn.addEventListener("click", () => {
-  incorrectWords.push(wordDisplay.textContent); // Mark word as incorrect
-  showNextWord();
-});
+  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10); // Extract dice roll
+  const spacesToMove = correctCount - diceRoll;
 
-// **8. End the turn**
-function endTurn() {
+  // Update the current team's score
   const currentTeam = teams[currentTeamIndex];
-  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10); // Extract dice roll value
-  const spacesToMove = correctWords.length - diceRoll;
-
-  currentTeam.score += spacesToMove; // Add spaces to team's score
+  currentTeam.score += spacesToMove;
 
   // Display turn summary
-  turnSummary.textContent = `${currentTeam.players[currentPlayerIndex]} (${currentTeam.name}): 
-    Correct Guesses: ${correctWords.length} | Dice Roll: ${diceRoll} | Spaces to Move: ${spacesToMove}`;
+  turnSummary.textContent = `Correct: ${correctCount} | Dice Roll: ${diceRoll} | Spaces Moved: ${spacesToMove}`;
   nextPlayerDisplay.textContent = `Next Player: ${
-    teams[(currentTeamIndex + 1) % teams.length].players[(currentPlayerIndex + 1) % 2]
+    teams[(currentTeamIndex + 1) % teams.length].players[
+      (currentPlayerIndex + 1) % 2
+    ]
   }`;
 
-  resultsDisplay.classList.remove("hidden"); // Show results summary
+  resultsDisplay.classList.remove("hidden"); // Show results
 
-  // Update indices for the next turn
+  // Advance turn: Update player/team indices
   currentPlayerIndex =
     currentPlayerIndex + 1 === currentTeam.players.length
       ? 0
@@ -218,9 +235,16 @@ function endTurn() {
   currentTeamIndex =
     currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
 
-  correctWords = []; // Reset correct words
-  setTimeout(startTurn, 5000); // Wait 5 seconds, then start the next turn
+  setTimeout(startTurn, 5000); // Wait and move to next turn
+});
+
+// **Utility Function: Shuffle an array**
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
-// Load chapters on initial page load
+// Load chapters on page load
 loadChapters();
