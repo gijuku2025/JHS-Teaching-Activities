@@ -36,7 +36,7 @@
         <!-- Chapter Selection -->
         <h3>Select Chapters</h3>
         <div id="chapter-selection">
-          <!-- Checkboxes for chapters will be dynamically added here via script -->
+          <!-- Checkboxes added dynamically -->
         </div>
 
         <button type="submit" id="start-game-btn">Start Game</button>
@@ -53,11 +53,11 @@
 
       <!-- Word Display -->
       <div id="word-display-container">
-        <!-- Words with Correct buttons will be added dynamically -->
+        <!-- Words appear here -->
       </div>
 
-      <!-- Timer -->
-      <div id="timer-container">
+      <!-- Timer (hidden until round starts) -->
+      <div id="timer-container" class="hidden">
         <h3>Time Left: <span id="time-left">30</span> seconds</h3>
       </div>
 
@@ -72,6 +72,9 @@
         <h3>Round Summary</h3>
         <p id="turn-summary"></p>
         <p id="next-player"></p>
+
+        <!-- NEW BUTTON REQUIRED BY UPDATED JS -->
+        <button id="next-round-btn" class="hidden">Next Round</button>
       </div>
     </div>
   </div>
