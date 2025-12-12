@@ -236,7 +236,7 @@ function endRound(words) {
     currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
 
   setTimeout(startTurn, 5000); // Wait and move to next turn
-});
+};
 
 // **Utility Function: Shuffle an array**
 function shuffleArray(array) {
