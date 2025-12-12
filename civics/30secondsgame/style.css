@@ -33,7 +33,7 @@ h2, h3 {
 
 /* Hidden Elements */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* Start Screen */
@@ -66,96 +66,3 @@ input[type="text"] {
 
 #chapter-selection .checkbox-item {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-#chapter-selection input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.2);
-}
-
-/* Buttons */
-button {
-  font-size: 16px;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-  background-color: #007bff;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-button:disabled {
-  background-color: lightgray;
-  cursor: not-allowed;
-}
-
-/* Timer */
-#timer-container {
-  margin-top: 20px;
-}
-
-#timer-container h3 span {
-  color: #dc3545; /* Red color for urgency */
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-/* Game Screen Word Rows */
-#word-display-container {
-  margin: 20px auto;
-  padding: 10px;
-}
-
-.word-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.word-row span {
-  font-size: 18px;
-  font-weight: bold;
-  flex: 1;
-  text-align: left;
-}
-
-.word-row button {
-  color: white;
-  background-color: #28a745;
-}
-
-.word-row button:disabled {
-  background-color: gray;
-}
-
-/* Results Section */
-#results {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-#results h3 {
-  color: #28a745;
-  font-size: 1.5rem;
-}
-
-#turn-summary, #next-player {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
