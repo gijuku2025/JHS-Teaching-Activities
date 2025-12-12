@@ -147,90 +147,99 @@ startRoundBtn.addEventListener("click", () => {
   timeLeft = 30; // Reset timer
   timerDisplay.textContent = timeLeft;
 
-  // Select 5 words for the round
-  let roundWords = [];
+  // Pick the next 5 words
+  let selectedWords = [];
   for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
     if (remainingWords.length === 0) {
       if (incorrectWords.length > 0) {
         remainingWords = [...incorrectWords];
         incorrectWords = [];
       } else {
-        remainingWords = [...allWords]; // Recycle all words
+        remainingWords = [...allWords];
       }
-      shuffleArray(remainingWords); // Shuffle the pool
+      shuffleArray(remainingWords);
     }
-    roundWords.push(remainingWords.pop());
+    selectedWords.push(remainingWords.pop());
   }
 
-  // Display words in UI
-  for (const word of roundWords) {
+  // Store DOM rows here (NOT strings)
+  let roundWords = [];
+
+  // Display words
+  wordDisplayContainer.innerHTML = "";
+  for (const word of selectedWords) {
     const wordRow = document.createElement("div");
     wordRow.classList.add("word-row");
 
     const wordText = document.createElement("span");
     wordText.textContent = word;
+    wordText.classList.add("word-text");
 
     const correctButton = document.createElement("button");
     correctButton.textContent = "Correct";
+
     correctButton.addEventListener("click", () => {
       correctButton.disabled = true;
-      wordRow.dataset.correct = true;
-
-      // Trigger early end if all words are marked
+      wordRow.dataset.correct = "true";
       checkForRoundCompletion(roundWords);
     });
 
     wordRow.appendChild(wordText);
     wordRow.appendChild(correctButton);
     wordDisplayContainer.appendChild(wordRow);
+
+    roundWords.push(wordRow); // ← FIX: store DOM object
   }
 
-  // Start the timer countdown
+  // Start timer
+  clearInterval(timer);
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
 
     if (timeLeft <= 0) {
-      clearInterval(timer); // Stop the timer
-      endRound(roundWords); // End the round
+      clearInterval(timer);
+      endRound(roundWords); // ← now correct type (DOM rows)
     }
   }, 1000);
 });
 
 /*** CHECK FOR EARLY ROUND COMPLETION ***/
 function checkForRoundCompletion(roundWords) {
-  const allMarked = roundWords.every((wordRow) => wordRow.dataset.correct === "true");
+  const allMarked = roundWords.every(
+    (row) => row.dataset.correct === "true"
+  );
 
   if (allMarked) {
-    console.log("All words are marked. Ending round early.");
-    clearInterval(timer); // Stop the timer
+    console.log("All words correct — ending early.");
+    clearInterval(timer);
     endRound(roundWords);
   }
 }
 
 /*** END THE ROUND AND MOVE TO THE NEXT TURN ***/
-function endRound(words) {
+function endRound(roundWords) {
   let correctCount = 0;
 
-  // Process each word
-  words.forEach((wordRow) => {
+  roundWords.forEach((wordRow) => {
     const isCorrect = wordRow.dataset.correct === "true";
+    const wordText = wordRow.querySelector(".word-text").textContent;
+
     if (isCorrect) {
       correctCount++;
     } else {
-      incorrectWords.push(wordRow.textContent); // Add to incorrect pool
+      incorrectWords.push(wordText);
     }
   });
 
   const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
   const spacesToMove = correctCount - diceRoll;
 
-  // Update team's score
   const currentTeam = teams[currentTeamIndex];
   currentTeam.score += spacesToMove;
 
-  // Display turn summary
   turnSummary.textContent = `Correct: ${correctCount} | Dice Roll: ${diceRoll} | Spaces Moved: ${spacesToMove}`;
+
   nextPlayerDisplay.textContent = `Next Player: ${
     teams[(currentTeamIndex + 1) % teams.length].players[
       (currentPlayerIndex + 1) % 2
@@ -239,15 +248,16 @@ function endRound(words) {
 
   resultsDisplay.classList.remove("hidden");
 
-  // Update turn order
+  // Change turn
   currentPlayerIndex =
     currentPlayerIndex + 1 === currentTeam.players.length
       ? 0
       : currentPlayerIndex + 1;
+
   currentTeamIndex =
     currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
 
-  // Delay before starting next turn
+  // Start next turn
   setTimeout(startTurn, 5000);
 }
 
