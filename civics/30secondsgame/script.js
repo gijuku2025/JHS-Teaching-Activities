@@ -148,4 +148,116 @@ startRoundBtn.addEventListener("click", () => {
   timerDisplay.textContent = timeLeft;
 
   // Select 5 words for the round
-  let roundWords =
+  let roundWords = [];
+  for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
+    if (remainingWords.length === 0) {
+      if (incorrectWords.length > 0) {
+        remainingWords = [...incorrectWords];
+        incorrectWords = [];
+      } else {
+        remainingWords = [...allWords]; // Recycle all words
+      }
+      shuffleArray(remainingWords); // Shuffle the pool
+    }
+    roundWords.push(remainingWords.pop());
+  }
+
+  // Display words in UI
+  for (const word of roundWords) {
+    const wordRow = document.createElement("div");
+    wordRow.classList.add("word-row");
+
+    const wordText = document.createElement("span");
+    wordText.textContent = word;
+
+    const correctButton = document.createElement("button");
+    correctButton.textContent = "Correct";
+    correctButton.addEventListener("click", () => {
+      correctButton.disabled = true;
+      wordRow.dataset.correct = true;
+
+      // Trigger early end if all words are marked
+      checkForRoundCompletion(roundWords);
+    });
+
+    wordRow.appendChild(wordText);
+    wordRow.appendChild(correctButton);
+    wordDisplayContainer.appendChild(wordRow);
+  }
+
+  // Start the timer countdown
+  timer = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer); // Stop the timer
+      endRound(roundWords); // End the round
+    }
+  }, 1000);
+});
+
+/*** CHECK FOR EARLY ROUND COMPLETION ***/
+function checkForRoundCompletion(roundWords) {
+  const allMarked = roundWords.every((wordRow) => wordRow.dataset.correct === "true");
+
+  if (allMarked) {
+    console.log("All words are marked. Ending round early.");
+    clearInterval(timer); // Stop the timer
+    endRound(roundWords);
+  }
+}
+
+/*** END THE ROUND AND MOVE TO THE NEXT TURN ***/
+function endRound(words) {
+  let correctCount = 0;
+
+  // Process each word
+  words.forEach((wordRow) => {
+    const isCorrect = wordRow.dataset.correct === "true";
+    if (isCorrect) {
+      correctCount++;
+    } else {
+      incorrectWords.push(wordRow.textContent); // Add to incorrect pool
+    }
+  });
+
+  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
+  const spacesToMove = correctCount - diceRoll;
+
+  // Update team's score
+  const currentTeam = teams[currentTeamIndex];
+  currentTeam.score += spacesToMove;
+
+  // Display turn summary
+  turnSummary.textContent = `Correct: ${correctCount} | Dice Roll: ${diceRoll} | Spaces Moved: ${spacesToMove}`;
+  nextPlayerDisplay.textContent = `Next Player: ${
+    teams[(currentTeamIndex + 1) % teams.length].players[
+      (currentPlayerIndex + 1) % 2
+    ]
+  }`;
+
+  resultsDisplay.classList.remove("hidden");
+
+  // Update turn order
+  currentPlayerIndex =
+    currentPlayerIndex + 1 === currentTeam.players.length
+      ? 0
+      : currentPlayerIndex + 1;
+  currentTeamIndex =
+    currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
+
+  // Delay before starting next turn
+  setTimeout(startTurn, 5000);
+}
+
+/*** SHUFFLE ARRAY HELPER FUNCTION ***/
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// Load chapters on page load
+loadChapters();
