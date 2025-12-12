@@ -1,67 +1,78 @@
-// Variables for team and game setup
+// =============================
+// VARIABLES
+// =============================
 let teams = null;
 let currentTeamIndex = 0;
 let currentPlayerIndex = 0;
+
 let wordPool = {};
 let remainingWords = [];
 let incorrectWords = [];
 let allWords = [];
+
 let timer = null;
 let timeLeft = 30;
-
-// DOM Elements
-const startScreen = document.getElementById("start-screen");
-const setupForm = document.getElementById("setup-form");
-const chapterSelection = document.getElementById("chapter-selection");
-const gameScreen = document.getElementById("game-screen");
-const wordDisplayContainer = document.getElementById("word-display-container");
-const rollDiceBtn = document.getElementById("roll-dice-btn");
-const startRoundBtn = document.getElementById("start-round-btn");
-const timerDisplay = document.getElementById("time-left");
-const diceResultMessage = document.getElementById("dice-result-message");
-const currentPlayerDisplay = document.getElementById("current-player");
-const resultsDisplay = document.getElementById("results");
-const turnSummary = document.getElementById("turn-summary");
-const nextPlayerDisplay = document.getElementById("next-player");
-
-// NEW ELEMENT (must exist in HTML): <button id="next-round-btn" class="hidden">Next Round</button>
-const nextRoundBtn = document.getElementById("next-round-btn");
 
 const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0, 1];
 
+// =============================
+// DOM ELEMENTS
+// =============================
+const startScreen = document.getElementById("start-screen");
+const setupForm = document.getElementById("setup-form");
+const chapterSelection = document.getElementById("chapter-selection");
+
+const gameScreen = document.getElementById("game-screen");
+const wordDisplayContainer = document.getElementById("word-display-container");
+
+const rollDiceBtn = document.getElementById("roll-dice-btn");
+const startRoundBtn = document.getElementById("start-round-btn");
+const nextRoundBtn = document.getElementById("next-round-btn");
+
+const timerContainer = document.getElementById("timer-container");
+const timerDisplay = document.getElementById("time-left");
+
+const diceResultMessage = document.getElementById("dice-result-message");
+const currentPlayerDisplay = document.getElementById("current-player");
+
+const resultsDisplay = document.getElementById("results");
+const turnSummary = document.getElementById("turn-summary");
+const nextPlayerDisplay = document.getElementById("next-player");
+
+// =============================
+// LOAD CHAPTERS FROM JSON
+// =============================
 async function loadChapters() {
   try {
     const response = await fetch("chapters.json");
-    if (!response.ok) throw new Error("Failed to load chapters");
+    if (!response.ok) throw new Error("Could not load chapters.json");
 
     const data = await response.json();
     wordPool = data;
 
     for (const chapter in data) {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.value = chapter;
-      checkbox.id = chapter;
-
-      const label = document.createElement("label");
-      label.setAttribute("for", chapter);
-      label.textContent = chapter.replace("chapter", "Chapter ");
-
       const wrapper = document.createElement("div");
       wrapper.classList.add("checkbox-item");
-      wrapper.appendChild(checkbox);
-      wrapper.appendChild(label);
+
+      wrapper.innerHTML = `
+        <input type="checkbox" id="${chapter}" value="${chapter}">
+        <label for="${chapter}">${chapter.replace("chapter", "Chapter ")}</label>
+      `;
 
       chapterSelection.appendChild(wrapper);
     }
   } catch (err) {
-    alert("Failed to load chapters.");
+    alert("Failed to load chapters.json");
+    console.error(err);
   }
 }
 
-setupForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+// =============================
+// GAME SETUP
+// =============================
+setupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
   teams = [
     {
@@ -82,8 +93,8 @@ setupForm.addEventListener("submit", (event) => {
     },
   ];
 
-  if (teams.some((team) => team.players.some((p) => p === ""))) {
-    alert("Please enter names for all players.");
+  if (teams.some((t) => t.players.some((p) => p === ""))) {
+    alert("Please enter all player names.");
     return;
   }
 
@@ -105,6 +116,9 @@ setupForm.addEventListener("submit", (event) => {
   startTurn();
 });
 
+// =============================
+// START TURN
+// =============================
 function startTurn() {
   clearInterval(timer);
 
@@ -112,40 +126,45 @@ function startTurn() {
   const currentPlayer = currentTeam.players[currentPlayerIndex];
 
   currentPlayerDisplay.textContent = `${currentPlayer} (${currentTeam.name})`;
+
   wordDisplayContainer.innerHTML = "";
   diceResultMessage.textContent = "";
+
   rollDiceBtn.disabled = false;
+  startRoundBtn.classList.add("hidden");
 
   resultsDisplay.classList.add("hidden");
-  startRoundBtn.classList.add("hidden");
-  nextRoundBtn.classList.add("hidden"); // Hide next-round button
+  nextRoundBtn.classList.add("hidden");
 
-  timerDisplay.classList.add("hidden"); // Hide timer outside the round
+  timerContainer.classList.add("hidden");
 }
 
+// =============================
+// DICE ROLL
+// =============================
 rollDiceBtn.addEventListener("click", () => {
   const diceRoll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
   diceResultMessage.textContent = `Dice Roll: ${diceRoll}`;
+
   rollDiceBtn.disabled = true;
   startRoundBtn.classList.remove("hidden");
 });
 
+// =============================
+// START ROUND
+// =============================
 startRoundBtn.addEventListener("click", () => {
   startRoundBtn.classList.add("hidden");
-  timeLeft = 30;
 
+  timerContainer.classList.remove("hidden");
+  timeLeft = 30;
   timerDisplay.textContent = timeLeft;
-  timerDisplay.classList.remove("hidden"); // Show timer only now
 
   let selectedWords = [];
   for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
     if (remainingWords.length === 0) {
-      if (incorrectWords.length) {
-        remainingWords = [...incorrectWords];
-        incorrectWords = [];
-      } else {
-        remainingWords = [...allWords];
-      }
+      remainingWords = incorrectWords.length > 0 ? [...incorrectWords] : [...allWords];
+      incorrectWords = [];
       shuffleArray(remainingWords);
     }
     selectedWords.push(remainingWords.pop());
@@ -154,29 +173,24 @@ startRoundBtn.addEventListener("click", () => {
   let roundWords = [];
   wordDisplayContainer.innerHTML = "";
 
-  for (const word of selectedWords) {
-    const wordRow = document.createElement("div");
-    wordRow.classList.add("word-row");
+  selectedWords.forEach((word) => {
+    const row = document.createElement("div");
+    row.classList.add("word-row");
 
-    const wordText = document.createElement("span");
-    wordText.textContent = word;
-    wordText.classList.add("word-text");
+    row.innerHTML = `
+      <span class="word-text">${word}</span>
+      <button class="correct-btn">Correct</button>
+    `;
 
-    const correctButton = document.createElement("button");
-    correctButton.textContent = "Correct";
-
-    correctButton.addEventListener("click", () => {
-      correctButton.disabled = true;
-      wordRow.dataset.correct = "true";
+    row.querySelector("button").addEventListener("click", () => {
+      row.dataset.correct = "true";
+      row.querySelector("button").disabled = true;
       checkForRoundCompletion(roundWords);
     });
 
-    wordRow.appendChild(wordText);
-    wordRow.appendChild(correctButton);
-    wordDisplayContainer.appendChild(wordRow);
-
-    roundWords.push(wordRow);
-  }
+    wordDisplayContainer.appendChild(row);
+    roundWords.push(row);
+  });
 
   clearInterval(timer);
   timer = setInterval(() => {
@@ -190,68 +204,70 @@ startRoundBtn.addEventListener("click", () => {
   }, 1000);
 });
 
+// =============================
+// EARLY END CHECK
+// =============================
 function checkForRoundCompletion(roundWords) {
   const allMarked = roundWords.every((row) => row.dataset.correct === "true");
-
   if (allMarked) {
     clearInterval(timer);
     endRound(roundWords);
   }
 }
 
+// =============================
+// END ROUND
+// =============================
 function endRound(roundWords) {
   let correctCount = 0;
 
-  roundWords.forEach((wordRow) => {
-    const isCorrect = wordRow.dataset.correct === "true";
-    const wordText = wordRow.querySelector(".word-text").textContent;
+  roundWords.forEach((row) => {
+    const isCorrect = row.dataset.correct === "true";
+    const word = row.querySelector(".word-text").textContent;
 
-    if (isCorrect) {
-      correctCount++;
-    } else {
-      incorrectWords.push(wordText);
-    }
+    if (isCorrect) correctCount++;
+    else incorrectWords.push(word);
   });
 
-  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
+  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0]);
   const spacesToMove = correctCount - diceRoll;
 
-  const currentTeam = teams[currentTeamIndex];
-  currentTeam.score += spacesToMove;
+  const team = teams[currentTeamIndex];
+  team.score += spacesToMove;
 
   turnSummary.textContent = `Correct: ${correctCount} | Dice Roll: ${diceRoll} | Spaces Moved: ${spacesToMove}`;
 
-  nextPlayerDisplay.textContent = `Next Player: ${
+  nextPlayerDisplay.textContent =
+    "Next Player: " +
     teams[(currentTeamIndex + 1) % teams.length].players[
       (currentPlayerIndex + 1) % 2
-    ]
-  }`;
-
-  timerDisplay.classList.add("hidden"); // Hide timer after round
+    ];
 
   resultsDisplay.classList.remove("hidden");
-  nextRoundBtn.classList.remove("hidden"); // Show next-round button
-
-  // DO NOT auto-start the next turn anymore.
+  nextRoundBtn.classList.remove("hidden");
 }
 
-// User presses button → next turn begins
+// =============================
+// NEXT ROUND BUTTON
+// =============================
 nextRoundBtn.addEventListener("click", () => {
-  currentPlayerIndex =
-    currentPlayerIndex + 1 === teams[currentTeamIndex].players.length
-      ? 0
-      : currentPlayerIndex + 1;
-
-  currentTeamIndex = currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
+  currentPlayerIndex = (currentPlayerIndex + 1) % 2;
+  currentTeamIndex = (currentTeamIndex + 1) % teams.length;
 
   startTurn();
 });
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
+// =============================
+// SHUFFLE HELPERS
+// =============================
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
 
+// =============================
+// INIT
+// =============================
 loadChapters();
