@@ -222,7 +222,7 @@ function endTurn() {
     currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
 
   setTimeout(startTurn, 5000); // Wait 5 seconds, then start next turn
-});
+);
 
 // Load chapters on initial page load
 loadChapters();
