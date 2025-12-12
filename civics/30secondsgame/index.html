@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>30 Seconds Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>30 Seconds Game</h1>
+    
+    <!-- Start Screen -->
+    <div id="start-screen">
+      <h2>Team and Player Setup</h2>
+      <form id="setup-form">
+        <div>
+          <label for="blue-team-player-1">Blue Team Player 1:</label>
+          <input type="text" id="blue-team-player-1" placeholder="Enter name" required />
+        </div>
+        <div>
+          <label for="blue-team-player-2">Blue Team Player 2:</label>
+          <input type="text" id="blue-team-player-2" placeholder="Enter name" required />
+        </div>
+
+        <div>
+          <label for="red-team-player-1">Red Team Player 1:</label>
+          <input type="text" id="red-team-player-1" placeholder="Enter name" required />
+        </div>
+        <div>
+          <label for="red-team-player-2">Red Team Player 2:</label>
+          <input type="text" id="red-team-player-2" placeholder="Enter name" required />
+        </div>
+
+        <h3>Select Chapters</h3>
+        <div id="chapter-selection">
+          <!-- Dynamically loaded chapters from chapters.json -->
+        </div>
+
+        <button type="submit">Start Game</button>
+      </form>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="hidden">
+      <div id="team-info">
+        <h3>Turn: <span id="current-player"></span></h3>
+        <p id="dice-result-message"></p>
+      </div>
+
+      <div id="main-game-area">
+        <h2 id="word-display">Roll the Dice</h2>
+        <div id="controls">
+          <button id="roll-dice-btn">Roll Dice</button>
+          <button id="start-round-btn" class="hidden">Start Round</button>
+        </div>
+        
+        <div class="buttons hidden" id="answer-buttons">
+          <button id="correct-btn">Correct</button>
+          <button id="incorrect-btn">Incorrect</button>
+        </div>
+
+        <p id="timer">Time Left: <span id="time-left">30</span></p>
+      </div>
+
+      <div id="results" class="hidden">
+        <h3>Results:</h3>
+        <p id="turn-summary"></p>
+        <p id="next-player"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

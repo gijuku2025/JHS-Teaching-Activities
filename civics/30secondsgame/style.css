@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+h1 {
+  background-color: #007bff;
+  color: white;
+  margin: 0;
+  padding: 15px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: #28a745;
+}
+
+button#roll-dice-btn {
+  background-color: #007bff;
+}
+
+button#start-round-btn, button#correct-btn, button#incorrect-btn {
+  background-color: #28a745;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  width: calc(100% - 20px);
+}
+
+/* Timer */
+#timer span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #dc3545; /* Red for urgency */
+}
+
+/* iPad-specific adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  input {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px 25px;
+  }
+}
