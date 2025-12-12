@@ -1,13 +1,13 @@
 // Variables for team and game setup
-let teams = null; // Array to hold team/player data
-let currentTeamIndex = 0; // Tracks which team's turn it is
-let currentPlayerIndex = 0; // Tracks which player on the current team is up
-let wordPool = {}; // Full word pool from the chapters.json JSON file
-let remainingWords = []; // Words left to show for rounds
-let incorrectWords = []; // Words marked as incorrect
-let allWords = []; // Combined pool of all words
-let timer = null; // Timer reference for each round
-let timeLeft = 30; // 30-second timer for each round
+let teams = null;
+let currentTeamIndex = 0;
+let currentPlayerIndex = 0;
+let wordPool = {};
+let remainingWords = [];
+let incorrectWords = [];
+let allWords = [];
+let timer = null;
+let timeLeft = 30;
 
 // DOM Elements
 const startScreen = document.getElementById("start-screen");
@@ -24,24 +24,20 @@ const resultsDisplay = document.getElementById("results");
 const turnSummary = document.getElementById("turn-summary");
 const nextPlayerDisplay = document.getElementById("next-player");
 
-// Constants
-const MAX_WORDS_PER_ROUND = 5;
-const DICE_RESULTS = [0, 1]; // Dice can roll either 0 or 1
+// NEW ELEMENT (must exist in HTML): <button id="next-round-btn" class="hidden">Next Round</button>
+const nextRoundBtn = document.getElementById("next-round-btn");
 
-/*** LOAD CHAPTERS FROM JSON AND RENDER CHECKBOXES ***/
+const MAX_WORDS_PER_ROUND = 5;
+const DICE_RESULTS = [0, 1];
+
 async function loadChapters() {
-  console.log("Loading chapters..."); // Debugging
   try {
     const response = await fetch("chapters.json");
-    if (!response.ok) {
-      throw new Error(`Failed to fetch chapters.json. Status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error("Failed to load chapters");
 
     const data = await response.json();
-    console.log("Parsed JSON data:", data);
     wordPool = data;
 
-    // Dynamically render chapter checkboxes
     for (const chapter in data) {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
@@ -59,18 +55,14 @@ async function loadChapters() {
 
       chapterSelection.appendChild(wrapper);
     }
-    console.log("Chapters successfully rendered!");
   } catch (err) {
-    alert("Failed to load chapters. Please refresh the page.");
-    console.error("Error loading chapters:", err);
+    alert("Failed to load chapters.");
   }
 }
 
-/*** SETUP GAME WHEN THE FORM IS SUBMITTED ***/
 setupForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  // Capture player names
   teams = [
     {
       name: "Blue Team",
@@ -90,13 +82,11 @@ setupForm.addEventListener("submit", (event) => {
     },
   ];
 
-  // Validate player names
-  if (teams.some((team) => team.players.some((player) => player === ""))) {
+  if (teams.some((team) => team.players.some((p) => p === ""))) {
     alert("Please enter names for all players.");
     return;
   }
 
-  // Get selected chapters
   const selectedChapters = Array.from(
     setupForm.querySelectorAll("input[type='checkbox']:checked")
   ).map((input) => wordPool[input.value]);
@@ -106,52 +96,51 @@ setupForm.addEventListener("submit", (event) => {
     return;
   }
 
-  // Initialize the word pool and reset variables
   remainingWords = selectedChapters.flat();
-  allWords = [...remainingWords]; // Save all words in the "allWords" array
+  allWords = [...remainingWords];
+
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
 
-  startTurn(); // Begin the first turn
+  startTurn();
 });
 
-/*** START THE CURRENT PLAYER'S TURN ***/
 function startTurn() {
-  clearInterval(timer); // Clear any previous timers
+  clearInterval(timer);
 
   const currentTeam = teams[currentTeamIndex];
   const currentPlayer = currentTeam.players[currentPlayerIndex];
 
-  // Update UI for current turn
   currentPlayerDisplay.textContent = `${currentPlayer} (${currentTeam.name})`;
-  wordDisplayContainer.innerHTML = ""; // Clear previous round's words
+  wordDisplayContainer.innerHTML = "";
   diceResultMessage.textContent = "";
-  rollDiceBtn.disabled = false; // Enable dice rolling
-  resultsDisplay.classList.add("hidden"); // Hide results section
-  startRoundBtn.classList.add("hidden"); // Initially hide start round button
+  rollDiceBtn.disabled = false;
 
-  console.log(`It's ${currentPlayer} (${currentTeam.name})'s turn!`);
+  resultsDisplay.classList.add("hidden");
+  startRoundBtn.classList.add("hidden");
+  nextRoundBtn.classList.add("hidden"); // Hide next-round button
+
+  timerDisplay.classList.add("hidden"); // Hide timer outside the round
 }
 
-/*** HANDLE DICE ROLL ***/
 rollDiceBtn.addEventListener("click", () => {
   const diceRoll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
   diceResultMessage.textContent = `Dice Roll: ${diceRoll}`;
-  rollDiceBtn.disabled = true; // Disable the dice roll
-  startRoundBtn.classList.remove("hidden"); // Show the Start Round button
+  rollDiceBtn.disabled = true;
+  startRoundBtn.classList.remove("hidden");
 });
 
-/*** START THE ROUND (TIMER & WORD DISPLAY) ***/
 startRoundBtn.addEventListener("click", () => {
   startRoundBtn.classList.add("hidden");
-  timeLeft = 30; // Reset timer
-  timerDisplay.textContent = timeLeft;
+  timeLeft = 30;
 
-  // Pick the next 5 words
+  timerDisplay.textContent = timeLeft;
+  timerDisplay.classList.remove("hidden"); // Show timer only now
+
   let selectedWords = [];
   for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
     if (remainingWords.length === 0) {
-      if (incorrectWords.length > 0) {
+      if (incorrectWords.length) {
         remainingWords = [...incorrectWords];
         incorrectWords = [];
       } else {
@@ -162,11 +151,9 @@ startRoundBtn.addEventListener("click", () => {
     selectedWords.push(remainingWords.pop());
   }
 
-  // Store DOM rows here (NOT strings)
   let roundWords = [];
-
-  // Display words
   wordDisplayContainer.innerHTML = "";
+
   for (const word of selectedWords) {
     const wordRow = document.createElement("div");
     wordRow.classList.add("word-row");
@@ -188,10 +175,9 @@ startRoundBtn.addEventListener("click", () => {
     wordRow.appendChild(correctButton);
     wordDisplayContainer.appendChild(wordRow);
 
-    roundWords.push(wordRow); // ← FIX: store DOM object
+    roundWords.push(wordRow);
   }
 
-  // Start timer
   clearInterval(timer);
   timer = setInterval(() => {
     timeLeft--;
@@ -199,25 +185,20 @@ startRoundBtn.addEventListener("click", () => {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      endRound(roundWords); // ← now correct type (DOM rows)
+      endRound(roundWords);
     }
   }, 1000);
 });
 
-/*** CHECK FOR EARLY ROUND COMPLETION ***/
 function checkForRoundCompletion(roundWords) {
-  const allMarked = roundWords.every(
-    (row) => row.dataset.correct === "true"
-  );
+  const allMarked = roundWords.every((row) => row.dataset.correct === "true");
 
   if (allMarked) {
-    console.log("All words correct — ending early.");
     clearInterval(timer);
     endRound(roundWords);
   }
 }
 
-/*** END THE ROUND AND MOVE TO THE NEXT TURN ***/
 function endRound(roundWords) {
   let correctCount = 0;
 
@@ -246,22 +227,26 @@ function endRound(roundWords) {
     ]
   }`;
 
-  resultsDisplay.classList.remove("hidden");
+  timerDisplay.classList.add("hidden"); // Hide timer after round
 
-  // Change turn
+  resultsDisplay.classList.remove("hidden");
+  nextRoundBtn.classList.remove("hidden"); // Show next-round button
+
+  // DO NOT auto-start the next turn anymore.
+}
+
+// User presses button → next turn begins
+nextRoundBtn.addEventListener("click", () => {
   currentPlayerIndex =
-    currentPlayerIndex + 1 === currentTeam.players.length
+    currentPlayerIndex + 1 === teams[currentTeamIndex].players.length
       ? 0
       : currentPlayerIndex + 1;
 
-  currentTeamIndex =
-    currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
+  currentTeamIndex = currentTeamIndex + 1 === teams.length ? 0 : currentTeamIndex + 1;
 
-  // Start next turn
-  setTimeout(startTurn, 5000);
-}
+  startTurn();
+});
 
-/*** SHUFFLE ARRAY HELPER FUNCTION ***/
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -269,5 +254,4 @@ function shuffleArray(array) {
   }
 }
 
-// Load chapters on page load
 loadChapters();
