@@ -1,70 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>30 Seconds Game</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Guessing Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>30 Seconds Game</h1>
-    
+    <!-- Title -->
+    <h1>Word Guessing Game</h1>
+
     <!-- Start Screen -->
     <div id="start-screen">
-      <h2>Team and Player Setup</h2>
+      <h2>Set Up Your Game</h2>
+
+      <!-- Player Setup -->
       <form id="setup-form">
-        <div>
-          <label for="blue-team-player-1">Blue Team Player 1:</label>
-          <input type="text" id="blue-team-player-1" placeholder="Enter name" required />
-        </div>
-        <div>
-          <label for="blue-team-player-2">Blue Team Player 2:</label>
-          <input type="text" id="blue-team-player-2" placeholder="Enter name" required />
-        </div>
-
-        <div>
-          <label for="red-team-player-1">Red Team Player 1:</label>
-          <input type="text" id="red-team-player-1" placeholder="Enter name" required />
-        </div>
-        <div>
-          <label for="red-team-player-2">Red Team Player 2:</label>
-          <input type="text" id="red-team-player-2" placeholder="Enter name" required />
+        <div class="player-setup">
+          <h3>Blue Team</h3>
+          <label for="blue-team-player-1">Player 1:</label>
+          <input type="text" id="blue-team-player-1" placeholder="Enter name" required>
+          <label for="blue-team-player-2">Player 2:</label>
+          <input type="text" id="blue-team-player-2" placeholder="Enter name" required>
         </div>
 
+        <div class="player-setup">
+          <h3>Red Team</h3>
+          <label for="red-team-player-1">Player 1:</label>
+          <input type="text" id="red-team-player-1" placeholder="Enter name" required>
+          <label for="red-team-player-2">Player 2:</label>
+          <input type="text" id="red-team-player-2" placeholder="Enter name" required>
+        </div>
+
+        <!-- Chapter Selection -->
         <h3>Select Chapters</h3>
         <div id="chapter-selection">
-          <!-- Dynamically loaded chapters from chapters.json -->
+          <!-- Checkboxes for chapters will be dynamically added here via script -->
         </div>
 
-        <button type="submit">Start Game</button>
+        <button type="submit" id="start-game-btn">Start Game</button>
       </form>
     </div>
 
     <!-- Game Screen -->
     <div id="game-screen" class="hidden">
-      <div id="team-info">
-        <h3>Turn: <span id="current-player"></span></h3>
+      <!-- Current Player -->
+      <div id="current-turn">
+        <h2>Turn: <span id="current-player"></span></h2>
         <p id="dice-result-message"></p>
       </div>
 
-      <div id="main-game-area">
-        <h2 id="word-display">Roll the Dice</h2>
-        <div id="controls">
-          <button id="roll-dice-btn">Roll Dice</button>
-          <button id="start-round-btn" class="hidden">Start Round</button>
-        </div>
-        
-        <div class="buttons hidden" id="answer-buttons">
-          <button id="correct-btn">Correct</button>
-          <button id="incorrect-btn">Incorrect</button>
-        </div>
-
-        <p id="timer">Time Left: <span id="time-left">30</span></p>
+      <!-- Word Display -->
+      <div id="word-display-container">
+        <!-- Words with Correct buttons will be added dynamically -->
       </div>
 
+      <!-- Timer -->
+      <div id="timer-container">
+        <h3>Time Left: <span id="time-left">30</span> seconds</h3>
+      </div>
+
+      <!-- Game Controls -->
+      <div id="controls">
+        <button id="roll-dice-btn">Roll Dice</button>
+        <button id="start-round-btn" class="hidden">Start Round</button>
+      </div>
+
+      <!-- Results -->
       <div id="results" class="hidden">
-        <h3>Results:</h3>
+        <h3>Round Summary</h3>
         <p id="turn-summary"></p>
         <p id="next-player"></p>
       </div>
