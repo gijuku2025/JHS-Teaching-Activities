@@ -1,43 +1,56 @@
+
 {
   "chapter1": [
-    "Photosynthesis",
-    "Gravity",
-    "Ecosystem",
-    "Cell",
-    "Molecule",
-    "Neuron"
+    "commodity",
+    "goods",
+    "services",
+    "consumer",
+    "producer",
+    "economy",
+    "income",
+    "expenditure",
+    "savings",
+    "demand",
+    "supply",
+    "scarcity",
+    "cash",
+    "consumption"
   ],
   "chapter2": [
-    "Atoms",
-    "Energy",
-    "Matter",
-    "Geology",
-    "Fossils",
-    "Nucleus",
-    "Minerals"
+    "commodity",
+    "goods",
+    "services",
+    "consumer",
+    "producer",
+    "economy",
+    "income",
+    "expenditure",
+    "savings",
+    "demand",
+    "supply",
+    "scarcity",
+    "cash",
+    "consumption"
   ],
   "chapter3": [
     "Galaxy",
+    "Light Year",
     "Asteroid",
-    "Space Station",
     "Black Hole",
-    "Nebula",
-    "Star"
+    "Space Station"
   ],
   "chapter4": [
     "DNA",
     "Mutation",
     "Chromosome",
     "Protein",
-    "Genome",
-    "Replication"
+    "Nucleus"
   ],
   "chapter5": [
-    "Volcano",
-    "Earthquake",
-    "Plate Tectonics",
-    "Crust",
-    "Mantle",
-    "Seismic Waves"
+    "Carbon Cycle",
+    "Symbiosis",
+    "Radiation",
+    "Momentum",
+    "Fossil Fuel"
   ]
 }
