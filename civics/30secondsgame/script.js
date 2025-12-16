@@ -1,76 +1,66 @@
-// =============================
-// VARIABLES
-// =============================
+// Variables for team and game setup
 let teams = null;
 let currentTeamIndex = 0;
 let currentPlayerIndex = 0;
-
 let wordPool = {};
 let remainingWords = [];
 let incorrectWords = [];
 let allWords = [];
-
 let timer = null;
 let timeLeft = 30;
 
-const MAX_WORDS_PER_ROUND = 5;
-const DICE_RESULTS = [0, 1];
-
-// =============================
-// DOM ELEMENTS
-// =============================
+// DOM Elements
 const startScreen = document.getElementById("start-screen");
 const setupForm = document.getElementById("setup-form");
 const chapterSelection = document.getElementById("chapter-selection");
-
 const gameScreen = document.getElementById("game-screen");
 const wordDisplayContainer = document.getElementById("word-display-container");
-
 const rollDiceBtn = document.getElementById("roll-dice-btn");
 const startRoundBtn = document.getElementById("start-round-btn");
 const nextRoundBtn = document.getElementById("next-round-btn");
-
-const timerContainer = document.getElementById("timer-container");
 const timerDisplay = document.getElementById("time-left");
-
+const timerContainer = document.getElementById("timer-container");
 const diceResultMessage = document.getElementById("dice-result-message");
 const currentPlayerDisplay = document.getElementById("current-player");
-
 const resultsDisplay = document.getElementById("results");
 const turnSummary = document.getElementById("turn-summary");
 const nextPlayerDisplay = document.getElementById("next-player");
 
-// =============================
-// LOAD CHAPTERS FROM JSON
-// =============================
+// Constants
+const MAX_WORDS_PER_ROUND = 5;
+const DICE_RESULTS = [0, 1];
+
+/*** LOAD CHAPTERS ***/
 async function loadChapters() {
   try {
     const response = await fetch("chapters.json");
-    if (!response.ok) throw new Error("Could not load chapters.json");
-
     const data = await response.json();
     wordPool = data;
 
     for (const chapter in data) {
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.value = chapter;
+      checkbox.id = chapter;
+
+      const label = document.createElement("label");
+      label.htmlFor = chapter;
+      label.textContent = chapter.replace("chapter", "Chapter ");
+
       const wrapper = document.createElement("div");
       wrapper.classList.add("checkbox-item");
-
-      wrapper.innerHTML = `
-        <input type="checkbox" id="${chapter}" value="${chapter}">
-        <label for="${chapter}">${chapter.replace("chapter", "Chapter ")}</label>
-      `;
+      wrapper.appendChild(checkbox);
+      wrapper.appendChild(label);
 
       chapterSelection.appendChild(wrapper);
     }
   } catch (err) {
-    alert("Failed to load chapters.json");
+    alert("Failed to load chapters.");
     console.error(err);
   }
 }
 
-// =============================
-// GAME SETUP
-// =============================
+/*** SETUP GAME ***/
 setupForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -93,14 +83,14 @@ setupForm.addEventListener("submit", (e) => {
     },
   ];
 
-  if (teams.some((t) => t.players.some((p) => p === ""))) {
+  if (teams.some(t => t.players.some(p => p === ""))) {
     alert("Please enter all player names.");
     return;
   }
 
   const selectedChapters = Array.from(
     setupForm.querySelectorAll("input[type='checkbox']:checked")
-  ).map((input) => wordPool[input.value]);
+  ).map(input => wordPool[input.value]);
 
   if (selectedChapters.length === 0) {
     alert("Please select at least one chapter.");
@@ -116,54 +106,44 @@ setupForm.addEventListener("submit", (e) => {
   startTurn();
 });
 
-// =============================
-// START TURN
-// =============================
+/*** START TURN ***/
 function startTurn() {
   clearInterval(timer);
 
-  const currentTeam = teams[currentTeamIndex];
-  const currentPlayer = currentTeam.players[currentPlayerIndex];
-
-  currentPlayerDisplay.textContent = `${currentPlayer} (${currentTeam.name})`;
-
-  wordDisplayContainer.innerHTML = "";
-  diceResultMessage.textContent = "";
-
-  rollDiceBtn.disabled = false;
-  startRoundBtn.classList.add("hidden");
-
+  timerContainer.classList.add("hidden");
   resultsDisplay.classList.add("hidden");
   nextRoundBtn.classList.add("hidden");
 
-  timerContainer.classList.add("hidden");
+  wordDisplayContainer.innerHTML = "";
+  diceResultMessage.textContent = "";
+  rollDiceBtn.disabled = false;
+  startRoundBtn.classList.add("hidden");
+
+  const team = teams[currentTeamIndex];
+  const player = team.players[currentPlayerIndex];
+  currentPlayerDisplay.textContent = `${player} (${team.name})`;
 }
 
-// =============================
-// DICE ROLL
-// =============================
+/*** ROLL DICE ***/
 rollDiceBtn.addEventListener("click", () => {
-  const diceRoll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
-  diceResultMessage.textContent = `Dice Roll: ${diceRoll}`;
-
+  const roll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
+  diceResultMessage.textContent = `Dice Roll: ${roll}`;
   rollDiceBtn.disabled = true;
   startRoundBtn.classList.remove("hidden");
 });
 
-// =============================
-// START ROUND
-// =============================
+/*** START ROUND ***/
 startRoundBtn.addEventListener("click", () => {
   startRoundBtn.classList.add("hidden");
-
   timerContainer.classList.remove("hidden");
+
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
 
   let selectedWords = [];
   for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
     if (remainingWords.length === 0) {
-      remainingWords = incorrectWords.length > 0 ? [...incorrectWords] : [...allWords];
+      remainingWords = incorrectWords.length ? [...incorrectWords] : [...allWords];
       incorrectWords = [];
       shuffleArray(remainingWords);
     }
@@ -171,26 +151,29 @@ startRoundBtn.addEventListener("click", () => {
   }
 
   let roundWords = [];
-  wordDisplayContainer.innerHTML = "";
 
-  selectedWords.forEach((word) => {
+  for (const word of selectedWords) {
     const row = document.createElement("div");
     row.classList.add("word-row");
 
-    row.innerHTML = `
-      <span class="word-text">${word}</span>
-      <button class="correct-btn">Correct</button>
-    `;
+    const text = document.createElement("span");
+    text.textContent = word;
+    text.classList.add("word-text");
 
-    row.querySelector("button").addEventListener("click", () => {
+    const btn = document.createElement("button");
+    btn.textContent = "Correct";
+
+    btn.onclick = () => {
+      btn.disabled = true;
       row.dataset.correct = "true";
-      row.querySelector("button").disabled = true;
       checkForRoundCompletion(roundWords);
-    });
+    };
 
+    row.appendChild(text);
+    row.appendChild(btn);
     wordDisplayContainer.appendChild(row);
     roundWords.push(row);
-  });
+  }
 
   clearInterval(timer);
   timer = setInterval(() => {
@@ -204,62 +187,54 @@ startRoundBtn.addEventListener("click", () => {
   }, 1000);
 });
 
-// =============================
-// EARLY END CHECK
-// =============================
+/*** EARLY FINISH CHECK ***/
 function checkForRoundCompletion(roundWords) {
-  const allMarked = roundWords.every((row) => row.dataset.correct === "true");
-  if (allMarked) {
+  if (roundWords.every(r => r.dataset.correct === "true")) {
     clearInterval(timer);
     endRound(roundWords);
   }
 }
 
-// =============================
-// END ROUND
-// =============================
+/*** END ROUND ***/
 function endRound(roundWords) {
-  let correctCount = 0;
+  timerContainer.classList.add("hidden");
 
-  roundWords.forEach((row) => {
-    const isCorrect = row.dataset.correct === "true";
-    const word = row.querySelector(".word-text").textContent;
-
-    if (isCorrect) correctCount++;
-    else incorrectWords.push(word);
+  let correct = 0;
+  roundWords.forEach(row => {
+    if (row.dataset.correct === "true") {
+      correct++;
+    } else {
+      incorrectWords.push(row.querySelector(".word-text").textContent);
+    }
   });
 
-  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0]);
-  const spacesToMove = correctCount - diceRoll;
+  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
+  const spaces = correct - diceRoll;
 
   const team = teams[currentTeamIndex];
-  team.score += spacesToMove;
+  team.score += spaces;
 
-  turnSummary.textContent = `Correct: ${correctCount} | Dice Roll: ${diceRoll} | Spaces Moved: ${spacesToMove}`;
+  turnSummary.textContent = `Correct: ${correct} | Dice: ${diceRoll} | Move: ${spaces}`;
 
-  nextPlayerDisplay.textContent =
-    "Next Player: " +
-    teams[(currentTeamIndex + 1) % teams.length].players[
-      (currentPlayerIndex + 1) % 2
-    ];
+  // 🔑 FIXED TURN ROTATION
+  currentPlayerIndex++;
+  if (currentPlayerIndex >= teams[0].players.length) {
+    currentPlayerIndex = 0;
+    currentTeamIndex = (currentTeamIndex + 1) % teams.length;
+  }
+
+  nextPlayerDisplay.textContent = `Next Player: ${
+    teams[currentTeamIndex].players[currentPlayerIndex]
+  } (${teams[currentTeamIndex].name})`;
 
   resultsDisplay.classList.remove("hidden");
   nextRoundBtn.classList.remove("hidden");
 }
 
-// =============================
-// NEXT ROUND BUTTON
-// =============================
-nextRoundBtn.addEventListener("click", () => {
-  currentPlayerIndex = (currentPlayerIndex + 1) % 2;
-  currentTeamIndex = (currentTeamIndex + 1) % teams.length;
+/*** NEXT ROUND BUTTON ***/
+nextRoundBtn.addEventListener("click", startTurn);
 
-  startTurn();
-});
-
-// =============================
-// SHUFFLE HELPERS
-// =============================
+/*** SHUFFLE ***/
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -267,7 +242,4 @@ function shuffleArray(arr) {
   }
 }
 
-// =============================
-// INIT
-// =============================
 loadChapters();
