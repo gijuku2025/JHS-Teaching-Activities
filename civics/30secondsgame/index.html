@@ -1,245 +1,129 @@
-// Variables for team and game setup
-let teams = null;
-let currentTeamIndex = 0;
-let currentPlayerIndex = 0;
-let wordPool = {};
-let remainingWords = [];
-let incorrectWords = [];
-let allWords = [];
-let timer = null;
-let timeLeft = 30;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Guessing Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-// DOM Elements
-const startScreen = document.getElementById("start-screen");
-const setupForm = document.getElementById("setup-form");
-const chapterSelection = document.getElementById("chapter-selection");
-const gameScreen = document.getElementById("game-screen");
-const wordDisplayContainer = document.getElementById("word-display-container");
-const rollDiceBtn = document.getElementById("roll-dice-btn");
-const startRoundBtn = document.getElementById("start-round-btn");
-const nextRoundBtn = document.getElementById("next-round-btn");
-const timerDisplay = document.getElementById("time-left");
-const timerContainer = document.getElementById("timer-container");
-const diceResultMessage = document.getElementById("dice-result-message");
-const currentPlayerDisplay = document.getElementById("current-player");
-const resultsDisplay = document.getElementById("results");
-const turnSummary = document.getElementById("turn-summary");
-const nextPlayerDisplay = document.getElementById("next-player");
+  <div class="container">
 
-// Constants
-const MAX_WORDS_PER_ROUND = 5;
-const DICE_RESULTS = [0, 1];
+    <!-- TITLE -->
+    <h1>Word Guessing Game</h1>
 
-/*** LOAD CHAPTERS ***/
-async function loadChapters() {
-  try {
-    const response = await fetch("chapters.json");
-    const data = await response.json();
-    wordPool = data;
+    <!-- START SCREEN -->
+    <div id="start-screen">
+      <h2>Set Up Your Game</h2>
 
-    for (const chapter in data) {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.value = chapter;
-      checkbox.id = chapter;
+      <form id="setup-form">
 
-      const label = document.createElement("label");
-      label.htmlFor = chapter;
-      label.textContent = chapter.replace("chapter", "Chapter ");
+        <!-- BLUE TEAM -->
+        <div class="player-setup">
+          <h3>Blue Team</h3>
 
-      const wrapper = document.createElement("div");
-      wrapper.classList.add("checkbox-item");
-      wrapper.appendChild(checkbox);
-      wrapper.appendChild(label);
+          <label for="blue-team-player-1">Player 1</label>
+          <input
+            type="text"
+            id="blue-team-player-1"
+            placeholder="Enter name"
+            required
+          />
 
-      chapterSelection.appendChild(wrapper);
-    }
-  } catch (err) {
-    alert("Failed to load chapters.");
-    console.error(err);
-  }
-}
+          <label for="blue-team-player-2">Player 2</label>
+          <input
+            type="text"
+            id="blue-team-player-2"
+            placeholder="Enter name"
+            required
+          />
+        </div>
 
-/*** SETUP GAME ***/
-setupForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+        <!-- RED TEAM -->
+        <div class="player-setup">
+          <h3>Red Team</h3>
 
-  teams = [
-    {
-      name: "Blue Team",
-      players: [
-        document.getElementById("blue-team-player-1").value.trim(),
-        document.getElementById("blue-team-player-2").value.trim(),
-      ],
-      score: 0,
-    },
-    {
-      name: "Red Team",
-      players: [
-        document.getElementById("red-team-player-1").value.trim(),
-        document.getElementById("red-team-player-2").value.trim(),
-      ],
-      score: 0,
-    },
-  ];
+          <label for="red-team-player-1">Player 1</label>
+          <input
+            type="text"
+            id="red-team-player-1"
+            placeholder="Enter name"
+            required
+          />
 
-  if (teams.some(t => t.players.some(p => p === ""))) {
-    alert("Please enter all player names.");
-    return;
-  }
+          <label for="red-team-player-2">Player 2</label>
+          <input
+            type="text"
+            id="red-team-player-2"
+            placeholder="Enter name"
+            required
+          />
+        </div>
 
-  const selectedChapters = Array.from(
-    setupForm.querySelectorAll("input[type='checkbox']:checked")
-  ).map(input => wordPool[input.value]);
+        <!-- CHAPTER SELECTION -->
+        <h3>Select Chapters</h3>
+        <div id="chapter-selection">
+          <!-- Dynamically filled by JS -->
+        </div>
 
-  if (selectedChapters.length === 0) {
-    alert("Please select at least one chapter.");
-    return;
-  }
+        <!-- START GAME -->
+        <button type="submit" id="start-game-btn">
+          Start Game
+        </button>
 
-  remainingWords = selectedChapters.flat();
-  allWords = [...remainingWords];
+      </form>
+    </div>
 
-  startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="hidden">
 
-  startTurn();
-});
+      <!-- CURRENT TURN -->
+      <div id="current-turn">
+        <h2>
+          Turn:
+          <span id="current-player"></span>
+        </h2>
+        <p id="dice-result-message"></p>
+      </div>
 
-/*** START TURN ***/
-function startTurn() {
-  clearInterval(timer);
+      <!-- WORD DISPLAY -->
+      <div id="word-display-container">
+        <!-- Words inserted here -->
+      </div>
 
-  timerContainer.classList.add("hidden");
-  resultsDisplay.classList.add("hidden");
-  nextRoundBtn.classList.add("hidden");
+      <!-- TIMER (only during round) -->
+      <div id="timer-container" class="hidden">
+        <h3>
+          Time Left:
+          <span id="time-left">30</span>
+          seconds
+        </h3>
+      </div>
 
-  wordDisplayContainer.innerHTML = "";
-  diceResultMessage.textContent = "";
-  rollDiceBtn.disabled = false;
-  startRoundBtn.classList.add("hidden");
+      <!-- CONTROLS -->
+      <div id="controls">
+        <button id="roll-dice-btn">Roll Dice</button>
+        <button id="start-round-btn" class="hidden">
+          Start Round
+        </button>
+      </div>
 
-  const team = teams[currentTeamIndex];
-  const player = team.players[currentPlayerIndex];
-  currentPlayerDisplay.textContent = `${player} (${team.name})`;
-}
+      <!-- RESULTS -->
+      <div id="results" class="hidden">
+        <h3>Round Summary</h3>
+        <p id="turn-summary"></p>
+        <p id="next-player"></p>
 
-/*** ROLL DICE ***/
-rollDiceBtn.addEventListener("click", () => {
-  const roll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
-  diceResultMessage.textContent = `Dice Roll: ${roll}`;
-  rollDiceBtn.disabled = true;
-  startRoundBtn.classList.remove("hidden");
-});
+        <button id="next-round-btn">
+          Next Round
+        </button>
+      </div>
 
-/*** START ROUND ***/
-startRoundBtn.addEventListener("click", () => {
-  startRoundBtn.classList.add("hidden");
-  timerContainer.classList.remove("hidden");
+    </div>
 
-  timeLeft = 30;
-  timerDisplay.textContent = timeLeft;
+  </div>
 
-  let selectedWords = [];
-  for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
-    if (remainingWords.length === 0) {
-      remainingWords = incorrectWords.length ? [...incorrectWords] : [...allWords];
-      incorrectWords = [];
-      shuffleArray(remainingWords);
-    }
-    selectedWords.push(remainingWords.pop());
-  }
-
-  let roundWords = [];
-
-  for (const word of selectedWords) {
-    const row = document.createElement("div");
-    row.classList.add("word-row");
-
-    const text = document.createElement("span");
-    text.textContent = word;
-    text.classList.add("word-text");
-
-    const btn = document.createElement("button");
-    btn.textContent = "Correct";
-
-    btn.onclick = () => {
-      btn.disabled = true;
-      row.dataset.correct = "true";
-      checkForRoundCompletion(roundWords);
-    };
-
-    row.appendChild(text);
-    row.appendChild(btn);
-    wordDisplayContainer.appendChild(row);
-    roundWords.push(row);
-  }
-
-  clearInterval(timer);
-  timer = setInterval(() => {
-    timeLeft--;
-    timerDisplay.textContent = timeLeft;
-
-    if (timeLeft <= 0) {
-      clearInterval(timer);
-      endRound(roundWords);
-    }
-  }, 1000);
-});
-
-/*** EARLY FINISH CHECK ***/
-function checkForRoundCompletion(roundWords) {
-  if (roundWords.every(r => r.dataset.correct === "true")) {
-    clearInterval(timer);
-    endRound(roundWords);
-  }
-}
-
-/*** END ROUND ***/
-function endRound(roundWords) {
-  timerContainer.classList.add("hidden");
-
-  let correct = 0;
-  roundWords.forEach(row => {
-    if (row.dataset.correct === "true") {
-      correct++;
-    } else {
-      incorrectWords.push(row.querySelector(".word-text").textContent);
-    }
-  });
-
-  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
-  const spaces = correct - diceRoll;
-
-  const team = teams[currentTeamIndex];
-  team.score += spaces;
-
-  turnSummary.textContent = `Correct: ${correct} | Dice: ${diceRoll} | Move: ${spaces}`;
-
-  // 🔑 FIXED TURN ROTATION
-  currentPlayerIndex++;
-  if (currentPlayerIndex >= teams[0].players.length) {
-    currentPlayerIndex = 0;
-    currentTeamIndex = (currentTeamIndex + 1) % teams.length;
-  }
-
-  nextPlayerDisplay.textContent = `Next Player: ${
-    teams[currentTeamIndex].players[currentPlayerIndex]
-  } (${teams[currentTeamIndex].name})`;
-
-  resultsDisplay.classList.remove("hidden");
-  nextRoundBtn.classList.remove("hidden");
-}
-
-/*** NEXT ROUND BUTTON ***/
-nextRoundBtn.addEventListener("click", startTurn);
-
-/*** SHUFFLE ***/
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-}
-
-loadChapters();
+  <script src="script.js"></script>
+</body>
+</html>
