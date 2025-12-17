@@ -1,0 +1,120 @@
+¥<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>30 Second Challenge</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- TITLE -->
+    <h1>30 Second Challenge</h1>
+
+    <!-- START SCREEN -->
+    <div id="start-screen">
+      <h2>Set Up Your Game</h2>
+
+      <form id="setup-form">
+
+        <!-- BLUE TEAM -->
+        <div class="player-setup">
+          <h3>Blue Team</h3>
+
+          <label for="blue-team-player-1">Player 1</label>
+          <input type="text" id="blue-team-player-1" placeholder="Enter name" required />
+
+          <label for="blue-team-player-2">Player 2</label>
+          <input type="text" id="blue-team-player-2" placeholder="Enter name" required />
+
+          <label for="blue-team-player-3">Player 3</label>
+          <input type="text" id="blue-team-player-3" placeholder="Enter name" required />
+
+          <label for="blue-team-player-4">Player 4</label>
+          <input type="text" id="blue-team-player-4" placeholder="Enter name" required />
+
+          <label for="blue-team-player-5">Player 5</label>
+          <input type="text" id="blue-team-player-5" placeholder="Enter name" required />
+        </div>
+
+        <!-- RED TEAM -->
+        <div class="player-setup">
+          <h3>Red Team</h3>
+
+          <label for="red-team-player-1">Player 1</label>
+          <input type="text" id="red-team-player-1" placeholder="Enter name" required />
+
+          <label for="red-team-player-2">Player 2</label>
+          <input type="text" id="red-team-player-2" placeholder="Enter name" required />
+
+          <label for="red-team-player-3">Player 3</label>
+          <input type="text" id="red-team-player-3" placeholder="Enter name" required />
+
+          <label for="red-team-player-4">Player 4</label>
+          <input type="text" id="red-team-player-4" placeholder="Enter name" required />
+
+          <label for="red-team-player-5">Player 5</label>
+          <input type="text" id="red-team-player-5" placeholder="Enter name" required />
+        </div>
+
+        <!-- CHAPTER SELECTION -->
+        <h3>Select Chapters</h3>
+        <div id="chapter-selection">
+          <!-- Dynamically filled by JS -->
+        </div>
+
+        <!-- START GAME -->
+        <button type="submit" id="start-game-btn">
+          Start Game
+        </button>
+
+      </form>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="hidden">
+
+      <!-- CURRENT TURN -->
+      <div id="current-turn">
+        <h2>
+          Turn:
+          <span id="current-player"></span>
+        </h2>
+        <p id="dice-result-message"></p>
+      </div>
+
+      <!-- WORD DISPLAY -->
+      <div id="word-display-container"></div>
+
+      <!-- TIMER -->
+      <div id="timer-container" class="hidden">
+        <h3>
+          Time Left:
+          <span id="time-left">30</span>
+          seconds
+        </h3>
+      </div>
+
+      <!-- CONTROLS -->
+      <div id="controls">
+        <button id="roll-dice-btn">Roll Dice</button>
+        <button id="start-round-btn" class="hidden">Start Round</button>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="results" class="hidden">
+        <h3>Round Summary</h3>
+        <p id="turn-summary"></p>
+        <p id="next-player"></p>
+        <button id="next-round-btn">Next Round</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
