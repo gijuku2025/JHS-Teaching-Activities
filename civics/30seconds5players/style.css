@@ -1,183 +1,29 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
+  background: #f4f4f4;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
-  text-align: center;
-}
-
-h1 {
-  background-color: #007bff;
-  color: #fff;
-  margin: 0;
-  padding: 20px;
-  font-size: 2rem;
-}
-
-h2, h3 {
-  margin-top: 20px;
-  margin-bottom: 15px;
-  color: #333;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
-/* Hidden Elements */
 .hidden {
-  display: none !important;
+  display: none;
 }
 
-/* Start Screen */
-.player-setup {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  text-align: left;
-}
-
-input[type="text"] {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Chapter Selection */
-#chapter-selection {
-  margin: 20px 0;
-  text-align: left;
-}
-
-#chapter-selection .checkbox-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-#chapter-selection input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.2);
-}
-
-/* Buttons – general */
 button {
-  font-size: 18px;          /* Slightly larger */
-  padding: 12px 26px;       /* Slightly larger */
-  margin: 10px;
-  border: none;
-  border-radius: 7px;       /* Softer rounded look */
+  padding: 10px 16px;
+  font-size: 16px;
   cursor: pointer;
-  color: white;
-  background-color: #007bff;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-button:disabled {
-  background-color: lightgray;
-  cursor: not-allowed;
-}
-
-/* Slightly larger key buttons */
-#start-game-btn,
-#roll-dice-btn {
-  font-size: 20px;          /* Slightly larger than normal */
-  padding: 14px 30px;
-}
-
-/* Timer */
-#timer-container {
-  margin-top: 20px;
-}
-
-#timer-container h3 span {
-  color: #dc3545;
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-/* Game Screen Word Rows */
-#word-display-container {
-  margin: 20px auto;
-  padding: 10px;
 }
 
 .word-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.word-row span {
-  font-size: 18px;
-  font-weight: bold;
-  flex: 1;
-  text-align: left;
-}
-
-/* ✔ Restore previous look for correct/incorrect buttons */
-.word-row button {
-  font-size: 16px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  background-color: #28a745; /* Green */
-}
-
-.word-row button:hover {
-  background-color: #1f7f37;
-}
-
-.word-row button:disabled {
-  background-color: gray;
-}
-
-/* Results Section */
-#results {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-#results h3 {
-  color: #28a745;
-  font-size: 1.5rem;
-}
-
-#turn-summary, #next-player {
-  font-size: 16px;
   margin-bottom: 10px;
-}
-
-/* Next Round Button */
-#next-round-btn {
-  margin-top: 15px;
-  padding: 12px 26px;
-  font-size: 18px;
-  border-radius: 6px;
 }
