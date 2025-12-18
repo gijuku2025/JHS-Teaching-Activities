@@ -1,0 +1,210 @@
+/* =====================
+   GENERAL STYLES
+   ===================== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  background-color: #007bff;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  font-size: 2rem;
+}
+
+h2, h3 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =====================
+   HIDDEN ELEMENTS
+   ===================== */
+.hidden {
+  display: none;
+}
+
+/* =====================
+   START SCREEN
+   ===================== */
+.player-setup {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* =====================
+   CHAPTER SELECTION
+   ===================== */
+#chapter-selection {
+  margin: 20px 0;
+  text-align: left;
+}
+
+#chapter-selection .checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#chapter-selection input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* =====================
+   BUTTONS
+   ===================== */
+button {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: #007bff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
+/* =====================
+   TIMER
+   ===================== */
+#timer-container {
+  margin-top: 20px;
+}
+
+#timer-container h3 span {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* =====================
+   GAME WORD ROWS
+   ===================== */
+#word-display-container {
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.word-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.word-row span {
+  font-size: 18px;
+  font-weight: bold;
+  flex: 1;
+  text-align: left;
+}
+
+.word-row button {
+  background-color: #28a745;
+}
+
+.word-row button:disabled {
+  background-color: gray;
+}
+
+/* =====================
+   RESULTS SECTION
+   ===================== */
+#results {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#results h3 {
+  color: #28a745;
+  font-size: 1.5rem;
+}
+
+#turn-summary,
+#next-player {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* =====================
+   PLAYER SETUP (FLEXIBLE TEAMS)
+   ===================== */
+.player-entry {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.player-entry input {
+  flex: 2;
+}
+
+.player-entry select {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Add Player button */
+#add-player-btn {
+  background-color: #6c757d;
+  font-size: 14px;
+  padding: 8px 14px;
+}
+
+#add-player-btn:hover {
+  background-color: #5a6268;
+}
