@@ -128,3 +128,13 @@ h1, h2, h3 {
   transform: scale(1.03);
 }
 
+#start-round-btn {
+  font-size: 18px;
+  padding: 14px 28px;
+}
+
+.word-row button {
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
