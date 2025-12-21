@@ -10,7 +10,6 @@
 
   <div class="container">
 
-    <!-- TITLE -->
     <h1>30 Second Challenge</h1>
 
     <!-- START SCREEN -->
@@ -19,38 +18,24 @@
 
       <form id="setup-form">
 
-        <!-- PLAYER ENTRY -->
-        <h3>Enter Players</h3>
-        <p>Add all players, then assign them to teams.</p>
+        <!-- PLAYERS -->
+        <h3>Players</h3>
 
-        <div id="player-list">
-          <!-- Players added dynamically -->
+        <div id="players-container">
+          <!-- Player rows inserted by JS -->
         </div>
 
         <button type="button" id="add-player-btn">
-          + Add Player
+          Add Player
         </button>
-
-        <!-- TEAM ASSIGNMENT -->
-        <h3>Teams</h3>
-
-        <div class="team-setup">
-          <h4>Blue Team</h4>
-          <ul id="blue-team-list"></ul>
-        </div>
-
-        <div class="team-setup">
-          <h4>Red Team</h4>
-          <ul id="red-team-list"></ul>
-        </div>
 
         <!-- CHAPTER SELECTION -->
         <h3>Select Chapters</h3>
+
         <div id="chapter-selection">
           <!-- Dynamically filled by JS -->
         </div>
 
-        <!-- START GAME -->
         <button type="submit" id="start-game-btn">
           Start Game
         </button>
@@ -61,7 +46,6 @@
     <!-- GAME SCREEN -->
     <div id="game-screen" class="hidden">
 
-      <!-- CURRENT TURN -->
       <div id="current-turn">
         <h2>
           Turn:
@@ -70,19 +54,17 @@
         <p id="dice-result-message"></p>
       </div>
 
-      <!-- WORD DISPLAY -->
-      <div id="word-display-container"></div>
+      <div id="word-display-container">
+        <!-- Words inserted here -->
+      </div>
 
-      <!-- TIMER -->
       <div id="timer-container" class="hidden">
         <h3>
           Time Left:
-          <span id="time-left">30</span>
-          seconds
+          <span id="time-left">30</span> seconds
         </h3>
       </div>
 
-      <!-- CONTROLS -->
       <div id="controls">
         <button id="roll-dice-btn">Roll Dice</button>
         <button id="start-round-btn" class="hidden">
@@ -90,7 +72,6 @@
         </button>
       </div>
 
-      <!-- RESULTS -->
       <div id="results" class="hidden">
         <h3>Round Summary</h3>
         <p id="turn-summary"></p>
