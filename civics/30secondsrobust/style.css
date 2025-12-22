@@ -138,3 +138,7 @@ h1, h2, h3 {
   padding: 10px 20px;
 }
 
+#next-round-btn {
+  font-size: 18px;
+  padding: 14px 30px;
+}
