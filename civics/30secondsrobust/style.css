@@ -142,3 +142,9 @@ h1, h2, h3 {
   font-size: 18px;
   padding: 14px 30px;
 }
+
+#add-player-btn {
+  font-size: 18px;
+  padding: 14px 26px;
+}
+
