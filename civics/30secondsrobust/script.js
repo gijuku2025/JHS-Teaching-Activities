@@ -109,10 +109,7 @@ setupForm.addEventListener("submit", (e) => {
   document.querySelectorAll(".player-row").forEach(row => {
     const name = row.querySelector("input").value.trim();
     const team = row.querySelector("select").value;
-
-    if (name) {
-      players.push({ name, team });
-    }
+    if (name) players.push({ name, team });
   });
 
   if (players.length < 2) {
@@ -168,7 +165,7 @@ function startTurn() {
 
   wordDisplayContainer.innerHTML = "";
 
-  rollDiceBtn.style.display = "inline-block"; // 👈 show again
+  rollDiceBtn.style.display = "inline-block";
   startRoundBtn.classList.add("hidden");
   resultsDisplay.classList.add("hidden");
   nextRoundBtn.classList.add("hidden");
@@ -186,7 +183,7 @@ rollDiceBtn.addEventListener("click", () => {
   const roll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
   diceResultMessage.textContent = `Dice Roll: ${roll}`;
 
-  rollDiceBtn.style.display = "none"; // 👈 hide instead of disable
+  rollDiceBtn.style.display = "none";
   startRoundBtn.classList.remove("hidden");
 });
 
@@ -240,19 +237,31 @@ startRoundBtn.addEventListener("click", () => {
     row.appendChild(text);
     row.appendChild(btn);
     wordDisplayContainer.appendChild(row);
-
     rows.push(row);
   });
 
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
+
     if (timeLeft <= 0) {
       clearInterval(timer);
-      endRound(rows);
+      showTimesUpMessage();
+      setTimeout(() => endRound(rows), 1200);
     }
   }, 1000);
 });
+
+// =====================
+// TIME'S UP MESSAGE
+// =====================
+function showTimesUpMessage() {
+  wordDisplayContainer.innerHTML = `
+    <div class="times-up-message">
+      ⏰ TIME’S UP!
+    </div>
+  `;
+}
 
 // =====================
 // ROUND END
