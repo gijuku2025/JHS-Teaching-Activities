@@ -148,3 +148,9 @@ h1, h2, h3 {
   padding: 14px 26px;
 }
 
+.times-up-message {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 40px 0;
+}
