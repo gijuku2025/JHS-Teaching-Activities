@@ -129,8 +129,12 @@ setupForm.addEventListener("submit", (e) => {
     return;
   }
 
-  remainingWords = selectedChapters.flat();
+  // ✅ DEDUPLICATE WORD POOL (OPTION 1 FIX)
+  remainingWords = [...new Set(selectedChapters.flat())];
   allWords = [...remainingWords];
+  incorrectWords = [];
+
+  shuffleArray(remainingWords);
 
   buildTurnOrder();
 
@@ -200,6 +204,7 @@ startRoundBtn.addEventListener("click", () => {
   timerContainer.classList.remove("hidden");
 
   let selectedWords = [];
+
   for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
     if (remainingWords.length === 0) {
       remainingWords = incorrectWords.length
@@ -241,10 +246,8 @@ startRoundBtn.addEventListener("click", () => {
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
-
     if (timeLeft <= 0) {
       clearInterval(timer);
-      diceResultMessage.textContent = "⏰ Time’s up!";
       endRound(rows);
     }
   }, 1000);
