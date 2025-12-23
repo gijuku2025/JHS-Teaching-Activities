@@ -241,8 +241,10 @@ startRoundBtn.addEventListener("click", () => {
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
+
     if (timeLeft <= 0) {
       clearInterval(timer);
+      diceResultMessage.textContent = "⏰ Time’s up!";
       endRound(rows);
     }
   }, 1000);
