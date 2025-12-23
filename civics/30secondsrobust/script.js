@@ -129,12 +129,8 @@ setupForm.addEventListener("submit", (e) => {
     return;
   }
 
-  // ✅ DEDUPLICATE WORD POOL (OPTION 1 FIX)
   remainingWords = [...new Set(selectedChapters.flat())];
   allWords = [...remainingWords];
-  incorrectWords = [];
-
-  shuffleArray(remainingWords);
 
   buildTurnOrder();
 
@@ -172,7 +168,7 @@ function startTurn() {
 
   wordDisplayContainer.innerHTML = "";
 
-  rollDiceBtn.disabled = false;
+  rollDiceBtn.style.display = "inline-block"; // 👈 show again
   startRoundBtn.classList.add("hidden");
   resultsDisplay.classList.add("hidden");
   nextRoundBtn.classList.add("hidden");
@@ -189,7 +185,8 @@ function advanceTurn() {
 rollDiceBtn.addEventListener("click", () => {
   const roll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
   diceResultMessage.textContent = `Dice Roll: ${roll}`;
-  rollDiceBtn.disabled = true;
+
+  rollDiceBtn.style.display = "none"; // 👈 hide instead of disable
   startRoundBtn.classList.remove("hidden");
 });
 
@@ -204,16 +201,20 @@ startRoundBtn.addEventListener("click", () => {
   timerContainer.classList.remove("hidden");
 
   let selectedWords = [];
+  const usedThisRound = new Set();
 
-  for (let i = 0; i < MAX_WORDS_PER_ROUND; i++) {
+  while (selectedWords.length < MAX_WORDS_PER_ROUND) {
     if (remainingWords.length === 0) {
-      remainingWords = incorrectWords.length
-        ? [...incorrectWords]
-        : [...allWords];
+      remainingWords = [...new Set(incorrectWords)];
       incorrectWords = [];
       shuffleArray(remainingWords);
     }
-    selectedWords.push(remainingWords.pop());
+
+    const word = remainingWords.pop();
+    if (!usedThisRound.has(word)) {
+      usedThisRound.add(word);
+      selectedWords.push(word);
+    }
   }
 
   let rows = [];
