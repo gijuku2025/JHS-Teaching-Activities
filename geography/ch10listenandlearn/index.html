@@ -223,6 +223,10 @@ function nextQuestion() {
   showQuestion();
 }
 
+function formatDateTime(date) {
+  return date.toLocaleString();
+}
+  
 function endQuiz() {
   quizScreen.classList.add("hidden");
   endScreen.classList.remove("hidden");
@@ -231,9 +235,13 @@ function endQuiz() {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
 
-  finalResult.innerHTML = `${nickname}'s score: ${score} / ${questions.length * 2}<br>
-                           ${quizTitle}<br>
-                           Time: ${minutes} min ${seconds} sec`;
+  finalResult.innerHTML = `
+  ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+  ${quizTitle}<br>
+  Started: ${formatDateTime(startTime)}<br>
+  Time: ${minutes} min ${seconds} sec
+`;
+
 }
 
 function shuffle(array) {
