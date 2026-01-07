@@ -40,23 +40,24 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
-.primary { background: #4CAF50; color: #fff; }
-.play-btn { background: #1E90FF; color: #fff; }
+.primary { background-color: #4CAF50; color: white; }
+.play-btn { background-color: #1E90FF; color: white; }
 .choice-btn { margin: 5px 0; border-radius: 8px; }
 .hidden { display: none; }
 
 .progress-bar {
   width: 100%;
   height: 8px;
-  background: #e0e0e0;
+  background-color: #e0e0e0;
   border-radius: 4px;
   margin-bottom: 12px;
 }
 #progressFill {
   height: 100%;
   width: 0%;
-  background: #FFA500;
+  background-color: #FFA500;
   border-radius: 4px;
+  transition: width 0.3s ease;
 }
 .feedback {
   margin-top: 15px;
@@ -153,26 +154,89 @@ function startQuiz() {
 }
 
 function showQuestion() {
-  const q = questions[currentQuestion];
   feedbackDiv.textContent = "";
+  firstTry = true;
   choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
 
   quizScreen.dataset.answer = q.jp;
   quizScreen.dataset.audio = q.enAudio;
 
-  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
-  progressFill.style.width = ((currentQuestion + 1) / questions.length) * 100 + "%";
+  questionCounterDiv.textContent =
+    `Question ${currentQuestion + 1} of ${questions.length}`;
 
-  const btn = document.createElement("button");
-  btn.textContent = q.jp;
-  btn.className = "choice-btn";
-  btn.onclick = () => endQuiz();
-  choicesDiv.appendChild(btn);
+  const progress = (currentQuestion + 1) / questions.length;
+  progressFill.style.width = (progress * 100) + "%";
+
+  let pool = sentences.map(s => s.jp);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(q.jp)) {
+    options[Math.floor(Math.random() * 3)] = q.jp;
+  }
+
+  shuffle(options);
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+
+  options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[index % colors.length];
+    btn.style.color = "#fff";
+    btn.style.fontSize = "18px";
+    btn.style.padding = "14px";
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
 }
 
 function playSentence() {
   const audio = new Audio(quizScreen.dataset.audio);
   audio.play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else {
+    if (firstTry) {
+      feedbackDiv.textContent = "Try again!";
+      firstTry = false;
+      enableChoices();
+      return;
+    } else {
+      feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+    }
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
 }
 
 function formatDateTime(date) {
@@ -184,20 +248,22 @@ function endQuiz() {
   endScreen.classList.remove("hidden");
 
   const endTime = new Date();
-  const seconds = Math.floor((endTime - startTime) / 1000);
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
 
   finalResult.innerHTML = `
-    ${nickname}'s score: ${score}<br>
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
     ${quizTitle}<br>
     Started: ${formatDateTime(startTime)}<br>
-    Time: ${seconds} seconds
+    Time: ${minutes} min ${seconds} sec
   `;
 }
 
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
 </script>
