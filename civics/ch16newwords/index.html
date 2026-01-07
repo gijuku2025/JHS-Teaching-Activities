@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ch 16 New Words Quiz</title>
+<title>Civics Ch 16 New Words Quiz</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -60,7 +60,7 @@
 </div>
 
 <div class="container hidden" id="quizScreen">
-  <h1 id="gameTitle">Ch 16 Listening Quiz</h1>
+  <h1 id="gameTitle">Civics Ch 16 New Words Quiz</h1>
   <div class="progress-bar"><div id="progressFill"></div></div>
   <div id="questionCounter">Question 1 of 10</div>
   <h1 id="questionTitle">Listen and choose:</h1>
@@ -233,10 +233,13 @@ function endQuiz() {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   const dateString = endTime.toLocaleDateString() + " " + endTime.toLocaleTimeString();
+  const quizTitle = document.getElementById("gameTitle").textContent;
 
-  finalResult.innerHTML = `${nickname}'s score: ${score} / ${words.length * 2}<br>
-                           Time played: ${minutes} min ${seconds} sec<br>
-                           Date: ${dateString}`;
+ finalResult.innerHTML = `<strong>${quizTitle}</strong><br><br>
+                         ${nickname}'s score: ${score} / ${words.length * 2}<br>
+                         Time played: ${minutes} min ${seconds} sec<br>
+                         Date: ${dateString}`;
+
 }
 
 function shuffle(array) {
