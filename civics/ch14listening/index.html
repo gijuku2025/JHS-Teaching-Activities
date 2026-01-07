@@ -226,11 +226,13 @@ function endQuiz() {
   const seconds = totalSeconds % 60;
   const dateString = endTime.toLocaleDateString() + " " + endTime.toLocaleTimeString();
   const quizTitle = document.getElementById("gameTitle").textContent;
+  const quizTitle = document.getElementById("gameTitle").textContent;
 
   finalResult.innerHTML = `<strong>${quizTitle}</strong><br><br>
                          ${nickname}'s score: ${score} / ${words.length * 2}<br>
                          Time played: ${minutes} min ${seconds} sec<br>
                          Date: ${dateString}`;
+
 
 }
 
