@@ -336,8 +336,7 @@ function showQuestion() {
 }
 
 function playSentence() {
-  const audio = new Audio(quizScreen.dataset.audio);
-  audio.play();
+  new Audio(quizScreen.dataset.audio).play();
 }
 
 function checkAnswer(choice, btn) {
@@ -399,6 +398,7 @@ function endQuiz() {
   const minutes = Math.floor(seconds / 60);
 
   finalResult.innerHTML = `
+    <strong>${quizTitle}</strong><br><br>
     <strong>${nickname}</strong><br>
     Score: ${score} / ${questions.length * 2}<br>
     Started: ${startTime.toLocaleString()}<br>
