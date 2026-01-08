@@ -22,43 +22,38 @@
     width: 380px;
   }
   h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
-  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
-  input[type="text"] {
-    padding: 10px; width: 80%;
-    border: 1px solid #ccc; border-radius: 8px;
-    margin-bottom: 20px;
-  }
+  #gameTitle { font-size: 20px; margin-bottom: 12px; }
   button {
-    padding: 12px; margin: 8px 0; width: 100%;
-    border: none; border-radius: 8px;
-    font-size: 16px; cursor: pointer;
-  }
-  .primary { background-color: #4CAF50; color: white; }
-  .play-btn { background-color: #1E90FF; color: white; }
-  .choice-btn {
-    margin: 5px 0;
+    padding: 12px;
+    margin: 8px 0;
+    width: 100%;
+    border: none;
     border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: #fff; }
+  .play-btn { background-color: #1E90FF; color: #fff; }
+  .choice-btn {
     color: #fff;
     font-size: 18px;
     padding: 14px;
+    margin: 5px 0;
+    border-radius: 8px;
   }
-  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
   .hidden { display: none; }
+  .feedback { font-size: 18px; font-weight: bold; }
   .progress-bar {
-    width: 100%; height: 8px;
-    background-color: #e0e0e0;
+    height: 8px;
+    background: #ddd;
     border-radius: 4px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   #progressFill {
-    height: 100%; width: 0%;
-    background-color: #FFA500;
+    height: 100%;
+    width: 0%;
+    background: #FFA500;
     border-radius: 4px;
-  }
-  #endQuizTitle {
-    font-size: 18px;
-    margin-bottom: 10px;
   }
 </style>
 </head>
@@ -66,7 +61,7 @@
 
 <div class="container" id="startScreen">
   <h1>Enter nickname</h1>
-  <input type="text" id="nickname" placeholder="Your name">
+  <input id="nickname" placeholder="Your name">
   <button class="primary" onclick="startQuiz()">Start</button>
 </div>
 
@@ -74,7 +69,6 @@
   <h1 id="gameTitle"></h1>
   <div class="progress-bar"><div id="progressFill"></div></div>
   <div id="questionCounter"></div>
-  <h1>Listen and choose:</h1>
   <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
   <div id="choices"></div>
   <div class="feedback" id="feedback"></div>
@@ -91,31 +85,110 @@
 const quizTitle = "Geography Ch 35 Listen and Learn";
 
 const sentences = [
-  { en: "South America has a strong agricultural industry.", jp: "南アメリカには強い農業産業がある。", enAudio: "audio/01_south_america_has_a_strong_agr_en.mp3", jpAudio: "audio/01_south_america_has_a_strong_agr_jp.mp3" },
-  { en: "Many farmers still use old methods to grow potatoes and corn.", jp: "多くの農家はイモとトウモロコシを育てるためにまだ古い方法を使っている。", enAudio: "audio/02_many_farmers_still_use_old_met_en.mp3", jpAudio: "audio/02_many_farmers_still_use_old_met_jp.mp3" },
-  { en: "From the late 20th century, agricultural corporations started using advanced technology.", jp: "20世紀の後半から、農業企業は先端技術を使い始めた。", enAudio: "audio/03_from_the_late_20th_century_agr_en.mp3", jpAudio: "audio/03_from_the_late_20th_century_agr_jp.mp3" },
-  { en: "Agricultural corporations grow cash crops such as coffee, soybeans, bananas, and sugarcane.", jp: "農業企業はコーヒー、大豆、バナナ、サトウキビなどの換金作物を育てている。", enAudio: "audio/04_agricultural_corporations_grow_en.mp3", jpAudio: "audio/04_agricultural_corporations_grow_jp.mp3" },
-  { en: "Coffee, soybeans, meat, sugar, and bioethanol are important exports of South America.", jp: "コーヒー、大豆、肉、砂糖、そしてバイオエタノールは南アメリカの重要な輸出品である。", enAudio: "audio/05_coffee_soybeans_meat_sugar_and_en.mp3", jpAudio: "audio/05_coffee_soybeans_meat_sugar_and_jp.mp3" },
-  { en: "South America has many minerals, such as oil, copper, iron ore, bauxite, and rare metals.", jp: "南アメリカには、原油、銅、鉄鉱石、ボーキサイト、レアメタルなど多くの鉱物がある。", enAudio: "audio/06_south_america_has_many_mineral_en.mp3", jpAudio: "audio/06_south_america_has_many_mineral_jp.mp3" },
-  { en: "South American governments worked hard to mine resources, which helped grow their economies.", jp: "南アメリカの政府は資源を採掘するために懸命に努力し、その結果経済が成長した。", enAudio: "audio/07_south_american_governments_wor_en.mp3", jpAudio: "audio/07_south_american_governments_wor_jp.mp3" },
-  { en: "Japan imports a large amount of iron ore and copper from South America.", jp: "日本は南アメリカから大量の鉄鉱石と銅を輸入している。", enAudio: "audio/08_japan_imports_a_large_amount_o_en.mp3", jpAudio: "audio/08_japan_imports_a_large_amount_o_jp.mp3" },
-  { en: "Mining and industrial development grew together in South America.", jp: "南アメリカでは鉱業と工業の発展が一緒に成長した。", enAudio: "audio/09_mining_and_industrial_developm_en.mp3", jpAudio: "audio/09_mining_and_industrial_developm_jp.mp3" },
-  { en: "After 1970, companies cut down large areas of tropical rainforest in the Amazon Basin.", jp: "1970年以降、企業はアマゾン川流域の広大な熱帯雨林を切り倒した。", enAudio: "audio/10_after_1970_companies_cut_down__en.mp3", jpAudio: "audio/10_after_1970_companies_cut_down__jp.mp3" },
-  { en: "Traditional farmers who used slash-and-burn methods protected the forests.", jp: "焼き畑農業を用いる伝統的な農家は森林を保護していた。", enAudio: "audio/11_traditional_farmers_who_used_s_en.mp3", jpAudio: "audio/11_traditional_farmers_who_used_s_jp.mp3" },
-  { en: "Corporations cut down many more trees than traditional farmers, which destroyed the forests.", jp: "企業は伝統的な農家よりもはるかに多くの木を切り倒し、森林を破壊した。", enAudio: "audio/12_corporations_cut_down_many_mor_en.mp3", jpAudio: "audio/12_corporations_cut_down_many_mor_jp.mp3" },
-  { en: "Growing the same crops on the same land causes soil degradation.", jp: "同じ土地で同じ作物を育て続けると、土壌が劣化する。", enAudio: "audio/13_growing_the_same_crops_on_the__en.mp3", jpAudio: "audio/13_growing_the_same_crops_on_the__jp.mp3" },
-  { en: "Tropical rainforests host many kinds of plants and animals, but many are disappearing.", jp: "熱帯雨林には多くの種類の動植物が生息しているが、多くが消えつつある。", enAudio: "audio/14_tropical_rainforests_host_many_en.mp3", jpAudio: "audio/14_tropical_rainforests_host_many_jp.mp3" },
-  { en: "Once rainforests are gone, they will never return.", jp: "一度熱帯雨林が失われると、それが戻ってくることはない。", enAudio: "audio/15_once_rainforests_are_gone_they_en.mp3", jpAudio: "audio/15_once_rainforests_are_gone_they_jp.mp3" }
+  { en:"South America has a strong agricultural industry.", jp:"南アメリカには強い農業産業がある。", enAudio:"audio/01.mp3", jpAudio:"audio/01j.mp3" },
+  { en:"Many farmers still use old methods to grow potatoes and corn.", jp:"多くの農家は古い方法を使っている。", enAudio:"audio/02.mp3", jpAudio:"audio/02j.mp3" },
+  { en:"Coffee and soybeans are important exports.", jp:"コーヒーと大豆は重要な輸出品である。", enAudio:"audio/03.mp3", jpAudio:"audio/03j.mp3" }
 ];
 
 let questions = [];
-let nickname = "";
 let currentQuestion = 0;
 let score = 0;
 let firstTry = true;
 let startTime;
 
-/* logic unchanged below */
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const progressFill = document.getElementById("progressFill");
+const questionCounter = document.getElementById("questionCounter");
+const finalResult = document.getElementById("finalResult");
+const endQuizTitle = document.getElementById("endQuizTitle");
+const gameTitleEl = document.getElementById("gameTitle");
+
+function startQuiz() {
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  choicesDiv.innerHTML = "";
+  firstTry = true;
+
+  const q = questions[currentQuestion];
+  quizScreen.dataset.answer = q.jp;
+  quizScreen.dataset.audio = q.enAudio;
+
+  questionCounter.textContent = `Question ${currentQuestion + 1} / ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let options = sentences.map(s => s.jp);
+  shuffle(options);
+  options = options.slice(0, 3);
+  if (!options.includes(q.jp)) options[0] = q.jp;
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const b = document.createElement("button");
+    b.textContent = opt;
+    b.className = "choice-btn";
+    b.style.backgroundColor = colors[i];
+    b.onclick = () => checkAnswer(opt);
+    choicesDiv.appendChild(b);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice) {
+  if (choice === quizScreen.dataset.answer) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+    setTimeout(nextQuestion, 800);
+  } else if (firstTry) {
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+  } else {
+    feedbackDiv.textContent = "Wrong!";
+    setTimeout(nextQuestion, 800);
+  }
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion >= questions.length) endQuiz();
+  else showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+  const end = new Date();
+  finalResult.innerHTML =
+    `Score: ${score}<br>
+     Finished on: ${end.toLocaleDateString()}<br>
+     Finished at: ${end.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}`;
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+}
 </script>
 </body>
 </html>
