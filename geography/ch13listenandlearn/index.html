@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Geography Ch 11 Listen and Learn</title>
+<title>Geography Ch 13 Listen and Learn</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -88,10 +88,10 @@
 </div>
 
 <script>
-const quizTitle = "Geography Ch 11 Listen and Learn";
+const quizTitle = "Geography Ch 13 Listen and Learn";
 
 const sentences = [
-    { en: "There are many religions around the world.", jp: "世界中に多くの宗教がある。", enAudio: "audio/01_there_are_many_religions_aroun_en.mp3", jpAudio: "audio/01_there_are_many_religions_aroun_jp.mp3" },
+  { en: "There are many religions around the world.", jp: "世界中に多くの宗教がある。", enAudio: "audio/01_there_are_many_religions_aroun_en.mp3", jpAudio: "audio/01_there_are_many_religions_aroun_jp.mp3" },
   { en: "The Three Big Religions are Christianity, Islam and Buddhism.", jp: "三大宗教はキリスト教、イスラム教、仏教である。", enAudio: "audio/02_the_three_big_religions_are_ch_en.mp3", jpAudio: "audio/02_the_three_big_religions_are_ch_jp.mp3" },
   { en: "Christians read the Bible, Muslims read the Koran, and Buddhists read the Sutras.", jp: "キリスト教徒は聖書を読み、イスラム教徒はコーランを読み、仏教徒はお経を読む。", enAudio: "audio/03_christians_read_the_bible_musl_en.mp3", jpAudio: "audio/03_christians_read_the_bible_musl_jp.mp3" },
   { en: "Hinduism and Judaism are national or ethnic religions.", jp: "ヒンズー教とユダヤ教は国民または民族の宗教である。", enAudio: "audio/04_hinduism_and_judaism_are_natio_en.mp3", jpAudio: "audio/04_hinduism_and_judaism_are_natio_jp.mp3" },
@@ -100,15 +100,7 @@ const sentences = [
   { en: "Muslims pray toward Mecca five times a day and go to mosques on Friday.", jp: "イスラム教徒は一日に五回メッカに向かって祈り、金曜日にモスクへ行く。", enAudio: "audio/07_muslims_pray_toward_mecca_five_en.mp3", jpAudio: "audio/07_muslims_pray_toward_mecca_five_jp.mp3" },
   { en: "They have rules about giving money and fasting during Ramadan.", jp: "彼らにはお金を施すこととラマダン中に断食する規則がある。", enAudio: "audio/08_they_have_rules_about_giving_m_en.mp3", jpAudio: "audio/08_they_have_rules_about_giving_m_jp.mp3" },
   { en: "During Ramadan, Muslims don’t eat or drink in the day.", jp: "ラマダン中、イスラム教徒は日中に食べたり飲んだりしない。", enAudio: "audio/09_during_ramadan_muslims_dont_ea_en.mp3", jpAudio: "audio/09_during_ramadan_muslims_dont_ea_jp.mp3" },
-  { en: "Buddhism started in India.", jp: "仏教はインドで始まった。", enAudio: "audio/10_buddhism_started_in_india_en.mp3", jpAudio: "audio/10_buddhism_started_in_india_jp.mp3" },
-  { en: "Theravada Buddhism is very strong in Thailand.", jp: "上座部仏教はタイでとても盛んである。", enAudio: "audio/11_theravada_buddhism_is_very_str_en.mp3", jpAudio: "audio/11_theravada_buddhism_is_very_str_jp.mp3" },
-  { en: "Many Hindus don’t eat meat or fish.", jp: "多くのヒンズー教徒は肉や魚を食べない。", enAudio: "audio/12_many_hindus_dont_eat_meat_or_f_en.mp3", jpAudio: "audio/12_many_hindus_dont_eat_meat_or_f_jp.mp3" },
-  { en: "Cattle are messengers from the gods, so they don’t eat beef.", jp: "牛は神々の使いであるため、牛肉を食べない。", enAudio: "audio/13_cattle_are_messengers_from_the_en.mp3", jpAudio: "audio/13_cattle_are_messengers_from_the_jp.mp3" },
-  { en: "More than half of Japanese people say they have no religion.", jp: "日本人の半分以上は宗教がないと言う。", enAudio: "audio/14_more_than_half_of_japanese_peo_en.mp3", jpAudio: "audio/14_more_than_half_of_japanese_peo_jp.mp3" },
-  { en: "Many Japanese people make wishes at Shinto shrines, have weddings in a Christian church, and have funerals in a Buddhist temple.", jp: "多くの日本人は神道の神社で願い事をし、キリスト教の教会で結婚式を挙げ、仏教のお寺で葬式を行う。", enAudio: "audio/15_many_japanese_people_make_wish_en.mp3", jpAudio: "audio/15_many_japanese_people_make_wish_jp.mp3" },
-
-let questions = [];
-let nickname = "";
+  { en: "Buddhism started in India.", jp: "仏教はインドで始まった。", enAudio: "audio/10_buddhism_started_in_india_en.mp3", jpAudio: "audio/10_buddhism_started_in_india_jp.mp3" }
 ];
 
 let questions = [];
@@ -128,6 +120,8 @@ const finalResult = document.getElementById("finalResult");
 const questionCounterDiv = document.getElementById("questionCounter");
 const progressFill = document.getElementById("progressFill");
 const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
 
 function startQuiz() {
   nickname = document.getElementById("nickname").value.trim() || "Player";
@@ -168,6 +162,7 @@ function showQuestion() {
 
   let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
   shuffle(pool);
+
   let options = pool.slice(0, 3);
   if (!options.includes(quizScreen.dataset.answer)) {
     options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
@@ -185,8 +180,7 @@ function showQuestion() {
 }
 
 function playSentence() {
-  const audio = new Audio(quizScreen.dataset.audio);
-  audio.play();
+  new Audio(quizScreen.dataset.audio).play();
 }
 
 function checkAnswer(choice, btn) {
@@ -239,14 +233,12 @@ function endQuiz() {
   const totalSeconds = Math.floor((endTime - startTime) / 1000);
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  const dateString = endTime.toLocaleDateString();
-  const timeString = endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   finalResult.innerHTML = `
     ${nickname}'s score: ${score} / ${questions.length * 2}<br>
     Time taken: ${minutes} min ${seconds} sec<br>
-    Finished on: ${dateString}<br>
-    Finished at: ${timeString}
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
   `;
 }
 
