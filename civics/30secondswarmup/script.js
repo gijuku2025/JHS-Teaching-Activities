@@ -2,16 +2,14 @@
 // GAME STATE
 // =====================
 let wordPool = {};
-let allWords = [];
+let unusedWords = [];
 
 let currentRound = 1;
 let roundScore = 0;
 
-let round1Score = 0;
-let round2Score = 0;
-
 let timer = null;
 let timeLeft = 30;
+let roundActive = false;
 
 const MAX_WORDS_PER_ROUND = 5;
 
@@ -38,8 +36,6 @@ const reviewScore = document.getElementById("review-score");
 const reviewOkBtn = document.getElementById("review-ok-btn");
 
 const finalReview = document.getElementById("final-review");
-const finalR1 = document.getElementById("final-r1");
-const finalR2 = document.getElementById("final-r2");
 
 // =====================
 // LOAD CHAPTERS
@@ -81,11 +77,11 @@ setupForm.addEventListener("submit", (e) => {
     return;
   }
 
-  allWords = [...new Set(selectedChapters.flat())];
+  // unique + fresh word list
+  unusedWords = [...new Set(selectedChapters.flat())];
+  shuffleArray(unusedWords);
 
   currentRound = 1;
-  round1Score = 0;
-  round2Score = 0;
 
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
@@ -117,18 +113,14 @@ startRoundBtn.addEventListener("click", () => {
 
 function startRound() {
   roundScore = 0;
-
-  // force visibility
-  wordDisplayContainer.classList.remove("hidden");
+  roundActive = true;
 
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  // SAFE word selection
-  const shuffled = [...allWords];
-  shuffleArray(shuffled);
-  const roundWords = shuffled.slice(0, MAX_WORDS_PER_ROUND);
+  // pull words WITHOUT replacement
+  const roundWords = unusedWords.splice(0, MAX_WORDS_PER_ROUND);
 
   wordDisplayContainer.innerHTML = "";
 
@@ -143,7 +135,7 @@ function startRound() {
     btn.textContent = "Correct";
 
     btn.onclick = () => {
-      if (btn.disabled) return;
+      if (!roundActive || btn.disabled) return;
       btn.disabled = true;
       roundScore++;
     };
@@ -168,13 +160,13 @@ function startRound() {
 // END ROUND
 // =====================
 function endRound() {
+  roundActive = false;
   timerContainer.classList.add("hidden");
 
-  if (currentRound === 1) {
-    round1Score = roundScore;
-  } else {
-    round2Score = roundScore;
-  }
+  // disable all buttons immediately
+  document
+    .querySelectorAll(".word-row button")
+    .forEach(btn => (btn.disabled = true));
 
   reviewScore.textContent = roundScore;
   reviewScreen.classList.remove("hidden");
@@ -198,9 +190,6 @@ reviewOkBtn.addEventListener("click", () => {
 // FINAL REVIEW
 // =====================
 function showFinalReview() {
-  finalR1.textContent = round1Score;
-  finalR2.textContent = round2Score;
-
   finalReview.classList.remove("hidden");
 }
 
