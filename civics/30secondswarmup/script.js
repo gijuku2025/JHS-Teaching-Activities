@@ -33,9 +33,6 @@ const timerDisplay = document.getElementById("time-left");
 
 const wordDisplayContainer = document.getElementById("word-display-container");
 
-const scoreboard = document.getElementById("scoreboard");
-const roundScoreDisplay = document.getElementById("round-score");
-
 const reviewScreen = document.getElementById("review-screen");
 const reviewScore = document.getElementById("review-score");
 const reviewOkBtn = document.getElementById("review-ok-btn");
@@ -120,14 +117,6 @@ startRoundBtn.addEventListener("click", () => {
 
 function startRound() {
   roundScore = 0;
-  roundScoreDisplay.textContent = "0";
-
-  // 🔴 HIDE SCOREBOARD IN ROUND 2
-  if (currentRound === 2) {
-    scoreboard.classList.add("hidden");
-  } else {
-    scoreboard.classList.remove("hidden");
-  }
 
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
@@ -151,9 +140,7 @@ function startRound() {
     btn.onclick = () => {
       if (btn.disabled) return;
       btn.disabled = true;
-
       roundScore++;
-      roundScoreDisplay.textContent = roundScore;
     };
 
     row.appendChild(text);
