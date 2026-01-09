@@ -3,13 +3,16 @@
 // =====================
 let wordPool = {};
 let remainingWords = [];
-let incorrectWords = [];
 
-let currentRound = 1; // 1 or 2
+let currentRound = 1;
 let totalCorrect = 0;
 
 let timer = null;
 let timeLeft = 30;
+
+let roundWords = [];
+let correctThisRound = [];
+let incorrectThisRound = [];
 
 const MAX_WORDS_PER_ROUND = 5;
 
@@ -32,6 +35,11 @@ const timerDisplay = document.getElementById("time-left");
 const wordDisplayContainer = document.getElementById("word-display-container");
 
 const totalCorrectDisplay = document.getElementById("total-correct");
+
+const reviewScreen = document.getElementById("review-screen");
+const correctList = document.getElementById("correct-list");
+const incorrectList = document.getElementById("incorrect-list");
+const reviewOkBtn = document.getElementById("review-ok-btn");
 
 // =====================
 // LOAD CHAPTERS
@@ -59,7 +67,7 @@ async function loadChapters() {
 }
 
 // =====================
-// SETUP GAME
+// SETUP
 // =====================
 setupForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -74,7 +82,6 @@ setupForm.addEventListener("submit", (e) => {
   }
 
   remainingWords = [...new Set(selectedChapters.flat())];
-  incorrectWords = [];
   totalCorrect = 0;
   currentRound = 1;
 
@@ -91,6 +98,7 @@ setupForm.addEventListener("submit", (e) => {
 // =====================
 function showReadyScreen() {
   wordDisplayContainer.innerHTML = "";
+  reviewScreen.classList.add("hidden");
   timerContainer.classList.add("hidden");
 
   readyText.textContent =
@@ -112,26 +120,17 @@ function startRound() {
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  const selectedWords = [];
-  const used = new Set();
+  roundWords = [];
+  correctThisRound = [];
+  incorrectThisRound = [];
 
-  while (selectedWords.length < MAX_WORDS_PER_ROUND) {
-    if (remainingWords.length === 0) {
-      remainingWords = [...new Set(incorrectWords)];
-      incorrectWords = [];
-      shuffleArray(remainingWords);
-    }
+  shuffleArray(remainingWords);
 
-    const word = remainingWords.pop();
-    if (!used.has(word)) {
-      used.add(word);
-      selectedWords.push(word);
-    }
-  }
+  roundWords = remainingWords.splice(0, MAX_WORDS_PER_ROUND);
 
   wordDisplayContainer.innerHTML = "";
 
-  selectedWords.forEach(word => {
+  roundWords.forEach(word => {
     const row = document.createElement("div");
     row.className = "word-row";
 
@@ -145,6 +144,7 @@ function startRound() {
       if (btn.disabled) return;
       btn.disabled = true;
 
+      correctThisRound.push(word);
       totalCorrect++;
       totalCorrectDisplay.textContent = totalCorrect;
     };
@@ -166,10 +166,45 @@ function startRound() {
 }
 
 // =====================
-// END ROUND
+// END ROUND → REVIEW
 // =====================
 function endRound() {
   timerContainer.classList.add("hidden");
+
+  incorrectThisRound = roundWords.filter(
+    w => !correctThisRound.includes(w)
+  );
+
+  showReviewScreen();
+}
+
+// =====================
+// REVIEW SCREEN
+// =====================
+function showReviewScreen() {
+  correctList.innerHTML = "";
+  incorrectList.innerHTML = "";
+
+  correctThisRound.forEach(w => {
+    const li = document.createElement("li");
+    li.textContent = w;
+    correctList.appendChild(li);
+  });
+
+  incorrectThisRound.forEach(w => {
+    const li = document.createElement("li");
+    li.textContent = w;
+    incorrectList.appendChild(li);
+  });
+
+  reviewScreen.classList.remove("hidden");
+}
+
+// =====================
+// REVIEW OK
+// =====================
+reviewOkBtn.addEventListener("click", () => {
+  reviewScreen.classList.add("hidden");
 
   if (currentRound === 1) {
     currentRound = 2;
@@ -177,7 +212,7 @@ function endRound() {
   } else {
     showGameOver();
   }
-}
+});
 
 // =====================
 // GAME OVER
