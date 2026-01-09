@@ -2,7 +2,7 @@
 // GAME STATE
 // =====================
 let wordPool = {};
-let remainingWords = [];
+let allWords = [];
 
 let currentRound = 1;
 let roundScore = 0;
@@ -81,7 +81,7 @@ setupForm.addEventListener("submit", (e) => {
     return;
   }
 
-  remainingWords = [...new Set(selectedChapters.flat())];
+  allWords = [...new Set(selectedChapters.flat())];
 
   currentRound = 1;
   round1Score = 0;
@@ -118,12 +118,17 @@ startRoundBtn.addEventListener("click", () => {
 function startRound() {
   roundScore = 0;
 
+  // force visibility
+  wordDisplayContainer.classList.remove("hidden");
+
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  shuffleArray(remainingWords);
-  const roundWords = remainingWords.splice(0, MAX_WORDS_PER_ROUND);
+  // SAFE word selection
+  const shuffled = [...allWords];
+  shuffleArray(shuffled);
+  const roundWords = shuffled.slice(0, MAX_WORDS_PER_ROUND);
 
   wordDisplayContainer.innerHTML = "";
 
