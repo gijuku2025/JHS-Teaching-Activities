@@ -10,10 +10,6 @@ let totalCorrect = 0;
 let timer = null;
 let timeLeft = 30;
 
-let roundWords = [];
-let correctThisRound = [];
-let incorrectThisRound = [];
-
 const MAX_WORDS_PER_ROUND = 5;
 
 // =====================
@@ -37,8 +33,7 @@ const wordDisplayContainer = document.getElementById("word-display-container");
 const totalCorrectDisplay = document.getElementById("total-correct");
 
 const reviewScreen = document.getElementById("review-screen");
-const correctList = document.getElementById("correct-list");
-const incorrectList = document.getElementById("incorrect-list");
+const reviewScore = document.getElementById("review-score");
 const reviewOkBtn = document.getElementById("review-ok-btn");
 
 // =====================
@@ -120,13 +115,8 @@ function startRound() {
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  roundWords = [];
-  correctThisRound = [];
-  incorrectThisRound = [];
-
   shuffleArray(remainingWords);
-
-  roundWords = remainingWords.splice(0, MAX_WORDS_PER_ROUND);
+  const roundWords = remainingWords.splice(0, MAX_WORDS_PER_ROUND);
 
   wordDisplayContainer.innerHTML = "";
 
@@ -144,7 +134,6 @@ function startRound() {
       if (btn.disabled) return;
       btn.disabled = true;
 
-      correctThisRound.push(word);
       totalCorrect++;
       totalCorrectDisplay.textContent = totalCorrect;
     };
@@ -171,32 +160,7 @@ function startRound() {
 function endRound() {
   timerContainer.classList.add("hidden");
 
-  incorrectThisRound = roundWords.filter(
-    w => !correctThisRound.includes(w)
-  );
-
-  showReviewScreen();
-}
-
-// =====================
-// REVIEW SCREEN
-// =====================
-function showReviewScreen() {
-  correctList.innerHTML = "";
-  incorrectList.innerHTML = "";
-
-  correctThisRound.forEach(w => {
-    const li = document.createElement("li");
-    li.textContent = w;
-    correctList.appendChild(li);
-  });
-
-  incorrectThisRound.forEach(w => {
-    const li = document.createElement("li");
-    li.textContent = w;
-    incorrectList.appendChild(li);
-  });
-
+  reviewScore.textContent = totalCorrect;
   reviewScreen.classList.remove("hidden");
 }
 
