@@ -286,7 +286,8 @@ function endRound(rows) {
   });
 
   const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
-  const spaces = correct - diceRoll;
+  const spaces = Math.max(0, correct - diceRoll);
+
 
   turnSummary.textContent =
     `Correct: ${correct} | Dice: ${diceRoll} | Spaces: ${spaces}`;
