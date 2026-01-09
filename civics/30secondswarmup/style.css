@@ -21,7 +21,6 @@ h1, h2, h3 {
   display: none;
 }
 
-/* Chapter selection */
 #chapter-selection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -35,7 +34,6 @@ h1, h2, h3 {
   gap: 6px;
 }
 
-/* Buttons */
 button {
   font-size: 18px;
   padding: 14px 28px;
@@ -49,7 +47,6 @@ button {
   margin: 20px auto;
 }
 
-/* Words */
 #word-display-container {
   margin-top: 20px;
 }
@@ -73,7 +70,6 @@ button {
   cursor: not-allowed;
 }
 
-/* Messages */
 .times-up-message {
   font-size: 3rem;
   font-weight: bold;
