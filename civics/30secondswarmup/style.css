@@ -73,22 +73,10 @@ button {
   cursor: not-allowed;
 }
 
-/* Review */
-#review-screen ul {
-  list-style: none;
-  padding: 0;
-  text-align: center;
-}
-
-#review-screen li {
-  font-size: 18px;
-  margin: 4px 0;
-}
-
-/* Game over */
+/* Times up / Game over */
 .times-up-message {
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
-  padding: 40px 0;
+  padding: 30px 0;
 }
