@@ -1,253 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("SCRIPT LOADED");
 
-  /* =====================
-     GAME STATE
-  ===================== */
-  let players = [];
-  let turnOrder = [];
-  let currentTurnIndex = 0;
-
-  let wordPool = {};
-  let remainingWords = [];
-
-  let timeLeft = 30;
-  let timer = null;
-
-  let teamPositions = { Blue: 0, Red: 0 };
-
-  const MAX_WORDS_PER_ROUND = 5;
-  const DICE_RESULTS = [0, 1];
-
-  const boardPath = [
-    { x: 80, y: 520 },
-    { x: 160, y: 500 },
-    { x: 240, y: 470 },
-    { x: 320, y: 430 },
-    { x: 400, y: 390 },
-    { x: 480, y: 350 },
-    { x: 560, y: 320 },
-    { x: 640, y: 280 },
-    { x: 720, y: 240 }
-  ];
-
-  /* =====================
-     DOM ELEMENTS
-  ===================== */
   const playersContainer = document.getElementById("players-container");
   const addPlayerBtn = document.getElementById("add-player-btn");
-  const setupForm = document.getElementById("setup-form");
-  const chapterSelection = document.getElementById("chapter-selection");
 
-  const startScreen = document.getElementById("start-screen");
-  const gameScreen = document.getElementById("game-screen");
+  if (!playersContainer) {
+    console.error("players-container NOT FOUND");
+  }
 
-  const currentPlayerDisplay = document.getElementById("current-player");
-  const diceResultMessage = document.getElementById("dice-result-message");
-  const wordDisplayContainer = document.getElementById("word-display-container");
+  if (!addPlayerBtn) {
+    console.error("add-player-btn NOT FOUND");
+  }
 
-  const timerContainer = document.getElementById("timer-container");
-  const timerDisplay = document.getElementById("time-left");
-
-  const rollDiceBtn = document.getElementById("roll-dice-btn");
-  const startRoundBtn = document.getElementById("start-round-btn");
-
-  const resultsDisplay = document.getElementById("results");
-  const turnSummary = document.getElementById("turn-summary");
-  const nextPlayerDisplay = document.getElementById("next-player");
-  const nextRoundBtn = document.getElementById("next-round-btn");
-
-  /* =====================
-     PLAYER SETUP
-  ===================== */
   function addPlayerRow() {
+    console.log("ADD PLAYER CLICKED");
+
     const row = document.createElement("div");
-    row.className = "player-row";
-
-    const input = document.createElement("input");
-    input.placeholder = "Player name";
-
-    const select = document.createElement("select");
-    select.innerHTML = `
-      <option value="Blue">Blue Team</option>
-      <option value="Red">Red Team</option>
-    `;
-
-    row.append(input, select);
+    row.textContent = "Player added";
+    row.style.border = "1px solid red";
+    row.style.padding = "6px";
     playersContainer.appendChild(row);
   }
 
-  for (let i = 0; i < 4; i++) addPlayerRow();
   addPlayerBtn.addEventListener("click", addPlayerRow);
-
-  /* =====================
-     LOAD CHAPTERS
-  ===================== */
-  fetch("chapters.json")
-    .then(res => res.json())
-    .then(data => {
-      wordPool = data;
-      for (const c in data) {
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.value = c;
-
-        const label = document.createElement("label");
-        label.textContent = c.replace("chapter", "Chapter ");
-
-        const div = document.createElement("div");
-        div.append(cb, label);
-        chapterSelection.appendChild(div);
-      }
-    });
-
-  /* =====================
-     BOARD TOKEN UPDATE
-  ===================== */
-  function updateToken(team) {
-    const token = document.getElementById(
-      team === "Blue" ? "blue-token" : "red-token"
-    );
-    if (!token) return;
-
-    const pos = Math.min(teamPositions[team], boardPath.length - 1);
-    token.style.left = boardPath[pos].x + "px";
-    token.style.top = boardPath[pos].y + "px";
-  }
-
-  /* =====================
-     START GAME
-  ===================== */
-  setupForm.addEventListener("submit", e => {
-    e.preventDefault();
-
-    players = [];
-    document.querySelectorAll(".player-row").forEach(row => {
-      const name = row.querySelector("input").value.trim();
-      const team = row.querySelector("select").value;
-      if (name) players.push({ name, team });
-    });
-
-    const selectedChapters = [
-      ...chapterSelection.querySelectorAll("input:checked")
-    ].flatMap(cb => wordPool[cb.value]);
-
-    remainingWords = [...new Set(selectedChapters)];
-
-    buildTurnOrder();
-
-    startScreen.classList.add("hidden");
-    gameScreen.classList.remove("hidden");
-
-    updateToken("Blue");
-    updateToken("Red");
-
-    startTurn();
-  });
-
-  /* =====================
-     TURN ORDER
-  ===================== */
-  function buildTurnOrder() {
-    const blue = players.filter(p => p.team === "Blue");
-    const red = players.filter(p => p.team === "Red");
-
-    turnOrder = [];
-    const max = Math.max(blue.length, red.length);
-    for (let i = 0; i < max; i++) {
-      if (blue[i]) turnOrder.push(blue[i]);
-      if (red[i]) turnOrder.push(red[i]);
-    }
-  }
-
-  function startTurn() {
-    clearInterval(timer);
-    const p = turnOrder[currentTurnIndex];
-    currentPlayerDisplay.textContent = `${p.team} Team – ${p.name}`;
-    diceResultMessage.textContent = "";
-
-    wordDisplayContainer.innerHTML = "";
-    rollDiceBtn.style.display = "inline-block";
-    startRoundBtn.classList.add("hidden");
-    resultsDisplay.classList.add("hidden");
-    timerContainer.classList.add("hidden");
-  }
-
-  function advanceTurn() {
-    currentTurnIndex = (currentTurnIndex + 1) % turnOrder.length;
-  }
-
-  /* =====================
-     DICE
-  ===================== */
-  rollDiceBtn.addEventListener("click", () => {
-    const roll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
-    diceResultMessage.textContent = `Dice Roll: ${roll}`;
-    rollDiceBtn.style.display = "none";
-    startRoundBtn.classList.remove("hidden");
-  });
-
-  /* =====================
-     ROUND
-  ===================== */
-  startRoundBtn.addEventListener("click", () => {
-    startRoundBtn.classList.add("hidden");
-
-    timeLeft = 30;
-    timerDisplay.textContent = timeLeft;
-    timerContainer.classList.remove("hidden");
-
-    const selectedWords = remainingWords.splice(0, MAX_WORDS_PER_ROUND);
-    const rows = [];
-
-    selectedWords.forEach(word => {
-      const row = document.createElement("div");
-      row.className = "word-row";
-
-      const span = document.createElement("span");
-      span.textContent = word;
-
-      const btn = document.createElement("button");
-      btn.textContent = "Correct";
-      btn.onclick = () => {
-        btn.disabled = true;
-        row.dataset.correct = "true";
-      };
-
-      row.append(span, btn);
-      wordDisplayContainer.appendChild(row);
-      rows.push(row);
-    });
-
-    timer = setInterval(() => {
-      timeLeft--;
-      timerDisplay.textContent = timeLeft;
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-        endRound(rows);
-      }
-    }, 1000);
-  });
-
-  function endRound(rows) {
-    timerContainer.classList.add("hidden");
-
-    const correct = rows.filter(r => r.dataset.correct === "true").length;
-    const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
-    const spaces = Math.max(0, correct - diceRoll);
-
-    const player = turnOrder[currentTurnIndex];
-    teamPositions[player.team] += spaces;
-    updateToken(player.team);
-
-    turnSummary.textContent =
-      `Correct: ${correct} | Dice: ${diceRoll} | Spaces: ${spaces}`;
-
-    advanceTurn();
-    const next = turnOrder[currentTurnIndex];
-    nextPlayerDisplay.textContent = `Next: ${next.team} Team – ${next.name}`;
-    resultsDisplay.classList.remove("hidden");
-  }
-
-  nextRoundBtn.addEventListener("click", startTurn);
-
 });
