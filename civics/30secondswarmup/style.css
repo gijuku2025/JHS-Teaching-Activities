@@ -73,7 +73,7 @@ button {
   cursor: not-allowed;
 }
 
-/* Times up / Game over */
+/* Messages */
 .times-up-message {
   font-size: 3rem;
   font-weight: bold;
