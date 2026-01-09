@@ -5,7 +5,10 @@ let wordPool = {};
 let remainingWords = [];
 
 let currentRound = 1;
-let totalCorrect = 0;
+let roundScore = 0;
+
+let round1Score = 0;
+let round2Score = 0;
 
 let timer = null;
 let timeLeft = 30;
@@ -30,11 +33,15 @@ const timerDisplay = document.getElementById("time-left");
 
 const wordDisplayContainer = document.getElementById("word-display-container");
 
-const totalCorrectDisplay = document.getElementById("total-correct");
+const roundScoreDisplay = document.getElementById("round-score");
 
 const reviewScreen = document.getElementById("review-screen");
 const reviewScore = document.getElementById("review-score");
 const reviewOkBtn = document.getElementById("review-ok-btn");
+
+const finalReview = document.getElementById("final-review");
+const finalR1 = document.getElementById("final-r1");
+const finalR2 = document.getElementById("final-r2");
 
 // =====================
 // LOAD CHAPTERS
@@ -77,10 +84,10 @@ setupForm.addEventListener("submit", (e) => {
   }
 
   remainingWords = [...new Set(selectedChapters.flat())];
-  totalCorrect = 0;
-  currentRound = 1;
 
-  totalCorrectDisplay.textContent = "0";
+  currentRound = 1;
+  round1Score = 0;
+  round2Score = 0;
 
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
@@ -111,6 +118,9 @@ startRoundBtn.addEventListener("click", () => {
 });
 
 function startRound() {
+  roundScore = 0;
+  roundScoreDisplay.textContent = "0";
+
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
@@ -134,8 +144,8 @@ function startRound() {
       if (btn.disabled) return;
       btn.disabled = true;
 
-      totalCorrect++;
-      totalCorrectDisplay.textContent = totalCorrect;
+      roundScore++;
+      roundScoreDisplay.textContent = roundScore;
     };
 
     row.appendChild(text);
@@ -155,12 +165,18 @@ function startRound() {
 }
 
 // =====================
-// END ROUND → REVIEW
+// END ROUND
 // =====================
 function endRound() {
   timerContainer.classList.add("hidden");
 
-  reviewScore.textContent = totalCorrect;
+  if (currentRound === 1) {
+    round1Score = roundScore;
+  } else {
+    round2Score = roundScore;
+  }
+
+  reviewScore.textContent = roundScore;
   reviewScreen.classList.remove("hidden");
 }
 
@@ -174,20 +190,18 @@ reviewOkBtn.addEventListener("click", () => {
     currentRound = 2;
     showReadyScreen();
   } else {
-    showGameOver();
+    showFinalReview();
   }
 });
 
 // =====================
-// GAME OVER
+// FINAL REVIEW
 // =====================
-function showGameOver() {
-  wordDisplayContainer.innerHTML = `
-    <div class="times-up-message">
-      🎉 Game Over<br>
-      Total Correct: ${totalCorrect}
-    </div>
-  `;
+function showFinalReview() {
+  finalR1.textContent = round1Score;
+  finalR2.textContent = round2Score;
+
+  finalReview.classList.remove("hidden");
 }
 
 // =====================
