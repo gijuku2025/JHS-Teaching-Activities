@@ -43,7 +43,8 @@ button {
 }
 
 #start-game-btn,
-#start-round-btn {
+#start-round-btn,
+#review-ok-btn {
   display: block;
   margin: 20px auto;
 }
@@ -72,7 +73,19 @@ button {
   cursor: not-allowed;
 }
 
-/* Times up / Game over */
+/* Review */
+#review-screen ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+#review-screen li {
+  font-size: 18px;
+  margin: 4px 0;
+}
+
+/* Game over */
 .times-up-message {
   font-size: 3rem;
   font-weight: bold;
