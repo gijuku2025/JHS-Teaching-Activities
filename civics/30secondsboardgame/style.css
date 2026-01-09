@@ -1,7 +1,6 @@
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
-  margin: 0;
   padding: 20px;
 }
 
@@ -13,12 +12,12 @@ body {
   border-radius: 8px;
 }
 
-h1, h2, h3 {
-  text-align: center;
-}
-
 .hidden {
   display: none;
+}
+
+h1, h2, h3 {
+  text-align: center;
 }
 
 /* PLAYER SETUP */
@@ -26,8 +25,7 @@ h1, h2, h3 {
 #players-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 10px;
+  gap: 10px;
 }
 
 .player-row {
@@ -39,21 +37,14 @@ h1, h2, h3 {
 .player-row input,
 .player-row select {
   padding: 8px;
-  font-size: 14px;
-}
-
-#add-player-btn {
-  margin: 10px 0 20px;
-  font-size: 18px;
-  padding: 14px 26px;
 }
 
 /* BOARD */
 
 #board-wrapper {
   position: relative;
-  max-width: 900px;
   margin: 20px auto;
+  max-width: 900px;
 }
 
 #board-image {
@@ -68,57 +59,30 @@ h1, h2, h3 {
   border-radius: 50%;
   border: 2px solid #333;
   transform: translate(-50%, -50%);
-  z-index: 5;
 }
 
 .token.blue {
-  background-color: #2b6cff;
+  background: #2b6cff;
 }
 
 .token.red {
-  background-color: #e63946;
+  background: #e63946;
 }
 
 /* GAME */
 
-#word-display-container {
-  margin: 20px 0;
-}
-
 .word-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 6px 0;
   border-bottom: 1px solid #ddd;
 }
 
 .word-row button {
-  font-size: 16px;
-  padding: 10px 20px;
+  padding: 8px 16px;
 }
 
 .word-row button:disabled {
-  background-color: #ccc;
-  color: #666;
-  border: 1px solid #aaa;
+  background: #ccc;
   cursor: not-allowed;
-}
-
-#controls {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#controls button {
-  font-size: 18px;
-  padding: 14px 28px;
-  margin: 5px;
-}
-
-.times-up-message {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 40px 0;
 }
