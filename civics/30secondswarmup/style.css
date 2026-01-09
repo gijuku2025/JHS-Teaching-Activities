@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Chapter selection */
+#chapter-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Buttons */
+button {
+  font-size: 18px;
+  padding: 14px 28px;
+  cursor: pointer;
+}
+
+#start-game-btn,
+#start-round-btn {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Words */
+#word-display-container {
+  margin-top: 20px;
+}
+
+.word-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.word-row button {
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.word-row button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Times up / Game over */
+.times-up-message {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 40px 0;
+}
