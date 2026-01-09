@@ -7,7 +7,6 @@ let currentTurnIndex = 0;
 
 let wordPool = {};
 let remainingWords = [];
-let incorrectWords = [];
 
 let timer = null;
 let timeLeft = 30;
@@ -49,7 +48,7 @@ const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0, 1];
 
 // =====================
-// BOARD PATH (EDIT X/Y IF NEEDED)
+// BOARD PATH (EDIT X/Y TO MATCH IMAGE)
 // =====================
 const boardPath = [
   { x: 80, y: 520 },
@@ -65,17 +64,19 @@ const boardPath = [
 ];
 
 // =====================
-// BOARD TOKEN UPDATE
+// SAFE TOKEN UPDATE
 // =====================
 function updateToken(team) {
-  const pos = Math.min(teamPositions[team], boardPath.length - 1);
-  teamPositions[team] = pos;
-
-  const point = boardPath[pos];
   const token = document.getElementById(
     team === "Blue" ? "blue-token" : "red-token"
   );
 
+  if (!token) return;
+
+  const pos = Math.min(teamPositions[team], boardPath.length - 1);
+  teamPositions[team] = pos;
+
+  const point = boardPath[pos];
   token.style.left = point.x + "px";
   token.style.top = point.y + "px";
 }
@@ -132,17 +133,17 @@ setupForm.onsubmit = e => {
   e.preventDefault();
 
   players = [];
-  document.querySelectorAll(".player-row").forEach(r => {
-    const name = r.querySelector("input").value.trim();
-    const team = r.querySelector("select").value;
+  document.querySelectorAll(".player-row").forEach(row => {
+    const name = row.querySelector("input").value.trim();
+    const team = row.querySelector("select").value;
     if (name) players.push({ name, team });
   });
 
-  const chapters = [...chapterSelection.querySelectorAll("input:checked")]
-    .map(cb => wordPool[cb.value])
-    .flat();
+  const selected = [
+    ...chapterSelection.querySelectorAll("input:checked")
+  ].flatMap(cb => wordPool[cb.value]);
 
-  remainingWords = [...new Set(chapters)];
+  remainingWords = [...new Set(selected)];
 
   buildTurnOrder();
 
@@ -176,6 +177,7 @@ function buildTurnOrder() {
 // =====================
 function startTurn() {
   clearInterval(timer);
+
   const p = turnOrder[currentTurnIndex];
   currentPlayerDisplay.textContent = `${p.team} Team – ${p.name}`;
   diceResultMessage.textContent = "";
@@ -206,16 +208,14 @@ rollDiceBtn.onclick = () => {
 // =====================
 startRoundBtn.onclick = () => {
   startRoundBtn.classList.add("hidden");
+
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  const selected = [];
-  while (selected.length < MAX_WORDS_PER_ROUND && remainingWords.length) {
-    selected.push(remainingWords.pop());
-  }
-
+  const selected = remainingWords.splice(0, MAX_WORDS_PER_ROUND);
   const rows = [];
+
   wordDisplayContainer.innerHTML = "";
 
   selected.forEach(word => {
@@ -240,6 +240,7 @@ startRoundBtn.onclick = () => {
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
+
     if (timeLeft <= 0) {
       clearInterval(timer);
       endRound(rows);
@@ -253,7 +254,7 @@ startRoundBtn.onclick = () => {
 function endRound(rows) {
   timerContainer.classList.add("hidden");
 
-  let correct = rows.filter(r => r.dataset.correct === "true").length;
+  const correct = rows.filter(r => r.dataset.correct === "true").length;
   const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
   const spaces = Math.max(0, correct - diceRoll);
 
