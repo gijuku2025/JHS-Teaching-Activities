@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geography Ch 16 New Words Quiz</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 24px; color: #333; margin-bottom: 12px; }
+  input[type="text"] { padding: 10px; width: 80%; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 20px; }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%; border: none;
+    border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.2s;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .primary:hover { background-color: #45a049; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .play-btn:hover { background-color: #1C86EE; }
+  .choice-btn { margin: 5px 0; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .choice-btn:hover { opacity: 0.9; }
+  .choice-btn.correct { animation: pulse 0.5s ease; }
+  @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0px #4CAF50; } 50% { transform: scale(1.1); box-shadow: 0 0 12px #4CAF50; } 100% { transform: scale(1); box-shadow: 0 0 0px #4CAF50; } }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar { width: 100%; height: 8px; background-color: #e0e0e0; border-radius: 4px; margin-bottom: 12px; }
+  #progressFill { height: 100%; width: 0%; background-color: #FFA500; border-radius: 4px; transition: width 0.3s ease, background-color 0.3s ease; }
+  #questionCounter { margin-bottom: 8px; font-weight: bold; color: #555; font-size: 16px; }
+  @media (max-width: 768px) {
+    .container { width: 90%; padding: 20px; }
+    #gameTitle { font-size: 28px; }
+    h1 { font-size: 22px; }
+    button { font-size: 18px; padding: 16px; }
+    .choice-btn { font-size: 20px; padding: 18px; }
+    .feedback { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle">Geography Ch 16 New Words Quiz</h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter">Question 1 of 10</div>
+  <h1 id="questionTitle">Listen and choose:</h1>
+  <button class="play-btn" onclick="playWord()">🔊 Play Word</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+// ====== Replace with your generated array including MP3 paths ======
+const allWords = [
+  { en: "Strong Industry", jp: "強い産業", enAudio: "audio/strong_industry_en.mp3", jpAudio: "audio/強い産業_jp.mp3" },
+  { en: "Become Rich", jp: "裕福になる", enAudio: "audio/become_rich_en.mp3", jpAudio: "audio/裕福になる_jp.mp3" },
+  { en: "More Valuable", jp: "もっと価値がある", enAudio: "audio/more_valuable_en.mp3", jpAudio: "audio/もっと価値がある_jp.mp3" },
+  { en: "Iron Ore", jp: "鉄鉱石", enAudio: "audio/iron_ore_en.mp3", jpAudio: "audio/鉄鉱石_jp.mp3" },
+  { en: "Steel", jp: "鋼鉄", enAudio: "audio/steel_en.mp3", jpAudio: "audio/鋼鉄_jp.mp3" },
+  { en: "Manufacturing", jp: "製造業", enAudio: "audio/manufacturing_en.mp3", jpAudio: "audio/製造業_jp.mp3" },
+  { en: "Scissors", jp: "ハサミ", enAudio: "audio/scissors_en.mp3", jpAudio: "audio/ハサミ_jp.mp3" },
+  { en: "Hairdressing", jp: "美容業", enAudio: "audio/hairdressing_en.mp3", jpAudio: "audio/美容業_jp.mp3" },
+  { en: "Primary Industry", jp: "一次産業", enAudio: "audio/primary_industry_en.mp3", jpAudio: "audio/一次産業_jp.mp3" },
+  { en: "Secondary Industry", jp: "二次産業", enAudio: "audio/secondary_industry_en.mp3", jpAudio: "audio/二次産業_jp.mp3" },
+  { en: "Tertiary Industry", jp: "三次産業", enAudio: "audio/tertiary_industry_en.mp3", jpAudio: "audio/三次産業_jp.mp3" },
+  { en: "Man-power", jp: "人力", enAudio: "audio/manpower_en.mp3", jpAudio: "audio/人力_jp.mp3" },
+  { en: "Animal-power", jp: "家畜力", enAudio: "audio/animalpower_en.mp3", jpAudio: "audio/家畜力_jp.mp3" },
+  { en: "Steam-power", jp: "蒸気動力", enAudio: "audio/steampower_en.mp3", jpAudio: "audio/蒸気動力_jp.mp3" },
+  { en: "Electricity", jp: "電力", enAudio: "audio/electricity_en.mp3", jpAudio: "audio/電力_jp.mp3" },
+  { en: "NIES", jp: "新興産業国", enAudio: "audio/nies_en.mp3", jpAudio: "audio/新興産業国_jp.mp3" },
+  { en: "Textile", jp: "繊維", enAudio: "audio/textile_en.mp3", jpAudio: "audio/繊維_jp.mp3" },
+  { en: "Electronic Part", jp: "電子部品", enAudio: "audio/electronic_part_en.mp3", jpAudio: "audio/電子部品_jp.mp3" },
+  { en: "Airport", jp: "空港", enAudio: "audio/airport_en.mp3", jpAudio: "audio/空港_jp.mp3" },
+  { en: "Seaport", jp: "海港", enAudio: "audio/seaport_en.mp3", jpAudio: "audio/海港_jp.mp3" },
+  { en: "Transport Center", jp: "交通の要所", enAudio: "audio/transport_center_en.mp3", jpAudio: "audio/交通の要所_jp.mp3" },
+  { en: "International Bank", jp: "国際銀行", enAudio: "audio/international_bank_en.mp3", jpAudio: "audio/国際銀行_jp.mp3" },
+  { en: "Company Branch", jp: "会社支店", enAudio: "audio/company_branch_en.mp3", jpAudio: "audio/会社支店_jp.mp3" },
+  { en: "Raw Material", jp: "原料", enAudio: "audio/raw_material_en.mp3", jpAudio: "audio/原料_jp.mp3" },
+  { en: "Manufactured Good", jp: "製造品", enAudio: "audio/manufactured_good_en.mp3", jpAudio: "audio/製造品_jp.mp3" },
+  { en: "Semiconductor", jp: "半導体", enAudio: "audio/semiconductor_en.mp3", jpAudio: "audio/半導体_jp.mp3" },
+  { en: "Cell Phone", jp: "携帯電話", enAudio: "audio/cell_phone_en.mp3", jpAudio: "audio/携帯電話_jp.mp3" },
+  { en: "Flat-screen Television", jp: "薄型テレビ", enAudio: "audio/flatscreen_television_en.mp3", jpAudio: "audio/薄型テレビ_jp.mp3" },
+  { en: "Hi-tech", jp: "先端技術", enAudio: "audio/hitech_en.mp3", jpAudio: "audio/先端技術_jp.mp3" },
+  { en: "Compare", jp: "比較する", enAudio: "audio/compare_en.mp3", jpAudio: "audio/比較する_jp.mp3" },
+  { en: "Ratio", jp: "割合", enAudio: "audio/ratio_en.mp3", jpAudio: "audio/割合_jp.mp3" },
+  { en: "Title", jp: "題名", enAudio: "audio/title_en.mp3", jpAudio: "audio/題名_jp.mp3" },
+  { en: "Year", jp: "年度", enAudio: "audio/year_en.mp3", jpAudio: "audio/年度_jp.mp3" },
+  { en: "Important Item", jp: "重要項目", enAudio: "audio/important_item_en.mp3", jpAudio: "audio/重要項目_jp.mp3" },
+];
+
+// ====== Quiz logic ======
+let words = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  words = [...allWords];
+  shuffle(words);
+  words = words.slice(0, 10); // take 10 random words
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.classList.remove("correct");
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = words[currentQuestion];
+  const isEnToJp = currentQuestion % 2 === 0;
+
+  quizScreen.dataset.isEnToJp = isEnToJp;
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${words.length}`;
+  const progress = (currentQuestion + 1) / words.length;
+  progressFill.style.width = (progress * 100) + "%";
+  progressFill.style.backgroundColor = progress < 0.5 ? "#FFA500" : progress < 1 ? "#FFD700" : "#4CAF50";
+
+  let options = words.map(w => isEnToJp ? w.jp : w.en);
+  shuffle(options);
+  options = options.slice(0,3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random()*3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"]; 
+  options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[index % colors.length];
+    btn.style.color = "#fff";
+    btn.style.fontSize = "18px";
+    btn.style.padding = "14px";
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playWord() {
+  const audioFile = quizScreen.dataset.audio;
+  if (!audioFile) return;
+  const audio = new Audio(audioFile);
+  audio.play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.classList.add("correct");
+    feedbackDiv.textContent = "Correct!";
+    btn.classList.add("correct");
+    score += firstTry ? 2 : 1;
+  } else {
+    if (firstTry) {
+      feedbackDiv.style.color = "orange";
+      feedbackDiv.textContent = "Try again!";
+      firstTry = false;
+      enableChoices();
+      return;
+    } else {
+      feedbackDiv.style.color = "red";
+      feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+    }
+  }
+
+  if (currentQuestion === words.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080"; 
+    nextBtn.style.color = "#fff";
+    nextBtn.style.fontSize = "16px";
+    nextBtn.style.padding = "12px";
+    nextBtn.style.marginTop = "10px";
+    nextBtn.style.borderRadius = "8px";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(btn => btn.disabled = true);
+}
+
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(btn => btn.disabled = false);
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime)/1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const dateString = endTime.toLocaleDateString() + " " + endTime.toLocaleTimeString();
+
+  const quizTitle = document.getElementById("gameTitle").textContent;
+
+  finalResult.innerHTML = `<strong>${quizTitle}</strong><br><br>
+                           ${nickname}'s score: ${score} / ${words.length * 2}<br>
+                           Time played: ${minutes} min ${seconds} sec<br>
+                           Date: ${dateString}`;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
