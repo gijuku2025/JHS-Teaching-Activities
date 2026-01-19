@@ -44,23 +44,19 @@
     "turtle",
     "Yuto"
   ],
- 
   "chapter4": [
-    "holesaler",
-    "Retailer",
-    "Trading Company",
-    "Distribution",
-    "Commerce",
-    "Deliver",
-    "Efficient",
-    "Directly",
-    "Transport",
-    "Storing",
-    "Costs",
-    "Manage"
-  ]
-
-
+    "wholesaler",
+    "retailer",
+    "trading company",
+    "distribution",
+    "commerce",
+    "deliver",
+    "efficient",
+    "directly",
+    "transport",
+    "storing",
+    "costs",
+    "manage"
   ],
   "chapter5": [
     "money",
