@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>JLPT Kanji Drag Drill</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif; margin: 0; background:#f5f5f5; }
+h1 { margin:0.5em 0; }
+button { padding:12px 16px; font-size:16px; cursor:pointer; border-radius:10px; }
+.hidden{display:none;}
+
+#selectionScreen{ padding:14px; }
+#controls{ position:sticky; top:0; background:#fff; padding:10px; border-bottom:1px solid #ccc; display:flex; gap:10px; flex-wrap:wrap; align-items:center; z-index:10; }
+#kanjiGrid{ margin-top:16px; display:grid; grid-template-columns:repeat(auto-fill,minmax(52px,1fr)); gap:10px; }
+.kanjiTile{ background:#fff; border:2px solid #ccc; text-align:center; padding:10px 0; font-size:26px; cursor:pointer; user-select:none; border-radius:12px; }
+.kanjiTile.selected{ background:#d0ebff; border-color:#339af0; }
+
+#drillScreen{ padding:14px; }
+#topBar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:16px; }
+#kanjiPool{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+
+.draggableKanji{ background:#fff; border:3px solid #333; font-size:36px; width:72px; height:72px; display:flex; align-items:center; justify-content:center; border-radius:14px; cursor:pointer; }
+.draggableKanji.active{ background:#fff3bf; border-color:#f59f00; }
+
+#dropZones{ display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:14px; }
+.dropZone{ background:#fff; border:2px dashed #999; width:64px; height:64px; display:flex; align-items:center; justify-content:center; text-align:center; padding:4px; box-sizing:border-box; }
+.dropZone.correct{ border-color:#2f9e44; background:#e6ffe6; }
+.reading{ font-size:13px; line-height:1.3; word-break:break-word; }
+</style>
+</head>
+<body>
+
+<div id="selectionScreen">
+  <h1>JLPT Kanji Drill</h1>
+  <div id="controls">
+    <label><input type="checkbox" id="toggleN5" checked> N5</label>
+    <label><input type="checkbox" id="toggleN4"> N4</label>
+    <label><input type="checkbox" id="toggleN3"> N3</label>
+    <button id="selectAll">Select All</button>
+    <button id="clearAll">Clear</button>
+    <span id="count">Selected: 0</span>
+    <button id="startBtn">Start</button>
+  </div>
+  <div id="kanjiGrid"></div>
+</div>
+
+<div id="drillScreen" class="hidden">
+  <div id="topBar">
+    <div id="timer">Time: 0.0s</div>
+    <div id="progress"></div>
+  </div>
+  <div id="kanjiPool"></div>
+  <div id="dropZones"></div>
+</div>
+
+<script>
+const kanjiData={
+N5:[{k:'一',on:'イチ',kun:'ひと-'},{k:'二',on:'ニ',kun:'ふた-'},{k:'三',on:'サン',kun:'み-'},{k:'四',on:'ヨン',kun:'よ-'},{k:'五',on:'ゴ',kun:'いつ-'},{k:'六',on:'ロク',kun:'む-'},{k:'七',on:'ナナ',kun:'なな'},{k:'八',on:'ハチ',kun:'や-'},{k:'九',on:'キュウ',kun:'ここの-'},{k:'十',on:'ジュウ',kun:'とお'}],
+N4:[{k:'会',on:'カイ',kun:'あ-う'},{k:'社',on:'シャ',kun:''},{k:'店',on:'テン',kun:'みせ'},{k:'駅',on:'エキ',kun:''}],
+N3:[{k:'政',on:'セイ',kun:''},{k:'治',on:'ジ',kun:'おさ-める'},{k:'経',on:'ケイ',kun:'へ-る'}]
+};
+
+const grid=document.getElementById('kanjiGrid');
+const countSpan=document.getElementById('count');
+const selectionScreen=document.getElementById('selectionScreen');
+const drillScreen=document.getElementById('drillScreen');
+const kanjiPool=document.getElementById('kanjiPool');
+const dropZones=document.getElementById('dropZones');
+const timerEl=document.getElementById('timer');
+const progressEl=document.getElementById('progress');
+
+let activeTile=null,solved=0,chunks=[],currentChunk=0,startTime,raf;
+
+function renderGrid(){
+  grid.innerHTML='';
+  const levels=[];
+  if(toggleN5.checked) levels.push('N5');
+  if(toggleN4.checked) levels.push('N4');
+  if(toggleN3.checked) levels.push('N3');
+
+  levels.forEach(l=>kanjiData[l].forEach(e=>{
+    const d=document.createElement('div');
+    d.className='kanjiTile';
+    d.textContent=e.k;
+    d.dataset.k=e.k; d.dataset.on=e.on; d.dataset.kun=e.kun;
+    d.onclick=()=>{d.classList.toggle('selected'); updateCount();};
+    grid.appendChild(d);
+  }));
+  updateCount();
+}
+
+function updateCount(){ countSpan.textContent=`Selected: ${document.querySelectorAll('.kanjiTile.selected').length}`; }
+
+function startTimer(){ startTime=performance.now(); const t=now=>{timerEl.textContent=`Time: ${((now-startTime)/1000).toFixed(1)}s`; raf=requestAnimationFrame(t)}; raf=requestAnimationFrame(t); }
+function stopTimer(){ if(raf) cancelAnimationFrame(raf); }
+
+function beginDrill(){
+  const selected=[...document.querySelectorAll('.kanjiTile.selected')].map(t=>({k:t.dataset.k,on:t.dataset.on,kun:t.dataset.kun}));
+  if(!selected.length) return;
+  chunks=[];
+  for(let i=0;i<selected.length;i+=10) chunks.push(selected.slice(i,i+10));
+  currentChunk=0;
+  selectionScreen.classList.add('hidden');
+  drillScreen.classList.remove('hidden');
+  loadChunk();
+}
+
+function loadChunk(){
+  stopTimer(); kanjiPool.innerHTML=''; dropZones.innerHTML=''; solved=0;
+  const chunk=chunks[currentChunk];
+  progressEl.textContent=`Chunk ${currentChunk+1} / ${chunks.length}`;
+
+  chunk.forEach(e=>{
+    const k=document.createElement('div');
+    k.className='draggableKanji'; k.textContent=e.k; k.dataset.answer=e.k;
+    k.onclick=()=>selectTile(k);
+    kanjiPool.appendChild(k);
+  });
+
+  [...chunk].sort(()=>Math.random()-0.5).forEach(e=>{
+    const z=document.createElement('div');
+    z.className='dropZone'; z.dataset.answer=e.k;
+    z.innerHTML=`<div class="reading">${[e.on,e.kun].filter(Boolean).join(', ')}</div>`;
+    z.onclick=()=>tryDrop(z);
+    dropZones.appendChild(z);
+  });
+
+  startTimer();
+}
+
+function selectTile(t){ document.querySelectorAll('.draggableKanji').forEach(x=>x.classList.remove('active')); activeTile=t; t.classList.add('active'); }
+
+function tryDrop(z){
+  if(!activeTile) return;
+  if(z.dataset.answer===activeTile.dataset.answer){
+    z.innerHTML=''; z.classList.add('correct'); z.appendChild(activeTile);
+    activeTile.classList.remove('active'); activeTile.onclick=null; activeTile=null;
+    solved++;
+    if(solved===dropZones.children.length){ stopTimer(); currentChunk++; if(currentChunk<chunks.length) setTimeout(loadChunk,500); else progressEl.textContent='Session complete'; }
+  }
+}
+
+renderGrid();
+
+toggleN5.onchange=renderGrid;
+toggleN4.onchange=renderGrid;
+toggleN3.onchange=renderGrid;
+selectAll.onclick=()=>{document.querySelectorAll('.kanjiTile').forEach(t=>t.classList.add('selected')); updateCount();};
+clearAll.onclick=()=>{document.querySelectorAll('.kanjiTile').forEach(t=>t.classList.remove('selected')); updateCount();};
+startBtn.onclick=beginDrill;
+</script>
+</body>
+</html>
