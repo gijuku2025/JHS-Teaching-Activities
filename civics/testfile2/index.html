@@ -270,22 +270,21 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('toggleN5').onchange = renderGrid;
-    document.getElementById('toggleN4').onchange = renderGrid;
-    document.getElementById('toggleN3').onchange = renderGrid;
-    document.getElementById('selectAll').onclick = () => {
-      document.querySelectorAll('.kanjiTile').forEach(t => t.classList.add('selected'));
-      updateCount();
-    };
-    document.getElementById('clearAll').onclick = () => {
-      document.querySelectorAll('.kanjiTile').forEach(t => t.classList.remove('selected'));
-      updateCount();
-    };
-    document.getElementById('startDrill').onclick = startDrill;
+  // Initialize immediately (script is at end of body)
+renderGrid();
 
-    renderGrid();
-  });
+document.getElementById('toggleN5').onchange = renderGrid;
+document.getElementById('toggleN4').onchange = renderGrid;
+document.getElementById('toggleN3').onchange = renderGrid;
+document.getElementById('selectAll').onclick = () => {
+  document.querySelectorAll('.kanjiTile').forEach(t => t.classList.add('selected'));
+  updateCount();
+};
+document.getElementById('clearAll').onclick = () => {
+  document.querySelectorAll('.kanjiTile').forEach(t => t.classList.remove('selected'));
+  updateCount();
+};
+document.getElementById('startDrill').onclick = startDrill;
 </script>
 </body>
 </html>
