@@ -68,7 +68,11 @@
   pointer-events: none;
 }
     .dropZone.correct{ border-color:#2f9e44; background:#e6ffe6; }
-    .reading{ font-size:14px; line-height:1.4; }
+    .reading{
+  font-size:11px;
+  line-height:1.25;
+  word-break:break-word;
+}
   </style>
 </head>
 <body>
@@ -226,7 +230,8 @@
       const zone = document.createElement('div');
       zone.className = 'dropZone';
       zone.dataset.answer = entry.k;
-      zone.innerHTML = `<div class="reading">ON: ${entry.on}<br>KUN: ${entry.kun || '—'}</div>`;
+      const readings = [entry.on, entry.kun].filter(r => r && r !== '');
+      zone.innerHTML = `<div class="reading">${readings.join(', ')}</div>`;
       zone.onclick = () => tryDrop(zone);
       dropZones.appendChild(zone);
     });
@@ -244,14 +249,27 @@
     if (!activeTile) return;
     if (zone.dataset.answer === activeTile.dataset.answer) {
       zone.classList.add('correct');
+      zone.innerHTML = '';
       zone.appendChild(activeTile);
       activeTile.classList.remove('active');
       activeTile.onclick = null;
+      activeTile.style.cursor = 'default';
       activeTile = null;
       solved++;
 
       const total = dropZones.children.length;
       progressEl.textContent = `Chunk ${currentChunkIndex + 1} / ${chunks.length} — ${solved} / ${total}`;
+
+      if (solved === total) {
+        stopTimer();
+        currentChunkIndex++;
+        if (currentChunkIndex < chunks.length) {
+          setTimeout(loadChunk, 500);
+        } else {
+          progressEl.textContent = 'Session complete';
+        }
+      }
+    } / ${chunks.length} — ${solved} / ${total}`;
 
       if (solved === total) {
         stopTimer();
