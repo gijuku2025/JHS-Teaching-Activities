@@ -58,8 +58,7 @@
 </div>
 
 <script>
-  /* ===== Kanji Data (unchanged) ===== */
-  // ===== Kanji Data =====
+  /* ===== Kanji Data ===== */
   const kanjiData = {
     N5: [
       {k:'一',on:'イチ',kun:'ひと-'},{k:'二',on:'ニ',kun:'ふた-'},{k:'三',on:'サン',kun:'み-'},{k:'四',on:'ヨン',kun:'よ-'},{k:'五',on:'ゴ',kun:'いつ-'},
@@ -114,12 +113,10 @@
         const tile = document.createElement('div');
         tile.className = 'kanjiTile';
         tile.textContent = entry.k;
-
         tile.onclick = () => {
           tile.classList.toggle('selected');
           updateCount();
         };
-
         tile.dataset.kanji = entry.k;
         tile.dataset.on = entry.on;
         tile.dataset.kun = entry.kun;
@@ -127,6 +124,9 @@
       });
     });
     updateCount();
+
+    // simple sanity check
+    console.assert(grid.children.length > 0 || (!document.getElementById('toggleN5').checked && !document.getElementById('toggleN4').checked && !document.getElementById('toggleN3').checked), 'Kanji grid failed to render');
   }
 
   function updateCount() {
@@ -141,13 +141,28 @@
     }
     rafId = requestAnimationFrame(tick);
   }
-    }
-    rafId = requestAnimationFrame(tick);
-  }
 
   function stopTimer() {
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
+  }
+
+  function startDrill() {
+    const selected = [...document.querySelectorAll('.kanjiTile.selected')].map(t => ({
+      k: t.dataset.kanji,
+      on: t.dataset.on,
+      kun: t.dataset.kun
+    }));
+    if (!selected.length) return;
+
+    chunks = [];
+    for (let i = 0; i < selected.length; i += 10) chunks.push(selected.slice(i, i + 10));
+    currentChunkIndex = 0;
+
+    selectionScreen.classList.add('hidden');
+    drillScreen.classList.remove('hidden');
+
+    loadChunk();
   }
 
   function loadChunk() {
@@ -176,28 +191,6 @@
     });
 
     startTimer();
-  }
-
-  function startDrill() {
-    const selected = [...document.querySelectorAll('.kanjiTile.selected')].map(t => ({
-      k: t.dataset.kanji,
-      on: t.dataset.on,
-      kun: t.dataset.kun
-    }));
-    if (!selected.length) return;
-
-    // chunk into sets of 10
-    chunks = [];
-    for (let i = 0; i < selected.length; i += 10) {
-      chunks.push(selected.slice(i, i + 10));
-    }
-    currentChunkIndex = 0;
-
-    selectionScreen.classList.add('hidden');
-    drillScreen.classList.remove('hidden');
-
-    loadChunk();
-  }
   }
 
   function selectTile(tile) {
@@ -230,17 +223,23 @@
       }
     }
   }
-    }
-  }
 
-  document.getElementById('toggleN5').onchange = renderGrid;
-  document.getElementById('toggleN4').onchange = renderGrid;
-  document.getElementById('toggleN3').onchange = renderGrid;
-  document.getElementById('selectAll').onclick = () => document.querySelectorAll('.kanjiTile').forEach(t => t.classList.add('selected'));
-  document.getElementById('clearAll').onclick = () => document.querySelectorAll('.kanjiTile').forEach(t => t.classList.remove('selected'));
-  document.getElementById('startDrill').onclick = startDrill;
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('toggleN5').onchange = renderGrid;
+    document.getElementById('toggleN4').onchange = renderGrid;
+    document.getElementById('toggleN3').onchange = renderGrid;
+    document.getElementById('selectAll').onclick = () => {
+      document.querySelectorAll('.kanjiTile').forEach(t => t.classList.add('selected'));
+      updateCount();
+    };
+    document.getElementById('clearAll').onclick = () => {
+      document.querySelectorAll('.kanjiTile').forEach(t => t.classList.remove('selected'));
+      updateCount();
+    };
+    document.getElementById('startDrill').onclick = startDrill;
 
-  renderGrid();
+    renderGrid();
+  });
 </script>
 </body>
 </html>
