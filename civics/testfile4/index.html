@@ -18,7 +18,13 @@ button { padding:12px 16px; font-size:16px; cursor:pointer; border-radius:10px; 
 
 #drillScreen{ padding:14px; }
 #topBar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:16px; }
-#kanjiPool{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+#kanjiPool{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:18px; /* gap between kanji tiles and reading tiles */
+}
 
 .draggableKanji{ background:#fff; border:3px solid #333; font-size:36px; width:72px; height:72px; display:flex; align-items:center; justify-content:center; border-radius:14px; cursor:pointer; }
 .draggableKanji.active{ background:#fff3bf; border-color:#f59f00; }
