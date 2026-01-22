@@ -24,8 +24,29 @@
     .draggableKanji{ background:#fff; border:3px solid #333; font-size:36px; width:72px; height:72px; display:flex; align-items:center; justify-content:center; border-radius:14px; cursor:pointer; }
     .draggableKanji.active{ background:#fff3bf; border-color:#f59f00; }
 
-    #dropZones{ display:flex; flex-direction:column; gap:12px; }
-    .dropZone{ background:#fff; border:3px dashed #999; padding:12px; min-height:72px; border-radius:14px; display:flex; justify-content:space-between; align-items:center; font-size:15px; }
+    #dropZones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+    .dropZone {
+  width: 64px;
+  height: 64px;
+  border: 2px dashed #bbb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.dropZone .reading {
+  pointer-events: none;
+}
     .dropZone.correct{ border-color:#2f9e44; background:#e6ffe6; }
     .reading{ font-size:14px; line-height:1.4; }
   </style>
