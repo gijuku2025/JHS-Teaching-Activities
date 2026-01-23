@@ -30,6 +30,7 @@ const chapterSelection = document.getElementById("chapter-selection");
 const gameScreen = document.getElementById("game-screen");
 
 const boardWrapper = document.getElementById("board-wrapper");
+const boardImage = document.getElementById("board-image");
 
 const currentPlayerDisplay = document.getElementById("current-player");
 const diceResultMessage = document.getElementById("dice-result-message");
@@ -80,7 +81,7 @@ function hideBoard() {
 }
 
 // =====================
-// BOARD TOKEN UPDATE
+// TOKEN POSITIONING (FIXED)
 // =====================
 function updateToken(team) {
   const pos = Math.min(teamPositions[team], boardPath.length - 1);
@@ -91,8 +92,10 @@ function updateToken(team) {
     team === "Blue" ? "blue-token" : "red-token"
   );
 
-  token.style.left = point.x + "%";
-  token.style.top = point.y + "%";
+  const rect = boardImage.getBoundingClientRect();
+
+  token.style.left = rect.width * (point.x / 100) + "px";
+  token.style.top = rect.height * (point.y / 100) + "px";
 }
 
 // =====================
