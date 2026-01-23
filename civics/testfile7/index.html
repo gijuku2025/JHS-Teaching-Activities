@@ -70,7 +70,12 @@ for (const lvl in LEVELS) {
   kanjiBox.className = 'kanji-select hidden';
 
   toggle.querySelector('input').onchange = e => {
-    kanjiBox.classList.toggle('hidden', !e.target.checked);
+    // hide all level kanji boxes first
+    document.querySelectorAll('.kanji-select').forEach(box => box.classList.add('hidden'));
+    // if this level is checked, reveal only its kanji
+    if (e.target.checked) {
+      kanjiBox.classList.remove('hidden');
+    }
   };
 
   LEVELS[lvl].forEach((k,i)=>{
