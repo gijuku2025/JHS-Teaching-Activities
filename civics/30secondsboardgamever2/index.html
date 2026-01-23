@@ -1,65 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>30 Second Challenge</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<title>30 Second Challenge</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-  <h1>30 Second Challenge</h1>
+<h1>30 Second Challenge</h1>
 
-  <!-- START SCREEN -->
-  <div id="start-screen">
-    <h2>Set Up Your Game</h2>
+<div id="start-screen">
+  <h2>Set Up Your Game</h2>
 
-    <form id="setup-form">
+  <form id="setup-form">
 
-      <h3>Players</h3>
-      <div id="players-container"></div>
-      <button type="button" id="add-player-btn">Add Player</button>
+    <h3>Players</h3>
+    <div id="players-container"></div>
+    <button type="button" id="add-player-btn">Add Player</button>
 
-      <h3>Select Chapters</h3>
-      <div id="chapter-selection"></div>
+    <h3>Select Chapters</h3>
+    <div id="chapter-selection"></div>
 
-      <button type="submit" id="start-game-btn">Start Game</button>
+    <button type="submit">Start Game</button>
+  </form>
+</div>
 
-    </form>
+<div id="game-screen" class="hidden">
+
+  <div id="board-wrapper">
+    <img src="board.png" id="board-image">
+    <div id="blue-token" class="token blue"></div>
+    <div id="red-token" class="token red"></div>
   </div>
 
-  <!-- GAME SCREEN -->
-  <div id="game-screen" class="hidden">
+  <h2>Turn: <span id="current-player"></span></h2>
+  <p id="dice-result-message"></p>
 
-    <!-- BOARD -->
-    <div id="board-wrapper">
-      <img src="board.png" id="board-image">
-      <div id="blue-token" class="token blue"></div>
-      <div id="red-token" class="token red"></div>
-    </div>
+  <div id="word-display-container"></div>
 
-    <h2>Turn: <span id="current-player"></span></h2>
-    <p id="dice-result-message"></p>
-
-    <div id="word-display-container"></div>
-
-    <div id="timer-container" class="hidden">
-      Time Left: <span id="time-left">30</span>
-    </div>
-
-    <div id="controls">
-      <button id="roll-dice-btn">Roll Dice</button>
-      <button id="start-round-btn" class="hidden">Start Round</button>
-    </div>
-
-    <div id="results" class="hidden">
-      <p id="turn-summary"></p>
-      <p id="next-player"></p>
-      <button id="next-round-btn">Next Round</button>
-    </div>
-
+  <div id="timer-container" class="hidden">
+    Time Left: <span id="time-left">30</span>
   </div>
+
+  <div id="controls">
+    <button id="roll-dice-btn">Roll Dice</button>
+    <button id="start-round-btn" class="hidden">Start Round</button>
+  </div>
+
+  <div id="results" class="hidden">
+    <p id="turn-summary"></p>
+    <p id="next-player"></p>
+    <button id="next-round-btn">Next Round</button>
+  </div>
+
+</div>
 
 </div>
 
