@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JLPT Kanji Drag & Drop Drill</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; padding: 12px; }
+.hidden { display: none; }
+h2 { margin-top: 0; }
+.level { margin-bottom: 16px; }
+.level-toggle { font-weight: bold; margin-bottom: 6px; }
+.kanji-select { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.kanji-select label {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.kanji-select input { display: none; }
+.kanji-select input:checked + span {
+  background: #ffe680;
+}
+.kanji-select span {
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+button { padding: 10px 16px; font-size: 16px; }
+#timer { font-size: 18px; margin-bottom: 10px; }
+#kanjiTray, #readingTray {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+#kanjiTray { margin-bottom: 24px; }
+.tile {
+  border: 2px solid #444;
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px;
+  user-select: none;
+  background: #fff;
+}
+.kanji-tile {
+  font-size: 28px;
+  cursor: pointer;
+}
+.kanji-tile.selected {
+  background: #ffe680;
+}
+.reading-tile {
+  font-size: 18px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.correct {
+  background: #b6f2c2;
+  border-color: #2a8a44;
+}
+.overlay-kanji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+</style>
+</head>
+<body>
+
+<div id="startScreen">
+  <h2>Select Kanji to Drill</h2>
+  <div id="levels"></div>
+  <button id="startDrill">Start</button>
+</div>
+
+<div id="drillScreen" class="hidden">
+  <div id="timer">00:00</div>
+  <div id="kanjiTray"></div>
+  <div id="readingTray"></div>
+</div>
+
+<script>
+const LEVELS = {
+  N5: [
+    {k:'一',on:'イチ',kun:'ひと'}, {k:'二',on:'ニ',kun:'ふた'}, {k:'三',on:'サン',kun:'み'}, {k:'四',on:'ヨン',kun:'よん'}, {k:'五',on:'ゴ',kun:'いつ'},
+    {k:'六',on:'ロク',kun:'む'}, {k:'七',on:'ナナ',kun:'なな'}, {k:'八',on:'ハチ',kun:'や'}, {k:'九',on:'キュウ',kun:'ここの'}, {k:'十',on:'ジュウ',kun:'とお'}
+  ],
+  N4: [
+    {k:'会',on:'カイ',kun:'あう'}, {k:'社',on:'シャ',kun:''}, {k:'店',on:'テン',kun:'みせ'}
+  ],
+  N3: [
+    {k:'政',on:'セイ',kun:''}, {k:'治',on:'ジ',kun:'おさめる'}
+  ]
+};
+
+const levelsDiv = document.getElementById('levels');
+const selectedKanji = new Set();
+
+for (const lvl in LEVELS) {
+  const div = document.createElement('div');
+  div.className = 'level';
+
+  const toggle = document.createElement('label');
+  toggle.className = 'level-toggle';
+  toggle.innerHTML = `<input type="checkbox"> ${lvl}`;
+
+  const kanjiBox = document.createElement('div');
+  kanjiBox.className = 'kanji-select hidden';
+
+  toggle.querySelector('input').onchange = e => {
+    kanjiBox.classList.toggle('hidden', !e.target.checked);
+  };
+
+  LEVELS[lvl].forEach((k,i)=>{
+    const label = document.createElement('label');
+    label.innerHTML = `<input type="checkbox" data-level="${lvl}" data-index="${i}"><span>${k.k}</span>`;
+    label.querySelector('input').onchange = e => {
+      const key = `${lvl}-${i}`;
+      if (e.target.checked) selectedKanji.add(key);
+      else selectedKanji.delete(key);
+    };
+    kanjiBox.appendChild(label);
+  });
+
+  div.appendChild(toggle);
+  div.appendChild(kanjiBox);
+  levelsDiv.appendChild(div);
+}
+
+let timerInt, seconds = 0;
+function startTimer(){
+  clearInterval(timerInt);
+  seconds = 0;
+  timerInt = setInterval(()=>{
+    seconds++;
+    document.getElementById('timer').textContent =
+      `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
+  },1000);
+}
+
+let activeKanji = null;
+
+function beginDrill(){
+  if (!selectedKanji.size) return;
+
+  const selected = [...selectedKanji].map(key => {
+    const [lvl,i] = key.split('-');
+    return LEVELS[lvl][i];
+  });
+
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('drillScreen').classList.remove('hidden');
+  startTimer();
+
+  const kanjiTray = document.getElementById('kanjiTray');
+  const readingTray = document.getElementById('readingTray');
+  kanjiTray.innerHTML = '';
+  readingTray.innerHTML = '';
+
+  selected.forEach(k => {
+    const t = document.createElement('div');
+    t.className = 'tile kanji-tile';
+    t.textContent = k.k;
+    t.onclick = () => {
+      document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
+      t.classList.add('selected');
+      activeKanji = k;
+    };
+    kanjiTray.appendChild(t);
+  });
+
+  [...selected].sort(()=>Math.random()-0.5).forEach(k => {
+    const t = document.createElement('div');
+    t.className = 'tile reading-tile';
+    t.textContent = [k.on,k.kun].filter(Boolean).join(', ');
+    t.onclick = () => {
+      if (!activeKanji || t.classList.contains('correct')) return;
+      if (activeKanji.k === k.k) {
+        t.classList.add('correct');
+        t.textContent = '';
+        const o = document.createElement('div');
+        o.className = 'overlay-kanji';
+        o.textContent = k.k;
+        t.appendChild(o);
+        document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
+        activeKanji = null;
+      }
+    };
+    readingTray.appendChild(t);
+  });
+}
+
+document.getElementById('startDrill').onclick = beginDrill;
+</script>
+</body>
+</html>
