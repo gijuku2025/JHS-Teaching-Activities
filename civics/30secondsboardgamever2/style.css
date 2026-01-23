@@ -12,9 +12,7 @@ body {
   border-radius: 8px;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 #players-container {
   display: flex;
@@ -33,10 +31,9 @@ body {
   padding: 8px;
 }
 
-/* CHAPTERS */
 #chapter-selection {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
   gap: 6px;
 }
 
@@ -49,7 +46,6 @@ body {
 
 #board-image {
   width: 100%;
-  display: block;
 }
 
 .token {
@@ -65,24 +61,18 @@ body {
 .blue { background: blue; }
 .red { background: red; }
 
-/* GAME */
 .word-row {
   display: flex;
   justify-content: space-between;
-  padding: 6px;
   border-bottom: 1px solid #ccc;
+  padding: 6px;
 }
 
 .word-row button {
-  padding: 8px 16px;
+  padding: 6px 12px;
 }
 
 #controls {
   text-align: center;
   margin-top: 20px;
-}
-
-#controls button {
-  padding: 12px 24px;
-  font-size: 16px;
 }
