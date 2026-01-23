@@ -35,42 +35,49 @@ const turnSummary = document.getElementById("turn-summary");
 const nextPlayerDisplay = document.getElementById("next-player");
 const nextRoundBtn = document.getElementById("next-round-btn");
 const boardWrapper = document.getElementById("board-wrapper");
+const boardImage = document.getElementById("board-image");
 
 const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0,1];
 
-// MATCHES YOUR BOARD IMAGE
+/* ORIGINAL IMAGE COORDINATES (unscaled) */
 const boardPath = [
-  { x: 250, y: 430 }, { x: 300, y: 470 }, { x: 360, y: 500 },
-  { x: 420, y: 525 }, { x: 490, y: 535 }, { x: 560, y: 520 },
-  { x: 620, y: 490 }, { x: 660, y: 445 }, { x: 640, y: 395 },
-  { x: 590, y: 365 }, { x: 530, y: 350 }, { x: 470, y: 360 },
-  { x: 420, y: 390 }, { x: 400, y: 430 }, { x: 420, y: 470 },
-  { x: 460, y: 500 }, { x: 520, y: 520 }, { x: 590, y: 525 },
-  { x: 650, y: 510 }, { x: 700, y: 470 }, { x: 720, y: 420 },
-  { x: 700, y: 360 }, { x: 650, y: 310 }, { x: 590, y: 290 },
-  { x: 530, y: 295 }, { x: 480, y: 315 }, { x: 450, y: 350 },
-  { x: 460, y: 390 }, { x: 500, y: 420 }, { x: 560, y: 440 },
-  { x: 620, y: 440 }, { x: 680, y: 420 }, { x: 730, y: 390 },
-  { x: 760, y: 350 }, { x: 780, y: 300 }, { x: 760, y: 250 },
-  { x: 710, y: 220 }, { x: 650, y: 210 }, { x: 590, y: 215 },
-  { x: 540, y: 235 }, { x: 520, y: 260 }, { x: 540, y: 285 },
-  { x: 580, y: 300 }, { x: 640, y: 295 }, { x: 700, y: 270 },
-  { x: 760, y: 240 }
+  { x: 285, y: 460 }, { x: 340, y: 500 }, { x: 410, y: 540 },
+  { x: 480, y: 565 }, { x: 560, y: 580 }, { x: 640, y: 565 },
+  { x: 710, y: 525 }, { x: 760, y: 470 }, { x: 740, y: 420 },
+  { x: 675, y: 385 }, { x: 600, y: 365 }, { x: 530, y: 375 },
+  { x: 470, y: 405 }, { x: 450, y: 445 }, { x: 470, y: 485 },
+  { x: 515, y: 525 }, { x: 585, y: 555 }, { x: 660, y: 565 },
+  { x: 720, y: 545 }, { x: 770, y: 500 }, { x: 790, y: 450 },
+  { x: 770, y: 380 }, { x: 720, y: 330 }, { x: 660, y: 305 },
+  { x: 600, y: 305 }, { x: 545, y: 325 }, { x: 515, y: 360 },
+  { x: 530, y: 400 }, { x: 580, y: 430 }, { x: 650, y: 445 },
+  { x: 710, y: 445 }, { x: 770, y: 425 }, { x: 820, y: 395 },
+  { x: 850, y: 350 }, { x: 870, y: 300 }, { x: 850, y: 250 },
+  { x: 800, y: 220 }, { x: 740, y: 210 }, { x: 680, y: 215 },
+  { x: 630, y: 235 }, { x: 610, y: 265 }, { x: 630, y: 295 },
+  { x: 670, y: 315 }, { x: 730, y: 310 }, { x: 790, y: 285 },
+  { x: 850, y: 250 }
 ];
 
+function getScale() {
+  return boardImage.clientWidth / boardImage.naturalWidth;
+}
+
 function updateToken(team) {
+  const scale = getScale();
   teamPositions[team] = Math.min(teamPositions[team], boardPath.length - 1);
+
   const pos = boardPath[teamPositions[team]];
   const token = document.getElementById(team === "Blue" ? "blue-token" : "red-token");
-  token.style.left = pos.x + "px";
-  token.style.top = pos.y + "px";
+
+  token.style.left = pos.x * scale + "px";
+  token.style.top  = pos.y * scale + "px";
 }
 
 async function loadChapters() {
   const res = await fetch("chapters.json");
   wordPool = await res.json();
-
   for (const chapter in wordPool) {
     const div = document.createElement("div");
     const cb = document.createElement("input");
@@ -86,14 +93,10 @@ async function loadChapters() {
 function addPlayerRow() {
   const row = document.createElement("div");
   row.className = "player-row";
-
   const input = document.createElement("input");
   input.placeholder = "Player name";
-
   const select = document.createElement("select");
-  select.innerHTML = `<option value="Blue">Blue Team</option>
-                      <option value="Red">Red Team</option>`;
-
+  select.innerHTML = `<option value="Blue">Blue Team</option><option value="Red">Red Team</option>`;
   row.append(input,select);
   playersContainer.appendChild(row);
 }
@@ -103,7 +106,6 @@ addPlayerBtn.onclick = addPlayerRow;
 
 setupForm.onsubmit = e => {
   e.preventDefault();
-
   players = [];
   document.querySelectorAll(".player-row").forEach(r=>{
     const name = r.querySelector("input").value.trim();
@@ -118,19 +120,20 @@ setupForm.onsubmit = e => {
   usedWords = [];
 
   buildTurnOrder();
-
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
 
-  updateToken("Blue");
-  updateToken("Red");
+  boardImage.onload = () => {
+    updateToken("Blue");
+    updateToken("Red");
+  };
+
   startTurn();
 };
 
 function buildTurnOrder() {
   const blue = players.filter(p=>p.team==="Blue");
   const red  = players.filter(p=>p.team==="Red");
-
   turnOrder = [];
   const max = Math.max(blue.length, red.length);
   for(let i=0;i<max;i++){
