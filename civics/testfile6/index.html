@@ -20,12 +20,12 @@
   button {
     padding: 8px 14px;
     font-size: 16px;
-    margin-right: 6px;
+    margin: 6px 6px 6px 0;
     cursor: pointer;
   }
 
   .controls {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   .kanji-container,
@@ -33,11 +33,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
     gap: 8px;
-    margin-bottom: 14px;
   }
 
   .reading-container {
-    margin-top: 18px; /* gap between kanji + readings */
+    margin-top: 18px;
   }
 
   .kanji-tile,
@@ -49,16 +48,20 @@
     border-radius: 10px;
     background: white;
     border: 2px solid #ccc;
-    font-size: 28px;
     user-select: none;
     touch-action: manipulation;
   }
 
+  .kanji-tile {
+    font-size: 28px;
+  }
+
   .reading-tile {
-    font-size: 18px;
+    font-size: 20px;
     padding: 6px;
     text-align: center;
     line-height: 1.2;
+    position: relative;
   }
 
   .kanji-tile.active {
@@ -66,13 +69,21 @@
     border-color: #f2b600;
   }
 
-  .reading-tile.correct {
-    visibility: hidden;
-  }
-
   .kanji-tile.matched {
     background: #b9f6ca;
     border-color: #2e7d32;
+  }
+
+  .overlay-kanji {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: #b9f6ca;
+    border-radius: 8px;
+    border: 2px solid #2e7d32;
   }
 </style>
 </head>
@@ -82,6 +93,11 @@
 <h2>Kanji Matching Drill</h2>
 
 <div class="controls">
+  <strong>Select JLPT level:</strong><br />
+  <label><input type="checkbox" value="N5" checked> N5</label>
+  <label><input type="checkbox" value="N4"> N4</label>
+  <label><input type="checkbox" value="N3"> N3</label>
+  <br />
   <button onclick="startDrill()">Start</button>
 </div>
 
@@ -90,21 +106,25 @@
 
 <script>
 /* =========================
-   KANJI LIST (N5 SAMPLE)
+   KANJI DATA (sample – expandable)
    ========================= */
 
-const kanjiList = [
-  { k: '一', on: ['イチ'], kun: ['ひと'] },
-  { k: '二', on: ['ニ'], kun: ['ふた'] },
-  { k: '三', on: ['サン'], kun: ['み'] },
-  { k: '四', on: ['ヨン'], kun: ['よ'] },
-  { k: '五', on: ['ゴ'], kun: ['いつ'] },
-  { k: '六', on: ['ロク'], kun: ['む'] },
-  { k: '七', on: ['ナナ'], kun: ['なな'] },
-  { k: '八', on: ['ハチ'], kun: ['や'] },
-  { k: '九', on: ['キュウ'], kun: ['ここの'] },
-  { k: '十', on: ['ジュウ'], kun: ['とお'] },
-];
+const JLPT = {
+  N5: [
+    { k: '一', on: ['イチ'], kun: ['ひと'] },
+    { k: '二', on: ['ニ'], kun: ['ふた'] },
+    { k: '三', on: ['サン'], kun: ['み'] },
+    { k: '四', on: ['ヨン'], kun: ['よ'] },
+    { k: '五', on: ['ゴ'], kun: ['いつ'] },
+    { k: '六', on: ['ロク'], kun: ['む'] },
+    { k: '七', on: ['ナナ'], kun: ['なな'] },
+    { k: '八', on: ['ハチ'], kun: ['や'] },
+    { k: '九', on: ['キュウ'], kun: ['ここの'] },
+    { k: '十', on: ['ジュウ'], kun: ['とお'] }
+  ],
+  N4: [],
+  N3: []
+};
 
 /* =========================
    STATE
@@ -119,7 +139,15 @@ let currentChunk = [];
 
 function startDrill() {
   activeKanjiTile = null;
-  currentChunk = kanjiList.slice(0, 10);
+
+  const selectedLevels = [...document.querySelectorAll('input[type=checkbox]:checked')]
+    .map(cb => cb.value);
+
+  let pool = [];
+  selectedLevels.forEach(level => pool = pool.concat(JLPT[level]));
+
+  currentChunk = pool.slice(0, 10);
+
   renderKanji();
   renderReadings();
 }
@@ -132,9 +160,7 @@ function renderKanji() {
   const container = document.getElementById('kanjiContainer');
   container.innerHTML = '';
 
-  currentChunk.forEach(obj => {
-    container.appendChild(createKanjiTile(obj));
-  });
+  currentChunk.forEach(obj => container.appendChild(createKanjiTile(obj)));
 }
 
 /* =========================
@@ -146,21 +172,18 @@ function renderReadings() {
   container.innerHTML = '';
 
   const shuffled = [...currentChunk].sort(() => Math.random() - 0.5);
-
-  shuffled.forEach(obj => {
-    container.appendChild(createReadingTile(obj));
-  });
+  shuffled.forEach(obj => container.appendChild(createReadingTile(obj)));
 }
 
 /* =========================
    KANJI TILE
    ========================= */
 
-function createKanjiTile(kanjiObj) {
+function createKanjiTile(obj) {
   const tile = document.createElement('div');
   tile.className = 'kanji-tile';
-  tile.textContent = kanjiObj.k;
-  tile.dataset.kanji = kanjiObj.k;
+  tile.textContent = obj.k;
+  tile.dataset.kanji = obj.k;
 
   const select = (e) => {
     e.preventDefault();
@@ -171,9 +194,7 @@ function createKanjiTile(kanjiObj) {
       return;
     }
 
-    if (activeKanjiTile) {
-      activeKanjiTile.classList.remove('active');
-    }
+    if (activeKanjiTile) activeKanjiTile.classList.remove('active');
 
     tile.classList.add('active');
     activeKanjiTile = tile;
@@ -189,13 +210,12 @@ function createKanjiTile(kanjiObj) {
    READING TILE
    ========================= */
 
-function createReadingTile(kanjiObj) {
+function createReadingTile(obj) {
   const tile = document.createElement('div');
   tile.className = 'reading-tile';
+  tile.dataset.kanji = obj.k;
 
-  const readings = [...kanjiObj.on, ...kanjiObj.kun];
-  tile.textContent = readings.join(', ');
-  tile.dataset.kanji = kanjiObj.k;
+  tile.textContent = [...obj.on, ...obj.kun].join(', ');
 
   tile.addEventListener('click', () => attemptMatch(tile));
   tile.addEventListener('touchstart', (e) => {
@@ -207,14 +227,20 @@ function createReadingTile(kanjiObj) {
 }
 
 /* =========================
-   MATCH LOGIC
+   MATCH LOGIC (OVERWRITE)
    ========================= */
 
 function attemptMatch(readingTile) {
   if (!activeKanjiTile) return;
 
   if (activeKanjiTile.dataset.kanji === readingTile.dataset.kanji) {
-    readingTile.classList.add('correct');
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay-kanji';
+    overlay.textContent = activeKanjiTile.dataset.kanji;
+
+    readingTile.innerHTML = '';
+    readingTile.appendChild(overlay);
+
     activeKanjiTile.classList.remove('active');
     activeKanjiTile.classList.add('matched');
     activeKanjiTile = null;
