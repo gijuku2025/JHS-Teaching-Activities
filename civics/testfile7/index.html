@@ -11,64 +11,20 @@ h2 { margin-top: 0; }
 .level { margin-bottom: 16px; }
 .level-toggle { font-weight: bold; margin-bottom: 6px; }
 .kanji-select { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-.kanji-select label {
-  border: 1px solid #ccc;
-  padding: 6px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-}
+.kanji-select label { border: 1px solid #ccc; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
 .kanji-select input { display: none; }
-.kanji-select input:checked + span {
-  background: #ffe680;
-}
-.kanji-select span {
-  padding: 4px 6px;
-  border-radius: 4px;
-  display: inline-block;
-}
+.kanji-select input:checked + span { background: #ffe680; }
+.kanji-select span { padding: 4px 6px; border-radius: 4px; display: inline-block; }
 button { padding: 10px 16px; font-size: 16px; }
 #timer { font-size: 18px; margin-bottom: 10px; }
-#kanjiTray, #readingTray {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-  gap: 8px;
-}
+#kanjiTray, #readingTray { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; }
 #kanjiTray { margin-bottom: 24px; }
-.tile {
-  border: 2px solid #444;
-  border-radius: 10px;
-  text-align: center;
-  padding: 8px;
-  user-select: none;
-  background: #fff;
-}
-.kanji-tile {
-  font-size: 28px;
-  cursor: pointer;
-}
-.kanji-tile.selected {
-  background: #ffe680;
-}
-.reading-tile {
-  font-size: 18px;
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.correct {
-  background: #b6f2c2;
-  border-color: #2a8a44;
-}
-.overlay-kanji {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-}
+.tile { border: 2px solid #444; border-radius: 10px; text-align: center; padding: 8px; user-select: none; background: #fff; }
+.kanji-tile { font-size: 28px; cursor: pointer; }
+.kanji-tile.selected { background: #ffe680; }
+.reading-tile { font-size: 20px; min-height: 64px; display: flex; align-items: center; justify-content: center; position: relative; }
+.correct { background: #b6f2c2; border-color: #2a8a44; }
+.overlay-kanji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; }
 </style>
 </head>
 <body>
@@ -88,14 +44,14 @@ button { padding: 10px 16px; font-size: 16px; }
 <script>
 const LEVELS = {
   N5: [
-    {k:'一',on:'イチ',kun:'ひと'}, {k:'二',on:'ニ',kun:'ふた'}, {k:'三',on:'サン',kun:'み'}, {k:'四',on:'ヨン',kun:'よん'}, {k:'五',on:'ゴ',kun:'いつ'},
-    {k:'六',on:'ロク',kun:'む'}, {k:'七',on:'ナナ',kun:'なな'}, {k:'八',on:'ハチ',kun:'や'}, {k:'九',on:'キュウ',kun:'ここの'}, {k:'十',on:'ジュウ',kun:'とお'}
+    {k:'一',on:'イチ',kun:'ひと'},{k:'二',on:'ニ',kun:'ふた'},{k:'三',on:'サン',kun:'み'},{k:'四',on:'ヨン',kun:'よん'},{k:'五',on:'ゴ',kun:'いつ'},
+    {k:'六',on:'ロク',kun:'む'},{k:'七',on:'ナナ',kun:'なな'},{k:'八',on:'ハチ',kun:'や'},{k:'九',on:'キュウ',kun:'ここの'},{k:'十',on:'ジュウ',kun:'とお'}
   ],
   N4: [
-    {k:'会',on:'カイ',kun:'あう'}, {k:'社',on:'シャ',kun:''}, {k:'店',on:'テン',kun:'みせ'}
+    {k:'会',on:'カイ',kun:'あう'},{k:'社',on:'シャ',kun:''},{k:'店',on:'テン',kun:'みせ'}
   ],
   N3: [
-    {k:'政',on:'セイ',kun:''}, {k:'治',on:'ジ',kun:'おさめる'}
+    {k:'政',on:'セイ',kun:''},{k:'治',on:'ジ',kun:'おさめる'}
   ]
 };
 
@@ -119,11 +75,10 @@ for (const lvl in LEVELS) {
 
   LEVELS[lvl].forEach((k,i)=>{
     const label = document.createElement('label');
-    label.innerHTML = `<input type="checkbox" data-level="${lvl}" data-index="${i}"><span>${k.k}</span>`;
+    label.innerHTML = `<input type="checkbox" data-key="${lvl}-${i}"><span>${k.k}</span>`;
     label.querySelector('input').onchange = e => {
-      const key = `${lvl}-${i}`;
-      if (e.target.checked) selectedKanji.add(key);
-      else selectedKanji.delete(key);
+      const key = e.target.dataset.key;
+      e.target.checked ? selectedKanji.add(key) : selectedKanji.delete(key);
     };
     kanjiBox.appendChild(label);
   });
@@ -144,7 +99,7 @@ function startTimer(){
   },1000);
 }
 
-let activeKanji = null;
+let activeTile = null;
 
 function beginDrill(){
   if (!selectedKanji.size) return;
@@ -170,7 +125,7 @@ function beginDrill(){
     t.onclick = () => {
       document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
       t.classList.add('selected');
-      activeKanji = k;
+      activeTile = { kanji: k.k, element: t };
     };
     kanjiTray.appendChild(t);
   });
@@ -180,16 +135,16 @@ function beginDrill(){
     t.className = 'tile reading-tile';
     t.textContent = [k.on,k.kun].filter(Boolean).join(', ');
     t.onclick = () => {
-      if (!activeKanji || t.classList.contains('correct')) return;
-      if (activeKanji.k === k.k) {
+      if (!activeTile || t.classList.contains('correct')) return;
+      if (activeTile.kanji === k.k) {
         t.classList.add('correct');
         t.textContent = '';
         const o = document.createElement('div');
         o.className = 'overlay-kanji';
         o.textContent = k.k;
         t.appendChild(o);
-        document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
-        activeKanji = null;
+        activeTile.element.remove();
+        activeTile = null;
       }
     };
     readingTray.appendChild(t);
