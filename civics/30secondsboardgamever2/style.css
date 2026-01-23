@@ -1,0 +1,106 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* PLAYER SETUP */
+
+#players-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.player-row {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 10px;
+}
+
+.player-row input,
+.player-row select {
+  padding: 8px;
+}
+
+/* BOARD */
+
+#board-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 20px auto;
+}
+
+#board-image {
+  max-width: 900px;
+  width: 100%;
+  display: block;
+}
+
+.token {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.token.blue { background-color: #2b6cff; }
+.token.red  { background-color: #e63946; }
+
+/* GAME */
+
+#word-display-container {
+  margin: 20px 0;
+}
+
+.word-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.word-row button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.word-row button:disabled {
+  background-color: #ccc;
+  color: #666;
+  border: 1px solid #aaa;
+  cursor: not-allowed;
+}
+
+#controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#controls button {
+  font-size: 18px;
+  padding: 14px 28px;
+  margin: 5px;
+}

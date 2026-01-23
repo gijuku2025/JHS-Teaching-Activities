@@ -1,0 +1,174 @@
+Skip to content
+gijuku2025
+JHS-Teaching-Activities
+Repository navigation
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Files
+Go to file
+t
+civics
+0210v1
+1909matching
+1909v2
+1909v3
+1909v4
+1909v5
+2609v1
+2609v2
+2609v3
+2609v4
+30seconds5players
+30secondsboardgame
+board.png
+chapters.json
+index.html
+script.js
+style.css
+30secondsgame
+30secondsrobust
+30secondswarmup
+borrowingsim
+catch
+ch12alternate
+ch12listening
+ch12vocab
+ch13listening
+ch14listenandlearn
+ch14listening
+ch14matching
+ch14matchingver2
+ch14matchingver3
+ch14matchingver4
+ch15listenandlearn
+ch15newwords
+ch15review
+ch16listenandlearn
+ch16newwords
+ch17listenandlearn
+ch17newwords
+ch18listenandlearn
+ch18newwords
+ch19listenandlearn
+ch19newwords
+ch1listenandlearn
+ch1newwords
+ch20listenandlearn
+ch20newwords
+ch21listenandlearn
+ch21newwords
+ch22listenandlearn
+ch22newwords
+ch23listenandlearn
+ch23newwords
+ch24listenandlearn
+ch24newwords
+ch25listenandlearn
+ch25newwords
+ch2listenandlearn
+ch2newwords
+ch3listenandlearn
+ch3newwords
+ch4listenandlearn
+ch4newwords
+ch5listenandlearn
+ch5newwords
+heads up game
+matchingdemo
+testfile1
+testfile2
+testfile3
+testfile4
+testfile5
+testfile6
+testfile7
+testfile8
+testfile9
+geography
+index.html
+JHS-Teaching-Activities/civics/30secondsboardgame
+/chapters.json
+gijuku2025
+gijuku2025
+Add files via upload
+53bf90c
+ · 
+2 weeks ago
+
+Code
+
+Blame
+66 lines (66 loc) · 937 Bytes
+{
+  "chapter1": [
+    "commodity",
+    "goods",
+    "services",
+    "consumer",
+    "producer",
+    "economy",
+    "income",
+    "expenditure",
+    "savings",
+    "demand",
+    "supply",
+    "scarcity",
+    "cash",
+    "consumption"
+  ],
+  "chapter2": [
+    "commodity",
+    "goods",
+    "services",
+    "consumer",
+    "producer",
+    "economy",
+    "income",
+    "expenditure",
+    "savings",
+    "demand",
+    "supply",
+    "scarcity",
+    "cash",
+    "consumption"
+  ],
+  "chapter3": [
+    "New Zealand",
+    "Family Mart",
+    "Kumamon",
+    "profit",
+    "water",
+    "winter",
+    "seasons",
+    "tuna",
+    "Kame Chan",
+    "turtle",
+    "Yuto"
+  ],
+  "chapter4": [
+    "government",
+    "United Nations",
+    "Japan",
+    "China",
+    "profit",
+    "map",
+    "population",
+    "continent",
+    "dog",
+    "cat"
+  ],
+  "chapter5": [
+    "money",
+    "European Union",
+    "Hiroshima",
+    "Mr. Wallace",
+    "Lani Sensei"
+  ]
+}
