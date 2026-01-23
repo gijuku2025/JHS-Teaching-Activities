@@ -7,10 +7,12 @@ let currentTurnIndex = 0;
 
 let wordPool = {};
 let remainingWords = [];
-let incorrectWords = [];
+let usedWords = [];
 
 let timer = null;
 let timeLeft = 30;
+
+let currentDiceRoll = 0;
 
 let teamPositions = {
   Blue: 0,
@@ -26,6 +28,8 @@ const playersContainer = document.getElementById("players-container");
 const addPlayerBtn = document.getElementById("add-player-btn");
 const chapterSelection = document.getElementById("chapter-selection");
 const gameScreen = document.getElementById("game-screen");
+
+const boardWrapper = document.getElementById("board-wrapper");
 
 const currentPlayerDisplay = document.getElementById("current-player");
 const diceResultMessage = document.getElementById("dice-result-message");
@@ -49,20 +53,31 @@ const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0, 1];
 
 // =====================
-// BOARD PATH (EDIT X/Y IF NEEDED)
+// BOARD PATH (PERCENTAGES)
 // =====================
 const boardPath = [
-  { x: 80, y: 520 },
-  { x: 160, y: 500 },
-  { x: 240, y: 470 },
-  { x: 320, y: 430 },
-  { x: 400, y: 390 },
-  { x: 480, y: 350 },
-  { x: 560, y: 320 },
-  { x: 640, y: 280 },
-  { x: 720, y: 240 },
-  { x: 780, y: 180 }
+  { x: 10, y: 85 },
+  { x: 20, y: 80 },
+  { x: 30, y: 74 },
+  { x: 40, y: 68 },
+  { x: 50, y: 62 },
+  { x: 60, y: 56 },
+  { x: 70, y: 50 },
+  { x: 80, y: 44 },
+  { x: 88, y: 36 },
+  { x: 92, y: 28 }
 ];
+
+// =====================
+// BOARD VISIBILITY
+// =====================
+function showBoard() {
+  boardWrapper.classList.remove("hidden");
+}
+
+function hideBoard() {
+  boardWrapper.classList.add("hidden");
+}
 
 // =====================
 // BOARD TOKEN UPDATE
@@ -76,8 +91,8 @@ function updateToken(team) {
     team === "Blue" ? "blue-token" : "red-token"
   );
 
-  token.style.left = point.x + "px";
-  token.style.top = point.y + "px";
+  token.style.left = point.x + "%";
+  token.style.top = point.y + "%";
 }
 
 // =====================
@@ -89,6 +104,7 @@ async function loadChapters() {
 
   for (const chapter in wordPool) {
     const div = document.createElement("div");
+
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.value = chapter;
@@ -139,10 +155,10 @@ setupForm.onsubmit = e => {
   });
 
   const chapters = [...chapterSelection.querySelectorAll("input:checked")]
-    .map(cb => wordPool[cb.value])
-    .flat();
+    .flatMap(cb => wordPool[cb.value]);
 
-  remainingWords = [...new Set(chapters)];
+  remainingWords = shuffleArray([...new Set(chapters)]);
+  usedWords = [];
 
   buildTurnOrder();
 
@@ -176,6 +192,7 @@ function buildTurnOrder() {
 // =====================
 function startTurn() {
   clearInterval(timer);
+
   const p = turnOrder[currentTurnIndex];
   currentPlayerDisplay.textContent = `${p.team} Team – ${p.name}`;
   diceResultMessage.textContent = "";
@@ -185,6 +202,8 @@ function startTurn() {
   startRoundBtn.classList.add("hidden");
   resultsDisplay.classList.add("hidden");
   timerContainer.classList.add("hidden");
+
+  showBoard();
 }
 
 function advanceTurn() {
@@ -195,8 +214,10 @@ function advanceTurn() {
 // DICE
 // =====================
 rollDiceBtn.onclick = () => {
-  const roll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
-  diceResultMessage.textContent = `Dice Roll: ${roll}`;
+  currentDiceRoll =
+    DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
+
+  diceResultMessage.textContent = `Dice Roll: ${currentDiceRoll}`;
   rollDiceBtn.style.display = "none";
   startRoundBtn.classList.remove("hidden");
 };
@@ -206,13 +227,23 @@ rollDiceBtn.onclick = () => {
 // =====================
 startRoundBtn.onclick = () => {
   startRoundBtn.classList.add("hidden");
+  hideBoard();
+
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
   const selected = [];
-  while (selected.length < MAX_WORDS_PER_ROUND && remainingWords.length) {
-    selected.push(remainingWords.pop());
+
+  while (selected.length < MAX_WORDS_PER_ROUND) {
+    if (remainingWords.length === 0) {
+      remainingWords = shuffleArray(usedWords);
+      usedWords = [];
+    }
+
+    const word = remainingWords.pop();
+    selected.push(word);
+    usedWords.push(word);
   }
 
   const rows = [];
@@ -240,8 +271,10 @@ startRoundBtn.onclick = () => {
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
+
     if (timeLeft <= 0) {
       clearInterval(timer);
+      disableAllWordButtons();
       endRound(rows);
     }
   }, 1000);
@@ -252,17 +285,19 @@ startRoundBtn.onclick = () => {
 // =====================
 function endRound(rows) {
   timerContainer.classList.add("hidden");
+  showBoard();
 
-  let correct = rows.filter(r => r.dataset.correct === "true").length;
-  const diceRoll = parseInt(diceResultMessage.textContent.match(/\d+/)[0], 10);
-  const spaces = Math.max(0, correct - diceRoll);
+  const correct = rows.filter(r => r.dataset.correct === "true").length;
+  const spaces = Math.max(0, correct - currentDiceRoll);
 
   const player = turnOrder[currentTurnIndex];
   teamPositions[player.team] += spaces;
   updateToken(player.team);
 
+  if (checkWin(player.team)) return;
+
   turnSummary.textContent =
-    `Correct: ${correct} | Dice: ${diceRoll} | Spaces: ${spaces}`;
+    `Correct: ${correct} | Dice: ${currentDiceRoll} | Spaces: ${spaces}`;
 
   advanceTurn();
   const next = turnOrder[currentTurnIndex];
@@ -272,9 +307,35 @@ function endRound(rows) {
 }
 
 // =====================
-// NEXT ROUND
+// WIN CONDITION
 // =====================
-nextRoundBtn.onclick = startTurn;
+function checkWin(team) {
+  if (teamPositions[team] >= boardPath.length - 1) {
+    alert(`${team} Team Wins! 🎉`);
+    rollDiceBtn.disabled = true;
+    startRoundBtn.disabled = true;
+    return true;
+  }
+  return false;
+}
+
+// =====================
+// UTIL
+// =====================
+function disableAllWordButtons() {
+  document
+    .querySelectorAll(".word-row button")
+    .forEach(btn => (btn.disabled = true));
+}
+
+function shuffleArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
 
 // =====================
 loadChapters();
