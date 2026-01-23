@@ -45,13 +45,14 @@ h1, h2, h3 {
 
 #board-wrapper {
   position: relative;
-  width: 900px;
+  width: fit-content;
   margin: 20px auto;
 }
 
 #board-image {
-  width: 100%;
   display: block;
+  max-width: 900px;
+  width: 100%;
 }
 
 .token {
