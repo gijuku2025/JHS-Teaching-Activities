@@ -12,12 +12,13 @@ let usedWords = [];
 let timer = null;
 let timeLeft = 30;
 
-let currentDiceRoll = 0;
-
 let teamPositions = {
   Blue: 0,
   Red: 0
 };
+
+let currentDiceRoll = 0;
+let gameOver = false;
 
 // =====================
 // DOM ELEMENTS
@@ -28,9 +29,6 @@ const playersContainer = document.getElementById("players-container");
 const addPlayerBtn = document.getElementById("add-player-btn");
 const chapterSelection = document.getElementById("chapter-selection");
 const gameScreen = document.getElementById("game-screen");
-
-const boardWrapper = document.getElementById("board-wrapper");
-const boardImage = document.getElementById("board-image");
 
 const currentPlayerDisplay = document.getElementById("current-player");
 const diceResultMessage = document.getElementById("dice-result-message");
@@ -54,48 +52,35 @@ const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0, 1];
 
 // =====================
-// BOARD PATH (PERCENTAGES)
+// BOARD PATH (CENTER OF EACH SQUARE)
 // =====================
 const boardPath = [
-  { x: 10, y: 85 },
-  { x: 20, y: 80 },
-  { x: 30, y: 74 },
-  { x: 40, y: 68 },
-  { x: 50, y: 62 },
-  { x: 60, y: 56 },
-  { x: 70, y: 50 },
-  { x: 80, y: 44 },
-  { x: 88, y: 36 },
-  { x: 92, y: 28 }
+  { x: 80, y: 520 },
+  { x: 160, y: 500 },
+  { x: 240, y: 470 },
+  { x: 320, y: 430 },
+  { x: 400, y: 390 },
+  { x: 480, y: 350 },
+  { x: 560, y: 320 },
+  { x: 640, y: 280 },
+  { x: 720, y: 240 },
+  { x: 780, y: 180 }
 ];
 
 // =====================
-// BOARD VISIBILITY
-// =====================
-function showBoard() {
-  boardWrapper.classList.remove("hidden");
-}
-
-function hideBoard() {
-  boardWrapper.classList.add("hidden");
-}
-
-// =====================
-// TOKEN POSITIONING (FIXED)
+// TOKEN UPDATE
 // =====================
 function updateToken(team) {
-  const pos = Math.min(teamPositions[team], boardPath.length - 1);
-  teamPositions[team] = pos;
+  const maxIndex = boardPath.length - 1;
+  teamPositions[team] = Math.min(teamPositions[team], maxIndex);
 
-  const point = boardPath[pos];
+  const pos = boardPath[teamPositions[team]];
   const token = document.getElementById(
     team === "Blue" ? "blue-token" : "red-token"
   );
 
-  const rect = boardImage.getBoundingClientRect();
-
-  token.style.left = rect.width * (point.x / 100) + "px";
-  token.style.top = rect.height * (point.y / 100) + "px";
+  token.style.left = pos.x + "px";
+  token.style.top = pos.y + "px";
 }
 
 // =====================
@@ -158,9 +143,10 @@ setupForm.onsubmit = e => {
   });
 
   const chapters = [...chapterSelection.querySelectorAll("input:checked")]
-    .flatMap(cb => wordPool[cb.value]);
+    .map(cb => wordPool[cb.value])
+    .flat();
 
-  remainingWords = shuffleArray([...new Set(chapters)]);
+  remainingWords = [...new Set(chapters)];
   usedWords = [];
 
   buildTurnOrder();
@@ -191,35 +177,31 @@ function buildTurnOrder() {
 }
 
 // =====================
-// TURN MANAGEMENT
+// TURN START
 // =====================
 function startTurn() {
+  if (gameOver) return;
+
   clearInterval(timer);
+  timer = null;
 
   const p = turnOrder[currentTurnIndex];
   currentPlayerDisplay.textContent = `${p.team} Team – ${p.name}`;
   diceResultMessage.textContent = "";
 
   wordDisplayContainer.innerHTML = "";
-  rollDiceBtn.style.display = "inline-block";
-  startRoundBtn.classList.add("hidden");
   resultsDisplay.classList.add("hidden");
   timerContainer.classList.add("hidden");
 
-  showBoard();
-}
-
-function advanceTurn() {
-  currentTurnIndex = (currentTurnIndex + 1) % turnOrder.length;
+  rollDiceBtn.style.display = "inline-block";
+  startRoundBtn.classList.add("hidden");
 }
 
 // =====================
 // DICE
 // =====================
 rollDiceBtn.onclick = () => {
-  currentDiceRoll =
-    DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
-
+  currentDiceRoll = DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
   diceResultMessage.textContent = `Dice Roll: ${currentDiceRoll}`;
   rollDiceBtn.style.display = "none";
   startRoundBtn.classList.remove("hidden");
@@ -230,7 +212,6 @@ rollDiceBtn.onclick = () => {
 // =====================
 startRoundBtn.onclick = () => {
   startRoundBtn.classList.add("hidden");
-  hideBoard();
 
   timeLeft = 30;
   timerDisplay.textContent = timeLeft;
@@ -240,17 +221,16 @@ startRoundBtn.onclick = () => {
 
   while (selected.length < MAX_WORDS_PER_ROUND) {
     if (remainingWords.length === 0) {
-      remainingWords = shuffleArray(usedWords);
+      remainingWords = [...usedWords];
       usedWords = [];
     }
-
     const word = remainingWords.pop();
-    selected.push(word);
     usedWords.push(word);
+    selected.push(word);
   }
 
-  const rows = [];
   wordDisplayContainer.innerHTML = "";
+  const rows = [];
 
   selected.forEach(word => {
     const row = document.createElement("div");
@@ -277,7 +257,6 @@ startRoundBtn.onclick = () => {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      disableAllWordButtons();
       endRound(rows);
     }
   }, 1000);
@@ -288,7 +267,11 @@ startRoundBtn.onclick = () => {
 // =====================
 function endRound(rows) {
   timerContainer.classList.add("hidden");
-  showBoard();
+
+  rows.forEach(r => {
+    const btn = r.querySelector("button");
+    if (btn) btn.disabled = true;
+  });
 
   const correct = rows.filter(r => r.dataset.correct === "true").length;
   const spaces = Math.max(0, correct - currentDiceRoll);
@@ -297,12 +280,18 @@ function endRound(rows) {
   teamPositions[player.team] += spaces;
   updateToken(player.team);
 
-  if (checkWin(player.team)) return;
+  if (teamPositions[player.team] >= boardPath.length - 1) {
+    gameOver = true;
+    turnSummary.textContent = `${player.team} Team wins! 🎉`;
+    nextPlayerDisplay.textContent = "";
+    resultsDisplay.classList.remove("hidden");
+    return;
+  }
 
   turnSummary.textContent =
-    `Correct: ${correct} | Dice: ${currentDiceRoll} | Spaces: ${spaces}`;
+    `Correct: ${correct} | Dice: ${currentDiceRoll} | Move: ${spaces}`;
 
-  advanceTurn();
+  currentTurnIndex = (currentTurnIndex + 1) % turnOrder.length;
   const next = turnOrder[currentTurnIndex];
   nextPlayerDisplay.textContent = `Next: ${next.team} Team – ${next.name}`;
 
@@ -310,35 +299,13 @@ function endRound(rows) {
 }
 
 // =====================
-// WIN CONDITION
+// NEXT ROUND
 // =====================
-function checkWin(team) {
-  if (teamPositions[team] >= boardPath.length - 1) {
-    alert(`${team} Team Wins! 🎉`);
-    rollDiceBtn.disabled = true;
-    startRoundBtn.disabled = true;
-    return true;
-  }
-  return false;
+function nextRound() {
+  startTurn();
 }
 
-// =====================
-// UTIL
-// =====================
-function disableAllWordButtons() {
-  document
-    .querySelectorAll(".word-row button")
-    .forEach(btn => (btn.disabled = true));
-}
-
-function shuffleArray(arr) {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
+nextRoundBtn.onclick = nextRound;
 
 // =====================
 loadChapters();
