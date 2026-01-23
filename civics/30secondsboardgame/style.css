@@ -1,3 +1,7 @@
+/* =====================
+   BASE
+===================== */
+
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
@@ -13,7 +17,9 @@ body {
   border-radius: 8px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   text-align: center;
 }
 
@@ -21,7 +27,9 @@ h1, h2, h3 {
   display: none;
 }
 
-/* PLAYER SETUP */
+/* =====================
+   PLAYER SETUP
+===================== */
 
 #players-container {
   display: flex;
@@ -39,9 +47,12 @@ h1, h2, h3 {
 .player-row input,
 .player-row select {
   padding: 8px;
+  font-size: 16px;
 }
 
-/* BOARD */
+/* =====================
+   BOARD
+===================== */
 
 #board-wrapper {
   position: relative;
@@ -51,8 +62,10 @@ h1, h2, h3 {
 
 #board-image {
   width: 100%;
-  display: block;
+  display: block; /* CRITICAL: fixes token alignment */
 }
+
+/* Tokens */
 
 .token {
   position: absolute;
@@ -62,6 +75,7 @@ h1, h2, h3 {
   border: 2px solid #333;
   transform: translate(-50%, -50%);
   z-index: 5;
+  pointer-events: none;
 }
 
 .token.blue {
@@ -72,7 +86,9 @@ h1, h2, h3 {
   background-color: #e63946;
 }
 
-/* GAME */
+/* =====================
+   GAME PLAY
+===================== */
 
 #word-display-container {
   margin: 20px 0;
@@ -81,8 +97,13 @@ h1, h2, h3 {
 .word-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 6px 0;
   border-bottom: 1px solid #ddd;
+}
+
+.word-row span {
+  font-size: 18px;
 }
 
 .word-row button {
@@ -97,6 +118,10 @@ h1, h2, h3 {
   cursor: not-allowed;
 }
 
+/* =====================
+   CONTROLS
+===================== */
+
 #controls {
   text-align: center;
   margin-top: 20px;
@@ -108,9 +133,27 @@ h1, h2, h3 {
   margin: 5px;
 }
 
+/* =====================
+   TIMER & RESULTS
+===================== */
+
+#timer-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
 .times-up-message {
   font-size: 3rem;
   font-weight: bold;
   text-align: center;
   padding: 40px 0;
+}
+
+/* =====================
+   OPTIONAL SAFETY
+===================== */
+
+/* Allows clean board hiding */
+#board-wrapper.hidden {
+  display: none;
 }
