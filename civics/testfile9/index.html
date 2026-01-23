@@ -219,7 +219,7 @@ function loadChunk() {
     t.onclick = () => {
       document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
       t.classList.add('selected');
-      activeKanji = k;
+      activeKanji = { data: k, tile: t };
     };
     kanjiTray.appendChild(t);
   });
@@ -230,14 +230,14 @@ function loadChunk() {
     t.textContent = [k.on,k.kun].filter(Boolean).join(', ');
     t.onclick = () => {
       if (!activeKanji || t.classList.contains('correct')) return;
-      if (activeKanji.k === k.k) {
+      if (activeKanji.data.k === k.k) {
         t.classList.add('correct');
         t.textContent = '';
         const o = document.createElement('div');
         o.className = 'overlay-kanji';
         o.textContent = k.k;
         t.appendChild(o);
-        document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
+        activeKanji.tile.remove();
         activeKanji = null;
 
         const remaining = [...readingTray.children].some(rt => !rt.classList.contains('correct'));
