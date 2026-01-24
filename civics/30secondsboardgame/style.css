@@ -51,9 +51,10 @@ h1, h2, h3 {
 
 #board-image {
   display: block;
-  max-width: 900px;
+  max-width: 600px;   /* compact size for iPads */
   width: 100%;
 }
+
 
 .token {
   position: absolute;
