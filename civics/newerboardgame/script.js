@@ -12,7 +12,7 @@ let currentDiceRoll = 0;
 
 let teamPositions = { Blue: 0, Red: 0 };
 
-// GRID SETTINGS (for your board image)
+// GRID SETTINGS
 const ROWS = 4;
 const COLS = 7;
 
@@ -51,21 +51,33 @@ const boardImage = document.getElementById("board-image");
 const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0,1];
 
-function getSquareSize() {
+// margin trim
+const GRID_LEFT = 40;
+const GRID_TOP = 40;
+const GRID_RIGHT = 40;
+const GRID_BOTTOM = 40;
+
+function getGridSize() {
+  const w = boardImage.clientWidth - GRID_LEFT - GRID_RIGHT;
+  const h = boardImage.clientHeight - GRID_TOP - GRID_BOTTOM;
   return {
-    w: boardImage.clientWidth / COLS,
-    h: boardImage.clientHeight / ROWS
+    cellW: w / COLS,
+    cellH: h / ROWS
   };
 }
 
 function updateToken(team) {
   teamPositions[team] = Math.min(teamPositions[team], boardPath.length - 1);
   const [row,col] = boardPath[teamPositions[team]];
-  const {w,h} = getSquareSize();
+  const {cellW, cellH} = getGridSize();
 
   const token = document.getElementById(team==="Blue"?"blue-token":"red-token");
-  token.style.left = col * w + w/2 + "px";
-  token.style.top  = row * h + h/2 + "px";
+
+  const yOffset = -8;                 // lift off grid line
+  const xOffset = team === "Blue" ? -8 : 8; // separate overlapping tokens
+
+  token.style.left = GRID_LEFT + col * cellW + cellW/2 + xOffset + "px";
+  token.style.top  = GRID_TOP  + row * cellH + cellH/2 + yOffset + "px";
 }
 
 async function loadChapters() {
@@ -126,10 +138,11 @@ setupForm.onsubmit = e => {
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
 
-  boardImage.onload = ()=>{
-    updateToken("Blue");
-    updateToken("Red");
-  };
+  teamPositions.Blue = 0;
+  teamPositions.Red = 0;
+
+  updateToken("Blue");
+  updateToken("Red");
 
   startTurn();
 };
@@ -242,5 +255,10 @@ function endRound(rows){
 }
 
 nextRoundBtn.onclick=startTurn;
+
+window.addEventListener("resize",()=>{
+  updateToken("Blue");
+  updateToken("Red");
+});
 
 loadChapters();
