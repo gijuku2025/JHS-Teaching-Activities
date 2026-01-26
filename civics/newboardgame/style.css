@@ -45,28 +45,37 @@ h1, h2, h3 {
 
 #board-wrapper {
   position: relative;
-  max-width: 700px;
+  width: fit-content;
   margin: 20px auto;
 }
 
 #board-image {
-  width: 100%;
   display: block;
+  max-width: 600px;
+  width: 100%;
 }
+
+/* TOKENS */
 
 .token {
   position: absolute;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  border: 2px solid #333;
+  border: 2px solid #222;
   transform: translate(-50%, -50%);
-  z-index: 10;
   pointer-events: none;
 }
 
-.token.blue { background-color: #2b6cff; }
-.token.red  { background-color: #e63946; }
+#blue-token {
+  background: #2b6cff;
+  z-index: 6;
+}
+
+#red-token {
+  background: #e63946;
+  z-index: 7;
+}
 
 /* GAME */
 
