@@ -1,0 +1,58 @@
+{
+  "chapter1": [
+    "person",
+    "school",
+    "student",
+    "teacher",
+    "friend",
+    "family",
+    "food",
+    "water",
+    "house",
+    "city"
+  ],
+  "chapter2": [
+    "country",
+    "job",
+    "money",
+    "study",
+    "play",
+    "make",
+    "help",
+    "hear",
+    "speak"
+  ],
+  "chapter3": [
+    "read",
+    "write",
+    "dog",
+    "cat",
+    "bird",
+    "fish",
+    "pen",
+    "pencil",
+    "eraser"
+  ],
+  "chapter4": [
+    "notebook",
+    "paper",
+    "book",
+    "desk",
+    "bag",
+    "mountain",
+    "Tokyo",
+    "Hirosaki",
+    "onsen"
+  ],
+  "chapter5": [
+    "ball",
+    "tsunami",
+    "China",
+    "chocolate",
+    "7/11",
+    "Lawson",
+    "Family Mart",
+    "car",
+    "university"
+  ]
+}
