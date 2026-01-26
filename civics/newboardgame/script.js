@@ -51,10 +51,7 @@ const boardImage = document.getElementById("board-image");
 const MAX_WORDS_PER_ROUND = 5;
 const DICE_RESULTS = [0,1];
 
-/* --- IMPORTANT FIX ---
-   These values trim off the black margin in your image.
-   Adjust if needed by small amounts.
-*/
+// margin trim
 const GRID_LEFT = 40;
 const GRID_TOP = 40;
 const GRID_RIGHT = 40;
@@ -76,8 +73,11 @@ function updateToken(team) {
 
   const token = document.getElementById(team==="Blue"?"blue-token":"red-token");
 
-  token.style.left = GRID_LEFT + col * cellW + cellW/2 + "px";
-  token.style.top  = GRID_TOP  + row * cellH + cellH/2 + "px";
+  const yOffset = -8;                 // lift off grid line
+  const xOffset = team === "Blue" ? -8 : 8; // separate overlapping tokens
+
+  token.style.left = GRID_LEFT + col * cellW + cellW/2 + xOffset + "px";
+  token.style.top  = GRID_TOP  + row * cellH + cellH/2 + yOffset + "px";
 }
 
 async function loadChapters() {
@@ -138,14 +138,8 @@ setupForm.onsubmit = e => {
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
 
-  // RESET BOTH TOKENS TO START
   teamPositions.Blue = 0;
   teamPositions.Red = 0;
-
-  boardImage.onload = ()=>{
-    updateToken("Blue");
-    updateToken("Red");
-  };
 
   updateToken("Blue");
   updateToken("Red");
