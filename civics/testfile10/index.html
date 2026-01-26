@@ -167,11 +167,10 @@ for (const lvl in LEVELS) {
 
   const kanjiBox = document.createElement('div');
   kanjiBox.className = 'kanji-select';
-  kanjiBox.style.display = 'none';
+  kanjiBox.style.display = 'flex';
 
-  toggle.querySelector('input').onchange = e => {
-    kanjiBox.style.display = e.target.checked ? 'flex' : 'none';
-  };
+  // level checkbox no longer hides kanji; it only selects level
+  toggle.querySelector('input').onchange = () => {};
 
   // show kanji immediately when level label is tapped
   toggle.onclick = () => {
