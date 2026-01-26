@@ -173,6 +173,13 @@ for (const lvl in LEVELS) {
     kanjiBox.style.display = e.target.checked ? 'flex' : 'none';
   };
 
+  // show kanji immediately when level label is tapped
+  toggle.onclick = () => {
+    const cb = toggle.querySelector('input');
+    cb.checked = !cb.checked;
+    kanjiBox.style.display = cb.checked ? 'flex' : 'none';
+  };
+
   LEVELS[lvl].forEach((k,i)=>{
     const label = document.createElement('label');
     label.innerHTML = `<input type="checkbox" data-key="${lvl}-${i}"><span>${k.k}</span>`;
