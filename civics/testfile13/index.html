@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JLPT Kanji Drag & Drop Drill</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; padding: 12px; }
+.hidden { display: none; }
+h2 { margin-top: 0; }
+.level { margin-bottom: 16px; }
+.level-toggle { font-weight: bold; margin-bottom: 6px; }
+.kanji-select { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.kanji-select label { border: 1px solid #ccc; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+.kanji-select input { display: none; }
+.kanji-select input:checked + span { background: #ffe680; }
+.kanji-select span { padding: 4px 6px; border-radius: 4px; display: inline-block; }
+button { padding: 10px 16px; font-size: 16px; }
+
+#kanjiTray, #readingTray {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+#kanjiTray { margin-bottom: 24px; }
+
+.tile {
+  border: 2px solid #444;
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px;
+  user-select: none;
+  background: #fff;
+}
+.kanji-tile { font-size: 28px; cursor: pointer; }
+.kanji-tile.selected { background: #ffe680; }
+.reading-tile {
+  font-size: 20px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.correct { background: #b6f2c2; border-color: #2a8a44; }
+.overlay-kanji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+</style>
+</head>
+<body>
+
+<div id="startScreen">
+  <h2>Select Kanji to Drill</h2>
+  <div id="levels"></div>
+  <button id="startDrill">Start</button>
+</div>
+
+<div id="drillScreen" class="hidden">
+  <div id="kanjiTray"></div>
+  <div id="readingTray"></div>
+  <button id="returnBtn" style="margin-top:16px;">Return to selection</button>
+</div>
+
+
+<script>
+const LEVELS = {
+  N5: [
+     {k:'一',on:'イチ',kun:'ひと'},{k:'二',on:'ニ',kun:'ふた'},{k:'三',on:'サン',kun:'み'},{k:'四',on:'ヨン',kun:'よ'},{k:'五',on:'ゴ',kun:'いつ'},
+    {k:'六',on:'ロク',kun:'む'},{k:'七',on:'ナナ',kun:'なな'},{k:'八',on:'ハチ',kun:'や'},{k:'九',on:'キュウ',kun:'ここの'},{k:'十',on:'ジュウ',kun:'とお'},
+    {k:'百',on:'ヒャク',kun:''},{k:'千',on:'セン',kun:''},
+    {k:'日',on:'ニチ',kun:'ひ'},{k:'月',on:'ゲツ',kun:'つき'},{k:'火',on:'カ',kun:'ひ'},
+    {k:'水',on:'スイ',kun:'みず'},{k:'木',on:'モク',kun:'き'},{k:'金',on:'キン',kun:'かね'},{k:'土',on:'ド',kun:'つち'},
+    {k:'人',on:'ジン',kun:'ひと'},{k:'年',on:'ネン',kun:'とし'},{k:'時',on:'ジ',kun:'とき'},
+    {k:'分',on:'フン',kun:'わ'},{k:'今',on:'コン',kun:'いま'},
+    {k:'大',on:'ダイ',kun:'おお'},{k:'小',on:'ショウ',kun:'ちい'},
+    {k:'中',on:'チュウ',kun:'なか'},{k:'上',on:'ジョウ',kun:'うえ'},{k:'下',on:'カ',kun:'した'},
+    {k:'左',on:'サ',kun:'ひだり'},{k:'右',on:'ウ',kun:'みぎ'},
+    {k:'前',on:'ゼン',kun:'まえ'},{k:'後',on:'ゴ',kun:'あと'},
+    {k:'山',on:'サン',kun:'やま'},{k:'川',on:'セン',kun:'かわ'},{k:'田',on:'デン',kun:'た'},
+    {k:'口',on:'コウ',kun:'くち'},{k:'目',on:'モク',kun:'め'},{k:'耳',on:'ジ',kun:'みみ'},
+    {k:'手',on:'シュ',kun:'て'},{k:'足',on:'ソク',kun:'あし'},{k:'力',on:'リョク',kun:'ちから'},
+    {k:'男',on:'ダン',kun:'おとこ'},{k:'女',on:'ジョ',kun:'おんな'},{k:'子',on:'シ',kun:'こ'},
+    {k:'学',on:'ガク',kun:'まな'},{k:'校',on:'コウ',kun:''},{k:'先',on:'セン',kun:'さき'},{k:'生',on:'セイ',kun:'い'},
+    {k:'本',on:'ホン',kun:'もと'},{k:'行',on:'コウ',kun:'い'},{k:'来',on:'ライ',kun:'く'},
+    {k:'帰',on:'キ',kun:'かえ'},{k:'見',on:'ケン',kun:'み'},{k:'聞',on:'ブン',kun:'き'},
+    {k:'話',on:'ワ',kun:'はな'},{k:'読',on:'ドク',kun:'よ'},{k:'書',on:'ショ',kun:'か'},
+    {k:'食',on:'ショク',kun:'た'},{k:'飲',on:'イン',kun:'の'},
+    {k:'買',on:'バイ',kun:'か'},{k:'出',on:'シュツ',kun:'で'},{k:'入',on:'ニュウ',kun:'はい'},
+    {k:'休',on:'キュウ',kun:'やす'},{k:'何',on:'カ',kun:'なに'}
+  ],
+
+  N4: [
+     {k:'会',on:'カイ',kun:'あ'},{k:'社',on:'シャ',kun:''},{k:'店',on:'テン',kun:'みせ'},{k:'駅',on:'エキ',kun:''},
+    {k:'病',on:'ビョウ',kun:'やまい'},{k:'院',on:'イン',kun:''},{k:'仕',on:'シ',kun:''},{k:'事',on:'ジ',kun:'こと'},
+    {k:'働',on:'ドウ',kun:'はたら'},{k:'思',on:'シ',kun:'おも'},{k:'考',on:'コウ',kun:'かんが'},
+    {k:'作',on:'サク',kun:'つく'},{k:'使',on:'シ',kun:'つか'},{k:'借',on:'シャク',kun:'か'},
+    {k:'貸',on:'タイ',kun:'か'},{k:'住',on:'ジュウ',kun:'す'},{k:'知',on:'チ',kun:'し'},
+    {k:'待',on:'タイ',kun:'ま'},{k:'持',on:'ジ',kun:'も'},{k:'教',on:'キョウ',kun:'おし'},
+    {k:'習',on:'シュウ',kun:'なら'},{k:'強',on:'キョウ',kun:'つよ'},{k:'弱',on:'ジャク',kun:'よわ'},
+    {k:'早',on:'ソウ',kun:'はや'},{k:'近',on:'キン',kun:'ちか'},{k:'遠',on:'エン',kun:'とお'},
+    {k:'重',on:'ジュウ',kun:'おも'},{k:'軽',on:'ケイ',kun:'かる'},{k:'広',on:'コウ',kun:'ひろ'},
+    {k:'暗',on:'アン',kun:'くら'},{k:'明',on:'メイ',kun:'あか'},
+    {k:'立',on:'リツ',kun:'た'},{k:'歩',on:'ホ',kun:'ある'},{k:'走',on:'ソウ',kun:'はし'},
+    {k:'止',on:'シ',kun:'と'},{k:'起',on:'キ',kun:'お'},{k:'寝',on:'シン',kun:'ね'},
+    {k:'洗',on:'セン',kun:'あら'},{k:'売',on:'バイ',kun:'う'},{k:'送',on:'ソウ',kun:'おく'},
+    {k:'通',on:'ツウ',kun:'とお'},{k:'始',on:'シ',kun:'はじ'},{k:'終',on:'シュウ',kun:'お'},
+    {k:'開',on:'カイ',kun:'ひら'},{k:'閉',on:'ヘイ',kun:'と'},
+    {k:'答',on:'トウ',kun:'こた'},{k:'問',on:'モン',kun:'と'},
+    {k:'少',on:'ショウ',kun:'すく'},{k:'多',on:'タ',kun:'おお'},
+    {k:'新',on:'シン',kun:'あたら'},{k:'古',on:'コ',kun:'ふる'},
+    {k:'楽',on:'ラク',kun:'たの'},
+    {k:'白',on:'ハク',kun:'しろ'},{k:'黒',on:'コク',kun:'くろ'},{k:'青',on:'セイ',kun:'あお'},{k:'赤',on:'セキ',kun:'あか'},
+    {k:'空',on:'クウ',kun:'そら'},{k:'海',on:'カイ',kun:'うみ'},{k:'風',on:'フウ',kun:'かぜ'},{k:'雨',on:'ウ',kun:'あめ'},
+    {k:'電',on:'デン',kun:''},{k:'車',on:'シャ',kun:'くるま'},
+    {k:'国',on:'コク',kun:'くに'},{k:'町',on:'チョウ',kun:'まち'},{k:'村',on:'ソン',kun:'むら'},
+    {k:'肉',on:'ニク',kun:''},{k:'魚',on:'ギョ',kun:'さかな'},
+    {k:'米',on:'ベイ',kun:'こめ'},{k:'野',on:'ヤ',kun:'の'},{k:'菜',on:'サイ',kun:''}
+  ],
+
+  N3: [
+      {k:'政',on:'セイ',kun:''},{k:'治',on:'ジ',kun:'おさ'},
+    {k:'経',on:'ケイ',kun:''},{k:'済',on:'サイ',kun:''},{k:'法',on:'ホウ',kun:''},{k:'律',on:'リツ',kun:''},
+    {k:'議',on:'ギ',kun:''},{k:'員',on:'イン',kun:''},{k:'選',on:'セン',kun:'えら'},
+    {k:'挙',on:'キョ',kun:'あ'},
+    {k:'権',on:'ケン',kun:''},{k:'義',on:'ギ',kun:''},{k:'情',on:'ジョウ',kun:''},
+    {k:'報',on:'ホウ',kun:''},{k:'想',on:'ソウ',kun:''},{k:'感',on:'カン',kun:''},
+    {k:'決',on:'ケツ',kun:'き'},{k:'定',on:'テイ',kun:'さだ'},
+    {k:'増',on:'ゾウ',kun:'ふ'},{k:'減',on:'ゲン',kun:'へ'},
+    {k:'変',on:'ヘン',kun:'か'},{k:'化',on:'カ',kun:''},
+    {k:'続',on:'ゾク',kun:'つづ'},
+    {k:'対',on:'タイ',kun:''},{k:'関',on:'カン',kun:'かか'},
+    {k:'係',on:'ケイ',kun:'かか'},
+    {k:'比',on:'ヒ',kun:'くら'},
+    {k:'合',on:'ゴウ',kun:'あ'},
+    {k:'違',on:'イ',kun:'ちが'},
+    {k:'反',on:'ハン',kun:'そ'},
+    {k:'賛',on:'サン',kun:''},{k:'質',on:'シツ',kun:''},{k:'量',on:'リョウ',kun:''},
+    {k:'価',on:'カ',kun:''},{k:'格',on:'カク',kun:''},
+    {k:'費',on:'ヒ',kun:''},{k:'資',on:'シ',kun:''},{k:'源',on:'ゲン',kun:''},
+    {k:'税',on:'ゼイ',kun:''},{k:'設',on:'セツ',kun:''},{k:'備',on:'ビ',kun:''},
+    {k:'整',on:'セイ',kun:''},{k:'管',on:'カン',kun:''},{k:'営',on:'エイ',kun:''},
+    {k:'務',on:'ム',kun:''},{k:'職',on:'ショク',kun:''},{k:'任',on:'ニン',kun:''},
+    {k:'技',on:'ギ',kun:''},{k:'術',on:'ジュツ',kun:''},{k:'能',on:'ノウ',kun:''},
+    {k:'機',on:'キ',kun:''},{k:'器',on:'キ',kun:''},{k:'材',on:'ザイ',kun:''},{k:'料',on:'リョウ',kun:''},
+    {k:'製',on:'セイ',kun:''},{k:'限',on:'ゲン',kun:'かぎ'},
+    {k:'程',on:'テイ',kun:'ほど'},{k:'率',on:'リツ',kun:''},
+    {k:'例',on:'レイ',kun:''},{k:'況',on:'キョウ',kun:''},{k:'段',on:'ダン',kun:''},
+    {k:'論',on:'ロン',kun:''},{k:'説',on:'セツ',kun:''},{k:'談',on:'ダン',kun:''},{k:'題',on:'ダイ',kun:''},
+    {k:'表',on:'ヒョウ',kun:'あら'},{k:'現',on:'ゲン',kun:''},{k:'示',on:'ジ',kun:'しめ'},
+    {k:'伝',on:'デン',kun:'つた'},
+    {k:'調',on:'チョウ',kun:'しら'},
+    {k:'査',on:'サ',kun:''},{k:'認',on:'ニン',kun:'みと'},
+    {k:'確',on:'カク',kun:''},{k:'判',on:'ハン',kun:''},{k:'断',on:'ダン',kun:''},
+    {k:'可',on:'カ',kun:''},{k:'否',on:'ヒ',kun:''},
+    {k:'危',on:'キ',kun:'あぶ'},
+    {k:'険',on:'ケン',kun:''},{k:'守',on:'シュ',kun:'まも'},
+    {k:'護',on:'ゴ',kun:''},{k:'犯',on:'ハン',kun:''},{k:'罪',on:'ザイ',kun:''},{k:'罰',on:'バツ',kun:''},
+    {k:'環',on:'カン',kun:''},{k:'境',on:'キョウ',kun:''},
+    {k:'保',on:'ホ',kun:'たも'},
+    {k:'存',on:'ソン',kun:''},{k:'維',on:'イ',kun:''},
+    {k:'歴',on:'レキ',kun:''},{k:'史',on:'シ',kun:''},{k:'紀',on:'キ',kun:''},
+    {k:'代',on:'ダイ',kun:'か'},{k:'昔',on:'セキ',kun:'むかし'},
+    {k:'将',on:'ショウ',kun:''},{k:'過',on:'カ',kun:'す'},
+    {k:'在',on:'ザイ',kun:''},{k:'属',on:'ゾク',kun:''},
+    {k:'個',on:'コ',kun:''},{k:'各',on:'カク',kun:''},{k:'全',on:'ゼン',kun:'すべ'},
+    {k:'部',on:'ブ',kun:''},{k:'常',on:'ジョウ',kun:''},{k:'非',on:'ヒ',kun:''},
+    {k:'必',on:'ヒツ',kun:'かなら'},
+    {k:'要',on:'ヨウ',kun:'い'},
+    {k:'適',on:'テキ',kun:''},{k:'余',on:'ヨ',kun:''},{k:'未',on:'ミ',kun:''}
+  ]
+};
+
+const levelsDiv = document.getElementById('levels');
+const selectedKanji = new Set();
+
+for (const lvl in LEVELS) {
+  const div = document.createElement('div');
+  div.className = 'level';
+
+  const toggle = document.createElement('label');
+  toggle.className = 'level-toggle';
+  toggle.innerHTML = `<input type="checkbox"> ${lvl}`;
+
+  const kanjiBox = document.createElement('div');
+  kanjiBox.className = 'kanji-select';
+  kanjiBox.style.display = 'none';
+
+  toggle.querySelector('input').onchange = e => {
+    kanjiBox.style.display = e.target.checked ? 'flex' : 'none';
+  };
+
+  LEVELS[lvl].forEach((k,i)=>{
+    const label = document.createElement('label');
+    label.innerHTML = `<input type="checkbox" data-key="${lvl}-${i}"><span>${k.k}</span>`;
+    label.querySelector('input').onchange = e => {
+      const key = e.target.dataset.key;
+      e.target.checked ? selectedKanji.add(key) : selectedKanji.delete(key);
+    };
+    kanjiBox.appendChild(label);
+  });
+
+  div.appendChild(toggle);
+  div.appendChild(kanjiBox);
+  levelsDiv.appendChild(div);
+}
+
+let activeKanji = null;
+const CHUNK_SIZE = 6;
+let chunkIndex = 0;
+let drillData = [];
+
+function loadChunk() {
+  const kanjiTray = document.getElementById('kanjiTray');
+  const readingTray = document.getElementById('readingTray');
+  kanjiTray.innerHTML = '';
+  readingTray.innerHTML = '';
+  activeKanji = null;
+
+  const chunk = drillData.slice(chunkIndex, chunkIndex + CHUNK_SIZE);
+
+  chunk.forEach(k => {
+    const t = document.createElement('div');
+    t.className = 'tile kanji-tile';
+    t.textContent = k.k;
+    t.onclick = () => {
+      document.querySelectorAll('.kanji-tile').forEach(x=>x.classList.remove('selected'));
+      t.classList.add('selected');
+      activeKanji = { data: k, tile: t };
+    };
+    kanjiTray.appendChild(t);
+  });
+
+  [...chunk].sort(()=>Math.random()-0.5).forEach(k => {
+    const t = document.createElement('div');
+    t.className = 'tile reading-tile';
+    t.textContent = [k.on,k.kun].filter(Boolean).join(', ');
+    t.onclick = () => {
+      if (!activeKanji || t.classList.contains('correct')) return;
+      if (activeKanji.data.k === k.k) {
+        t.classList.add('correct');
+        t.textContent = '';
+        const o = document.createElement('div');
+        o.className = 'overlay-kanji';
+        o.textContent = k.k;
+        t.appendChild(o);
+        activeKanji.tile.remove();
+        activeKanji = null;
+
+        const remaining = [...readingTray.children].some(rt => !rt.classList.contains('correct'));
+        if (!remaining) {
+          chunkIndex += CHUNK_SIZE;
+          if (chunkIndex < drillData.length) {
+            setTimeout(loadChunk, 600);
+          }
+        }
+      }
+    };
+    readingTray.appendChild(t);
+  });
+}
+
+function beginDrill(){
+  if (!selectedKanji.size) return;
+
+  drillData = [...selectedKanji].map(key => {
+    const [lvl,i] = key.split('-');
+    return LEVELS[lvl][i];
+  });
+
+  chunkIndex = 0;
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('drillScreen').classList.remove('hidden');
+  loadChunk();
+}
+
+document.getElementById('startDrill').onclick = beginDrill;
+	document.getElementById('returnBtn').onclick = () => {
+  document.getElementById('drillScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+
+  document.getElementById('kanjiTray').innerHTML = '';
+  document.getElementById('readingTray').innerHTML = '';
+
+  activeKanji = null;
+};
+
+	
+</script>
+</body>
+</html>
