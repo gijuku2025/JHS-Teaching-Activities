@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Civics Ch 26 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "Civics Ch 26 Listen and Learn";
+
+const sentences = [
+           { en: "After World War Two, differences in income became bigger around the world.", jp: "第二次世界大戦の後、収入の格差は世界中で大きくなった。", enAudio: "audio/01_after_world_war_two_difference_en.mp3", jpAudio: "audio/01_after_world_war_two_difference_jp.mp3" },
+  { en: "Developing countries that used to be colonies continued to export a small number of agricultural products and natural resources.", jp: "発展途上国は、かつては植民地で、少数の農産物と天然資源を輸出し続けた。", enAudio: "audio/02_developing_countries_that_used_en.mp3", jpAudio: "audio/02_developing_countries_that_used_jp.mp3" },
+  { en: "The advanced countries had strong industrial economies, but the developing countries had weak monoculture economies.", jp: "先進国は強い産業経済を持っていたが、発展途上国は弱いモノカルチャー経済を持っていた。", enAudio: "audio/03_the_advanced_countries_had_str_en.mp3", jpAudio: "audio/03_the_advanced_countries_had_str_jp.mp3" },
+  { en: "This was called the North-South Divide because most advanced countries were in the north, and most developing countries were in the south.", jp: "これは、ほとんどの先進国が北にあり、ほとんどの発展途上国が南にあったため、南北問題と呼ばれた。", enAudio: "audio/04_this_was_called_the_northsouth_en.mp3", jpAudio: "audio/04_this_was_called_the_northsouth_jp.mp3" },
+  { en: "In the 1960s, South Korea, Taiwan, Hong Kong, and Singapore industrialized very rapidly.", jp: "1960年代に、韓国、台湾、香港、シンガポールはとても急速に工業化した。", enAudio: "audio/05_in_the_1960s_south_korea_taiwa_en.mp3", jpAudio: "audio/05_in_the_1960s_south_korea_taiwa_jp.mp3" },
+  { en: "They were called the Newly Industrialized Economies (NIES).", jp: "それらは新興工業経済地域（NIES）と呼ばれた。", enAudio: "audio/06_they_were_called_the_newly_ind_en.mp3", jpAudio: "audio/06_they_were_called_the_newly_ind_jp.mp3" },
+  { en: "After 2000, some large countries with valuable natural resources became rich.", jp: "2000年の後、価値のある天然資源を持ついくつかの大きな国が豊かになった。", enAudio: "audio/07_after_2000_some_large_countrie_en.mp3", jpAudio: "audio/07_after_2000_some_large_countrie_jp.mp3" },
+  { en: "They were Brazil, Russia, India, China, and South Africa.", jp: "それらはブラジル、ロシア、インド、中国、南アフリカである。", enAudio: "audio/08_they_were_brazil_russia_india__en.mp3", jpAudio: "audio/08_they_were_brazil_russia_india__jp.mp3" },
+  { en: "We call them the BRICS countries.", jp: "私たちはそれらをBRICS諸国と呼ぶ。", enAudio: "audio/09_we_call_them_the_brics_countri_en.mp3", jpAudio: "audio/09_we_call_them_the_brics_countri_jp.mp3" },
+  { en: "After World War Two, the colonies in Africa became independent.", jp: "第二次世界大戦の後、アフリカの植民地は独立した。", enAudio: "audio/10_after_world_war_two_the_coloni_en.mp3", jpAudio: "audio/10_after_world_war_two_the_coloni_jp.mp3" },
+  { en: "China’s economy grew very rapidly after it began its Reform and Opening-up Policy in the late 1970s.", jp: "中国の経済は、1970年代後半に改革開放政策を始めてから、とても急速に成長した。", enAudio: "audio/11_chinas_economy_grew_very_rapid_en.mp3", jpAudio: "audio/11_chinas_economy_grew_very_rapid_jp.mp3" },
+  { en: "International cooperation is often difficult, but it is important for the future of the world.", jp: "国際協力はしばしば難しいが、世界の未来のために重要である。", enAudio: "audio/12_international_cooperation_is_o_en.mp3", jpAudio: "audio/12_international_cooperation_is_o_jp.mp3" },
+];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
