@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ch1_democracy",
+    "en": "democracy",
+    "jp": "民主主義",
+    "kana": "みんしゅしゅぎ",
+    "example": "Democracy means people choose their leaders."
+  },
+  {
+    "id": "ch1_tax",
+    "en": "tax",
+    "jp": "税金",
+    "kana": "ぜいきん",
+    "example": "People pay tax to the government."
+  },
+  {
+    "id": "ch1_industrial_revolution",
+    "en": "industrial revolution",
+    "jp": "産業革命",
+    "kana": "さんぎょうかくめい",
+    "example": "The Industrial Revolution changed how people worked and lived."
+  }
+]
