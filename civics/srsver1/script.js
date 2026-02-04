@@ -1,6 +1,6 @@
 const app = document.getElementById("app");
 
-const CHAPTER_FILES = ["chapter1.json"]; // add more later
+const CHAPTER_FILES = ["chapter1"]; // add more later
 const MAX_NEW_PER_DAY = 10;
 
 let state = {
