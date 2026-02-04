@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch5_climate_graph",
+    "en": "Climate Graph",
+    "jp": "雨温図",
+    "kana": "うおんず",
+    "example": "This is a climate graph for Darwin."
+  },
+  {
+    "id": "ch5_northern_hemisphere",
+    "en": "Northern Hemisphere",
+    "jp": "北半球",
+    "kana": "きたはんきゅう",
+    "example": "Hirosaki is in the Northern Hemisphere."
+  },
+  {
+    "id": "ch5_southern_hemisphere",
+    "en": "Southern Hemisphere",
+    "jp": "南半球",
+    "kana": "みなみはんきゅう",
+    "example": "Darwin is in the Southern Hemisphere."
+  },
+  {
+    "id": "ch5_temperature",
+    "en": "temperature",
+    "jp": "気温",
+    "kana": "きおん",
+    "example": "The red line is the average monthly temperature."
+  },
+  {
+    "id": "ch5_rainfall",
+    "en": "rainfall",
+    "jp": "降雨量",
+    "kana": "こううりょう",
+    "example": "The blue bars are the average monthly rainfall."
+  },
+  {
+    "id": "ch5_average",
+    "en": "average",
+    "jp": "平均",
+    "kana": "へいきん",
+    "example": "The dotted red line is the average yearly temperature."
+  },
+  {
+    "id": "ch5_wet",
+    "en": "wet",
+    "jp": "雨が多い",
+    "kana": "あめがおおい",
+    "example": "The summer is wet (rainy)."
+  },
+  {
+    "id": "ch5_dry",
+    "en": "dry",
+    "jp": "乾燥している",
+    "kana": "かんそうしている",
+    "example": "Darwin is always dry."
+  },
+  {
+    "id": "ch5_warm",
+    "en": "warm",
+    "jp": "暖かい",
+    "kana": "あたたかい",
+    "example": "The summer is warm."
+  },
+  {
+    "id": "ch5_cool",
+    "en": "cool",
+    "jp": "涼しい",
+    "kana": "すずしい",
+    "example": "The winter is cool."
+  }
+]
