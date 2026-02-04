@@ -1,58 +1,107 @@
 [
   {
-    "id": "ch2_constitution",
-    "en": "constitution",
-    "jp": "憲法",
-    "kana": "けんぽう",
-    "example": "The constitution is the basic law of a country."
+    "id": "ch2_land_area",
+    "en": "land area",
+    "jp": "土地面積",
+    "kana": "とちめんせき",
+    "example": "Russia is larger than Japan."
   },
   {
-    "id": "ch2_citizen",
-    "en": "citizen",
-    "jp": "市民",
-    "kana": "しみん",
-    "example": "A citizen has rights and responsibilities."
+    "id": "ch2_population",
+    "en": "population",
+    "jp": "人口",
+    "kana": "じんこう",
+    "example": "China has a population of about 1,440,000,000."
   },
   {
-    "id": "ch2_right",
-    "en": "right",
-    "jp": "権利",
-    "kana": "けんり",
-    "example": "People have the right to vote."
+    "id": "ch2_100_million",
+    "en": "100 million",
+    "jp": "1億",
+    "kana": "いちおく",
+    "example": "China has a population of about 1 billion 440 million people."
   },
   {
-    "id": "ch2_duty",
-    "en": "duty",
-    "jp": "義務",
-    "kana": "ぎむ",
-    "example": "It is your duty to obey the law."
+    "id": "ch2_population_density",
+    "en": "population density",
+    "jp": "人口密度",
+    "kana": "じんこうみつど",
+    "example": "Monaco has a population density of 18,960 per square kilometer."
   },
   {
-    "id": "ch2_law",
-    "en": "law",
-    "jp": "法律",
-    "kana": "ほうりつ",
-    "example": "Laws help keep society safe and fair."
+    "id": "ch2_country_names",
+    "en": "country names",
+    "jp": "国名",
+    "kana": "こくめい",
+    "example": "Japan is a country in Asia."
   },
   {
-    "id": "ch2_election",
-    "en": "election",
-    "jp": "選挙",
-    "kana": "せんきょ",
-    "example": "People choose leaders in an election."
+    "id": "ch2_national_flags",
+    "en": "national flags",
+    "jp": "国旗",
+    "kana": "こっき",
+    "example": "Countries have national flags."
   },
   {
-    "id": "ch2_vote",
-    "en": "vote",
-    "jp": "投票する",
-    "kana": "とうひょうする",
-    "example": "Citizens vote for their representatives."
+    "id": "ch2_union_jack",
+    "en": "Union Jack",
+    "jp": "イギリス国旗",
+    "kana": "いぎりすこっき",
+    "example": "The Union Jack is the national flag of the United Kingdom."
   },
   {
-    "id": "ch2_parliament",
-    "en": "parliament",
-    "jp": "議会",
-    "kana": "ぎかい",
-    "example": "The parliament makes new laws."
+    "id": "ch2_national_borders",
+    "en": "national borders",
+    "jp": "国境",
+    "kana": "こっきょう",
+    "example": "National borders separate one country from another."
+  },
+  {
+    "id": "ch2_language_areas",
+    "en": "language areas",
+    "jp": "言語区域",
+    "kana": "げんごくいき",
+    "example": "Language areas show where people speak the same language."
+  },
+  {
+    "id": "ch2_large_country",
+    "en": "large country",
+    "jp": "大きい国",
+    "kana": "おおきいくに",
+    "example": "Russia is about 45 times larger than Japan."
+  },
+  {
+    "id": "ch2_small_country",
+    "en": "small country",
+    "jp": "小さい国",
+    "kana": "ちいさいくに",
+    "example": "Monaco is very small, about four times the size of Hirosaki Park."
+  },
+  {
+    "id": "ch2_most_populated_country",
+    "en": "most populated country",
+    "jp": "人口が最も多い国",
+    "kana": "じんこうがもっともおおいくに",
+    "example": "China is the most populated country in the world."
+  },
+  {
+    "id": "ch2_second_most_populated_country",
+    "en": "second most populated country",
+    "jp": "人口が2番目に多い国",
+    "kana": "じんこうがにばんめにおおいくに",
+    "example": "India is the second most populated country in the world."
+  },
+  {
+    "id": "ch2_high_population_density",
+    "en": "high population density",
+    "jp": "人口密度が高い",
+    "kana": "じんこうみつどがたかい",
+    "example": "Vatican City has a very high population density."
+  },
+  {
+    "id": "ch2_low_population_density",
+    "en": "low population density",
+    "jp": "人口密度が低い",
+    "kana": "じんこうみつどがひくい",
+    "example": "Mongolia has a very low population density."
   }
 ]
