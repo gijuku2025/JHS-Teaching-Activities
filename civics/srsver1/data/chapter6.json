@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch6_solar_energy",
+    "en": "solar energy",
+    "jp": "太陽エネルギー",
+    "kana": "たいようエネルギー",
+    "example": "Solar energy (energy from the Sun) makes the Earth warm."
+  },
+  {
+    "id": "ch6_angle",
+    "en": "angle",
+    "jp": "角度",
+    "kana": "かくど",
+    "example": "Solar energy hits the Earth at different angles."
+  },
+  {
+    "id": "ch6_subsolar_point",
+    "en": "Subsolar Point",
+    "jp": "太陽直下点",
+    "kana": "たいようちょっかてん",
+    "example": "The Subsolar Point is perpendicular with the solar energy."
+  },
+  {
+    "id": "ch6_tilt",
+    "en": "tilt",
+    "jp": "傾き",
+    "kana": "かたむき",
+    "example": "Because of the tilt of the Earth, the Subsolar Point moves."
+  },
+  {
+    "id": "ch6_solar_panel",
+    "en": "solar panel",
+    "jp": "ソーラーパネル",
+    "kana": "そーらーぱねる",
+    "example": "Solar panels get energy from the Sun."
+  },
+  {
+    "id": "ch6_perpendicular",
+    "en": "perpendicular",
+    "jp": "垂直な",
+    "kana": "すいちょくな",
+    "example": "The Subsolar Point is perpendicular with the solar energy."
+  },
+  {
+    "id": "ch6_area",
+    "en": "area",
+    "jp": "面積",
+    "kana": "めんせき",
+    "example": "Near the Equator, a lot of energy hits a small area."
+  },
+  {
+    "id": "ch6_axis",
+    "en": "axis",
+    "jp": "地軸",
+    "kana": "ちじく",
+    "example": "The Earth’s axis is at an angle of 23.5 degrees."
+  },
+  {
+    "id": "ch6_orbit",
+    "en": "orbit",
+    "jp": "公転する",
+    "kana": "こうてんする",
+    "example": "The Earth orbits the Sun."
+  },
+  {
+    "id": "ch6_degrees",
+    "en": "degrees",
+    "jp": "度",
+    "kana": "ど",
+    "example": "The Earth’s axis is at an angle of 23.5 degrees."
+  }
+]
