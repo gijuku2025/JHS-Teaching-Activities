@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch3_economy",
+    "en": "economy",
+    "jp": "経済",
+    "kana": "けいざい",
+    "example": "The economy is how people produce and use goods and services."
+  },
+  {
+    "id": "ch3_goods",
+    "en": "goods",
+    "jp": "商品",
+    "kana": "しょうひん",
+    "example": "Goods are things that people buy and sell."
+  },
+  {
+    "id": "ch3_services",
+    "en": "services",
+    "jp": "サービス",
+    "kana": "さーびす",
+    "example": "Teachers and doctors provide services."
+  },
+  {
+    "id": "ch3_consumer",
+    "en": "consumer",
+    "jp": "消費者",
+    "kana": "しょうひしゃ",
+    "example": "A consumer buys goods and services."
+  },
+  {
+    "id": "ch3_producer",
+    "en": "producer",
+    "jp": "生産者",
+    "kana": "せいさんしゃ",
+    "example": "A producer makes goods to sell."
+  },
+  {
+    "id": "ch3_trade",
+    "en": "trade",
+    "jp": "貿易",
+    "kana": "ぼうえき",
+    "example": "Countries trade goods with each other."
+  },
+  {
+    "id": "ch3_import",
+    "en": "import",
+    "jp": "輸入する",
+    "kana": "ゆにゅうする",
+    "example": "Japan imports oil from other countries."
+  },
+  {
+    "id": "ch3_export",
+    "en": "export",
+    "jp": "輸出する",
+    "kana": "ゆしゅつする",
+    "example": "Cars are exported to many countries."
+  },
+  {
+    "id": "ch3_tariff",
+    "en": "tariff",
+    "jp": "関税",
+    "kana": "かんぜい",
+    "example": "A tariff is a tax on imported goods."
+  },
+  {
+    "id": "ch3_market",
+    "en": "market",
+    "jp": "市場",
+    "kana": "しじょう",
+    "example": "A market is a place where buyers and sellers meet."
+  }
+]

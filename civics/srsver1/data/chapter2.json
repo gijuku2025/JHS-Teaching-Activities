@@ -1,0 +1,58 @@
+[
+  {
+    "id": "ch2_constitution",
+    "en": "constitution",
+    "jp": "憲法",
+    "kana": "けんぽう",
+    "example": "The constitution is the basic law of a country."
+  },
+  {
+    "id": "ch2_citizen",
+    "en": "citizen",
+    "jp": "市民",
+    "kana": "しみん",
+    "example": "A citizen has rights and responsibilities."
+  },
+  {
+    "id": "ch2_right",
+    "en": "right",
+    "jp": "権利",
+    "kana": "けんり",
+    "example": "People have the right to vote."
+  },
+  {
+    "id": "ch2_duty",
+    "en": "duty",
+    "jp": "義務",
+    "kana": "ぎむ",
+    "example": "It is your duty to obey the law."
+  },
+  {
+    "id": "ch2_law",
+    "en": "law",
+    "jp": "法律",
+    "kana": "ほうりつ",
+    "example": "Laws help keep society safe and fair."
+  },
+  {
+    "id": "ch2_election",
+    "en": "election",
+    "jp": "選挙",
+    "kana": "せんきょ",
+    "example": "People choose leaders in an election."
+  },
+  {
+    "id": "ch2_vote",
+    "en": "vote",
+    "jp": "投票する",
+    "kana": "とうひょうする",
+    "example": "Citizens vote for their representatives."
+  },
+  {
+    "id": "ch2_parliament",
+    "en": "parliament",
+    "jp": "議会",
+    "kana": "ぎかい",
+    "example": "The parliament makes new laws."
+  }
+]
