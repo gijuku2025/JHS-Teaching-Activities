@@ -1,6 +1,6 @@
 const app = document.getElementById("app");
 
-const CHAPTER_FILES = ["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "chapter7", "chapter8", "chapter9", "chapter10", "chapter11", "chapter12", "chapter13", "chapter15", "chapter16", "chapter17", "chapter18", "chapter19", "chapter20", "chapter21", "chapter22", "chapter23", "chapter24", "chapter25", "chapter26"]; // add more later
+const CHAPTER_FILES = ["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "chapter7", "chapter8", "chapter9", "chapter10", "chapter11", "chapter12", "chapter13", "chapter15", "chapter16", "chapter17", "chapter18", "chapter19", "chapter20", "chapter21", "chapter22", "chapter23", "chapter24", "chapter25", "chapter26", "chapter27"]; // add more later
 const MAX_NEW_PER_DAY = 10;
 
 let state = {
