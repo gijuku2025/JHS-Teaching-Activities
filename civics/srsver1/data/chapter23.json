@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch23_air_pollution",
+    "en": "air pollution",
+    "jp": "大気汚染",
+    "kana": "たいきおせん",
+    "example": "Acid rain fell because of air pollution and damaged many things."
+  },
+  {
+    "id": "ch23_acid_rain",
+    "en": "acid rain",
+    "jp": "酸性雨",
+    "kana": "さんせいう",
+    "example": "Acid rain fell because of air pollution and damaged many things."
+  },
+  {
+    "id": "ch23_climate_change",
+    "en": "climate change",
+    "jp": "気候変動",
+    "kana": "きこうへんどう",
+    "example": "Climate began to change, and natural disasters increased."
+  },
+  {
+    "id": "ch23_natural_disaster",
+    "en": "natural disaster",
+    "jp": "自然災害",
+    "kana": "しぜんさいがい",
+    "example": "Climate began to change, and natural disasters increased."
+  },
+  {
+    "id": "ch23_international_river",
+    "en": "international river",
+    "jp": "国際河川",
+    "kana": "こくさいかせん",
+    "example": "European countries work together to clean international rivers."
+  },
+  {
+    "id": "ch23_purification",
+    "en": "purification",
+    "jp": "浄化",
+    "kana": "じょうか",
+    "example": "They made factories for the purification of water."
+  },
+  {
+    "id": "ch23_recycle_rubbish",
+    "en": "recycle rubbish",
+    "jp": "ゴミを再利用する",
+    "kana": "ごみをさいりようする",
+    "example": "They work together to recycle rubbish and electrical goods."
+  },
+  {
+    "id": "ch23_bicycle_lane",
+    "en": "bicycle lane",
+    "jp": "自転車専用レーン",
+    "kana": "じてんしゃせんようれーん",
+    "example": "They use bicycle lanes to go to work by bicycle."
+  },
+  {
+    "id": "ch23_sustainable_society",
+    "en": "sustainable society",
+    "jp": "持続可能な社会",
+    "kana": "じぞくかのうなしゃかい",
+    "example": "They are trying hard to make sustainable societies."
+  },
+  {
+    "id": "ch23_try_hard",
+    "en": "try hard",
+    "jp": "懸命に努力する",
+    "kana": "けんめいにどりょくする",
+    "example": "They are trying hard to make sustainable societies."
+  }
+]
