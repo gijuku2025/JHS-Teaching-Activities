@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch27_cacao",
+    "en": "cacao",
+    "jp": "カカオ",
+    "kana": "かかお",
+    "example": "Cacao grows on short trees in the Tropical Zone."
+  },
+  {
+    "id": "ch27_hunter_gatherer",
+    "en": "hunter-gatherer",
+    "jp": "狩猟採集民",
+    "kana": "しゅりょうさいしゅうみん",
+    "example": "Africans traditionally lived as hunter-gatherers."
+  },
+  {
+    "id": "ch27_nomad",
+    "en": "nomad",
+    "jp": "遊牧民",
+    "kana": "ゆうぼくみん",
+    "example": "Some people became nomads to find grass for their animals."
+  },
+  {
+    "id": "ch27_slash_and_burn",
+    "en": "slash-and-burn",
+    "jp": "焼き畑",
+    "kana": "やきはた",
+    "example": "They used slash-and-burn agriculture to grow food."
+  },
+  {
+    "id": "ch27_sugar_cane",
+    "en": "sugar cane",
+    "jp": "サトウキビ",
+    "kana": "さとうきび",
+    "example": "Europeans grew sugar cane and bananas on large farms."
+  },
+  {
+    "id": "ch27_copper",
+    "en": "copper",
+    "jp": "銅",
+    "kana": "どう",
+    "example": "Africa has many minerals such as copper, gold and diamonds."
+  },
+  {
+    "id": "ch27_cobalt",
+    "en": "cobalt",
+    "jp": "コバルト",
+    "kana": "こばると",
+    "example": "Cobalt is a rare metal used for electrical parts."
+  },
+  {
+    "id": "ch27_monoculture",
+    "en": "monoculture",
+    "jp": "モノカルチャー",
+    "kana": "ものかるちゃー",
+    "example": "Selling only one or two products is called a monoculture economy."
+  },
+  {
+    "id": "ch27_drought",
+    "en": "drought",
+    "jp": "干ばつ",
+    "kana": "かんばつ",
+    "example": "If there is a drought, the harvest decreases and people have no money."
+  },
+  {
+    "id": "ch27_develop",
+    "en": "develop",
+    "jp": "開発する",
+    "kana": "かいはつする",
+    "example": "African countries want to develop more industries."
+  }
+]
