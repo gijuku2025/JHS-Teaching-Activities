@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch29_agreement",
+    "en": "agreement",
+    "jp": "協定",
+    "kana": "きょうてい",
+    "example": "Canada, the USA and Mexico have a free trade agreement."
+  },
+  {
+    "id": "ch29_mountain_range",
+    "en": "mountain range",
+    "jp": "山脈",
+    "kana": "さんみゃく",
+    "example": "There are high mountain ranges in the west of North America."
+  },
+  {
+    "id": "ch29_hurricane",
+    "en": "hurricane",
+    "jp": "ハリケーン",
+    "kana": "はりけーん",
+    "example": "There is often a lot of damage from hurricanes."
+  },
+  {
+    "id": "ch29_tropical_storm",
+    "en": "tropical storm",
+    "jp": "熱帯低気圧",
+    "kana": "ねったいていきあつ",
+    "example": "Hurricanes are strong tropical storms that come every year."
+  },
+  {
+    "id": "ch29_satellite",
+    "en": "satellite",
+    "jp": "人工衛星",
+    "kana": "じんこうえいせい",
+    "example": "The weather center gets data from satellites."
+  },
+  {
+    "id": "ch29_measure",
+    "en": "measure",
+    "jp": "測定する",
+    "kana": "そくていする",
+    "example": "The Hurricane Hunter airplane measures wind speed and air pressure."
+  },
+  {
+    "id": "ch29_wind_speed",
+    "en": "wind speed",
+    "jp": "風速",
+    "kana": "ふうそく",
+    "example": "It is important to measure wind speed during a storm."
+  },
+  {
+    "id": "ch29_air_pressure",
+    "en": "air pressure",
+    "jp": "気圧",
+    "kana": "きあつ",
+    "example": "The airplane flies into the hurricane to measure air pressure."
+  },
+  {
+    "id": "ch29_warn",
+    "en": "warn",
+    "jp": "警告を与える",
+    "kana": "けいこくをあたえる",
+    "example": "The weather center warns people before a hurricane arrives."
+  },
+  {
+    "id": "ch29_central_america",
+    "en": "Central America",
+    "jp": "中央アメリカ",
+    "kana": "ちゅうおうあめりか",
+    "example": "Guatemala to Panama are in Central America to the south."
+  }
+]
