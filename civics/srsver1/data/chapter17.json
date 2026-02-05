@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch17_han_chinese",
+    "en": "Han Chinese",
+    "jp": "漢族",
+    "kana": "かんぞく",
+    "example": "Most Chinese are Han people."
+  },
+  {
+    "id": "ch17_minorities",
+    "en": "minorities",
+    "jp": "少数民族",
+    "kana": "しょうすうみんぞく",
+    "example": "Most minority Chinese live in Western China."
+  },
+  {
+    "id": "ch17_wheat",
+    "en": "wheat",
+    "jp": "麦",
+    "kana": "むぎ",
+    "example": "Wheat and soybeans grow in Northern China."
+  },
+  {
+    "id": "ch17_special_economic_zone",
+    "en": "Special Economic Zone",
+    "jp": "経済特区",
+    "kana": "けいざいとっく",
+    "example": "China built Special Economic Zones near the coast."
+  },
+  {
+    "id": "ch17_overseas_company",
+    "en": "overseas company",
+    "jp": "外国企業",
+    "kana": "がいこくきぎょう",
+    "example": "Many overseas companies built factories in these zones."
+  },
+  {
+    "id": "ch17_low_wage",
+    "en": "low wage",
+    "jp": "低賃金",
+    "kana": "ていちんぎん",
+    "example": "China had a big population with low wages, so costs were low."
+  },
+  {
+    "id": "ch17_one_child_policy",
+    "en": "One-Child Policy",
+    "jp": "一人っ子政策",
+    "kana": "ひとりっこせいさく",
+    "example": "They said, 'One child is enough.' This was the One-Child Policy."
+  },
+  {
+    "id": "ch17_sewage",
+    "en": "sewage",
+    "jp": "下水",
+    "kana": "げすい",
+    "example": "Smoke, exhaust, and sewage made the air and water dirty."
+  },
+  {
+    "id": "ch17_per_capita",
+    "en": "per capita",
+    "jp": "一人当たり",
+    "kana": "ひとりあたり",
+    "example": "The average income per capita is different in each province."
+  },
+  {
+    "id": "ch17_thematic_map",
+    "en": "thematic map",
+    "jp": "主題図",
+    "kana": "しゅだいず",
+    "example": "Color coded maps are called thematic maps."
+  }
+]
