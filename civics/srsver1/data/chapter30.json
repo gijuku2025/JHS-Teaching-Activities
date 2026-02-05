@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch30_corporation",
+    "en": "corporation",
+    "jp": "企業",
+    "kana": "きぎょう",
+    "example": "Large corporations own many of the big farms in the USA."
+  },
+  {
+    "id": "ch30_equipment",
+    "en": "equipment",
+    "jp": "設備",
+    "kana": "せつび",
+    "example": "They have a lot of money to buy large machines and equipment."
+  },
+  {
+    "id": "ch30_farm_laborer",
+    "en": "farm laborer",
+    "jp": "農業労働者",
+    "kana": "のうぎょうろうどうしゃ",
+    "example": "Many immigrants work as farm laborers because wages are high."
+  },
+  {
+    "id": "ch30_production",
+    "en": "production",
+    "jp": "生産",
+    "kana": "せいさん",
+    "example": "Using technology helps to increase food production."
+  },
+  {
+    "id": "ch30_process_food",
+    "en": "process food",
+    "jp": "食品加工",
+    "kana": "しょくひんかこう",
+    "example": "Companies process food to make it ready for the supermarket."
+  },
+  {
+    "id": "ch30_fertilizer",
+    "en": "fertilizer",
+    "jp": "肥料",
+    "kana": "ひりょう",
+    "example": "They use technology to develop new chemical fertilizers."
+  },
+  {
+    "id": "ch30_soil",
+    "en": "soil",
+    "jp": "土壌",
+    "kana": "どじょう",
+    "example": "Each area has different soil, temperatures, and rainfall."
+  },
+  {
+    "id": "ch30_center_pivot",
+    "en": "center pivot",
+    "jp": "センターピボット",
+    "kana": "せんたーぴぼっと",
+    "example": "The center pivot method is a way to water crops in dry areas."
+  },
+  {
+    "id": "ch30_feedlot",
+    "en": "feedlot",
+    "jp": "フィードロット",
+    "kana": "ふぃーどろっと",
+    "example": "In a feedlot, many cattle are kept in a small area to get fat."
+  },
+  {
+    "id": "ch30_suitable",
+    "en": "suitable",
+    "jp": "適している",
+    "kana": "てきしている",
+    "example": "There are suitable crops for the environment of each area."
+  }
+]
