@@ -1,0 +1,100 @@
+[
+  {
+    "id": "ch13_religion",
+    "en": "religion",
+    "jp": "宗教",
+    "kana": "しゅうきょう",
+    "example": "There are many religions around the world."
+  },
+  {
+    "id": "ch13_christianity",
+    "en": "Christianity",
+    "jp": "キリスト教",
+    "kana": "きりすときょう",
+    "example": "The Three Big Religions are Christianity, Islam and Buddhism."
+  },
+  {
+    "id": "ch13_islam",
+    "en": "Islam",
+    "jp": "イスラム教",
+    "kana": "いすらむきょう",
+    "example": "Muslims read the Koran."
+  },
+  {
+    "id": "ch13_buddhism",
+    "en": "Buddhism",
+    "jp": "仏教",
+    "kana": "ぶっきょう",
+    "example": "Buddhists read the Sutras."
+  },
+  {
+    "id": "ch13_hinduism",
+    "en": "Hinduism",
+    "jp": "ヒンズー教",
+    "kana": "ひんずーきょう",
+    "example": "Hinduism and Judaism are national or ethnic religions."
+  },
+  {
+    "id": "ch13_judaism",
+    "en": "Judaism",
+    "jp": "ユダヤ教",
+    "kana": "ゆだやきょう",
+    "example": "Hinduism and Judaism are national or ethnic religions."
+  },
+  {
+    "id": "ch13_bible",
+    "en": "Bible",
+    "jp": "聖書",
+    "kana": "せいしょ",
+    "example": "Christians read the Bible."
+  },
+  {
+    "id": "ch13_koran",
+    "en": "Koran",
+    "jp": "コーラン",
+    "kana": "こーらん",
+    "example": "Muslims read the Koran."
+  },
+  {
+    "id": "ch13_sutra",
+    "en": "Sutra",
+    "jp": "お経",
+    "kana": "おきょう",
+    "example": "Buddhists read the Sutras."
+  },
+  {
+    "id": "ch13_shrine",
+    "en": "Shrine",
+    "jp": "神社",
+    "kana": "じんじゃ",
+    "example": "People go to a Shinto shrine at New Year."
+  },
+  {
+    "id": "ch13_temple",
+    "en": "Temple",
+    "jp": "お寺",
+    "kana": "おてら",
+    "example": "They have funerals in a Buddhist temple."
+  },
+  {
+    "id": "ch13_church",
+    "en": "church",
+    "jp": "教会",
+    "kana": "きょうかい",
+    "example": "They have weddings in a Christian church."
+  },
+  {
+    "id": "ch13_fast",
+    "en": "fast",
+    "jp": "断食（する）",
+    "kana": "だんじき（する）",
+    "example": "They fast in the day to make their hearts strong."
+  },
+  {
+    "id": "ch13_bathe",
+    "en": "bathe",
+    "jp": "沐浴する",
+    "kana": "もくよくする",
+    "example": "Many Hindus go and bathe in the Ganges River."
+  }
+]
