@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch10_four_seasons",
+    "en": "four seasons",
+    "jp": "四季",
+    "kana": "しき",
+    "example": "Climates in the Temperate Zone have four seasons."
+  },
+  {
+    "id": "ch10_mild",
+    "en": "mild",
+    "jp": "温和、穏やか",
+    "kana": "おんわ、おだやか",
+    "example": "Mild means “Not too much, not too little.”"
+  },
+  {
+    "id": "ch10_oceanic_climate",
+    "en": "Oceanic Climate",
+    "jp": "海洋性気候",
+    "kana": "かいようせいきこう",
+    "example": "Oceanic Climates have mild summers and mild winters."
+  },
+  {
+    "id": "ch10_mediterranean_climate",
+    "en": "Mediterranean Climate",
+    "jp": "地中海性気候",
+    "kana": "ちちゅうかいせいきこう",
+    "example": "Some Temperate Climates have very dry summers; this is a Mediterranean Climate."
+  },
+  {
+    "id": "ch10_grapes",
+    "en": "grapes",
+    "jp": "ぶどう",
+    "kana": "ぶどう",
+    "example": "Italian people grow grapes to make wine."
+  },
+  {
+    "id": "ch10_wine",
+    "en": "wine",
+    "jp": "ぶどう酒",
+    "kana": "ぶどうしゅ",
+    "example": "All Italian meals have wine, olive oil and tomato sauce."
+  },
+  {
+    "id": "ch10_olive_oil",
+    "en": "olive oil",
+    "jp": "オリーブ油",
+    "kana": "おりーぶゆ",
+    "example": "All Italian meals have wine, olive oil and tomato sauce."
+  },
+  {
+    "id": "ch10_tomato_sauce",
+    "en": "tomato sauce",
+    "jp": "トマトソース",
+    "kana": "とまとそーす",
+    "example": "All Italian meals have wine, olive oil and tomato sauce."
+  },
+  {
+    "id": "ch10_vacation",
+    "en": "vacation",
+    "jp": "長期休暇",
+    "kana": "ちょうききゅうか",
+    "example": "They take a long vacation in the summer."
+  },
+  {
+    "id": "ch10_few_tourists",
+    "en": "few tourists",
+    "jp": "観光客が少ない",
+    "kana": "かんこうきゃくがすくない",
+    "example": "Shops and restaurants close in towns with few tourists."
+  }
+]
