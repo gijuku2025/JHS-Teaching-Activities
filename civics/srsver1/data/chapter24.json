@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch24_equal",
+    "en": "equal",
+    "jp": "平等な",
+    "kana": "びょうどうな",
+    "example": "One of EU’s problems is that wages are not equal."
+  },
+  {
+    "id": "ch24_lend",
+    "en": "lend",
+    "jp": "貸す",
+    "kana": "かす",
+    "example": "Rich countries lend money to poor member countries."
+  },
+  {
+    "id": "ch24_borrow",
+    "en": "borrow",
+    "jp": "借りる",
+    "kana": "かりる",
+    "example": "Some countries borrow money and cannot pay it back."
+  },
+  {
+    "id": "ch24_pay_back",
+    "en": "pay back",
+    "jp": "払い戻す（返済する）",
+    "kana": "はらいもどす",
+    "example": "If countries cannot pay back the money, there is a big discussion."
+  },
+  {
+    "id": "ch24_complain",
+    "en": "complain",
+    "jp": "文句を言う",
+    "kana": "もんくをいう",
+    "example": "People in rich countries complain about giving money to poor countries."
+  },
+  {
+    "id": "ch24_immigrant",
+    "en": "immigrant",
+    "jp": "移民",
+    "kana": "いみん",
+    "example": "Many people came from Turkey as immigrants to work in German factories."
+  },
+  {
+    "id": "ch24_refugee",
+    "en": "refugee",
+    "jp": "難民",
+    "kana": "なんみん",
+    "example": "Many refugees went to Europe from countries with wars."
+  },
+  {
+    "id": "ch24_discrimination",
+    "en": "discrimination",
+    "jp": "差別",
+    "kana": "さべつ",
+    "example": "Social problems like discrimination and unemployment increased."
+  },
+  {
+    "id": "ch24_unemployment",
+    "en": "unemployment",
+    "jp": "失業",
+    "kana": "しつぎょう",
+    "example": "Social problems like discrimination and unemployment increased."
+  },
+  {
+    "id": "ch24_stand",
+    "en": "stand",
+    "jp": "屋台",
+    "kana": "やたい",
+    "example": "Turkish immigrants run Kebab stands in Germany."
+  }
+]
