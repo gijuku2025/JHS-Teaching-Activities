@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch11_subtropical_climate",
+    "en": "Subtropical Climate",
+    "jp": "亜熱帯気候",
+    "kana": "あねったいきこう",
+    "example": "Places near the Tropical Zone have Subtropical Climates."
+  },
+  {
+    "id": "ch11_subpolar_climate",
+    "en": "Subpolar Climate",
+    "jp": "亜寒帯気候",
+    "kana": "あかんたいきこう",
+    "example": "Subpolar Climates have mild summers and very cold winters."
+  },
+  {
+    "id": "ch11_humid_subtropical",
+    "en": "Humid Subtropical",
+    "jp": "温暖湿潤",
+    "kana": "おんだんしつじゅん",
+    "example": "Humid Subtropical Climates have very hot summers and mild winters."
+  },
+  {
+    "id": "ch11_fur_coats",
+    "en": "fur coats",
+    "jp": "毛皮のコート",
+    "kana": "けがわのこーと",
+    "example": "People wear fur coats and cover their heads with fur hats."
+  },
+  {
+    "id": "ch11_log_house",
+    "en": "log house",
+    "jp": "丸太の家",
+    "kana": "まるたのいえ",
+    "example": "They used to build traditional houses with logs."
+  },
+  {
+    "id": "ch11_taiga",
+    "en": "Taiga",
+    "jp": "タイガ",
+    "kana": "たいが",
+    "example": "This coniferous forest is called the Taiga."
+  },
+  {
+    "id": "ch11_permafrost",
+    "en": "permafrost",
+    "jp": "永久凍土",
+    "kana": "えいきゅうとうど",
+    "example": "The ground is frozen all year; this is called permafrost."
+  },
+  {
+    "id": "ch11_house_on_stilts",
+    "en": "house on stilts",
+    "jp": "高床式の家",
+    "kana": "たかゆかしきのいえ",
+    "example": "They build houses on stilts so the heat from the house does not melt the permafrost."
+  },
+  {
+    "id": "ch11_forestry",
+    "en": "forestry",
+    "jp": "林業",
+    "kana": "りんぎょう",
+    "example": "Many people in Siberia work in forestry and mining."
+  },
+  {
+    "id": "ch11_global_warming",
+    "en": "global warming",
+    "jp": "地球温暖化",
+    "kana": "ちきゅうおんだんか",
+    "example": "Global warming is causing the permafrost to melt."
+  }
+]
