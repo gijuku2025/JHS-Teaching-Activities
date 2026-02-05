@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch12_altitude",
+    "en": "altitude",
+    "jp": "標高",
+    "kana": "ひょうこう",
+    "example": "Temperatures become cooler as altitude becomes higher."
+  },
+  {
+    "id": "ch12_alpine_climate",
+    "en": "Alpine Climate",
+    "jp": "高山気候",
+    "kana": "こうざんきこう",
+    "example": "Mountains in the Tropical Zone have an Alpine Climate."
+  },
+  {
+    "id": "ch12_llama",
+    "en": "llama",
+    "jp": "リャマ",
+    "kana": "りゃま",
+    "example": "Llamas carry things and Alpacas grow wool."
+  },
+  {
+    "id": "ch12_alpaca",
+    "en": "alpaca",
+    "jp": "アルパカ",
+    "kana": "あるぱか",
+    "example": "Llamas carry things and Alpacas grow wool."
+  },
+  {
+    "id": "ch12_poncho",
+    "en": "poncho",
+    "jp": "ポンチョ",
+    "kana": "ぽんちょ",
+    "example": "People wear a poncho made of llama or alpaca wool."
+  },
+  {
+    "id": "ch12_wool",
+    "en": "wool",
+    "jp": "羊毛（ウール）",
+    "kana": "ようもう",
+    "example": "People wear a poncho made of llama or alpaca wool."
+  },
+  {
+    "id": "ch12_corn",
+    "en": "corn",
+    "jp": "トウモロコシ",
+    "kana": "とうもろこし",
+    "example": "There are many kinds of corn and potatoes."
+  },
+  {
+    "id": "ch12_freeze",
+    "en": "freeze",
+    "jp": "凍らせる",
+    "kana": "こおらせる",
+    "example": "They freeze the potatoes at night and stamp on them in the day."
+  },
+  {
+    "id": "ch12_stamp",
+    "en": "stamp",
+    "jp": "踏みつける",
+    "kana": "ふみつける",
+    "example": "They freeze the potatoes at night and stamp on them in the day."
+  },
+  {
+    "id": "ch12_goods",
+    "en": "goods",
+    "jp": "商品",
+    "kana": "しょうひん",
+    "example": "People and goods can move easily on buses and trucks."
+  }
+]
