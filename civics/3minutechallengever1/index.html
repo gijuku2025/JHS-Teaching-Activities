@@ -18,22 +18,11 @@ body {
   touch-action: none;
 }
 
-.heading {
-  font-family: 'Bungee', cursive;
-}
+.heading { font-family: 'Bungee', cursive; }
 
-.screen {
-  display: none;
-  padding: 20px;
-}
-
-.active {
-  display: block;
-}
-
-.center {
-  text-align: center;
-}
+.screen { display: none; padding: 20px; }
+.active { display: block; }
+.center { text-align: center; }
 
 button, input {
   font-size: 1.1em;
@@ -46,11 +35,6 @@ button {
   background: gold;
   color: #46178f;
   font-weight: bold;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.6;
 }
 
 .card {
@@ -59,7 +43,7 @@ button:disabled {
   padding: 25px;
   border-radius: 20px;
   max-width: 600px;
-  margin: 20px auto;
+  margin: 40px auto;
 }
 
 #chapterGrid {
@@ -77,9 +61,7 @@ button:disabled {
   border-radius: 12px;
 }
 
-.chapterBtn.selected {
-  background: gold;
-}
+.chapterBtn.selected { background: gold; }
 
 .answerBtn {
   display: block;
@@ -106,20 +88,13 @@ button:disabled {
   z-index: 50;
 }
 
-#streak { color: gold; }
-
-#bonusScreen {
-  position: fixed;
-  inset: 0;
-}
+#bonusScreen { position: fixed; inset: 0; }
 
 .gem {
   position: absolute;
   font-size: 3rem;
   padding: 85px;
   margin: -85px;
-  cursor: pointer;
-  user-select: none;
 }
 
 .tap-effect {
@@ -145,7 +120,6 @@ button:disabled {
   <div id="score">$0</div>
 </div>
 
-<!-- NAME -->
 <div id="nameScreen" class="screen active center">
   <h1 class="heading">3 Minute Challenge</h1>
   <input id="nicknameInput" placeholder="Nickname">
@@ -153,14 +127,12 @@ button:disabled {
   <button onclick="goToChapters()">Continue</button>
 </div>
 
-<!-- CHAPTER -->
 <div id="chapterScreen" class="screen center">
   <h2 class="heading">Select Chapter</h2>
   <div id="chapterGrid"></div>
   <button onclick="startGame()">Start</button>
 </div>
 
-<!-- QUIZ -->
 <div id="quizScreen" class="screen">
   <div class="card">
     <h2 id="questionText"></h2>
@@ -168,12 +140,10 @@ button:disabled {
   </div>
 </div>
 
-<!-- BONUS -->
 <div id="bonusScreen" class="screen">
   <div id="gemContainer"></div>
 </div>
 
-<!-- END -->
 <div id="endScreen" class="screen center">
   <h2 class="heading">Time’s Up!</h2>
   <p id="finalName"></p>
@@ -185,26 +155,31 @@ button:disabled {
 let nickname="", selectedChapter=null;
 let questions=[], qIndex=0;
 let score=0, streak=0;
-let timeLeft=180, timer;
+let timeLeft=180;
+let timerInterval;
 const STREAK_TARGET=3;
 const gems=["💎","💰","👑","✨"], trash=["👞","🍌"];
 
-const screens=id=>{
+function showScreen(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-};
+}
 
 function goToChapters(){
   nickname=nicknameInput.value.trim();
   if(!nickname) return alert("Nickname required");
-  screens("chapterScreen");
+  showScreen("chapterScreen");
 }
 
 for(let i=1;i<=40;i++){
   const b=document.createElement("button");
   b.textContent=i;
   b.className="chapterBtn";
-  b.onclick=()=>{selectedChapter=i;document.querySelectorAll(".chapterBtn").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");};
+  b.onclick=()=>{
+    selectedChapter=i;
+    document.querySelectorAll(".chapterBtn").forEach(x=>x.classList.remove("selected"));
+    b.classList.add("selected");
+  };
   chapterGrid.appendChild(b);
 }
 
@@ -214,17 +189,21 @@ async function startGame(){
     const r=await fetch(`data/chapter${selectedChapter}.json`);
     questions=await r.json();
   }catch{ return alert("Missing chapter file"); }
+
   questions.sort(()=>Math.random()-0.5);
   qIndex=0; score=0; streak=0; timeLeft=180;
-  topBar.classList.remove("hidden");
+
+  document.getElementById("topBar").classList.remove("hidden");
   startTimer();
-  screens("quizScreen");
+  showScreen("quizScreen");
   showQuestion();
 }
 
 function startTimer(){
-  timer=setInterval(()=>{
-    timer.textContent=--timeLeft;
+  const timerEl=document.getElementById("timer");
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    timerEl.textContent=timeLeft;
     if(timeLeft<=0) endGame();
   },1000);
 }
@@ -234,7 +213,7 @@ function showQuestion(){
   const q=questions[qIndex];
   questionText.textContent=q.q;
   answers.innerHTML="";
-  streakDisplay();
+  updateHUD();
   q.a.forEach((t,i)=>{
     const b=document.createElement("button");
     b.className="answerBtn";
@@ -258,26 +237,21 @@ function answer(btn,i){
   setTimeout(()=>{qIndex++;showQuestion();},500);
 }
 
-function streakDisplay(){
-  document.getElementById("streak").textContent=`⭐ ${streak} / ${STREAK_TARGET}`;
-}
-
 function updateHUD(){
-  scoreEl.textContent="$"+score;
-  streakDisplay();
+  document.getElementById("score").textContent="$"+score;
+  document.getElementById("streak").textContent=`⭐ ${streak} / ${STREAK_TARGET}`;
 }
 
 function startBonus(){
   streak=0;
-  screens("bonusScreen");
-  let bonusTime=5;
+  showScreen("bonusScreen");
   const spawn=setInterval(spawnGem,300);
   setTimeout(()=>{
     clearInterval(spawn);
-    screens("quizScreen");
+    showScreen("quizScreen");
     qIndex++;
     showQuestion();
-  },bonusTime*1000);
+  },5000);
 }
 
 function spawnGem(){
@@ -313,8 +287,8 @@ function pop(x,y,t,c){
 }
 
 function endGame(){
-  clearInterval(timer);
-  screens("endScreen");
+  clearInterval(timerInterval);
+  showScreen("endScreen");
   finalName.textContent="Player: "+nickname;
   finalScore.textContent="Score: "+score;
 }
