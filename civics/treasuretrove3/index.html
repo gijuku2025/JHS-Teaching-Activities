@@ -143,25 +143,36 @@ function loadQuestion(){
  grid.innerHTML="";
  q.a.forEach((opt,i)=>{
   const b=document.createElement("button");
-  b.className="p-3 bg-gray-200 rounded";
+  b.className="p-3 bg-gray-200 rounded text-black";
   b.innerText=opt;
-  b.onclick=()=>answer(i);
+  b.onclick=()=>answer(i,b);
   grid.appendChild(b);
  });
  updateStars();
 }
 
-function answer(i){
+function answer(i,btn){
  const q=questions[qIndex%questions.length];
+ const buttons=document.querySelectorAll("#options-grid button");
+ buttons.forEach(b=>b.disabled=true);
+
  if(i===q.c){
+  btn.classList.add("bg-green-500","text-white");
   streak++; mercy=0;
-  if(streak>=3) startBonus();
-  else loadQuestion();
  } else {
+  btn.classList.add("bg-red-500","text-white");
   streak=0; mercy++;
-  if(mercy>=5) startBonus();
  }
+
  qIndex++;
+
+ setTimeout(()=>{
+  if(streak>=3 || mercy>=5){
+    startBonus();
+  } else {
+    loadQuestion();
+  }
+ },500);
 }
 
 function updateStars(){
