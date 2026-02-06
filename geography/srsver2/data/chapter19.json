@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch19_common_language",
+    "en": "common language",
+    "jp": "共通言語",
+    "kana": "きょうつうげんご",
+    "example": "India has many languages, but English is the common language."
+  },
+  {
+    "id": "ch19_plain",
+    "en": "plain",
+    "jp": "平野",
+    "kana": "へいや",
+    "example": "Most of the wheat and rice in India grows on the plains in the north."
+  },
+  {
+    "id": "ch19_upper_part",
+    "en": "upper part",
+    "jp": "上流",
+    "kana": "じょうりゅう",
+    "example": "Wheat grows near the upper part of the Ganges River."
+  },
+  {
+    "id": "ch19_lower_part",
+    "en": "lower part",
+    "jp": "下流",
+    "kana": "かりゅう",
+    "example": "Rice grows in the lower part of the Ganges River."
+  },
+  {
+    "id": "ch19_rapidly",
+    "en": "rapidly",
+    "jp": "急速に",
+    "kana": "きゅうそくに",
+    "example": "Population in South Asia is growing very rapidly."
+  },
+  {
+    "id": "ch19_pesticide",
+    "en": "pesticide",
+    "jp": "殺虫剤",
+    "kana": "さっちゅうざい",
+    "example": "Farmers used more fertilizer and pesticide to grow more crops."
+  },
+  {
+    "id": "ch19_sacred",
+    "en": "sacred",
+    "jp": "神聖な",
+    "kana": "しんせいな",
+    "example": "To Hindus, the cow is a sacred animal."
+  },
+  {
+    "id": "ch19_cotton",
+    "en": "cotton",
+    "jp": "綿（綿花）",
+    "kana": "めん（めんか）",
+    "example": "There were many cotton plantations and wages were low."
+  },
+  {
+    "id": "ch19_programmer",
+    "en": "programmer",
+    "jp": "プログラマー",
+    "kana": "ぷろぐらまー",
+    "example": "The Indian government trained many computer programmers."
+  },
+  {
+    "id": "ch19_call_center",
+    "en": "call center",
+    "jp": "コールセンター",
+    "kana": "こーるせんたー",
+    "example": "Overseas companies hire people in Indian call centers."
+  }
+]

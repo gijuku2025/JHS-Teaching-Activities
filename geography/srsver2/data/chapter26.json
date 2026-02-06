@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch26_savanna",
+    "en": "savanna",
+    "jp": "サバナ",
+    "kana": "さばな",
+    "example": "Savanna has grasslands with long grass and few trees."
+  },
+  {
+    "id": "ch26_plateau",
+    "en": "plateau",
+    "jp": "高原",
+    "kana": "こうげん",
+    "example": "Most of the land in Africa is a high plateau."
+  },
+  {
+    "id": "ch26_civilization",
+    "en": "civilization",
+    "jp": "文明",
+    "kana": "ぶんめい",
+    "example": "The ancient Egyptian civilization began near the Nile River."
+  },
+  {
+    "id": "ch26_ivory",
+    "en": "ivory",
+    "jp": "象牙",
+    "kana": "ぞうげ",
+    "example": "Traders came to Africa for gold and ivory."
+  },
+  {
+    "id": "ch26_slave",
+    "en": "slave",
+    "jp": "奴隷",
+    "kana": "どれい",
+    "example": "Many African people were taken to America as slaves."
+  },
+  {
+    "id": "ch26_independent",
+    "en": "independent",
+    "jp": "独立している",
+    "kana": "どくりつしている",
+    "example": "Many countries became independent in 1960."
+  },
+  {
+    "id": "ch26_international_aid",
+    "en": "international aid",
+    "jp": "国際援助",
+    "kana": "こくさいえんじょ",
+    "example": "Why do African countries need international aid?"
+  },
+  {
+    "id": "ch26_evergreen",
+    "en": "evergreen",
+    "jp": "常緑",
+    "kana": "じょうりょく",
+    "example": "Rainforests are made of evergreen broadleaved trees."
+  },
+  {
+    "id": "ch26_broadleaved",
+    "en": "broadleaved",
+    "jp": "広葉",
+    "kana": "こうよう",
+    "example": "Rainforests are made of evergreen broadleaved trees."
+  },
+  {
+    "id": "ch26_human_history",
+    "en": "history",
+    "jp": "歴史",
+    "kana": "れきし",
+    "example": "The first humans lived in Africa so it has a long history."
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch9_moisture",
+    "en": "moisture",
+    "jp": "水分",
+    "kana": "すいぶん",
+    "example": "Moisture in the air turns to rain."
+  },
+  {
+    "id": "ch9_hadley_cell",
+    "en": "Hadley Cell",
+    "jp": "ハドレー循環",
+    "kana": "はどれーじゅんかん",
+    "example": "This movement of air is called the Hadley Cell."
+  },
+  {
+    "id": "ch9_desert_climate",
+    "en": "Desert Climate",
+    "jp": "砂漠気候",
+    "kana": "さばくきこう",
+    "example": "It almost never rains and there are almost no plants in a Desert Climate."
+  },
+  {
+    "id": "ch9_steppe_climate",
+    "en": "Steppe Climate",
+    "jp": "ステップ気候",
+    "kana": "すてっぷきこう",
+    "example": "A Steppe Climate is dry, but it has more rain than in the desert."
+  },
+  {
+    "id": "ch9_oasis",
+    "en": "Oasis",
+    "jp": "オアシス",
+    "kana": "おあしす",
+    "example": "There is water at an oasis."
+  },
+  {
+    "id": "ch9_camel",
+    "en": "camel",
+    "jp": "ラクダ",
+    "kana": "らくだ",
+    "example": "Camels carry things but also give people milk and meat."
+  },
+  {
+    "id": "ch9_sunbaked_bricks",
+    "en": "sunbaked bricks",
+    "jp": "天日で焼いたレンガ",
+    "kana": "てんぴでやいたれんが",
+    "example": "Village people live in houses built with sunbaked bricks."
+  },
+  {
+    "id": "ch9_nomad",
+    "en": "nomad",
+    "jp": "移住生活者",
+    "kana": "いじゅうせいかつしゃ",
+    "example": "Nomads move north in the rainy season and south in the dry season."
+  },
+  {
+    "id": "ch9_slash_and_burn",
+    "en": "slash-and-burn",
+    "jp": "焼畑",
+    "kana": "やきはた",
+    "example": "They use slash-and-burn agriculture to grow crops."
+  },
+  {
+    "id": "ch9_desertification",
+    "en": "desertification",
+    "jp": "砂漠化",
+    "kana": "さばくか",
+    "example": "Overgrazing and cutting down trees leads to desertification."
+  }
+]

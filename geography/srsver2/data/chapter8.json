@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch8_tropical_rainforest",
+    "en": "Tropical Rainforest",
+    "jp": "熱帯雨林",
+    "kana": "ねったいうりん",
+    "example": "Tropical Rainforests have many colorful plants and animals."
+  },
+  {
+    "id": "ch8_rainy_season",
+    "en": "rainy season",
+    "jp": "雨季",
+    "kana": "うき",
+    "example": "The rainy season comes when the Subsolar Point is near."
+  },
+  {
+    "id": "ch8_dry_season",
+    "en": "dry season",
+    "jp": "乾季",
+    "kana": "かんき",
+    "example": "The Savanna Climate has a rainy season and a dry season."
+  },
+  {
+    "id": "ch8_savanna_climate",
+    "en": "Savanna Climate",
+    "jp": "サバンナ気候",
+    "kana": "さばんなきこう",
+    "example": "The Savanna Climate has a rainy season and a dry season."
+  },
+  {
+    "id": "ch8_mangrove",
+    "en": "Mangrove",
+    "jp": "マングローブ",
+    "kana": "まんぐろーぶ",
+    "example": "Many small fish live in the roots of the mangroves."
+  },
+  {
+    "id": "ch8_coral_reef",
+    "en": "Coral Reef",
+    "jp": "サンゴ礁",
+    "kana": "さんごしょう",
+    "example": "Beautiful coral reefs surround the island."
+  },
+  {
+    "id": "ch8_high_tide",
+    "en": "high tide",
+    "jp": "満潮",
+    "kana": "まんちょう",
+    "example": "The sea goes out at low tide and comes in at high tide."
+  },
+  {
+    "id": "ch8_low_tide",
+    "en": "low tide",
+    "jp": "干潮",
+    "kana": "かんちょう",
+    "example": "The sea goes out at low tide and comes in at high tide."
+  },
+  {
+    "id": "ch8_tourism",
+    "en": "Tourism",
+    "jp": "観光業",
+    "kana": "かんこうぎょう",
+    "example": "Tourism is a very important industry for Samoa."
+  },
+  {
+    "id": "ch8_export",
+    "en": "export",
+    "jp": "輸出",
+    "kana": "ゆしゅつ",
+    "example": "Samoa exports canned tuna to other countries."
+  }
+]

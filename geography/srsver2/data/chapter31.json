@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch31_great_lakes",
+    "en": "the Great Lakes",
+    "jp": "五大湖",
+    "kana": "ごだいこ",
+    "example": "Industry developed near the Great Lakes in the 19th century."
+  },
+  {
+    "id": "ch31_raw_materials",
+    "en": "raw materials",
+    "jp": "原料",
+    "kana": "げんりょう",
+    "example": "Ships could carry raw materials across the lakes."
+  },
+  {
+    "id": "ch31_assembly_line",
+    "en": "assembly line",
+    "jp": "流れ作業",
+    "kana": "ながれさぎょう",
+    "example": "Ford used an assembly line to make many cars quickly."
+  },
+  {
+    "id": "ch31_steel_industry",
+    "en": "steel industry",
+    "jp": "鉄鋼産業",
+    "kana": "てっこうさんぎょう",
+    "example": "Pittsburgh became the center of the steel industry."
+  },
+  {
+    "id": "ch31_high_tech",
+    "en": "high-tech industry",
+    "jp": "先端技術産業",
+    "kana": "せんたんぎじゅつさんぎょう",
+    "example": "The high-tech industry grew in an area called Silicon Valley."
+  },
+  {
+    "id": "ch31_aerospace",
+    "en": "aerospace industry",
+    "jp": "航空宇宙産業",
+    "kana": "こうくううちゅうさんぎょう",
+    "example": "The aerospace industry is important for modern defense and travel."
+  },
+  {
+    "id": "ch31_biotechnology",
+    "en": "biotechnology",
+    "jp": "バイオテクノロジー",
+    "kana": "ばいおてくのろじー",
+    "example": "Biotechnology is a key field in modern scientific research."
+  },
+  {
+    "id": "ch31_sunbelt",
+    "en": "Sunbelt",
+    "jp": "サンベルト",
+    "kana": "さんべると",
+    "example": "The center of industry moved to the Sunbelt in the south."
+  },
+  {
+    "id": "ch31_indigenous",
+    "en": "indigenous people",
+    "jp": "先住民",
+    "kana": "せんじゅうみん",
+    "example": "They took land from indigenous people and built towns."
+  },
+  {
+    "id": "ch31_economic_difference",
+    "en": "economic difference",
+    "jp": "経済格差",
+    "kana": "けいざいかくさ",
+    "example": "One major problem in the US is the large economic difference."
+  }
+]

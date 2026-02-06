@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch15_land_area",
+    "en": "land area",
+    "jp": "陸面積",
+    "kana": "りくめんせき",
+    "example": "Asia has about 1/4 of the Earth's land area."
+  },
+  {
+    "id": "ch15_population",
+    "en": "population",
+    "jp": "人口",
+    "kana": "じんこう",
+    "example": "Asia has about 60% of the Earth's population."
+  },
+  {
+    "id": "ch15_gdp",
+    "en": "GDP",
+    "jp": "国内総生産",
+    "kana": "こくないそうせいさん",
+    "example": "Asia has about 36% of the World's GDP."
+  },
+  {
+    "id": "ch15_subregion",
+    "en": "subregion",
+    "jp": "地域",
+    "kana": "ちいき",
+    "example": "There are 5 subregions in Asia."
+  },
+  {
+    "id": "ch15_middle",
+    "en": "middle",
+    "jp": "中央",
+    "kana": "ちゅうおう",
+    "example": "There are high mountains in the middle of Asia."
+  },
+  {
+    "id": "ch15_kanji",
+    "en": "Kanji",
+    "jp": "漢字",
+    "kana": "かんじ",
+    "example": "People in Japan and Korea use Kanji."
+  },
+  {
+    "id": "ch15_chopsticks",
+    "en": "chopsticks",
+    "jp": "箸",
+    "kana": "はし",
+    "example": "People in Japan and Korea eat rice with chopsticks."
+  },
+  {
+    "id": "ch15_rubber_plantation",
+    "en": "rubber plantation",
+    "jp": "ゴム農園",
+    "kana": "ごむのうえん",
+    "example": "Many people worked on a rubber plantation or as a spice merchant."
+  },
+  {
+    "id": "ch15_spice_merchant",
+    "en": "spice merchant",
+    "jp": "香料の商人",
+    "kana": "こうりょうのしょうにん",
+    "example": "Many people worked on a rubber plantation or as a spice merchant."
+  },
+  {
+    "id": "ch15_traffic_congestion",
+    "en": "traffic congestion",
+    "jp": "交通渋滞",
+    "kana": "こうつうじゅうたい",
+    "example": "More people have cars, so there is more traffic congestion."
+  }
+]

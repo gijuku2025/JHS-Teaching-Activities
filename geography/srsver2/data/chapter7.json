@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch7_tundra_climate",
+    "en": "Tundra Climate",
+    "jp": "ツンドラ気候",
+    "kana": "つんどらきこう",
+    "example": "It is very cold all year, but the ice melts in the summer in a Tundra Climate."
+  },
+  {
+    "id": "ch7_ice_cap_climate",
+    "en": "Ice Cap Climate",
+    "jp": "氷雪気候",
+    "kana": "ひょうせつきこう",
+    "example": "The Ice Cap Climate is always cold and covered in ice."
+  },
+  {
+    "id": "ch7_inuit",
+    "en": "Inuit",
+    "jp": "イヌイット",
+    "kana": "いぬいっと",
+    "example": "Inuit people live in the Polar Zone."
+  },
+  {
+    "id": "ch7_environment",
+    "en": "environment",
+    "jp": "環境",
+    "kana": "かんきょう",
+    "example": "They used the things in their environment in their daily life."
+  },
+  {
+    "id": "ch7_daily_life",
+    "en": "daily life",
+    "jp": "日常生活",
+    "kana": "にちじょうせいかつ",
+    "example": "They used the things in their environment in their daily life."
+  },
+  {
+    "id": "ch7_traditional",
+    "en": "traditional",
+    "jp": "伝統的な",
+    "kana": "でんとうてきな",
+    "example": "They had a traditional way of life."
+  },
+  {
+    "id": "ch7_igloo",
+    "en": "Igloo",
+    "jp": "イグルー",
+    "kana": "いぐるー",
+    "example": "In winter, they lived in houses made of snow called igloos."
+  },
+  {
+    "id": "ch7_snowmobile",
+    "en": "snowmobile",
+    "jp": "スノーモービル",
+    "kana": "すのーもーびる",
+    "example": "They use snowmobiles for hunting instead of dogsleds."
+  },
+  {
+    "id": "ch7_dogsled",
+    "en": "dogsled",
+    "jp": "犬ぞり",
+    "kana": "いぬぞり",
+    "example": "They use snowmobiles for hunting instead of dogsleds."
+  },
+  {
+    "id": "ch7_vegetables",
+    "en": "vegetables",
+    "jp": "野菜",
+    "kana": "やさい",
+    "example": "They buy bread and vegetables in a supermarket."
+  }
+]

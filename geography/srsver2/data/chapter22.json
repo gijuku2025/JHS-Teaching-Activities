@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch22_century",
+    "en": "century",
+    "jp": "世紀",
+    "kana": "せいき",
+    "example": "Modern industry began in the United Kingdom in the 18th century."
+  },
+  {
+    "id": "ch22_modern_industry",
+    "en": "modern industry",
+    "jp": "近代産業",
+    "kana": "きんだいさんぎょう",
+    "example": "European countries had to compete with the modern industry of the USA."
+  },
+  {
+    "id": "ch22_compete",
+    "en": "compete",
+    "jp": "競争する",
+    "kana": "きょうそうする",
+    "example": "They grew very quickly, and European countries had to compete with them."
+  },
+  {
+    "id": "ch22_airline",
+    "en": "airline",
+    "jp": "航空会社",
+    "kana": "こうくうがいしゃ",
+    "example": "Many airline companies around the world use the Airbus."
+  },
+  {
+    "id": "ch22_national_border",
+    "en": "national border",
+    "jp": "国境",
+    "kana": "こっきょう",
+    "example": "There are no passport checks at the national borders."
+  },
+  {
+    "id": "ch22_expressway",
+    "en": "expressway",
+    "jp": "高速道路",
+    "kana": "こうそくどうろ",
+    "example": "Europe has a very large network of expressways."
+  },
+  {
+    "id": "ch22_convenient",
+    "en": "convenient",
+    "jp": "便利",
+    "kana": "べんり",
+    "example": "Travel between EU countries is very convenient."
+  },
+  {
+    "id": "ch22_transport",
+    "en": "transport",
+    "jp": "運送",
+    "kana": "うんそう",
+    "example": "The EU built a good transport network for goods and people."
+  },
+  {
+    "id": "ch22_passport_check",
+    "en": "passport check",
+    "jp": "旅券検査",
+    "kana": "りょけんけんさ",
+    "example": "Moving between countries is easy because there is no passport check."
+  },
+  {
+    "id": "ch22_train_service",
+    "en": "train service",
+    "jp": "鉄道網",
+    "kana": "てつどうもう",
+    "example": "International train services connect many European cities."
+  }
+]

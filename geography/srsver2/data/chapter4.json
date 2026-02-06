@@ -1,0 +1,107 @@
+[
+  {
+    "id": "ch4_weather",
+    "en": "Weather",
+    "jp": "天気",
+    "kana": "てんき",
+    "example": "What is the weather like in Melbourne today?"
+  },
+  {
+    "id": "ch4_climate",
+    "en": "Climate",
+    "jp": "気候",
+    "kana": "きこう",
+    "example": "What is the climate like in Melbourne?"
+  },
+  {
+    "id": "ch4_polar_zone",
+    "en": "Polar Zone",
+    "jp": "寒帯",
+    "kana": "かんたい",
+    "example": "Polar bears live in the Polar Zone."
+  },
+  {
+    "id": "ch4_tropical_zone",
+    "en": "Tropical Zone",
+    "jp": "熱帯",
+    "kana": "ねったい",
+    "example": "The Tropical Zone is always hot."
+  },
+  {
+    "id": "ch4_temperate_zone",
+    "en": "Temperate Zone",
+    "jp": "温帯",
+    "kana": "おんたい",
+    "example": "Melbourne has a Temperate Climate."
+  },
+  {
+    "id": "ch4_arid_zone",
+    "en": "Arid Zone",
+    "jp": "乾燥帯",
+    "kana": "かんそうたい",
+    "example": "The Arid Zone has little rain."
+  },
+  {
+    "id": "ch4_equator",
+    "en": "Equator",
+    "jp": "赤道",
+    "kana": "せきどう",
+    "example": "Countries near the Equator are Tropical."
+  },
+  {
+    "id": "ch4_summer",
+    "en": "summer",
+    "jp": "夏",
+    "kana": "なつ",
+    "example": "Hirosaki has hot summers."
+  },
+  {
+    "id": "ch4_winter",
+    "en": "winter",
+    "jp": "冬",
+    "kana": "ふゆ",
+    "example": "Hirosaki has cold winters."
+  },
+  {
+    "id": "ch4_sunny",
+    "en": "sunny",
+    "jp": "晴",
+    "kana": "はれ",
+    "example": "It is sunny."
+  },
+  {
+    "id": "ch4_cloudy",
+    "en": "cloudy",
+    "jp": "曇り",
+    "kana": "くもり",
+    "example": "No, sometimes it is cloudy."
+  },
+  {
+    "id": "ch4_rainy",
+    "en": "rainy",
+    "jp": "雨",
+    "kana": "あめ",
+    "example": "Sometimes it is rainy."
+  },
+  {
+    "id": "ch4_snowy",
+    "en": "snowy",
+    "jp": "雪",
+    "kana": "ゆき",
+    "example": "But it is never snowy."
+  },
+  {
+    "id": "ch4_windy",
+    "en": "windy",
+    "jp": "風が強い",
+    "kana": "かぜがつよい",
+    "example": "Sometimes it is windy."
+  },
+  {
+    "id": "ch4_little_rain",
+    "en": "little rain",
+    "jp": "雨がほとんどない",
+    "kana": "あめがほとんどない",
+    "example": "The Arid Zone has little rain."
+  }
+]

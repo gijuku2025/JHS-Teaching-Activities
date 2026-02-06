@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch3_north_pole",
+    "en": "North Pole",
+    "jp": "北極",
+    "kana": "ほっきょく",
+    "example": "At the top of the Earth is the North Pole."
+  },
+  {
+    "id": "ch3_equator",
+    "en": "Equator",
+    "jp": "赤道",
+    "kana": "せきどう",
+    "example": "This line is the Equator."
+  },
+  {
+    "id": "ch3_distance",
+    "en": "distance",
+    "jp": "距離",
+    "kana": "きょり",
+    "example": "The distance is about 10,000 kilometers."
+  },
+  {
+    "id": "ch3_equal",
+    "en": "equal",
+    "jp": "等しい",
+    "kana": "ひとしい",
+    "example": "The distances are equal."
+  },
+  {
+    "id": "ch3_latitude",
+    "en": "latitude",
+    "jp": "緯度",
+    "kana": "いど",
+    "example": "The Equator is at 0 degrees latitude."
+  },
+  {
+    "id": "ch3_longitude",
+    "en": "longitude",
+    "jp": "経度",
+    "kana": "けいど",
+    "example": "Longitude lines connect the North Pole and the South Pole."
+  },
+  {
+    "id": "ch3_prime_meridian",
+    "en": "Prime Meridian",
+    "jp": "本初子午線",
+    "kana": "ほんしょしごせん",
+    "example": "The Prime Meridian goes through London."
+  },
+  {
+    "id": "ch3_geographic_coordinates",
+    "en": "geographic coordinates",
+    "jp": "地理座標",
+    "kana": "ちりざひょう",
+    "example": "These are Hirosaki’s geographic coordinates."
+  },
+  {
+    "id": "ch3_hot",
+    "en": "hot",
+    "jp": "暑い",
+    "kana": "あつい",
+    "example": "Countries near the Equator are hot."
+  },
+  {
+    "id": "ch3_cold",
+    "en": "cold",
+    "jp": "寒い",
+    "kana": "さむい",
+    "example": "The Arctic Sea is very cold."
+  }
+]

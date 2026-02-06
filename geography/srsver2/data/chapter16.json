@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch16_valuable",
+    "en": "valuable",
+    "jp": "価値がある",
+    "kana": "かちがある",
+    "example": "Industries make things more valuable."
+  },
+  {
+    "id": "ch16_iron_ore",
+    "en": "iron ore",
+    "jp": "鉄鉱石",
+    "kana": "てっこうせき",
+    "example": "The mining industry digs iron ore from the ground."
+  },
+  {
+    "id": "ch16_manufacturing",
+    "en": "manufacturing",
+    "jp": "製造業",
+    "kana": "せいぞうぎょう",
+    "example": "The manufacturing industry makes steel into scissors."
+  },
+  {
+    "id": "ch16_primary_industry",
+    "en": "primary industry",
+    "jp": "一次産業",
+    "kana": "いちじさんぎょう",
+    "example": "Mining is a primary (No. 1) industry."
+  },
+  {
+    "id": "ch16_secondary_industry",
+    "en": "secondary industry",
+    "jp": "二次産業",
+    "kana": "にじさんぎょう",
+    "example": "Steel and manufacturing are secondary (No. 2) industries."
+  },
+  {
+    "id": "ch16_tertiary_industry",
+    "en": "tertiary industry",
+    "jp": "三次産業",
+    "kana": "さんじさんぎょう",
+    "example": "Hairdressing is a tertiary (No. 3) industry."
+  },
+  {
+    "id": "ch16_nies",
+    "en": "NIES",
+    "jp": "新興産業国",
+    "kana": "しんこうさんぎょうこく",
+    "example": "These countries and regions are called NIES."
+  },
+  {
+    "id": "ch16_transport_center",
+    "en": "transport center",
+    "jp": "交通の要所",
+    "kana": "こうつうのようしょ",
+    "example": "Singapore and Hong Kong became transport centers."
+  },
+  {
+    "id": "ch16_semiconductor",
+    "en": "semiconductor",
+    "jp": "半導体",
+    "kana": "はんどうたい",
+    "example": "Taiwan exports semiconductors to countries all over the world."
+  },
+  {
+    "id": "ch16_ratio",
+    "en": "ratio",
+    "jp": "割合",
+    "kana": "わりあい",
+    "example": "Band graphs are useful for comparing. They show us ratios."
+  }
+]

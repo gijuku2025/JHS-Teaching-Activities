@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch34_amazon_basin",
+    "en": "Amazon Basin",
+    "jp": "アマゾン流域",
+    "kana": "あまぞんりゅういき",
+    "example": "There is tropical rainforest all over the Amazon Basin."
+  },
+  {
+    "id": "ch34_rainy_season",
+    "en": "rainy season",
+    "jp": "雨季",
+    "kana": "うき",
+    "example": "Farmers cut down trees at the end of the rainy season."
+  },
+  {
+    "id": "ch34_dry_season",
+    "en": "dry season",
+    "jp": "乾季",
+    "kana": "かんき",
+    "example": "In the dry season they dry the trees and burn them."
+  },
+  {
+    "id": "ch34_nutrition",
+    "en": "nutrition",
+    "jp": "養分",
+    "kana": "ようぶん",
+    "example": "After a few years the soil loses its nutrition."
+  },
+  {
+    "id": "ch34_protein",
+    "en": "protein",
+    "jp": "タンパク質",
+    "kana": "たんぱくしつ",
+    "example": "They eat fish to get protein and they can even eat Piranha."
+  },
+  {
+    "id": "ch34_poisonous",
+    "en": "poisonous",
+    "jp": "毒性の",
+    "kana": "どくせいの",
+    "example": "They use poisonous plants to make the fish unconscious."
+  },
+  {
+    "id": "ch34_unconscious",
+    "en": "unconscious",
+    "jp": "無意識（意識を失った）",
+    "kana": "むいしき",
+    "example": "The poisoned fish become unconscious and float to the top."
+  },
+  {
+    "id": "ch34_natural_heritage",
+    "en": "World Natural Heritage",
+    "jp": "世界自然遺産",
+    "kana": "せかいしぜんいさん",
+    "example": "These islands are a World Natural Heritage site."
+  },
+  {
+    "id": "ch34_protect",
+    "en": "protect",
+    "jp": "保護する",
+    "kana": "ほごする",
+    "example": "The government uses the money to protect the environment."
+  },
+  {
+    "id": "ch34_method",
+    "en": "method",
+    "jp": "手法",
+    "kana": "しゅほう",
+    "example": "This is a traditional method of fishing in the Amazon."
+  }
+]
