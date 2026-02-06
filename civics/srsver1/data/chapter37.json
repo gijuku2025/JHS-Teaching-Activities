@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ch37_volcanic_activity",
+    "en": "volcanic activity",
+    "jp": "火山活動",
+    "kana": "かざんかつどう",
+    "example": "Some islands were formed by volcanic activity."
+  },
+  {
+    "id": "ch37_earthquake",
+    "en": "earthquake",
+    "jp": "地震",
+    "kana": "じしん",
+    "example": "The movement of the Earth's plates causes earthquakes."
+  },
+  {
+    "id": "ch37_fertile_soil",
+    "en": "fertile soil",
+    "jp": "肥沃な土地",
+    "kana": "ひよくなとち",
+    "example": "The Hawaiian Islands have fertile soil and plants grow well."
+  },
+  {
+    "id": "ch37_coral_reef",
+    "en": "coral reef",
+    "jp": "サンゴ礁",
+    "kana": "さんごしょう",
+    "example": "Many of the islands in Oceania are made of coral reefs."
+  },
+  {
+    "id": "ch37_shallow",
+    "en": "shallow",
+    "jp": "浅い",
+    "kana": "あさい",
+    "example": "The sea is shallow and it is hard to make harbors for big ships."
+  },
+  {
+    "id": "ch37_goods",
+    "en": "goods",
+    "jp": "物品（品物）",
+    "kana": "しなもの",
+    "example": "It is hard to travel and carry goods to these islands."
+  }
+]
