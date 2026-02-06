@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch32_hispanic",
+    "en": "Hispanic",
+    "jp": "ヒスパニック",
+    "kana": "ひすぱにっく",
+    "example": "These immigrants that speak Spanish are called Hispanics."
+  },
+  {
+    "id": "ch32_support",
+    "en": "support",
+    "jp": "支える",
+    "kana": "ささえる",
+    "example": "Their work supports the United States economy."
+  },
+  {
+    "id": "ch32_lifestyle",
+    "en": "lifestyle",
+    "jp": "生活様式",
+    "kana": "せいかつようしき",
+    "example": "Many new lifestyles and cultures began in the United States."
+  },
+  {
+    "id": "ch32_symbol",
+    "en": "symbol",
+    "jp": "象徴（シンボル）",
+    "kana": "しょうちょう",
+    "example": "The automobile became the symbol of American Society."
+  },
+  {
+    "id": "ch32_consumer",
+    "en": "consumer",
+    "jp": "消費者",
+    "kana": "しょうひしゃ",
+    "example": "People in the US are large consumers of goods from around the world."
+  },
+  {
+    "id": "ch32_headquarters",
+    "en": "headquarters",
+    "jp": "本部",
+    "kana": "ほんぶ",
+    "example": "The United Nations headquarters is located in New York."
+  },
+  {
+    "id": "ch32_financial_center",
+    "en": "financial center",
+    "jp": "金融センター",
+    "kana": "きんゆうせんたー",
+    "example": "Wall Street is a world-famous financial center."
+  },
+  {
+    "id": "ch32_musical",
+    "en": "musical",
+    "jp": "ミュージカル",
+    "kana": "みゅーじかる",
+    "example": "Broadway is famous for its high-quality musicals."
+  },
+  {
+    "id": "ch32_theme_park",
+    "en": "theme park",
+    "jp": "テーマパーク",
+    "kana": "てーまぱーく",
+    "example": "The US invented movies, theme parks, and fast food."
+  },
+  {
+    "id": "ch32_latest_fashion",
+    "en": "latest fashion",
+    "jp": "最新のファッション",
+    "kana": "さいしんのふぁっしょん",
+    "example": "New York is a place where you can find the latest fashion."
+  }
+]
