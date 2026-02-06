@@ -298,6 +298,24 @@ body {
     anim.onfinish = () => item.remove();
 }
 
+    item.addEventListener("pointerdown", (e) => {
+        anim.pause(); // freeze frame feedback
+
+        if (isGem) {
+            const val = Math.floor(Math.random() * 50) + 50;
+            updateScore(val);
+            createTapEffect(e.pageX, e.pageY, `+$${val}`);
+        } else {
+            updateScore(-100);
+            createTapEffect(e.pageX, e.pageY, `-$100`, '#ff4444');
+        }
+
+        item.remove();
+    });
+
+    anim.onfinish = () => item.remove();
+}
+
             anim.onfinish = () => item.remove();
         }
 
