@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3 Minute Challenge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.screen {
+  display: none;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+input, button {
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 10px;
+}
+
+#chapterGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.chapterBtn {
+  padding: 15px;
+  font-size: 1.1em;
+  background: #ddd;
+  border-radius: 8px;
+  border: none;
+}
+
+.chapterBtn.selected {
+  background: gold;
+}
+
+.answerBtn {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 1.1em;
+}
+
+.correct {
+  background: lightgreen;
+}
+
+.wrong {
+  background: lightcoral;
+}
+
+#timer {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="nameScreen" class="screen active">
+  <h1>3 Minute Challenge</h1>
+  <p>Enter your nickname:</p>
+  <input id="nicknameInput" placeholder="Nickname">
+  <br>
+  <button onclick="goToChapters()">Continue</button>
+</div>
+
+<div id="chapterScreen" class="screen">
+  <h2>Select Chapter</h2>
+  <div id="chapterGrid"></div>
+  <button onclick="startGame()">Start</button>
+</div>
+
+<div id="gameScreen" class="screen">
+  <div id="timer">Time: 180</div>
+  <h2 id="questionText"></h2>
+  <div id="answers"></div>
+</div>
+
+<div id="endScreen" class="screen">
+  <h2>Time's Up!</h2>
+  <p id="finalName"></p>
+  <p id="finalScore"></p>
+  <button onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+let nickname = "";
+let selectedChapter = null;
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let timeLeft = 180;
+let timerInterval = null;
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function goToChapters() {
+  const input = document.getElementById("nicknameInput").value.trim();
+  if (!input) {
+    alert("Nickname is required.");
+    return;
+  }
+  nickname = input;
+  showScreen("chapterScreen");
+}
+
+const grid = document.getElementById("chapterGrid");
+for (let i = 1; i <= 40; i++) {
+  const btn = document.createElement("button");
+  btn.textContent = i;
+  btn.className = "chapterBtn";
+  btn.onclick = () => selectChapter(i, btn);
+  grid.appendChild(btn);
+}
+
+function selectChapter(num, btn) {
+  selectedChapter = num;
+  document.querySelectorAll(".chapterBtn").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
+}
+
+async function startGame() {
+  if (!selectedChapter) {
+    alert("Select a chapter first.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`data/chapter${selectedChapter}.json`);
+    if (!response.ok) throw new Error();
+    questions = await response.json();
+  } catch {
+    alert("This chapter is not ready yet.");
+    return;
+  }
+
+  shuffle(questions);
+  currentQuestion = 0;
+  score = 0;
+  timeLeft = 180;
+
+  showScreen("gameScreen");
+  startTimer();
+  showQuestion();
+}
+
+function startTimer() {
+  document.getElementById("timer").textContent = "Time: " + timeLeft;
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById("timer").textContent = "Time: " + timeLeft;
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    endGame();
+    return;
+  }
+
+  const q = questions[currentQuestion];
+  document.getElementById("questionText").textContent = q.q;
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  q.a.forEach((text, index) => {
+    const btn = document.createElement("button");
+    btn.className = "answerBtn";
+    btn.textContent = text;
+    btn.onclick = () => checkAnswer(btn, index);
+    answersDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(btn, index) {
+  const correctIndex = questions[currentQuestion].c;
+
+  document.querySelectorAll(".answerBtn").forEach(b => b.disabled = true);
+
+  if (index === correctIndex) {
+    btn.classList.add("correct");
+    score++;
+  } else {
+    btn.classList.add("wrong");
+  }
+
+  setTimeout(() => {
+    currentQuestion++;
+    showQuestion();
+  }, 500);
+}
+
+function endGame() {
+  clearInterval(timerInterval);
+  showScreen("endScreen");
+  document.getElementById("finalName").textContent = "Player: " + nickname;
+  document.getElementById("finalScore").textContent = "Score: " + score;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+
+</body>
+</html>
