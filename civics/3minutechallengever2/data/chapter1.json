@@ -1,0 +1,62 @@
+[
+  {
+    "q": "What is economics mainly about?",
+    "a": ["Studying history", "How people use resources", "How to make money", "How to run a business"],
+    "c": 1
+  },
+  {
+    "q": "Which word means \"limited resources\"?",
+    "a": ["Choice", "Demand", "Scarcity", "Supply"],
+    "c": 2
+  },
+  {
+    "q": "What is GDP?",
+    "a": ["Total exports", "Total imports", "Total value of goods and services", "Total population"],
+    "c": 2
+  },
+  {
+    "q": "Which is an example of a good?",
+    "a": ["Doctor visit", "Haircut", "Car", "Teaching"],
+    "c": 2
+  },
+  {
+    "q": "Which is an example of a service?",
+    "a": ["Rice", "Steel", "Taxi ride", "Phone"],
+    "c": 2
+  },
+  {
+    "q": "What do people give up when they make a choice?",
+    "a": ["Profit", "Opportunity cost", "Supply", "Demand"],
+    "c": 1
+  },
+  {
+    "q": "Which group buys goods and services?",
+    "a": ["Producers", "Consumers", "Factories", "Governments"],
+    "c": 1
+  },
+  {
+    "q": "Which group makes goods and services?",
+    "a": ["Consumers", "Banks", "Producers", "Shops"],
+    "c": 2
+  },
+  {
+    "q": "What does \"demand\" mean?",
+    "a": ["How much people want to buy", "How much people make", "How much something costs", "How much is saved"],
+    "c": 0
+  },
+  {
+    "q": "What does \"supply\" mean?",
+    "a": ["How much people want", "How much is available", "How much something costs", "How much is saved"],
+    "c": 1
+  },
+  {
+    "q": "Which is a natural resource?",
+    "a": ["Factory", "Computer", "Oil", "Money"],
+    "c": 2
+  },
+  {
+    "q": "Why must people make choices?",
+    "a": ["Because prices change", "Because resources are limited", "Because money is used", "Because markets exist"],
+    "c": 1
+  }
+]
