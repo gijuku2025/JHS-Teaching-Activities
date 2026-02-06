@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Treasure Trove - Classroom Edition</title>
+<script src="https://www.google.com/search?q=https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DBungee%26family%3DInter:wght%40400%3B700%26display%3Dswap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #46178f;
+        color: white;
+        overflow: hidden;
+        margin: 0;
+        height: 100vh;
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    .heading-font { font-family: 'Bungee', cursive; }
+
+    /* THE FIX: Massive invisible hit area for easy tapping */
+    .item-wrapper {
+        position: absolute;
+        cursor: pointer;
+        z-index: 50;
+        padding: 95px; /* Huge touch zone to prevent missing */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%, -50%);
+        -webkit-tap-highlight-color: transparent;
+        touch-action: none;
+    }
+
+    .item-icon {
+        font-size: 5.5rem; 
+        pointer-events: none;
+        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+    }
+
+    .tap-effect {
+        position: absolute;
+        pointer-events: none;
+        animation: burst 0.6s ease-out forwards;
+        font-weight: bold;
+        font-size: 3rem;
+        z-index: 100;
+        text-shadow: 3px 3px 0px rgba(0,0,0,0.6);
+        font-family: 'Bungee', cursive;
+    }
+
+    @keyframes burst {
+        0% { transform: scale(0.5); opacity: 1; }
+        100% { transform: scale(1.6) translateY(-120px); opacity: 0; }
+    }
+
+    .quiz-card {
+        box-shadow: 0 15px 0px rgba(0,0,0,0.2);
+    }
+
+    .progress-bar {
+        transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+</style>
+
+
+</head>
+<body class="flex flex-col items-center justify-center">
+
+<div id="top-bar" class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-40 bg-black/40 backdrop-blur-md border-b border-white/10">
+    <div class="flex flex-col">
+        <span class="text-[10px] uppercase tracking-widest opacity-60">My Trove</span>
+        <span id="score-display" class="text-3xl heading-font text-yellow-400">$0</span>
+    </div>
+    <div id="game-timer" class="text-4xl heading-font text-white bg-red-600 px-6 py-1 rounded-full hidden animate-pulse shadow-lg">10</div>
+    <div class="flex flex-col items-end">
+        <span class="text-[10px] uppercase tracking-widest opacity-60">Vault Progress</span>
+        <div class="w-32 bg-white/20 h-4 rounded-full overflow-hidden border border-white/30">
+            <div id="quiz-progress-bar" class="progress-bar h-full bg-green-400" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+
+<div id="screen-start" class="text-center px-6">
+    <h1 class="text-6xl md:text-8xl heading-font mb-6 text-yellow-400 drop-shadow-2xl">TREASURE TROVE</h1>
+    <p class="text-xl mb-12 opacity-80">Correct answers unlock the treasure vault!</p>
+    <button onclick="startGame()" class="bg-yellow-500 hover:bg-yellow-400 text-purple-900 px-12 py-5 rounded-full text-4xl heading-font transition-all transform hover:scale-105 shadow-[0_10px_0_#b48200] active:translate-y-1 active:shadow-none">
+        START GAME
+    </button>
+</div>
+
+<div id="screen-quiz" class="hidden w-full max-w-2xl px-6">
+    <div class="bg-white text-gray-900 p-8 rounded-[2.5rem] quiz-card relative">
+        <div id="question-text" class="text-2xl md:text-4xl font-bold mb-10 text-center leading-tight">...</div>
+        <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </div>
+</div>
+
+<div id="screen-collection" class="hidden fixed inset-0 bg-[radial-gradient(circle,_#6b21a8_0%,_#0f051a_100%)]">
+    <div id="gem-container" class="relative w-full h-full"></div>
+</div>
+
+<div id="screen-results" class="hidden text-center px-6">
+    <h2 class="text-4xl heading-font mb-2">FINAL VALUE</h2>
+    <div id="final-score" class="text-9xl heading-font text-yellow-400 mb-10 drop-shadow-xl font-bold">$0</div>
+    <button onclick="location.reload()" class="bg-white text-purple-900 px-10 py-5 rounded-full text-2xl font-bold uppercase tracking-widest hover:bg-gray-100 shadow-xl">
+        REPLAY
+    </button>
+</div>
+
+<script>
+    const quizData = [
+        { q: "What is 12 x 4?", a: ["44", "48", "52", "40"], correct: 1 },
+        { q: "What gas do humans need to breathe?", a: ["Nitrogen", "Oxygen", "Helium", "Hydrogen"], correct: 1 },
+        { q: "Which is the smallest continent?", a: ["Europe", "Australia", "Africa", "South America"], correct: 1 },
+        { q: "How many days are in a leap year?", a: ["364", "365", "366", "367"], correct: 2 }
+    ];
+
+    let currentQ = 0, score = 0, correctCount = 0;
+    const NEEDED_TO_RAID = 3;
+    const items = { good: ['💎', '💍', '💰', '👑', '✨', '🪙'], bad: ['👞', '🍌', '🥫'] };
+
+    function showScreen(id) {
+        ['screen-start', 'screen-quiz', 'screen-collection', 'screen-results'].forEach(s => document.getElementById(s).classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+    }
+
+    function startGame() {
+        score = 0; currentQ = 0; correctCount = 0;
+        updateScoreUI(); loadNextQuestion(); showScreen('screen-quiz');
+    }
+
+    function loadNextQuestion() {
+        const data = quizData[currentQ];
+        document.getElementById('question-text').innerText = data.q;
+        const grid = document.getElementById('options-grid');
+        grid.innerHTML = '';
+        data.a.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = "p-6 text-left rounded-2xl border-b-4 border-gray-300 bg-gray-100 active:bg-blue-600 active:text-white font-bold text-2xl transition-all";
+            btn.innerText = opt;
+            btn.onclick = () => { if(i===data.correct){ correctCount++; currentQ=(currentQ+1)%quizData.length; if(correctCount>=NEEDED_TO_RAID) startRaid(); else loadNextQuestion(); } else { correctCount=0; const card = document.querySelector('.quiz-card'); card.animate([{transform: 'translateX(-10px)'}, {transform: 'translateX(10px)'}, {transform: 'translateX(0)'}], {duration: 100, iterations: 3}); } updateProgressUI(); };
+            grid.appendChild(btn);
+        });
+        updateProgressUI();
+    }
+
+    function updateProgressUI() { document.getElementById('quiz-progress-bar').style.width = (correctCount/NEEDED_TO_RAID*100)+'%'; }
+    function updateScoreUI() { document.getElementById('score-display').innerText = `$${score.toLocaleString()}`; }
+
+    function startRaid() {
+        correctCount = 0; updateProgressUI(); showScreen('screen-collection');
+        const timer = document.getElementById('game-timer');
+        timer.classList.remove('hidden');
+        let time = 10; timer.innerText = time;
+        const spawner = setInterval(() => spawnTreasure(), 180);
+        const clock = setInterval(() => {
+            time--; timer.innerText = time;
+            if (time <= 0) { clearInterval(spawner); clearInterval(clock); timer.classList.add('hidden'); if(currentQ===0){ document.getElementById('final-score').innerText = `$${score.toLocaleString()}`; showScreen('screen-results'); } else { showScreen('screen-quiz'); loadNextQuestion(); } }
+        }, 1000);
+    }
+
+    function spawnTreasure() {
+        const container = document.getElementById('gem-container');
+        const wrapper = document.createElement('div');
+        const icon = document.createElement('div');
+        const isGood = Math.random() > 0.2;
+        wrapper.className = 'item-wrapper';
+        icon.className = 'item-icon';
+        icon.innerText = isGood ? items.good[Math.floor(Math.random()*items.good.length)] : items.bad[Math.floor(Math.random()*items.bad.length)];
+        wrapper.appendChild(icon);
+        wrapper.style.left = (120 + Math.random()*(window.innerWidth-240)) + 'px';
+        wrapper.style.top = '-180px';
+        container.appendChild(wrapper);
+        const anim = wrapper.animate([{top: '-180px'}, {top: (window.innerHeight + 180) + 'px'}], { duration: 1800+Math.random()*1000, easing: 'linear' });
+        
+        const onHit = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            anim.pause();
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            if(isGood) { const g = 400 + Math.floor(Math.random()*300); score+=g; createEffect(x, y, `+$${g}`, '#fbbf24'); }
+            else { score = Math.max(0, score - 600); createEffect(x, y, `-$600`, '#ef4444'); }
+            updateScoreUI(); wrapper.remove();
+        };
+        wrapper.addEventListener('pointerdown', onHit);
+        anim.onfinish = () => wrapper.remove();
+    }
+
+    function createEffect(x, y, text, color) {
+        const el = document.createElement('div'); el.className = 'tap-effect';
+        el.style.left = (x-60)+'px'; el.style.top = (y-60)+'px'; el.style.color = color;
+        el.innerText = text; document.body.appendChild(el);
+        setTimeout(() => el.remove(), 600);
+    }
+</script>
+
+
+</body>
+</html>
