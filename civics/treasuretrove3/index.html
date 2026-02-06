@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Trove Classroom Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #46178f;
+            color: white;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+
+        .heading-font {
+            font-family: 'Bungee', cursive;
+        }
+
+        .gem {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.1s;
+    z-index: 50;
+    font-size: 3rem; /* bigger emoji */
+}
+
+
+        .gem:active {
+            transform: scale(1.4);
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .progress-fill {
+            transition: width 0.3s ease-out;
+        }
+
+        .tap-effect {
+            position: absolute;
+            pointer-events: none;
+            animation: burst 0.5s ease-out forwards;
+            color: #ffd700;
+            font-weight: bold;
+            z-index: 60;
+        }
+
+        @keyframes burst {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2) translateY(-20px); opacity: 0; }
+        }
+		
+		/* Prevent scroll/zoom while tapping */
+body {
+    touch-action: none;
+}
+
+/* Bigger invisible hitbox */
+.gem {
+    padding: 85px;
+    margin: -85px;
+}
+
+/* Bigger pop-up numbers */
+.tap-effect {
+    font-size: 2rem;
+}
+
+		
+		
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center">
+
+    <!-- UI Overlay: Top Bar -->
+    <div id="top-bar" class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-40 bg-black/20 backdrop-blur-sm">
+        <div class="flex flex-col">
+            <span class="text-xs uppercase tracking-widest opacity-70">Trove Value</span>
+            <span id="score-display" class="text-2xl heading-font text-yellow-400">$0</span>
+        </div>
+        <div id="game-timer" class="text-xl heading-font hidden">Time: 30s</div>
+        <div id="quiz-progress-container" class="w-48 bg-white/20 h-4 rounded-full overflow-hidden border-2 border-white/30">
+            <div id="quiz-progress-bar" class="progress-fill h-full bg-green-400" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Screen 1: Start Screen -->
+    <div id="screen-start" class="text-center p-8">
+        <h1 class="text-6xl heading-font mb-4 floating text-yellow-400 drop-shadow-lg">Treasure Trove</h1>
+        <p class="mb-8 text-xl opacity-90">Answer questions to unlock the vault!</p>
+        <button onclick="startGame()" class="bg-yellow-500 hover:bg-yellow-400 text-purple-900 px-10 py-4 rounded-full text-2xl heading-font transition-all transform hover:scale-105 shadow-2xl">
+            Play Now
+        </button>
+    </div>
+
+    <!-- Screen 2: Quiz Screen -->
+    <div id="screen-quiz" class="hidden w-full max-w-2xl px-6">
+        <div class="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl relative">
+            <div id="question-text" class="text-2xl font-bold mb-8 text-center">Question goes here?</div>
+            <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 3: Collection Round (Canvas-like Area) -->
+    <div id="screen-collection" class="hidden fixed inset-0 bg-[radial-gradient(circle,_#6b21a8_0%,_#46178f_100%)]">
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <span class="text-[20rem] heading-font">COLLECT!</span>
+        </div>
+        <div id="gem-container" class="relative w-full h-full overflow-hidden"></div>
+    </div>
+
+    <!-- Screen 4: Results -->
+    <div id="screen-results" class="hidden text-center p-8">
+        <h2 class="text-4xl heading-font mb-2">Time's Up!</h2>
+        <div class="text-8xl heading-font text-yellow-400 mb-6 drop-shadow-xl" id="final-score">$0</div>
+        <p class="text-xl mb-8">Your treasure trove is legendary.</p>
+        <button onclick="location.reload()" class="bg-white text-purple-900 px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-opacity-90">
+            Play Again
+        </button>
+    </div>
+
+    <script>
+        // Game Configuration
+        const questions = [
+            { q: "What is the capital of France?", a: ["Paris", "London", "Berlin", "Rome"], correct: 0 },
+            { q: "Which planet is known as the Red Planet?", a: ["Venus", "Mars", "Jupiter", "Saturn"], correct: 1 },
+            { q: "What is 5 + 7?", a: ["10", "11", "12", "13"], correct: 2 },
+            { q: "Which ocean is the largest?", a: ["Atlantic", "Indian", "Arctic", "Pacific"], correct: 3 },
+            { q: "Who painted the Mona Lisa?", a: ["Van Gogh", "Da Vinci", "Picasso", "Monet"], correct: 1 }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let correctInRow = 0;
+        const GOAL_FOR_TREASURE = 3; // Answer 3 right to get a treasure round
+
+        const assets = {
+            gems: ['💎', '💍', '💰', '👑', '✨', '🪙'],
+            trash: ['👞', '🍌', '🥫', '🦴']
+        };
+
+        // DOM Elements
+        const screens = {
+            start: document.getElementById('screen-start'),
+            quiz: document.getElementById('screen-quiz'),
+            collection: document.getElementById('screen-collection'),
+            results: document.getElementById('screen-results')
+        };
+
+        function showScreen(screenKey) {
+            Object.values(screens).forEach(s => s.classList.add('hidden'));
+            screens[screenKey].classList.remove('hidden');
+        }
+
+        function startGame() {
+            score = 0;
+            currentQuestionIndex = 0;
+            updateScore(0);
+            loadQuestion();
+            showScreen('quiz');
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestionIndex];
+            document.getElementById('question-text').innerText = q.q;
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            
+            q.a.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "p-4 text-left rounded-xl border-b-4 border-gray-300 bg-gray-100 hover:bg-blue-500 hover:text-white hover:border-blue-700 transition-all font-bold text-lg";
+                btn.innerText = opt;
+                btn.onclick = () => handleAnswer(i);
+                grid.appendChild(btn);
+            });
+
+            updateProgress();
+        }
+
+        function handleAnswer(index) {
+            const isCorrect = index === questions[currentQuestionIndex].correct;
+            
+            if (isCorrect) {
+                correctInRow++;
+                currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+                
+                if (correctInRow >= GOAL_FOR_TREASURE) {
+                    startCollectionRound();
+                } else {
+                    loadQuestion();
+                }
+            } else {
+                correctInRow = 0;
+                // Add a "shake" or red flash here if desired
+                const card = document.querySelector('#screen-quiz > div');
+                card.classList.add('animate-bounce');
+                setTimeout(() => card.classList.remove('animate-bounce'), 500);
+            }
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const percent = (correctInRow / GOAL_FOR_TREASURE) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${percent}%`;
+        }
+
+        function updateScore(amount) {
+            score += amount;
+            if (score < 0) score = 0;
+            document.getElementById('score-display').innerText = `$${score}`;
+        }
+
+        function startCollectionRound() {
+            correctInRow = 0;
+            updateProgress();
+            showScreen('collection');
+            
+            const timerEl = document.getElementById('game-timer');
+            timerEl.classList.remove('hidden');
+            
+            let timeLeft = 10; // 10 seconds of clicking
+            timerEl.innerText = `Time: ${timeLeft}s`;
+
+            const gameInterval = setInterval(() => {
+                spawnItem();
+            }, 300);
+
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = `Time: ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(gameInterval);
+                    clearInterval(countdown);
+                    timerEl.classList.add('hidden');
+                    endCollectionRound();
+                }
+            }, 1000);
+        }
+
+        function spawnItem() {
+    const container = document.getElementById('gem-container');
+    const item = document.createElement('div');
+    const isGem = Math.random() > 0.2;
+
+    item.className = 'gem';
+    item.innerText = isGem 
+        ? assets.gems[Math.floor(Math.random() * assets.gems.length)]
+        : assets.trash[Math.floor(Math.random() * assets.trash.length)];
+
+    // Spawn safety zone (avoid screen edges)
+    const padding = 80;
+    const startX = Math.random() * (window.innerWidth - padding * 2) + padding;
+    item.style.left = startX + 'px';
+    item.style.top = '-50px';
+
+    container.appendChild(item);
+
+    const duration = 2000 + (Math.random() * 2000);
+    const targetX = startX + (Math.random() * 200 - 100);
+
+    const anim = item.animate([
+        { top: '-50px', left: startX + 'px', transform: 'rotate(0deg)' },
+        { top: window.innerHeight + 'px', left: targetX + 'px', transform: 'rotate(360deg)' }
+    ], {
+        duration: duration,
+        easing: 'linear'
+    });
+
+    item.addEventListener("pointerdown", (e) => {
+        anim.pause(); // freeze frame feedback
+
+        if (isGem) {
+            const val = Math.floor(Math.random() * 50) + 50;
+            updateScore(val);
+            createTapEffect(e.pageX, e.pageY, `+$${val}`);
+        } else {
+            updateScore(-100);
+            createTapEffect(e.pageX, e.pageY, `-$100`, '#ff4444');
+        }
+
+        item.remove();
+    });
+
+    anim.onfinish = () => item.remove();
+}
+
+            anim.onfinish = () => item.remove();
+        }
+
+        function createTapEffect(x, y, text, color = '#ffd700') {
+            const el = document.createElement('div');
+            el.className = 'tap-effect heading-font text-3xl';
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.style.color = color;
+            el.innerText = text;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 500);
+        }
+
+        function endCollectionRound() {
+            // Check if game should end entirely or go back to quiz
+            // For this simple version, we'll give them 3 rounds total then end
+            // Or just loop forever until a global timer? Let's go back to quiz.
+            showScreen('quiz');
+            loadQuestion();
+            
+            // Just for demonstration, let's trigger final results after index hits 5
+            if (currentQuestionIndex === 0 && score > 0) { 
+                showFinalResults();
+            }
+        }
+
+        function showFinalResults() {
+            document.getElementById('final-score').innerText = `$${score}`;
+            showScreen('results');
+        }
+
+        // Handle window resizing
+        window.onresize = () => {
+            // Gems might need repositioning logic if the window changes during round
+        };
+    </script>
+</body>
+</html>
