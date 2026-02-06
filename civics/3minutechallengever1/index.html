@@ -69,6 +69,11 @@ input, button {
   font-size: 1.3em;
   margin-bottom: 10px;
 }
+
+#streak {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
 </style>
 </head>
 
@@ -90,8 +95,15 @@ input, button {
 
 <div id="gameScreen" class="screen">
   <div id="timer">Time: 180</div>
+  <div id="streak">Streak: ⭐ 0 / 3</div>
   <h2 id="questionText"></h2>
   <div id="answers"></div>
+</div>
+
+<div id="bonusScreen" class="screen">
+  <h2>🎉 Bonus Round!</h2>
+  <p>You earned a bonus!</p>
+  <button onclick="returnToQuiz()">Continue Quiz</button>
 </div>
 
 <div id="endScreen" class="screen">
@@ -107,8 +119,11 @@ let selectedChapter = null;
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
+let correctInRow = 0;
 let timeLeft = 180;
 let timerInterval = null;
+
+const STREAK_TARGET = 3;
 
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
@@ -158,6 +173,7 @@ async function startGame() {
   shuffle(questions);
   currentQuestion = 0;
   score = 0;
+  correctInRow = 0;
   timeLeft = 180;
 
   showScreen("gameScreen");
@@ -172,6 +188,11 @@ function startTimer() {
     document.getElementById("timer").textContent = "Time: " + timeLeft;
     if (timeLeft <= 0) endGame();
   }, 1000);
+}
+
+function updateStreak() {
+  document.getElementById("streak").textContent =
+    "Streak: ⭐ " + correctInRow + " / " + STREAK_TARGET;
 }
 
 function showQuestion() {
@@ -192,24 +213,43 @@ function showQuestion() {
     btn.onclick = () => checkAnswer(btn, index);
     answersDiv.appendChild(btn);
   });
+
+  updateStreak();
 }
 
 function checkAnswer(btn, index) {
   const correctIndex = questions[currentQuestion].c;
-
   document.querySelectorAll(".answerBtn").forEach(b => b.disabled = true);
 
   if (index === correctIndex) {
     btn.classList.add("correct");
     score++;
+    correctInRow++;
+
+    if (correctInRow >= STREAK_TARGET) {
+      setTimeout(startBonusRound, 500);
+      return;
+    }
   } else {
     btn.classList.add("wrong");
+    correctInRow = 0;
   }
 
   setTimeout(() => {
     currentQuestion++;
     showQuestion();
   }, 500);
+}
+
+function startBonusRound() {
+  correctInRow = 0;
+  showScreen("bonusScreen");
+}
+
+function returnToQuiz() {
+  showScreen("gameScreen");
+  currentQuestion++;
+  showQuestion();
 }
 
 function endGame() {
