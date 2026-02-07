@@ -24,6 +24,8 @@ body {
 .active { display: block; }
 .center { text-align: center; }
 
+.hidden { display: none; }
+
 button, input {
   font-size: 1.1em;
   padding: 12px 18px;
@@ -45,6 +47,36 @@ button {
   max-width: 600px;
   margin: 40px auto;
 }
+
+#chapterGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.chapterBtn {
+  background: white;
+  color: #46178f;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.chapterBtn.selected { background: gold; }
+
+.answerBtn {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  border-radius: 12px;
+  background: #eee;
+  font-weight: bold;
+}
+
+.answerBtn.correct { background: #4ade80; }
+.answerBtn.wrong { background: #f87171; }
 
 #topBar {
   position: fixed;
@@ -91,7 +123,21 @@ button {
   <div id="score">$0</div>
 </div>
 
-<div id="quizScreen" class="screen active">
+<div id="nameScreen" class="screen active center">
+  <h1 class="heading">3 Minute Challenge</h1>
+  <p>Enter your nickname to begin:</p>
+  <input id="nicknameInput" placeholder="Nickname">
+  <br><br>
+  <button onclick="goToChapters()">Continue</button>
+</div>
+
+<div id="chapterScreen" class="screen center">
+  <h2 class="heading">Select Chapter</h2>
+  <div id="chapterGrid"></div>
+  <button onclick="startGame()">Start</button>
+</div>
+
+<div id="quizScreen" class="screen">
   <div class="card">
     <h2 id="questionText"></h2>
     <div id="answers"></div>
@@ -102,104 +148,198 @@ button {
   <div id="gemContainer"></div>
 </div>
 
-<script>
-let score = 0;
-let streak = 0;
-let timeLeft = 180;
-let timerInterval;
-let bonusSpeedLevel = 0;
-let temptationSpawned = false;
+<div id="endScreen" class="screen center">
+  <h2 class="heading">Time’s Up!</h2>
+  <p id="finalName"></p>
+  <p id="finalScore"></p>
+  <button onclick="location.reload()">Play Again</button>
+</div>
 
-const BONUS_DURATION = 20000;
-const gems = ["💎","💰","👑","✨"];
-const trash = ["👞","🍌"];
-const temptation = "🎁";
+<script>
+let nickname="", selectedChapter=null;
+let questions=[], qIndex=0;
+let score=0, streak=0;
+let timeLeft=180;
+let timerInterval;
+let questionsSinceBonus=0;
+
+/* Bonus speed ramp */
+let bonusSpeedLevel = 0;
+
+const STREAK_TARGET=3;
+const MERCY_LIMIT=5;
+const BONUS_DURATION=20000;
+
+const gems=["💎","💰","👑","✨"], trash=["👞","🍌"];
+
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
 function formatTime(sec){
-  const m = Math.floor(sec/60);
-  const s = sec % 60;
+  const m=Math.floor(sec/60);
+  const s=sec%60;
   return `${m}:${s.toString().padStart(2,"0")}`;
 }
 
+function goToChapters(){
+  nickname=nicknameInput.value.trim();
+  if(!nickname) return alert("Nickname required");
+  showScreen("chapterScreen");
+}
+
+for(let i=1;i<=40;i++){
+  const b=document.createElement("button");
+  b.textContent=i;
+  b.className="chapterBtn";
+  b.onclick=()=>{
+    selectedChapter=i;
+    document.querySelectorAll(".chapterBtn").forEach(x=>x.classList.remove("selected"));
+    b.classList.add("selected");
+  };
+  chapterGrid.appendChild(b);
+}
+
+async function startGame(){
+  if(!selectedChapter) return alert("Select a chapter");
+
+  try{
+    const r=await fetch(`data/chapter${selectedChapter}.json`);
+    questions=await r.json();
+  }catch{
+    return alert("Missing chapter file");
+  }
+
+  questions.sort(()=>Math.random()-0.5);
+  qIndex=0;
+  score=0;
+  streak=0;
+  timeLeft=180;
+  questionsSinceBonus=0;
+  bonusSpeedLevel=0;
+
+  document.getElementById("topBar").classList.remove("hidden");
+  startTimer();
+  showScreen("quizScreen");
+  showQuestion();
+}
+
+function startTimer(){
+  timer.textContent=formatTime(timeLeft);
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    timer.textContent=formatTime(timeLeft);
+    if(timeLeft<=0) endGame();
+  },1000);
+}
+
+function showQuestion(){
+  if(qIndex>=questions.length) return endGame();
+  const q=questions[qIndex];
+  questionText.textContent=q.q;
+  answers.innerHTML="";
+  updateHUD();
+
+  q.a.forEach((t,i)=>{
+    const b=document.createElement("button");
+    b.className="answerBtn";
+    b.textContent=t;
+    b.onclick=()=>answer(b,i);
+    answers.appendChild(b);
+  });
+}
+
+function answer(btn,i){
+  document.querySelectorAll(".answerBtn").forEach(b=>b.disabled=true);
+  questionsSinceBonus++;
+
+  if(i===questions[qIndex].c){
+    btn.classList.add("correct");
+    score+=10;
+    streak++;
+    if(streak>=STREAK_TARGET) return startBonus();
+  } else {
+    btn.classList.add("wrong");
+    streak=0;
+  }
+
+  if(questionsSinceBonus>=MERCY_LIMIT) return startBonus();
+
+  updateHUD();
+  setTimeout(()=>{ qIndex++; showQuestion(); },500);
+}
+
 function updateHUD(){
-  document.getElementById("score").textContent = "$" + score;
-  document.getElementById("streak").textContent = `⭐ ${streak} / 3`;
+  score=Math.max(score,0);
+  scoreEl=document.getElementById("score");
+  scoreEl.textContent="$"+score;
+  streakEl=document.getElementById("streak");
+  streakEl.textContent=`⭐ ${streak} / ${STREAK_TARGET}`;
 }
 
 function startBonus(){
+  streak=0;
+  questionsSinceBonus=0;
   bonusSpeedLevel++;
-  temptationSpawned = false;
-  document.getElementById("bonusScreen").classList.add("active");
 
-  const spawn = setInterval(spawnItem, 300);
+  showScreen("bonusScreen");
+
+  const spawn=setInterval(spawnGem,300);
 
   setTimeout(()=>{
     clearInterval(spawn);
-    document.getElementById("bonusScreen").classList.remove("active");
-  }, BONUS_DURATION);
+    showScreen("quizScreen");
+    qIndex++;
+    showQuestion();
+  },BONUS_DURATION);
 }
 
-function spawnItem(){
-  const g = document.createElement("div");
-  g.className = "gem";
-
-  let type = "normal";
-  if (!temptationSpawned && Math.random() < 0.08) {
-    type = "temptation";
-    temptationSpawned = true;
-    g.textContent = temptation;
-  } else {
-    const good = Math.random() > 0.25;
-    g.textContent = good
-      ? gems[Math.floor(Math.random()*gems.length)]
-      : trash[Math.floor(Math.random()*trash.length)];
-    g.dataset.good = good;
-  }
-
-  g.style.left = Math.random()*(innerWidth-160)+80+"px";
-  g.style.top = "-60px";
+function spawnGem(){
+  const g=document.createElement("div");
+  const good=Math.random()>0.25;
+  g.className="gem";
+  g.textContent=good?gems[Math.floor(Math.random()*gems.length)]:trash[Math.floor(Math.random()*trash.length)];
+  g.style.left=Math.random()*(innerWidth-160)+80+"px";
+  g.style.top="-50px";
   gemContainer.appendChild(g);
 
-  const baseDuration = 2500;
-  const speedBoost = Math.min(bonusSpeedLevel * 150, 1000);
-  const duration = baseDuration - speedBoost;
+  const baseDuration=2500;
+  const speedBoost=Math.min(bonusSpeedLevel*150,1000);
+  const duration=baseDuration-speedBoost;
 
-  const drift = bonusSpeedLevel > 1 ? (Math.random()*200 - 100) : 0;
+  const anim=g.animate(
+    [{top:"-50px"},{top:innerHeight+"px"}],
+    {duration,easing:"linear"}
+  );
 
-  const anim = g.animate([
-    { transform: "translate(0, -60px)" },
-    { transform: `translate(${drift}px, ${innerHeight}px)` }
-  ], { duration, easing: "linear" });
-
-  g.onpointerdown = e => {
+  g.onpointerdown=e=>{
     anim.pause();
-
-    if (type === "temptation") {
-      const win = Math.random() < 0.7;
-      score += win ? 50 : -100;
-      pop(e.clientX, e.clientY, win ? "+50" : "-100", win ? "gold" : "red");
-    } else {
-      const good = g.dataset.good === "true";
-      score += good ? 50 : -50;
-      pop(e.clientX, e.clientY, good ? "+50" : "-50", good ? "gold" : "red");
-    }
-
+    score+=good?50:-50;
+    pop(e.clientX,e.clientY,good?"+50":"-50",good?"gold":"red");
     g.remove();
     updateHUD();
   };
 
-  anim.onfinish = () => g.remove();
+  anim.onfinish=()=>g.remove();
 }
 
-function pop(x,y,text,color){
-  const p = document.createElement("div");
-  p.className = "tap-effect";
-  p.style.left = x + "px";
-  p.style.top = y + "px";
-  p.style.color = color;
-  p.textContent = text;
+function pop(x,y,t,c){
+  const p=document.createElement("div");
+  p.className="tap-effect";
+  p.style.left=x+"px";
+  p.style.top=y+"px";
+  p.style.color=c;
+  p.textContent=t;
   document.body.appendChild(p);
   setTimeout(()=>p.remove(),500);
+}
+
+function endGame(){
+  clearInterval(timerInterval);
+  showScreen("endScreen");
+  finalName.textContent="Player: "+nickname;
+  finalScore.textContent="Score: "+score;
 }
 </script>
 
