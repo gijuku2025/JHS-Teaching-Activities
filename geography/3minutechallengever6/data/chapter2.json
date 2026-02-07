@@ -1,0 +1,197 @@
+[
+  {
+    "q": "What is 'land area' in Japanese?",
+    "a": ["土地面積 (とちめんせき)", "人口 (じんこう)", "国名 (こくめい)"],
+    "c": 0
+  },
+  {
+    "q": "Which country is a 'large country' (大きい国) compared to Japan?",
+    "a": ["Monaco", "Russia", "Vatican City"],
+    "c": 1
+  },
+  {
+    "q": "What is 'population' in Japanese?",
+    "a": ["国旗 (こっき)", "人口 (じんこう)", "国境 (こっきょう)"],
+    "c": 1
+  },
+  {
+    "q": "What is '100 million' in Japanese?",
+    "a": ["1千 (いっせん)", "1万 (いちまん)", "1億 (いちおく)"],
+    "c": 2
+  },
+  {
+    "q": "What is 'population density' in Japanese?",
+    "a": ["人口密度 (じんこうみつど)", "言語区域 (げんごくいき)", "土地面積 (とちめんせき)"],
+    "c": 0
+  },
+  {
+    "q": "Which country has a 'high population density'?",
+    "a": ["Mongolia", "Monaco", "Russia"],
+    "c": 1
+  },
+  {
+    "q": "What is 'country names' in Japanese?",
+    "a": ["国旗 (こっき)", "国名 (こくめい)", "国境 (こっきょう)"],
+    "c": 1
+  },
+  {
+    "q": "What is 'national flags' in Japanese?",
+    "a": ["国旗 (こっき)", "国名 (こくめい)", "言語区域 (げんごくいき)"],
+    "c": 0
+  },
+  {
+    "q": "What is the 'Union Jack'?",
+    "a": ["The flag of the USA", "The flag of the UK", "The flag of Japan"],
+    "c": 1
+  },
+  {
+    "q": "What are 'national borders' (国境)?",
+    "a": ["Lines between countries", "Lines between languages", "Lines between farms"],
+    "c": 0
+  },
+  {
+    "q": "What is 'language areas' in Japanese?",
+    "a": ["言語区域 (げんごくいき)", "土地面積 (とちめんせき)", "人口密度 (じんこうみつど)"],
+    "c": 0
+  },
+  {
+    "q": "Russia is a 'large country.' What is this in Japanese?",
+    "a": ["小さい国 (ちいさいくに)", "大きい国 (おおきいくに)", "国名 (こくめい)"],
+    "c": 1
+  },
+  {
+    "q": "Monaco is a 'small country.' What is this in Japanese?",
+    "a": ["大きい国 (おおきいくに)", "小さい国 (ちいさいくに)", "国旗 (こっき)"],
+    "c": 1
+  },
+  {
+    "q": "India is the 'most populated country.' What does this mean?",
+    "a": ["It is the largest land area", "It has the most people", "It has the most flags"],
+    "c": 1
+  },
+  {
+    "q": "What is 'high population density' in Japanese?",
+    "a": ["人口密度が低い (じんこうみつどがひくい)", "人口密度が高い (じんこうみつどがたかい)", "人口が多い (じんこうがおおい)"],
+    "c": 1
+  },
+  {
+    "q": "Mongolia has a 'low population density.' What is this in Japanese?",
+    "a": ["人口密度が低い (じんこうみつどがひくい)", "人口密度が高い (じんこうみつどがたかい)", "土地が広い (とちがひろい)"],
+    "c": 0
+  },
+  {
+    "q": "How big is Monaco?",
+    "a": ["45 times larger than Japan", "Very small", "The largest in the world"],
+    "c": 1
+  },
+  {
+    "q": "Which country is now the 'most populated country' in the world?",
+    "a": ["China", "India", "USA"],
+    "c": 1
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'large country'?",
+    "a": ["Small country", "Population density", "National flag"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'low population density'?",
+    "a": ["High population density", "Small country", "Land area"],
+    "c": 0
+  },
+  {
+    "q": "What is 'United Kingdom's flag' in Japanese?",
+    "a": ["イギリス国旗 (いぎりすこっき)", "アメリカ国旗 (あめりかこっき)", "日本国旗 (にほんこっき)"],
+    "c": 0
+  },
+  {
+    "q": "Vatican City has a very ____ population density.",
+    "a": ["High", "Low", "Small"],
+    "c": 0
+  },
+  {
+    "q": "What do 'national borders' separate?",
+    "a": ["One country from another", "One flag from another", "One person from another"],
+    "c": 0
+  },
+  {
+    "q": "Russia is about 45 times ____ than Japan.",
+    "a": ["Smaller", "Larger", "Higher"],
+    "c": 1
+  },
+  {
+    "q": "What is 'most populated country' in Japanese?",
+    "a": ["人口密度が高い国", "人口が最も多い国", "人口密度が低い国"],
+    "c": 1
+  },
+  {
+    "q": "Language areas show where people speak the ____ language.",
+    "a": ["Different", "Same", "New"],
+    "c": 1
+  },
+  {
+    "q": "Which country has a very low population density?",
+    "a": ["Monaco", "Mongolia", "Vatican City"],
+    "c": 1
+  },
+  {
+    "q": "India has a population of more than 1.4 ____ people.",
+    "a": ["Million", "Billion", "Thousand"],
+    "c": 1
+  },
+  {
+    "q": "Russia has a very large ____.",
+    "a": ["Population density", "Land area", "Language area"],
+    "c": 1
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'high'?",
+    "a": ["Large", "Small", "Low"],
+    "c": 2
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'small'?",
+    "a": ["Short", "Large", "Low"],
+    "c": 1
+  },
+  {
+    "q": "The Union Jack is a ____.",
+    "a": ["National flag", "Country name", "National border"],
+    "c": 0
+  },
+  {
+    "q": "Japan is a ____ in Asia.",
+    "a": ["National flag", "Country name", "National border"],
+    "c": 1
+  },
+  {
+    "q": "Monaco is about four times the size of ____.",
+    "a": ["Japan", "Hirosaki Park", "Russia"],
+    "c": 1
+  },
+  {
+    "q": "Population density is the number of people per square ____.",
+    "a": ["Meter", "Kilometer", "Centimeter"],
+    "c": 1
+  },
+  {
+    "q": "What is '国境' (こっきょう) in English?",
+    "a": ["National flags", "National borders", "National parks"],
+    "c": 1
+  },
+  {
+    "q": "Which country is 'very small'?",
+    "a": ["Russia", "Monaco", "India"],
+    "c": 1
+  },
+  {
+    "q": "What is '国旗' (こっき) in English?",
+    "a": ["Country name", "National flag", "Land area"],
+    "c": 1
+  },
+  {
+    "q": "What is '人口' (じんこう) in English?",
+    "a": ["Population", "Language", "Borders"],
+    "c": 0
+  }
+]

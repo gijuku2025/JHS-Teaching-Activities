@@ -1,0 +1,192 @@
+[
+  {
+    "q": "What is 'Earth' in Japanese?",
+    "a": ["太陽 (たいよう)", "地球 (ちきゅう)", "月 (つき)"],
+    "c": 1
+  },
+  {
+    "q": "What is 'sea' in Japanese?",
+    "a": ["陸 (りく)", "川 (かわ)", "海 (うみ)"],
+    "c": 2
+  },
+  {
+    "q": "What is a 'continent'?",
+    "a": ["A small island", "A large area of land", "A type of water"],
+    "c": 1
+  },
+  {
+    "q": "What does 'large area' (広い範囲) mean?",
+    "a": ["A small place", "A big space", "A high place"],
+    "c": 1
+  },
+  {
+    "q": "What is a 'region' in Japanese?",
+    "a": ["国 (くに)", "州 (しゅう)", "町 (まち)"],
+    "c": 1
+  },
+  {
+    "q": "What is an 'island'?",
+    "a": ["A large area of land", "A small area of land in the sea", "A very deep place"],
+    "c": 1
+  },
+  {
+    "q": "Japan is an 'island country.' What is this in Japanese?",
+    "a": ["内陸国 (ないりくこく)", "島国 (しまぐに)", "北国 (きたぐに)"],
+    "c": 1
+  },
+  {
+    "q": "What is a 'landlocked country'?",
+    "a": ["A country with no sea around it", "A country made of islands", "A country in the ocean"],
+    "c": 0
+  },
+  {
+    "q": "What is 'highest place' in Japanese?",
+    "a": ["最低点 (さいていてん)", "最高点 (さいこうてん)", "平均点 (へいきんてん)"],
+    "c": 1
+  },
+  {
+    "q": "What is the 'lowest place' on Earth?",
+    "a": ["The South Pole", "The Sahara Desert", "The bottom of the Mariana Trench"],
+    "c": 2
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'bottom'?",
+    "a": ["Side", "Middle", "Top"],
+    "c": 2
+  },
+  {
+    "q": "The Earth is 'round.' What does 'round' mean?",
+    "a": ["丸い (まるい)", "長い (ながい)", "四角い (しかくい)"],
+    "c": 0
+  },
+  {
+    "q": "What does 'smooth' mean in Japanese?",
+    "a": ["荒い (あらい)", "なめらか", "厚い (あつい)"],
+    "c": 1
+  },
+  {
+    "q": "What is on top of Antarctica?",
+    "a": ["Thick ice", "Green grass", "Hot sand"],
+    "c": 0
+  },
+  {
+    "q": "What is 'average' in Japanese?",
+    "a": ["全部 (ぜんぶ)", "最高 (さいこう)", "平均 (へいきん)"],
+    "c": 2
+  },
+  {
+    "q": "Where is the ice very thick?",
+    "a": ["The Equator", "The South Pole", "The desert"],
+    "c": 1
+  },
+  {
+    "q": "Finish the sentence: 'Earth has _____, and Earth has sea.'",
+    "a": ["Air", "Land", "Ice"],
+    "c": 1
+  },
+  {
+    "q": "Which is true about Earth?",
+    "a": ["There is more land", "There is more sea", "They are the same"],
+    "c": 1
+  },
+  {
+    "q": "What is 'ocean' in Japanese?",
+    "a": ["湖 (みずうみ)", "大洋 (たいよう)", "池 (いけ)"],
+    "c": 1
+  },
+  {
+    "q": "What are continents?",
+    "a": ["Small areas of land", "Many islands", "Large areas of land"],
+    "c": 2
+  },
+  {
+    "q": "Which English word matches '州' (しゅう)?",
+    "a": ["Country", "Region", "City"],
+    "c": 1
+  },
+  {
+    "q": "What is 'island' in Japanese?",
+    "a": ["山 (やま)", "森 (もり)", "島 (しま)"],
+    "c": 2
+  },
+  {
+    "q": "What is '内陸国' (ないりくこく) in English?",
+    "a": ["Island country", "Landlocked country", "Ocean country"],
+    "c": 1
+  },
+  {
+    "q": "What is the highest place on Earth?",
+    "a": ["Mariana Trench", "Mount Everest", "The South Pole"],
+    "c": 1
+  },
+  {
+    "q": "What does 'lowest place' mean?",
+    "a": ["最高点 (さいこうてん)", "中間点 (ちゅうかんてん)", "最低点 (さいていてん)"],
+    "c": 2
+  },
+  {
+    "q": "The Mariana Trench is at the _____ of the sea.",
+    "a": ["Top", "Bottom", "Surface"],
+    "c": 1
+  },
+  {
+    "q": "Why does Earth look 'smooth' from space?",
+    "a": ["It is very small", "It is very big", "It is made of ice"],
+    "c": 1
+  },
+  {
+    "q": "What are 'tall mountains' in Japanese?",
+    "a": ["低い山 (ひくいやま)", "高い山 (たかいやま)", "古い山 (ふるいやま)"],
+    "c": 1
+  },
+  {
+    "q": "What is 'thick ice' in Japanese?",
+    "a": ["薄い氷 (うすいこおり)", "厚い氷 (あついこおり)", "冷たい水 (つめたいみず)"],
+    "c": 1
+  },
+  {
+    "q": "What is 'South Pole' in Japanese?",
+    "a": ["北極 (ほっきょく)", "南極 (なんきょく)", "東極 (とうきょく)"],
+    "c": 1
+  },
+  {
+    "q": "Is Japan an island country?",
+    "a": ["Yes", "No", "I don't know"],
+    "c": 0
+  },
+  {
+    "q": "Is there more land than sea?",
+    "a": ["Yes", "No", "Maybe"],
+    "c": 1
+  },
+  {
+    "q": "Are oceans small areas of sea?",
+    "a": ["Yes", "No", "Maybe"],
+    "c": 1
+  },
+  {
+    "q": "Is Antarctica covered in thick ice?",
+    "a": ["Yes", "No", "I don't know"],
+    "c": 0
+  },
+  {
+    "q": "Is Mount Everest the highest place?",
+    "a": ["Yes", "No", "Maybe"],
+    "c": 0
+  },
+  {
+    "q": "What does Earth look like from space?",
+    "a": ["Square and rough", "Round and smooth", "Flat and thin"],
+    "c": 1
+  },
+  {
+    "q": "Which one is a very large area of land?",
+    "a": ["Island", "Continent", "Sea"],
+    "c": 1
+  },
+  {
+    "q": "How thick is the ice in Antarctica on average?",
+    "a": ["1,000 meters", "2,400 meters", "5,000 meters"],
+    "c": 1
+  }
+]
