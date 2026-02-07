@@ -130,7 +130,20 @@ button {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-	
+#gemContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.gem {
+  z-index: 2;
+}
+
+#magnetCore {
+  z-index: 3;
+}
+
 	
 </style>
 </head>
@@ -167,9 +180,6 @@ button {
 <div id="bonusScreen" class="screen">
   <div id="gemContainer"></div>
   <div id="magnetCore">🧲</div>
-<div id="gemContainer"></div>
-
-	
 </div>
 
 <div id="endScreen" class="screen center">
