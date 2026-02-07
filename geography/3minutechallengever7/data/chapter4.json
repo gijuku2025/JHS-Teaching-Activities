@@ -1,0 +1,202 @@
+[
+  {
+    "q": "What is 'weather' in Japanese?",
+    "a": ["天気 (てんき)", "気候 (きこう)", "赤道 (せきどう)"],
+    "c": 0
+  },
+  {
+    "q": "What is 'climate' in Japanese?",
+    "a": ["天気 (てんき)", "気候 (きこう)", "寒帯 (かんたい)"],
+    "c": 1
+  },
+  {
+    "q": "Polar bears live in this cold zone:",
+    "a": ["Tropical Zone", "Polar Zone", "Arid Zone"],
+    "c": 1
+  },
+  {
+    "q": "What is 'Polar Zone' in Japanese?",
+    "a": ["熱帯 (ねったい)", "温帯 (おんたい)", "寒帯 (かんたい)"],
+    "c": 2
+  },
+  {
+    "q": "This zone is always hot:",
+    "a": ["Tropical Zone", "Arid Zone", "Polar Zone"],
+    "c": 0
+  },
+  {
+    "q": "What is 'Tropical Zone' in Japanese?",
+    "a": ["熱帯 (ねったい)", "温帯 (おんたい)", "寒帯 (かんたい)"],
+    "c": 0
+  },
+  {
+    "q": "Melbourne has this kind of climate:",
+    "a": ["Polar Zone", "Arid Zone", "Temperate Zone"],
+    "c": 2
+  },
+  {
+    "q": "What is 'Temperate Zone' in Japanese?",
+    "a": ["熱帯 (ねったい)", "温帯 (おんたい)", "寒帯 (かんたい)"],
+    "c": 1
+  },
+  {
+    "q": "This zone is very dry with 'little rain':",
+    "a": ["Tropical Zone", "Temperate Zone", "Arid Zone"],
+    "c": 2
+  },
+  {
+    "q": "What is 'Arid Zone' in Japanese?",
+    "a": ["乾燥帯 (かんそうたい)", "熱帯 (ねったい)", "温帯 (おんたい)"],
+    "c": 0
+  },
+  {
+    "q": "Countries near the _____ are usually Tropical.",
+    "a": ["North Pole", "Equator", "South Pole"],
+    "c": 1
+  },
+  {
+    "q": "What is 'Equator' in Japanese?",
+    "a": ["赤道 (せきどう)", "気候 (きこう)", "天気 (てんき)"],
+    "c": 0
+  },
+  {
+    "q": "Hirosaki has hot _____.",
+    "a": ["Winters", "Summers", "Rain"],
+    "c": 1
+  },
+  {
+    "q": "What is 'summers' in Japanese?",
+    "a": ["冬 (ふゆ)", "夏 (なつ)", "秋 (あき)"],
+    "c": 1
+  },
+  {
+    "q": "Hirosaki has cold _____.",
+    "a": ["Winters", "Summers", "Sun"],
+    "c": 0
+  },
+  {
+    "q": "What is 'winters' in Japanese?",
+    "a": ["春 (はる)", "冬 (ふゆ)", "夏 (なつ)"],
+    "c": 1
+  },
+  {
+    "q": "When the sun is out, it is _____.",
+    "a": ["Cloudy", "Sunny", "Rainy"],
+    "c": 1
+  },
+  {
+    "q": "What is 'sunny' in Japanese?",
+    "a": ["晴 (はれ)", "曇り (くもり)", "雨 (あめ)"],
+    "c": 0
+  },
+  {
+    "q": "When there are many clouds, it is _____.",
+    "a": ["Sunny", "Cloudy", "Snowy"],
+    "c": 1
+  },
+  {
+    "q": "What is 'cloudy' in Japanese?",
+    "a": ["雪 (ゆき)", "晴 (はれ)", "曇り (くもり)"],
+    "c": 2
+  },
+  {
+    "q": "When water falls from the sky, it is _____.",
+    "a": ["Rainy", "Windy", "Sunny"],
+    "c": 0
+  },
+  {
+    "q": "What is 'rainy' in Japanese?",
+    "a": ["雪 (ゆき)", "雨 (あめ)", "晴 (はれ)"],
+    "c": 1
+  },
+  {
+    "q": "When white ice falls from the sky, it is _____.",
+    "a": ["Rainy", "Sunny", "Snowy"],
+    "c": 2
+  },
+  {
+    "q": "What is 'snowy' in Japanese?",
+    "a": ["雪 (ゆき)", "雨 (あめ)", "曇り (くもり)"],
+    "c": 0
+  },
+  {
+    "q": "When the air moves fast, it is _____.",
+    "a": ["Sunny", "Windy", "Cloudy"],
+    "c": 1
+  },
+  {
+    "q": "What is 'windy' in Japanese?",
+    "a": ["雨 (あめ)", "雪 (ゆき)", "風が強い (かぜがつよい)"],
+    "c": 2
+  },
+  {
+    "q": "The Arid Zone has 'little rain.' What is this in Japanese?",
+    "a": ["雨が多い", "雨がほとんどない", "雪が降る"],
+    "c": 1
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'summers'?",
+    "a": ["Winters", "Sunny", "Climate"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'sunny'?",
+    "a": ["Summers", "Cloudy", "Hot"],
+    "c": 1
+  },
+  {
+    "q": "Which zone is very cold?",
+    "a": ["Tropical Zone", "Temperate Zone", "Polar Zone"],
+    "c": 2
+  },
+  {
+    "q": "Melbourne has a _____ climate.",
+    "a": ["Polar", "Arid", "Temperate"],
+    "c": 2
+  },
+  {
+    "q": "True or False: The Tropical Zone is near the Equator.",
+    "a": ["True", "False", "Maybe"],
+    "c": 0
+  },
+  {
+    "q": "True or False: The Arid Zone is very wet.",
+    "a": ["True", "False", "Maybe"],
+    "c": 1
+  },
+  {
+    "q": "What is the word for the weather over a long time?",
+    "a": ["Weather", "Climate", "Summers"],
+    "c": 1
+  },
+  {
+    "q": "Which zone has four seasons (spring, summers, autumn, winters)?",
+    "a": ["Tropical Zone", "Temperate Zone", "Polar Zone"],
+    "c": 1
+  },
+  {
+    "q": "What is 'little rain' in Japanese?",
+    "a": ["雨がほとんどない", "雨がたくさん降る", "とても暑い"],
+    "c": 0
+  },
+  {
+    "q": "What is '風が強い' (かぜがつよい) in English?",
+    "a": ["Rainy", "Cloudy", "Windy"],
+    "c": 2
+  },
+  {
+    "q": "What is '熱帯' (ねったい) in English?",
+    "a": ["Polar Zone", "Tropical Zone", "Arid Zone"],
+    "c": 1
+  },
+  {
+    "q": "What is '乾燥帯' (かんそうたい) in English?",
+    "a": ["Arid Zone", "Temperate Zone", "Tropical Zone"],
+    "c": 0
+  },
+  {
+    "q": "What is '温帯' (おんたい) in English?",
+    "a": ["Polar Zone", "Arid Zone", "Temperate Zone"],
+    "c": 2
+  }
+]

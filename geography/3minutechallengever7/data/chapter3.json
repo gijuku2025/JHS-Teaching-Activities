@@ -1,0 +1,202 @@
+[
+  {
+    "q": "What is at the top of the Earth?",
+    "a": ["南極 (なんきょく)", "北極 (ほっきょく)", "赤道 (せきどう)"],
+    "c": 1
+  },
+  {
+    "q": "What is the line around the middle of the Earth called?",
+    "a": ["Equator", "North Pole", "Longitude"],
+    "c": 0
+  },
+  {
+    "q": "What is 'Equator' in Japanese?",
+    "a": ["本初子午線 (ほんしょしごせん)", "地理座標 (ちりざひょう)", "赤道 (せきどう)"],
+    "c": 2
+  },
+  {
+    "q": "The _____ from the Equator to the North Pole is 10,000 km.",
+    "a": ["Latitude", "Distance", "Longitude"],
+    "c": 1
+  },
+  {
+    "q": "What is 'distance' in Japanese?",
+    "a": ["距離 (きょり)", "緯度 (いど)", "経度 (けいど)"],
+    "c": 0
+  },
+  {
+    "q": "If two things are the same, they are _____.",
+    "a": ["Cold", "Equal", "Hot"],
+    "c": 1
+  },
+  {
+    "q": "What is 'equal' in Japanese?",
+    "a": ["等しい (ひとしい)", "暑い (あつい)", "寒い (さむい)"],
+    "c": 0
+  },
+  {
+    "q": "The Equator is at 0 degrees _____.",
+    "a": ["Longitude", "Distance", "Latitude"],
+    "c": 2
+  },
+  {
+    "q": "What is 'latitude' in Japanese?",
+    "a": ["緯度 (いど)", "経度 (けいど)", "距離 (きょり)"],
+    "c": 0
+  },
+  {
+    "q": "These lines connect the North Pole and the South Pole:",
+    "a": ["Latitude", "Longitude", "Equator"],
+    "c": 1
+  },
+  {
+    "q": "What is 'longitude' in Japanese?",
+    "a": ["距離 (きょり)", "緯度 (いど)", "経度 (けいど)"],
+    "c": 2
+  },
+  {
+    "q": "Which line goes through London?",
+    "a": ["Prime Meridian", "Equator", "Latitude 0"],
+    "c": 0
+  },
+  {
+    "q": "What is 'Prime Meridian' in Japanese?",
+    "a": ["本初子午線 (ほんしょしごせん)", "地理座標 (ちりざひょう)", "赤道 (せきどう)"],
+    "c": 0
+  },
+  {
+    "q": "We use latitude and longitude to find _____.",
+    "a": ["National flags", "Geographic coordinates", "Distance"],
+    "c": 1
+  },
+  {
+    "q": "What is 'geographic coordinates' in Japanese?",
+    "a": ["地理座標 (ちりざひょう)", "本初子午線 (ほんしょしごせん)", "国名 (こくめい)"],
+    "c": 0
+  },
+  {
+    "q": "Countries near the Equator are usually _____.",
+    "a": ["Cold", "Hot", "Equal"],
+    "c": 1
+  },
+  {
+    "q": "What is 'hot' in Japanese?",
+    "a": ["寒い (さむい)", "暑い (あつい)", "丸い (まるい)"],
+    "c": 1
+  },
+  {
+    "q": "The Arctic Sea is very _____.",
+    "a": ["Hot", "Equal", "Cold"],
+    "c": 2
+  },
+  {
+    "q": "What is 'cold' in Japanese?",
+    "a": ["寒い (さむい)", "暑い (あつい)", "なめらか"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'hot'?",
+    "a": ["Cold", "Equal", "Smooth"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'North Pole'?",
+    "a": ["Equator", "South Pole", "Prime Meridian"],
+    "c": 1
+  },
+  {
+    "q": "What is '北極' (ほっきょく) in English?",
+    "a": ["North Pole", "South Pole", "Equator"],
+    "c": 0
+  },
+  {
+    "q": "The Prime Meridian is at 0 degrees _____.",
+    "a": ["Latitude", "Longitude", "Coordinate"],
+    "c": 1
+  },
+  {
+    "q": "Hirosaki has specific geographic _____.",
+    "a": ["Borders", "Flags", "Coordinates"],
+    "c": 2
+  },
+  {
+    "q": "What is the Japanese word for '0 degrees' latitude?",
+    "a": ["赤道 (せきどう)", "北極 (ほっきょく)", "本初子午線 (ほんしょしごせん)"],
+    "c": 0
+  },
+  {
+    "q": "Which line runs from East to West?",
+    "a": ["Latitude", "Longitude", "Prime Meridian"],
+    "c": 0
+  },
+  {
+    "q": "Which line runs from North to South?",
+    "a": ["Latitude", "Longitude", "Equator"],
+    "c": 1
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'latitude'?",
+    "a": ["Distance", "Longitude", "Coordinates"],
+    "c": 1
+  },
+  {
+    "q": "London is famous for being on the _____.",
+    "a": ["Equator", "Prime Meridian", "South Pole"],
+    "c": 1
+  },
+  {
+    "q": "If the distance is 10,000 km, what is '10,000' in Japanese?",
+    "a": ["1千 (いっせん)", "1万 (いちまん)", "1億 (いちおく)"],
+    "c": 1
+  },
+  {
+    "q": "The North Pole and South Pole are both very _____.",
+    "a": ["Hot", "Cold", "Equal"],
+    "c": 1
+  },
+  {
+    "q": "What is '緯度' (いど) in English?",
+    "a": ["Longitude", "Latitude", "Equator"],
+    "c": 1
+  },
+  {
+    "q": "What is '経度' (けいど) in English?",
+    "a": ["Latitude", "Longitude", "Coordinate"],
+    "c": 1
+  },
+  {
+    "q": "The Equator and Prime Meridian are both at _____ degrees.",
+    "a": ["0", "90", "180"],
+    "c": 0
+  },
+  {
+    "q": "True or False: The North Pole is at the bottom of the Earth.",
+    "a": ["True", "False", "Maybe"],
+    "c": 1
+  },
+  {
+    "q": "True or False: Longitude lines are equal in length.",
+    "a": ["True", "False", "Maybe"],
+    "c": 0
+  },
+  {
+    "q": "Which word describes how far one place is from another?",
+    "a": ["Distance", "Latitude", "Longitude"],
+    "c": 0
+  },
+  {
+    "q": "What is '地理座標' (ちりざひょう) in English?",
+    "a": ["Geographic coordinates", "National borders", "Population density"],
+    "c": 0
+  },
+  {
+    "q": "What is '等しい' (ひとしい) in English?",
+    "a": ["Different", "Equal", "Large"],
+    "c": 1
+  },
+  {
+    "q": "Which line divides the Earth into North and South?",
+    "a": ["Equator", "Prime Meridian", "Distance"],
+    "c": 0
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "q": "What is a 'climate graph' in Japanese?",
+    "a": ["雨温図 (うおんず)", "地理座標 (ちりざひょう)", "人口密度 (じんこうみつど)"],
+    "c": 0
+  },
+  {
+    "q": "Japan is in the top half of the Earth. What is this area called?",
+    "a": ["Southern Hemisphere", "Northern Hemisphere", "Equator"],
+    "c": 1
+  },
+  {
+    "q": "What is 'Northern Hemisphere' in Japanese?",
+    "a": ["南半球 (みなみはんきゅう)", "北半球 (きたはんきゅう)", "赤道 (せきどう)"],
+    "c": 1
+  },
+  {
+    "q": "Australia is in the bottom half of the Earth. What is this area called?",
+    "a": ["Northern Hemisphere", "Southern Hemisphere", "Arid Zone"],
+    "c": 1
+  },
+  {
+    "q": "What is 'Southern Hemisphere' in Japanese?",
+    "a": ["北半球 (きたはんきゅう)", "南半球 (みなみはんきゅう)", "氷 (こおり)"],
+    "c": 1
+  },
+  {
+    "q": "What is 'temperature' in Japanese?",
+    "a": ["気温 (きおん)", "降雨量 (こううりょう)", "平均 (へいきん)"],
+    "c": 0
+  },
+  {
+    "q": "What is 'rainfall' in Japanese?",
+    "a": ["気温 (きおん)", "降雨量 (こううりょう)", "距離 (きょり)"],
+    "c": 1
+  },
+  {
+    "q": "The dotted line shows the _____ yearly temperature.",
+    "a": ["Highest", "Lowest", "Average"],
+    "c": 2
+  },
+  {
+    "q": "What is 'average' in Japanese?",
+    "a": ["最高 (さいこう)", "平均 (へいきん)", "最低 (さいてい)"],
+    "c": 1
+  },
+  {
+    "q": "If it rains a lot, the weather is _____.",
+    "a": ["Dry", "Wet", "Cool"],
+    "c": 1
+  },
+  {
+    "q": "Which English word matches '雨が多い' (あめがおおい)?",
+    "a": ["Dry", "Wet", "Warm"],
+    "c": 1
+  },
+  {
+    "q": "If there is very little rain, the place is _____.",
+    "a": ["Wet", "Dry", "Cool"],
+    "c": 1
+  },
+  {
+    "q": "What is 'dry' in Japanese?",
+    "a": ["乾燥している (かんそうしている)", "暖かい (あたたかい)", "涼しい (すずしい)"],
+    "c": 0
+  },
+  {
+    "q": "A nice, high temperature is _____.",
+    "a": ["Cool", "Cold", "Warm"],
+    "c": 2
+  },
+  {
+    "q": "What is 'warm' in Japanese?",
+    "a": ["涼しい (すずしい)", "暖かい (あたたかい)", "寒い (さむい)"],
+    "c": 1
+  },
+  {
+    "q": "A nice, low temperature is _____.",
+    "a": ["Hot", "Warm", "Cool"],
+    "c": 2
+  },
+  {
+    "q": "What is 'cool' in Japanese?",
+    "a": ["暖かい (あたたかい)", "涼しい (すずしい)", "暑い (あつい)"],
+    "c": 1
+  },
+  {
+    "q": "In the Southern Hemisphere, winters are in _____.",
+    "a": ["December", "July", "January"],
+    "c": 1
+  },
+  {
+    "q": "Darwin is in the _____ Hemisphere.",
+    "a": ["Northern", "Southern", "Middle"],
+    "c": 1
+  },
+  {
+    "q": "Hirosaki is in the _____ Hemisphere.",
+    "a": ["Northern", "Southern", "East"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'wet'?",
+    "a": ["Warm", "Cool", "Dry"],
+    "c": 2
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'Northern'?",
+    "a": ["Southern", "Average", "Warm"],
+    "c": 0
+  },
+  {
+    "q": "Summers in the Northern Hemisphere are usually _____.",
+    "a": ["Warm", "Snowy", "Cold"],
+    "c": 0
+  },
+  {
+    "q": "Winters in the Northern Hemisphere are usually _____.",
+    "a": ["Hot", "Cool", "Tropical"],
+    "c": 1
+  },
+  {
+    "q": "If a place is 'always dry,' it has very little _____.",
+    "a": ["Temperature", "Rainfall", "Hemisphere"],
+    "c": 1
+  },
+  {
+    "q": "What is '降雨量' (こううりょう) in English?",
+    "a": ["Temperature", "Rainfall", "Average"],
+    "c": 1
+  },
+  {
+    "q": "What is '北半球' (きたはんきゅう) in English?",
+    "a": ["Northern Hemisphere", "Southern Hemisphere", "Equator"],
+    "c": 0
+  },
+  {
+    "q": "What is '南半球' (みなみはんきゅう) in English?",
+    "a": ["Northern Hemisphere", "Southern Hemisphere", "Prime Meridian"],
+    "c": 1
+  },
+  {
+    "q": "What is '平均' (へいきん) in English?",
+    "a": ["Most", "Least", "Average"],
+    "c": 2
+  },
+  {
+    "q": "What is '気温' (きおん) in English?",
+    "a": ["Temperature", "Rainfall", "Climate graph"],
+    "c": 0
+  },
+  {
+    "q": "Which word means 'rainy'?",
+    "a": ["Dry", "Warm", "Wet"],
+    "c": 2
+  },
+  {
+    "q": "Which word means 'a little cold but nice'?",
+    "a": ["Cool", "Hot", "Warm"],
+    "c": 0
+  },
+  {
+    "q": "Which word means 'a little hot but nice'?",
+    "a": ["Cool", "Warm", "Cold"],
+    "c": 1
+  },
+  {
+    "q": "Darwin's climate is often _____.",
+    "a": ["Snowy", "Dry", "Cold"],
+    "c": 1
+  },
+  {
+    "q": "The Earth is divided into two halves called _____.",
+    "a": ["Hemispheres", "Continents", "Coordinates"],
+    "c": 0
+  },
+  {
+    "q": "In the Northern Hemisphere, summers are in _____.",
+    "a": ["July", "December", "January"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'dry'?",
+    "a": ["Wet", "Warm", "Cool"],
+    "c": 0
+  },
+  {
+    "q": "What is the opposite (はんたい) of 'Southern'?",
+    "a": ["Northern", "Average", "Low"],
+    "c": 0
+  },
+  {
+    "q": "A 'climate graph' helps us see rainfall and _____.",
+    "a": ["Population", "Temperature", "Borders"],
+    "c": 1
+  },
+  {
+    "q": "What is '涼しい' (すずしい) in English?",
+    "a": ["Warm", "Hot", "Cool"],
+    "c": 2
+  }
+]
