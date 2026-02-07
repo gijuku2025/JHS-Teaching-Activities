@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3 Minute Challenge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle, #6b21a8 0%, #46178f 100%);
+  color: white;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.heading { font-family: 'Bungee', cursive; }
+
+.screen { display: none; padding: 20px; }
+.active { display: block; }
+.center { text-align: center; }
+
+button, input {
+  font-size: 1.1em;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+}
+
+button {
+  background: gold;
+  color: #46178f;
+  font-weight: bold;
+}
+
+.card {
+  background: white;
+  color: #333;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+#topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 28px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+#bonusScreen { position: fixed; inset: 0; }
+
+.gem {
+  position: absolute;
+  font-size: 3rem;
+  padding: 85px;
+  margin: -85px;
+}
+
+.tap-effect {
+  position: absolute;
+  font-family: 'Bungee';
+  font-size: 2rem;
+  pointer-events: none;
+  animation: pop 0.5s forwards;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="topBar" class="hidden">
+  <div id="timer">3:00</div>
+  <div id="streak">⭐ 0 / 3</div>
+  <div id="score">$0</div>
+</div>
+
+<div id="quizScreen" class="screen active">
+  <div class="card">
+    <h2 id="questionText"></h2>
+    <div id="answers"></div>
+  </div>
+</div>
+
+<div id="bonusScreen" class="screen">
+  <div id="gemContainer"></div>
+</div>
+
+<script>
+let score = 0;
+let streak = 0;
+let timeLeft = 180;
+let timerInterval;
+let bonusSpeedLevel = 0;
+let temptationSpawned = false;
+
+const BONUS_DURATION = 20000;
+const gems = ["💎","💰","👑","✨"];
+const trash = ["👞","🍌"];
+const temptation = "🎁";
+
+function formatTime(sec){
+  const m = Math.floor(sec/60);
+  const s = sec % 60;
+  return `${m}:${s.toString().padStart(2,"0")}`;
+}
+
+function updateHUD(){
+  document.getElementById("score").textContent = "$" + score;
+  document.getElementById("streak").textContent = `⭐ ${streak} / 3`;
+}
+
+function startBonus(){
+  bonusSpeedLevel++;
+  temptationSpawned = false;
+  document.getElementById("bonusScreen").classList.add("active");
+
+  const spawn = setInterval(spawnItem, 300);
+
+  setTimeout(()=>{
+    clearInterval(spawn);
+    document.getElementById("bonusScreen").classList.remove("active");
+  }, BONUS_DURATION);
+}
+
+function spawnItem(){
+  const g = document.createElement("div");
+  g.className = "gem";
+
+  let type = "normal";
+  if (!temptationSpawned && Math.random() < 0.08) {
+    type = "temptation";
+    temptationSpawned = true;
+    g.textContent = temptation;
+  } else {
+    const good = Math.random() > 0.25;
+    g.textContent = good
+      ? gems[Math.floor(Math.random()*gems.length)]
+      : trash[Math.floor(Math.random()*trash.length)];
+    g.dataset.good = good;
+  }
+
+  g.style.left = Math.random()*(innerWidth-160)+80+"px";
+  g.style.top = "-60px";
+  gemContainer.appendChild(g);
+
+  const baseDuration = 2500;
+  const speedBoost = Math.min(bonusSpeedLevel * 150, 1000);
+  const duration = baseDuration - speedBoost;
+
+  const drift = bonusSpeedLevel > 1 ? (Math.random()*200 - 100) : 0;
+
+  const anim = g.animate([
+    { transform: "translate(0, -60px)" },
+    { transform: `translate(${drift}px, ${innerHeight}px)` }
+  ], { duration, easing: "linear" });
+
+  g.onpointerdown = e => {
+    anim.pause();
+
+    if (type === "temptation") {
+      const win = Math.random() < 0.7;
+      score += win ? 50 : -100;
+      pop(e.clientX, e.clientY, win ? "+50" : "-100", win ? "gold" : "red");
+    } else {
+      const good = g.dataset.good === "true";
+      score += good ? 50 : -50;
+      pop(e.clientX, e.clientY, good ? "+50" : "-50", good ? "gold" : "red");
+    }
+
+    g.remove();
+    updateHUD();
+  };
+
+  anim.onfinish = () => g.remove();
+}
+
+function pop(x,y,text,color){
+  const p = document.createElement("div");
+  p.className = "tap-effect";
+  p.style.left = x + "px";
+  p.style.top = y + "px";
+  p.style.color = color;
+  p.textContent = text;
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),500);
+}
+</script>
+
+</body>
+</html>
