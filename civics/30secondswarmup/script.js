@@ -10,6 +10,7 @@ let roundScore = 0;
 let timer = null;
 let timeLeft = 30;
 let roundActive = false;
+let selectedChapters = [];
 
 const MAX_WORDS_PER_ROUND = 5;
 
@@ -45,21 +46,20 @@ async function loadChapters() {
   const data = await response.json();
   wordPool = data;
 
-  for (const chapter in data) {
-    const wrapper = document.createElement("div");
-    wrapper.className = "checkbox-item";
+  chapterSelection.innerHTML = `<div class="chapter-grid"></div>`;
+  const grid = chapterSelection.querySelector(".chapter-grid");
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.value = chapter;
+  const chapters = Object.keys(data);
 
-    const label = document.createElement("label");
-    label.textContent = chapter.replace("chapter", "Chapter ");
+  chapters.forEach((chapter, i) => {
+    const tile = document.createElement("div");
+    tile.className = "chapter-tile";
+    tile.textContent = i + 1;
 
-    wrapper.appendChild(checkbox);
-    wrapper.appendChild(label);
-    chapterSelection.appendChild(wrapper);
-  }
+    tile.onclick = () => toggleChapter(chapter, tile);
+
+    grid.appendChild(tile);
+  });
 }
 
 // =====================
@@ -68,17 +68,17 @@ async function loadChapters() {
 setupForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const selectedChapters = Array.from(
-    chapterSelection.querySelectorAll("input[type='checkbox']:checked")
-  ).map(cb => wordPool[cb.value]);
+  const chosen = selectedChapters.map(ch => wordPool[ch]);
 
-  if (selectedChapters.length === 0) {
+  if (chosen.length === 0) {
+
     alert("Please select at least one chapter.");
     return;
   }
 
   // unique + fresh word list
-  unusedWords = [...new Set(selectedChapters.flat())];
+  unusedWords = [...new Set(chosen.flat())];
+
   shuffleArray(unusedWords);
 
   currentRound = 1;
@@ -102,6 +102,18 @@ function showReadyScreen() {
 
   readyScreen.classList.remove("hidden");
 }
+
+function toggleChapter(chapter, tile) {
+  if (selectedChapters.includes(chapter)) {
+    selectedChapters = selectedChapters.filter(c => c !== chapter);
+    tile.classList.remove("selected");
+  } else {
+    selectedChapters.push(chapter);
+    tile.classList.add("selected");
+  }
+}
+
+
 
 // =====================
 // START ROUND
