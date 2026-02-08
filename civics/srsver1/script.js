@@ -185,11 +185,18 @@ function showFeedback(correct, input) {
 
 function showResults() {
   const now = new Date();
+
+  // Convert ["chapter1","chapter5","chapter7"] → "1, 5, 7"
+  const chapterNumbers = state.activeChapters
+    .map(ch => ch.replace("chapter", ""))
+    .join(", ");
+
   app.innerHTML = `
     <h2>Study Session Complete</h2>
     <p>Nickname: ${state.nickname}</p>
     <p>Date: ${now.toLocaleDateString()}</p>
     <p>Time: ${now.toLocaleTimeString()}</p>
+    <p>Chapters studied: ${chapterNumbers}</p>
     <p>New words: ${state.stats.new}</p>
     <p>Review words: ${state.stats.review}</p>
     <p>Correct: ${state.stats.correct}</p>
@@ -198,6 +205,7 @@ function showResults() {
     <p><strong>Screenshot this screen and send it to your teacher.</strong></p>
   `;
 }
+
 
 if (!state.nickname) {
   showNicknameScreen();
