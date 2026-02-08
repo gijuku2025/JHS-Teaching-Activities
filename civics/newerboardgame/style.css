@@ -112,3 +112,32 @@ h1, h2, h3 {
   padding: 14px 28px;
   margin: 5px;
 }
+
+/* CHAPTER GRID */
+
+#chapter-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.chapter-box {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 12px 0;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  background: #f9f9f9;
+  font-weight: bold;
+}
+
+.chapter-box input {
+  display: none;
+}
+
+.chapter-box.selected {
+  background: #2b6cff;
+  color: white;
+}
