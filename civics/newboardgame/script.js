@@ -84,17 +84,28 @@ async function loadChapters() {
   const res = await fetch("chapters.json");
   wordPool = await res.json();
 
+  chapterSelection.innerHTML = "";
+
   for (const chapter in wordPool) {
-    const div = document.createElement("div");
+    const box = document.createElement("div");
+    box.className = "chapter-box";
+
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.value = chapter;
 
-    const label = document.createElement("label");
-    label.textContent = chapter.replace("chapter","Chapter ");
+    const num = document.createElement("div");
+    num.textContent = chapter.replace("chapter", "");
 
-    div.append(cb,label);
-    chapterSelection.appendChild(div);
+    box.appendChild(cb);
+    box.appendChild(num);
+
+    box.onclick = () => {
+      cb.checked = !cb.checked;
+      box.classList.toggle("selected", cb.checked);
+    };
+
+    chapterSelection.appendChild(box);
   }
 }
 
