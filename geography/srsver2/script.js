@@ -9,8 +9,8 @@ const CHAPTER_FILES = [
 
 const MAX_NEW_PER_DAY = 10;
 const MAX_ITEMS_PER_SESSION = 20;
-const MASTERY_INTERVAL = 30; // days
 const REQUIRED_STREAK = 5;
+const MASTERY_INTERVAL = 30; // days
 
 let sessionCount = 0;
 let failedThisSession = new Set();
@@ -109,6 +109,7 @@ async function startStudy() {
   resetDailyCountIfNeeded();
   sessionCount = 0;
   failedThisSession = new Set();
+  state.stats = { correct: 0, wrong: 0, new: 0, review: 0 };
   await loadVocab();
   buildQueues();
   nextQuestion();
@@ -123,13 +124,10 @@ function buildQueues() {
   for (let item of vocab) {
     let p = state.progress[item.id];
 
-    if (!p) {
-      if (state.todayNewCount < MAX_NEW_PER_DAY) {
-        newQueue.push(item);
-      }
-    } else if (p.mastered) {
-      continue;
-    } else if (now >= p.nextReview) {
+    if (!p && state.todayNewCount < MAX_NEW_PER_DAY) {
+      newQueue.push(item);
+    } 
+    else if (p && !p.mastered && now >= p.nextReview) {
       if (p.status === "learning") learningQueue.push(item);
       else reviewQueue.push(item);
     }
@@ -142,10 +140,7 @@ function buildQueues() {
 
 function nextQuestion() {
   if (sessionCount >= MAX_ITEMS_PER_SESSION) return showResults();
-
-  if (!reviewQueue.length && !learningQueue.length && !newQueue.length) {
-    return showResults();
-  }
+  if (!reviewQueue.length && !learningQueue.length && !newQueue.length) return showResults();
 
   if (learningQueue.length) current = learningQueue.shift();
   else if (reviewQueue.length) current = reviewQueue.shift();
@@ -208,22 +203,27 @@ function submitAnswer() {
 
 function updateProgress(result) {
   let p = state.progress[current.id];
+
   if (!p) {
     p = {status:"learning", interval:1, ease:2.3, streak:0, mastered:false, nextReview:Date.now()};
     state.progress[current.id]=p;
     state.stats.new++;
     state.todayNewCount++;
-  } else state.stats.review++;
+  } else {
+    state.stats.review++;
+  }
 
   if (result==="correct") {
     p.streak++;
     p.interval = Math.round(p.interval * p.ease);
     p.ease = Math.min(p.ease+0.1,3);
     state.stats.correct++;
-  } else if (result==="partial") {
+  } 
+  else if (result==="partial") {
     p.interval = Math.max(1, Math.round(p.interval*0.8));
     state.stats.correct++;
-  } else {
+  } 
+  else {
     p.streak=0;
     p.interval=1;
     p.status="learning";
@@ -236,7 +236,8 @@ function updateProgress(result) {
 
   if (p.streak>=REQUIRED_STREAK && p.interval>=MASTERY_INTERVAL) {
     p.mastered=true;
-  } else if (p.interval>=3) {
+  } 
+  else if (p.interval>=3) {
     p.status="review";
   }
 
@@ -244,15 +245,33 @@ function updateProgress(result) {
   save();
 }
 
+/* ================= MASTERY BAR ================= */
+
+function masteryPercent(p) {
+  const streakPart = Math.min(p.streak / REQUIRED_STREAK, 1);
+  const intervalPart = Math.min(p.interval / MASTERY_INTERVAL, 1);
+  return Math.round((streakPart*0.5 + intervalPart*0.5) * 100);
+}
+
 /* ================= FEEDBACK ================= */
 
 function showFeedback(result) {
   let msg = result==="correct"?"✔ Correct!":result==="partial"?"⚠ Almost!":"✘ Incorrect";
-  let mastery = state.progress[current.id].mastered ? " (Mastered 🎉)" : "";
+  let p = state.progress[current.id];
+  let percent = masteryPercent(p);
+
   app.innerHTML = `
-    <h3>${msg}${mastery}</h3>
+    <h3>${msg}${p.mastered?" (Mastered 🎉)":""}</h3>
     <div>${current.en} = ${current.jp}</div>
     <div>${current.kana}</div>
+
+    <div style="margin:10px 0;">
+      <div style="background:#ddd;height:10px;border-radius:5px;">
+        <div style="background:#4caf50;height:10px;width:${percent}%;border-radius:5px;"></div>
+      </div>
+      <small>Mastery: ${percent}%</small>
+    </div>
+
     <div class="example">${current.example}</div>
     <button onclick="nextQuestion()">Next</button>
   `;
