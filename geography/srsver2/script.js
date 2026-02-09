@@ -20,7 +20,8 @@ let state = {
   nickname: localStorage.getItem("nickname"),
   activeChapters: JSON.parse(localStorage.getItem("activeChapters") || "[]"),
   progress: JSON.parse(localStorage.getItem("progress") || "{}"),
-  todayNewCount: 0,
+  todayNewCount: Number(localStorage.getItem("todayNewCount") || 0),
+
   stats: { correct: 0, wrong: 0, new: 0, review: 0 }
 };
 
@@ -215,7 +216,18 @@ function updateProgress(result) {
   let p = state.progress[current.id];
 
   if (!p) {
-    p = {status:"learning", interval:1, ease:2.3, streak:0, mastered:false, nextReview:Date.now()};
+    p = {
+  status:"learning",
+  interval:1,
+  ease:2.3,
+  streak:0,
+  mastered:false,
+  nextReview:Date.now(),
+  totalCorrect: 0,   // NEW
+  masteredInterval: RARE_REVIEW_INTERVAL
+
+
+};
     state.progress[current.id]=p;
     state.stats.new++;
     state.todayNewCount++;
@@ -224,11 +236,13 @@ function updateProgress(result) {
   }
 
   if (result==="correct") {
-    p.streak++;
-    p.interval = Math.round(p.interval * p.ease);
-    p.ease = Math.min(p.ease+0.1,3);
-    state.stats.correct++;
-  } 
+  p.streak++;
+  p.totalCorrect++;   // NEW
+  p.interval = Math.round(p.interval * p.ease);
+  p.ease = Math.min(p.ease+0.1,3);
+  state.stats.correct++;
+}
+
   else if (result==="partial") {
   p.streak = Math.max(0, p.streak - 1);
   p.interval = Math.max(1, Math.round(p.interval*0.8));
@@ -236,10 +250,18 @@ function updateProgress(result) {
 }
 
   else {
-    p.streak=0;
-    p.interval=1;
-    p.status="learning";
+  p.streak = 0;
+  p.interval = 1;
+  p.status = "learning";
+
+  if (p.mastered) {
     p.mastered = false;
+    p.justMastered = false;   // ← ADD THIS
+
+    p.masteredInterval = RARE_REVIEW_INTERVAL; // RESET growth
+  }
+
+ 
     state.stats.wrong++;
     if (!failedThisSession.has(current.id)) {
       failedThisSession.add(current.id);
@@ -249,18 +271,26 @@ function updateProgress(result) {
 
   // decide phase
 if (p.streak >= REQUIRED_STREAK && p.interval >= MASTERY_INTERVAL) {
+  if (!p.mastered) p.justMastered = true; // ← ADD THIS
   p.mastered = true;
   p.status = "mastered";
-} else if (p.interval >= 3) {
+}
+ else if (p.interval >= 3) {
   p.status = "review";
 } else {
   p.status = "learning";
 }
 
 
-  if (p.mastered) {
-  p.nextReview = Date.now() + RARE_REVIEW_INTERVAL * 86400000;
-} else {
+ if (p.mastered) {
+  if (!p.justMastered) {
+    p.masteredInterval = Math.round(p.masteredInterval * 1.8);
+  }
+  p.justMastered = false;
+  p.nextReview = Date.now() + p.masteredInterval * 86400000;
+}
+
+ else {
   p.nextReview = Date.now() + p.interval * 86400000;
 }
   save();
