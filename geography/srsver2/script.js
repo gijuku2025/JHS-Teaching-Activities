@@ -271,24 +271,39 @@ function masteryPercent(p) {
   return Math.round((streakPart*0.5 + intervalPart*0.5) * 100);
 }
 
+function masterySegments(p) {
+  const total = REQUIRED_STREAK;        // total blocks
+  const filled = Math.min(p.streak, total);
+
+  let html = "";
+  for (let i = 0; i < total; i++) {
+    if (i < filled) {
+      html += `<span style="color:#4caf50;font-size:18px;">■</span>`;
+    } else {
+      html += `<span style="color:#ccc;font-size:18px;">■</span>`;
+    }
+  }
+  return html;
+}
+
+
+
 /* ================= FEEDBACK ================= */
 
 function showFeedback(result) {
   let msg = result==="correct"?"✔ Correct!":result==="partial"?"⚠ Almost!":"✘ Incorrect";
   let p = state.progress[current.id];
-  let percent = masteryPercent(p);
+  let bars = masterySegments(p);
 
-  app.innerHTML = `
-    <h3>${msg}${p.mastered?" (Mastered 🎉)":""}</h3>
-    <div>${current.en} = ${current.jp}</div>
-    <div>${current.kana}</div>
+app.innerHTML = `
+  <h3>${msg}${p.mastered?" (Mastered 🎉)":""}</h3>
+  <div>${current.en} = ${current.jp}</div>
+  <div>${current.kana}</div>
 
-    <div style="margin:10px 0;">
-      <div style="background:#ddd;height:10px;border-radius:5px;">
-        <div style="background:#4caf50;height:10px;width:${percent}%;border-radius:5px;"></div>
-      </div>
-      <small>Mastery: ${percent}%</small>
-    </div>
+  <div style="margin:10px 0;">
+    <div>Mastery:</div>
+    <div>${bars}</div>
+  </div>
 
     <div class="example">${current.example}</div>
     <button onclick="nextQuestion()">Next</button>
