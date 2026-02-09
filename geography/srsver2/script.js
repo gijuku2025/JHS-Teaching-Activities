@@ -230,13 +230,16 @@ function updateProgress(result) {
     state.stats.correct++;
   } 
   else if (result==="partial") {
-    p.interval = Math.max(1, Math.round(p.interval*0.8));
-    state.stats.correct++;
-  } 
+  p.streak = Math.max(0, p.streak - 1);
+  p.interval = Math.max(1, Math.round(p.interval*0.8));
+  state.stats.correct++;
+}
+
   else {
     p.streak=0;
     p.interval=1;
     p.status="learning";
+    p.mastered = false;
     state.stats.wrong++;
     if (!failedThisSession.has(current.id)) {
       failedThisSession.add(current.id);
