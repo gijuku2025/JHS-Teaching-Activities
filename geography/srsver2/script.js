@@ -11,6 +11,7 @@ const MAX_NEW_PER_DAY = 10;
 const MAX_ITEMS_PER_SESSION = 20;
 const REQUIRED_STREAK = 5;
 const MASTERY_INTERVAL = 30; // days
+const RARE_REVIEW_INTERVAL = 60; // days
 
 let sessionCount = 0;
 let failedThisSession = new Set();
@@ -127,10 +128,19 @@ function buildQueues() {
     if (!p && state.todayNewCount < MAX_NEW_PER_DAY) {
       newQueue.push(item);
     } 
-    else if (p && !p.mastered && now >= p.nextReview) {
-      if (p.status === "learning") learningQueue.push(item);
-      else reviewQueue.push(item);
-    }
+    else if (p && now >= p.nextReview) {
+  if (p.mastered) {
+    // rare review of mastered words
+    reviewQueue.push(item);
+  }
+  else if (p.status === "learning") {
+    learningQueue.push(item);
+  }
+  else {
+    reviewQueue.push(item);
+  }
+}
+
   }
 
   shuffle(newQueue);
@@ -234,14 +244,22 @@ function updateProgress(result) {
     }
   }
 
-  if (p.streak>=REQUIRED_STREAK && p.interval>=MASTERY_INTERVAL) {
-    p.mastered=true;
-  } 
-  else if (p.interval>=3) {
-    p.status="review";
-  }
+  // decide phase
+if (p.streak >= REQUIRED_STREAK && p.interval >= MASTERY_INTERVAL) {
+  p.mastered = true;
+  p.status = "mastered";
+} else if (p.interval >= 3) {
+  p.status = "review";
+} else {
+  p.status = "learning";
+}
 
-  p.nextReview = Date.now()+p.interval*86400000;
+
+  if (p.mastered) {
+  p.nextReview = Date.now() + RARE_REVIEW_INTERVAL * 86400000;
+} else {
+  p.nextReview = Date.now() + p.interval * 86400000;
+}
   save();
 }
 
