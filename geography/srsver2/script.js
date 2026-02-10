@@ -207,27 +207,35 @@ function submitAnswer() {
     else if (dist<=1) result="partial";
   }
 
-  updateProgress(result);
   sessionCount++;
   showFeedback(result);
 }
 
-function updateProgress(result) {
+
+
+
+function gradeAnswer(grade) {
+  updateProgress(grade);
+  nextQuestion();
+}
+
+
+
+
+function updateProgress(grade) {
   let p = state.progress[current.id];
 
   if (!p) {
     p = {
-  status:"learning",
-  interval:1,
-  ease:2.3,
-  streak:0,
-  mastered:false,
-  nextReview:Date.now(),
-  totalCorrect: 0,   // NEW
-  masteredInterval: RARE_REVIEW_INTERVAL
-
-
-};
+      status:"learning",
+      interval:1,
+      ease:2.3,
+      streak:0,
+      mastered:false,
+      nextReview:Date.now(),
+      totalCorrect: 0,
+      masteredInterval: RARE_REVIEW_INTERVAL
+    };
     state.progress[current.id]=p;
     state.stats.new++;
     state.todayNewCount++;
@@ -235,66 +243,74 @@ function updateProgress(result) {
     state.stats.review++;
   }
 
-  if (result==="correct") {
-  p.streak++;
-  p.totalCorrect++;   // NEW
-  p.interval = Math.round(p.interval * p.ease);
-  p.ease = Math.min(p.ease+0.1,3);
-  state.stats.correct++;
-}
-
-  else if (result==="partial") {
-  p.streak = Math.max(0, p.streak - 1);
-  p.interval = Math.max(1, Math.round(p.interval*0.8));
-  state.stats.correct++;
-}
-
-  else {
+ if (grade === "again") {
   p.streak = 0;
   p.interval = 1;
   p.status = "learning";
 
   if (p.mastered) {
     p.mastered = false;
-    p.justMastered = false;   // ← ADD THIS
-
-    p.masteredInterval = RARE_REVIEW_INTERVAL; // RESET growth
+    p.masteredInterval = RARE_REVIEW_INTERVAL;
   }
 
- 
-    state.stats.wrong++;
-    if (!failedThisSession.has(current.id)) {
-      failedThisSession.add(current.id);
-      learningQueue.push(current);
-    }
+  state.stats.wrong++;
+
+  if (!failedThisSession.has(current.id)) {
+    failedThisSession.add(current.id);
+    learningQueue.push(current);
   }
 
-  // decide phase
-if (p.streak >= REQUIRED_STREAK && p.interval >= MASTERY_INTERVAL) {
-  if (!p.mastered) p.justMastered = true; // ← ADD THIS
-  p.mastered = true;
-  p.status = "mastered";
-}
- else if (p.interval >= 3) {
-  p.status = "review";
-} else {
-  p.status = "learning";
+  save();
+  return;
 }
 
 
- if (p.mastered) {
-  if (!p.justMastered) {
-    p.masteredInterval = Math.round(p.masteredInterval * 1.8);
+
+  if (grade === "hard") {
+    p.streak = Math.max(0, p.streak - 1);
+    p.interval = Math.max(1, Math.round(p.interval * 0.8));
+    p.ease = Math.max(1.5, p.ease - 0.15);
+    state.stats.correct++;
   }
-  p.justMastered = false;
-  p.nextReview = Date.now() + p.masteredInterval * 86400000;
-}
 
- else {
-  p.nextReview = Date.now() + p.interval * 86400000;
-}
+  if (grade === "good") {
+    p.streak++;
+    p.totalCorrect++;
+    p.interval = Math.round(p.interval * p.ease);
+    p.ease = Math.min(p.ease + 0.1, 3);
+    state.stats.correct++;
+  }
+
+  if (grade === "easy") {
+    p.streak += 2;
+    p.totalCorrect++;
+    p.interval = Math.round(p.interval * p.ease * 1.3);
+    p.ease = Math.min(p.ease + 0.15, 3);
+    state.stats.correct++;
+  }
+
+  if (p.streak >= REQUIRED_STREAK && p.interval >= MASTERY_INTERVAL) {
+    p.mastered = true;
+    p.status = "mastered";
+  } else if (p.interval >= 3) {
+    p.status = "review";
+  } else {
+    p.status = "learning";
+  }
+
+  if (p.mastered) {
+    p.masteredInterval = Math.min(
+      Math.round(p.masteredInterval * 1.4),
+      365
+    );
+    p.nextReview = Date.now() + p.masteredInterval * 86400000;
+  } else {
+    p.nextReview = Date.now() + p.interval * 86400000;
+  }
+
   save();
 }
+
 
 /* ================= MASTERY BAR ================= */
 
@@ -324,24 +340,33 @@ function masterySegments(p) {
 /* ================= FEEDBACK ================= */
 
 function showFeedback(result) {
-  let msg = result==="correct"?"✔ Correct!":result==="partial"?"⚠ Almost!":"✘ Incorrect";
-  let p = state.progress[current.id];
-  let bars = masterySegments(p);
+  let msg = "Check the answer and choose how well you remembered it:";
 
-app.innerHTML = `
-  <h3>${msg}${p.mastered?" (Mastered 🎉)":""}</h3>
-  <div>${current.en} = ${current.jp}</div>
-  <div>${current.kana}</div>
+  let p = state.progress[current.id] || {};
 
-  <div style="margin:10px 0;">
-    <div>Mastery:</div>
-    <div>${bars}</div>
-  </div>
+  let bars = p.streak ? masterySegments(p) : masterySegments({streak:0});
+
+  app.innerHTML = `
+    <h3>${msg}</h3>
+    <div>${current.en} = ${current.jp}</div>
+    <div>${current.kana}</div>
+
+    <div style="margin:10px 0;">
+      <div>Mastery:</div>
+      <div>${bars}</div>
+    </div>
 
     <div class="example">${current.example}</div>
-    <button onclick="nextQuestion()">Next</button>
+
+    <div style="margin-top:15px;">
+      <button onclick="gradeAnswer('again')">Again</button>
+      <button onclick="gradeAnswer('hard')">Hard</button>
+      <button onclick="gradeAnswer('good')">Good</button>
+      <button onclick="gradeAnswer('easy')">Easy</button>
+    </div>
   `;
 }
+
 
 /* ================= RESULTS ================= */
 
