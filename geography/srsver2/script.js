@@ -130,18 +130,9 @@ function buildQueues() {
       newQueue.push(item);
     } 
     else if (p && now >= p.nextReview) {
-  if (p.mastered) {
-    // rare review of mastered words
-    reviewQueue.push(item);
-  }
-  else if (p.status === "learning") {
-    learningQueue.push(item);
-  }
-  else {
-    reviewQueue.push(item);
-  }
-}
-
+      if (p.status === "learning") learningQueue.push(item);
+      else reviewQueue.push(item);
+    }
   }
 
   shuffle(newQueue);
@@ -198,6 +189,10 @@ function submitAnswer() {
   const input = document.getElementById("answer").value.trim();
   let result = "wrong";
 
+
+
+
+
   if (direction==="en-jp") {
     const a = normalizeJP(input);
     if (a===normalizeJP(current.jp) || a===normalizeJP(current.kana)) result="correct";
@@ -206,6 +201,10 @@ function submitAnswer() {
     if (dist===0) result="correct";
     else if (dist<=1) result="partial";
   }
+
+
+
+ if (result === "partial") result = "wrong";
 
   sessionCount++;
   showFeedback(result);
@@ -340,15 +339,21 @@ function masterySegments(p) {
 /* ================= FEEDBACK ================= */
 
 function showFeedback(result) {
-  let msg = "Check the answer and choose how well you remembered it:";
+  let msg =
+    result === "correct" ? "✔ Correct!" :
+    result === "partial" ? "⚠ Almost correct" :
+    "✘ Incorrect";
 
   let p = state.progress[current.id] || {};
-
   let bars = p.streak ? masterySegments(p) : masterySegments({streak:0});
 
   app.innerHTML = `
     <h3>${msg}</h3>
-    <div>${current.en} = ${current.jp}</div>
+    <div>Now choose how well you remembered it:</div>
+
+    <div style="margin-top:10px;">
+      <strong>${current.en}</strong> = ${current.jp}
+    </div>
     <div>${current.kana}</div>
 
     <div style="margin:10px 0;">
@@ -359,11 +364,12 @@ function showFeedback(result) {
     <div class="example">${current.example}</div>
 
     <div style="margin-top:15px;">
-      <button onclick="gradeAnswer('again')">Again</button>
-      <button onclick="gradeAnswer('hard')">Hard</button>
-      <button onclick="gradeAnswer('good')">Good</button>
-      <button onclick="gradeAnswer('easy')">Easy</button>
-    </div>
+  <button onclick="gradeAnswer('again')">Again</button>
+  <button onclick="gradeAnswer('hard')">Hard</button>
+  <button onclick="gradeAnswer('good')">Good</button>
+  ${result==="wrong" ? "" : `<button onclick="gradeAnswer('easy')">Easy</button>`}
+</div>
+
   `;
 }
 
