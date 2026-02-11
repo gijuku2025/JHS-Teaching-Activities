@@ -130,9 +130,15 @@ function buildQueues() {
       newQueue.push(item);
     } 
     else if (p && now >= p.nextReview) {
-      if (p.status === "learning") learningQueue.push(item);
-      else reviewQueue.push(item);
-    }
+  if (p.status === "learning") {
+    learningQueue.push(item);
+  } else if (p.status === "mastered") {
+    reviewQueue.push(item); // rare reviews only
+  } else {
+    reviewQueue.push(item);
+  }
+}
+
   }
 
   shuffle(newQueue);
@@ -156,7 +162,8 @@ function nextQuestion() {
   app.innerHTML = `
     <div class="word">${prompt}</div>
     <div>${label}</div>
-    <input id="answer">
+   <input id="answer" autofocus>
+
     <button onclick="submitAnswer()">Submit</button>
   `;
 }
@@ -189,25 +196,35 @@ function submitAnswer() {
   const input = document.getElementById("answer").value.trim();
   let result = "wrong";
 
-
-
-
-
-  if (direction==="en-jp") {
+  if (direction === "en-jp") {
     const a = normalizeJP(input);
-    if (a===normalizeJP(current.jp) || a===normalizeJP(current.kana)) result="correct";
+    if (
+      a === normalizeJP(current.jp) ||
+      (current.kana && a === normalizeJP(current.kana))
+    ) {
+      result = "correct";
+    }
   } else {
-    const dist = levenshtein(input.toLowerCase(), current.en.toLowerCase());
-    if (dist===0) result="correct";
-    else if (dist<=1) result="partial";
+    const dist = levenshtein(
+      input.toLowerCase(),
+      current.en.toLowerCase()
+    );
+    if (dist === 0) result = "correct";
+    else if (dist <= 1) result = "partial";
   }
 
-
-
- if (result === "partial") result = "wrong";
-
   sessionCount++;
-  showFeedback(result);
+
+  if (result === "wrong") {
+  state.stats.wrong++;
+  showFeedback("wrong");
+  return;
+}
+
+// count successful recall here
+state.stats.correct++;
+showFeedback(result);
+
 }
 
 
@@ -233,7 +250,9 @@ function updateProgress(grade) {
       mastered:false,
       nextReview:Date.now(),
       totalCorrect: 0,
-      masteredInterval: RARE_REVIEW_INTERVAL
+      masteredInterval: RARE_REVIEW_INTERVAL,
+      lapses: 0 
+
     };
     state.progress[current.id]=p;
     state.stats.new++;
@@ -243,6 +262,8 @@ function updateProgress(grade) {
   }
 
  if (grade === "again") {
+  p.lapses = (p.lapses || 0) + 1;
+
   p.streak = 0;
   p.interval = 1;
   p.status = "learning";
@@ -252,7 +273,10 @@ function updateProgress(grade) {
     p.masteredInterval = RARE_REVIEW_INTERVAL;
   }
 
-  state.stats.wrong++;
+  // stronger ease penalty based on lapse history
+  p.ease = Math.max(1.3, p.ease - 0.2 - (p.lapses * 0.05));
+
+  
 
   if (!failedThisSession.has(current.id)) {
     failedThisSession.add(current.id);
@@ -265,11 +289,12 @@ function updateProgress(grade) {
 
 
 
+
   if (grade === "hard") {
     p.streak = Math.max(0, p.streak - 1);
     p.interval = Math.max(1, Math.round(p.interval * 0.8));
     p.ease = Math.max(1.5, p.ease - 0.15);
-    state.stats.correct++;
+    
   }
 
   if (grade === "good") {
@@ -277,7 +302,7 @@ function updateProgress(grade) {
     p.totalCorrect++;
     p.interval = Math.round(p.interval * p.ease);
     p.ease = Math.min(p.ease + 0.1, 3);
-    state.stats.correct++;
+    
   }
 
   if (grade === "easy") {
@@ -285,7 +310,7 @@ function updateProgress(grade) {
     p.totalCorrect++;
     p.interval = Math.round(p.interval * p.ease * 1.3);
     p.ease = Math.min(p.ease + 0.15, 3);
-    state.stats.correct++;
+    
   }
 
   if (p.streak >= REQUIRED_STREAK && p.interval >= MASTERY_INTERVAL) {
@@ -313,15 +338,14 @@ function updateProgress(grade) {
 
 /* ================= MASTERY BAR ================= */
 
-function masteryPercent(p) {
-  const streakPart = Math.min(p.streak / REQUIRED_STREAK, 1);
-  const intervalPart = Math.min(p.interval / MASTERY_INTERVAL, 1);
-  return Math.round((streakPart*0.5 + intervalPart*0.5) * 100);
-}
 
 function masterySegments(p) {
-  const total = REQUIRED_STREAK;        // total blocks
-  const filled = Math.min(p.streak, total);
+  const total = REQUIRED_STREAK;
+
+  // cap bar until actually mastered
+  const filled = p.mastered
+    ? total
+    : Math.min(p.streak, total - 1);
 
   let html = "";
   for (let i = 0; i < total; i++) {
@@ -336,16 +360,20 @@ function masterySegments(p) {
 
 
 
+
 /* ================= FEEDBACK ================= */
 
 function showFeedback(result) {
   let msg =
-    result === "correct" ? "✔ Correct!" :
-    result === "partial" ? "⚠ Almost correct" :
-    "✘ Incorrect";
+  result === "correct" ? "✔ Correct!" :
+  result === "partial" ? "⚠ Almost correct" :
+  "✘ Incorrect";
+
+
 
   let p = state.progress[current.id] || {};
-  let bars = p.streak ? masterySegments(p) : masterySegments({streak:0});
+  let bars = masterySegments(p || { streak: 0, mastered: false });
+
 
   app.innerHTML = `
     <h3>${msg}</h3>
@@ -357,18 +385,27 @@ function showFeedback(result) {
     <div>${current.kana}</div>
 
     <div style="margin:10px 0;">
-      <div>Mastery:</div>
-      <div>${bars}</div>
-    </div>
+  <div>Mastery:</div>
+  <div>
+    ${bars} ${p.mastered ? "⭐ Mastered!" : ""}
+  </div>
+</div>
+
 
     <div class="example">${current.example}</div>
 
     <div style="margin-top:15px;">
-  <button onclick="gradeAnswer('again')">Again</button>
-  <button onclick="gradeAnswer('hard')">Hard</button>
-  <button onclick="gradeAnswer('good')">Good</button>
-  ${result==="wrong" ? "" : `<button onclick="gradeAnswer('easy')">Easy</button>`}
+  ${
+    result === "wrong"
+    ? `<button onclick="gradeAnswer('again')">Again</button>`
+    : `
+      <button onclick="gradeAnswer('hard')">Hard</button>
+      <button onclick="gradeAnswer('good')">Good</button>
+      <button onclick="gradeAnswer('easy')">Easy</button>
+    `
+  }
 </div>
+
 
   `;
 }
