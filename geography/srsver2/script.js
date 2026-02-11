@@ -430,7 +430,7 @@ function showResults() {
   const now = new Date();
   const chapters = state.activeChapters.map(ch=>ch.replace("chapter","")).join(", ");
   app.innerHTML = `
-    <h2>Junior High Geography SRS</h2>
+    <h2>Smart Review – Junior High Geography</h2>
     <p>Nickname: ${state.nickname}</p>
     <p>Date: ${now.toLocaleDateString()}</p>
     <p>Chapters studied: ${chapters}</p>
