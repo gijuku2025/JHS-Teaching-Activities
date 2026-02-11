@@ -74,10 +74,14 @@ function setNickname() {
 
 function showChapterScreen() {
   let html = `
-    <h2>Smart Review</h2>
-    <h3>Select chapters</h3>
+    <div style="text-align:center; margin-bottom:20px;">
+      <h2>Welcome to Smart Review</h2>
+      <h3>${state.nickname}</h3>
+    </div>
+    <h3 style="text-align:center;">Select chapters</h3>
     <div class="chapter-grid">
   `;
+
 
   CHAPTER_FILES.forEach((ch,i)=>{
     const selected = state.activeChapters.includes(ch) ? "selected":"";
