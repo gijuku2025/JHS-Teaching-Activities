@@ -32,9 +32,11 @@ body {
 
 
 
-.heading { 
-  font-family: 'Bungee', cursive; 
+.heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
 }
+
 
 .center { 
   text-align: center; 
@@ -44,13 +46,18 @@ button, input {
   font-size: 1.1em;
   padding: 12px 18px;
   border-radius: 999px;
-  border: none;
+  border: 2px solid #ccc;
 }
 
 button {
   background: gold;
   color: #46178f;
   font-weight: bold;
+}
+
+input:focus {
+  outline: none;
+  border-color: gold;
 }
 
 .card {
