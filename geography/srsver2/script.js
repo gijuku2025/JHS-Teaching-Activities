@@ -58,11 +58,18 @@ function resetDailyCountIfNeeded() {
 
 function showNicknameScreen() {
   app.innerHTML = `
-    <h2>Enter your name</h2>
-    <input id="nickInput">
-    <button onclick="setNickname()">Start</button>
+    <div class="center">
+      <div class="card">
+        <h1 class="heading">Smart Review</h1>
+        <p>Enter your nickname to begin:</p>
+        <input id="nickInput" placeholder="Nickname">
+        <br><br>
+        <button onclick="setNickname()">Continue</button>
+      </div>
+    </div>
   `;
 }
+
 
 function setNickname() {
   const val = document.getElementById("nickInput").value.trim();
@@ -74,22 +81,31 @@ function setNickname() {
 
 function showChapterScreen() {
   let html = `
-    <div style="text-align:center; margin-bottom:20px;">
-      <h2>Welcome to Smart Review</h2>
-      <h3>${state.nickname}</h3>
-    </div>
-    <h3 style="text-align:center;">Select chapters</h3>
-    <div class="chapter-grid">
+    <div class="center">
+      <div class="card">
+        <h2 class="heading">Welcome to Smart Review, ${state.nickname}</h2>
+        <p>Select chapters</p>
+        <div class="chapter-grid">
   `;
-
 
   CHAPTER_FILES.forEach((ch,i)=>{
     const selected = state.activeChapters.includes(ch) ? "selected":"";
     html += `<div class="chapter-tile ${selected}" onclick="toggleChapter('${ch}',this)">${i+1}</div>`;
   });
-  html += `</div><button onclick="startStudy()">Save & Start Study</button>`;
+
+  html += `
+        </div>
+        <button onclick="startStudy()">Start Study</button>
+      </div>
+    </div>
+  `;
+
   app.innerHTML = html;
 }
+
+
+
+ 
 
 function toggleChapter(ch, el) {
   if (state.activeChapters.includes(ch)) {
