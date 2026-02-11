@@ -61,7 +61,7 @@ function showNicknameScreen() {
     <div class="center">
       <div class="card">
         <h1 class="heading">Smart Review</h1>
-        <p>Enter your nickname to begin:</p>
+        <p>Enter your name to begin:</p>
         <input id="nickInput" placeholder="Nickname">
         <br><br>
         <button onclick="setNickname()">Continue</button>
