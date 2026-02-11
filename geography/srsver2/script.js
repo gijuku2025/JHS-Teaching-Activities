@@ -73,7 +73,12 @@ function setNickname() {
 }
 
 function showChapterScreen() {
-  let html = `<h2>Select chapters</h2><div class="chapter-grid">`;
+  let html = `
+    <h2>Smart Review</h2>
+    <h3>Select chapters</h3>
+    <div class="chapter-grid">
+  `;
+
   CHAPTER_FILES.forEach((ch,i)=>{
     const selected = state.activeChapters.includes(ch) ? "selected":"";
     html += `<div class="chapter-tile ${selected}" onclick="toggleChapter('${ch}',this)">${i+1}</div>`;
