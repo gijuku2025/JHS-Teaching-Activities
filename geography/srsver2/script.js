@@ -58,7 +58,7 @@ function resetDailyCountIfNeeded() {
 
 function showNicknameScreen() {
   app.innerHTML = `
-    <h2>Enter your nickname</h2>
+    <h2>Enter your name</h2>
     <input id="nickInput">
     <button onclick="setNickname()">Start</button>
   `;
