@@ -217,9 +217,22 @@ function submitAnswer() {
 
   if (result === "wrong") {
   state.stats.wrong++;
-  showFeedback("wrong");
+
+  // automatically apply "again"
+  updateProgress("again");
+
+  // show simple feedback (no grading buttons)
+  app.innerHTML = `
+    <h3>✘ Incorrect</h3>
+    <div><strong>${current.en}</strong> = ${current.jp}</div>
+    <div>${current.kana || ""}</div>
+    <div class="example">${current.example || ""}</div>
+    <p>We’ll try this again later.</p>
+    <button onclick="nextQuestion()">Continue</button>
+  `;
   return;
 }
+
 
 // count successful recall here
 state.stats.correct++;
