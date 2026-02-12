@@ -416,7 +416,9 @@ function showFeedback(result) {
   let bars = masterySegments(p || { streak: 0, mastered: false });
 
 
-  app.innerHTML = `
+ app.innerHTML = `
+  <div class="center">
+
     <h3>${msg}</h3>
     <div>Now choose how well you remembered it:</div>
 
@@ -426,26 +428,29 @@ function showFeedback(result) {
     <div>${current.kana}</div>
 
     <div style="margin:10px 0;">
-  <div>Mastery:</div>
-  <div>
-    ${bars} ${p.mastered ? "⭐ Mastered!" : ""}
-  </div>
-</div>
-
+      <div>Mastery:</div>
+      <div>
+        ${bars} ${p.mastered ? "⭐ Mastered!" : ""}
+      </div>
+    </div>
 
     <div class="example">${current.example}</div>
 
     <div style="margin-top:15px;">
-  ${
-    result === "wrong"
-    ? `<button onclick="gradeAnswer('again')">Again</button>`
-    : `
-      <button onclick="gradeAnswer('hard')">Hard</button>
-      <button onclick="gradeAnswer('good')">Good</button>
-      <button onclick="gradeAnswer('easy')">Easy</button>
-    `
-  }
-</div>
+      ${
+        result === "wrong"
+        ? `<button onclick="gradeAnswer('again')">Again</button>`
+        : `
+          <button onclick="gradeAnswer('hard')">Hard</button>
+          <button onclick="gradeAnswer('good')">Good</button>
+          <button onclick="gradeAnswer('easy')">Easy</button>
+        `
+      }
+    </div>
+
+  </div>
+`;
+
 
 
   `;
