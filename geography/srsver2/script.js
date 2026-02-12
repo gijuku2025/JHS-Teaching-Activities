@@ -187,7 +187,8 @@ function nextQuestion() {
   app.innerHTML = `
     <div class="word">${prompt}</div>
     <div>${label}</div>
-   <input id="answer" autofocus>
+   <input id="answer" class="answer-input" autofocus>
+
 
     <button onclick="submitAnswer()">Submit</button>
   `;
