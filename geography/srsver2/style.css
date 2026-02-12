@@ -1,10 +1,12 @@
 
 
 .word {
-  font-size: 32px;
+  font-size: 40px;
+  font-weight: 700;
   text-align: center;
-  margin: 20px 0;
+  margin: 30px 0 15px;
 }
+
 
 .example {
   margin-top: 10px;
@@ -30,13 +32,30 @@ body {
   padding: 20px;
 }
 
+.prompt-label {
+  font-size: 0.95em;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
 
 .answer-input {
   display: block;
   margin: 10px auto;
   text-align: center;
+   width: 70%;
+  max-width: 320px;
 }
 
+.feedback-title {
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+.feedback-word {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
 
 .heading {
   font-family: 'Inter', sans-serif;
@@ -50,16 +69,20 @@ body {
 
 button, input {
   font-size: 1.1em;
-  padding: 12px 18px;
+  padding: 14px 22px;
   border-radius: 999px;
-  border: 2px solid #ccc;
+  border: 2px solid #ddd;
 }
+
 
 button {
   background: gold;
   color: #46178f;
   font-weight: bold;
+  font-size: 1.15em;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
 }
+
 
 input:focus {
   outline: none;
