@@ -453,10 +453,6 @@ function showFeedback(result) {
 
 
 
-  `;
-}
-
-
 /* ================= RESULTS ================= */
 
 function showResults() {
