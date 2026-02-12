@@ -31,6 +31,12 @@ body {
 }
 
 
+.answer-input {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+}
+
 
 .heading {
   font-family: 'Inter', sans-serif;
