@@ -186,13 +186,10 @@ function nextQuestion() {
 
   app.innerHTML = `
   <div class="word">${prompt}</div>
-  <div class="center">${label}</div>
-  <input id="answer" class="answer-input" autofocus>
-
-  <div class="center">
-    <button onclick="submitAnswer()">Submit</button>
-  </div>
+  <div class="prompt-label center">${label}</div>
+  <input id="answer" class="answer-input" autofocus onkeydown="if(event.key==='Enter') submitAnswer()">
 `;
+
 
 }
 
@@ -406,50 +403,52 @@ function masterySegments(p) {
 
 function showFeedback(result) {
   let msg =
-  result === "correct" ? "✔ Correct!" :
-  result === "partial" ? "⚠ Almost correct" :
-  "✘ Incorrect";
+    result === "correct" ? "✔ Correct!" :
+    result === "partial" ? "⚠ Almost correct" :
+    "✘ Incorrect";
 
+  let p = state.progress[current.id] || { streak: 0, mastered: false };
+  let bars = masterySegments(p);
 
+  app.innerHTML = `
+    <div class="center">
+      <div class="card">
 
-  let p = state.progress[current.id] || {};
-  let bars = masterySegments(p || { streak: 0, mastered: false });
+        <h3 class="feedback-title">${msg}</h3>
 
+        <div>Now choose how well you remembered it:</div>
 
- app.innerHTML = `
-  <div class="center">
+        <div class="feedback-word">
+          <strong>${current.en}</strong> = ${current.jp}
+        </div>
 
-    <h3>${msg}</h3>
-    <div>Now choose how well you remembered it:</div>
+        <div>${current.kana || ""}</div>
 
-    <div style="margin-top:10px;">
-      <strong>${current.en}</strong> = ${current.jp}
-    </div>
-    <div>${current.kana}</div>
+        <div style="margin:10px 0;">
+          <div>Mastery:</div>
+          <div>
+            ${bars} ${p.mastered ? "⭐ Mastered!" : ""}
+          </div>
+        </div>
 
-    <div style="margin:10px 0;">
-      <div>Mastery:</div>
-      <div>
-        ${bars} ${p.mastered ? "⭐ Mastered!" : ""}
+        <div class="example">${current.example || ""}</div>
+
+        <div style="margin-top:15px;">
+          ${
+            result === "wrong"
+              ? `<button onclick="gradeAnswer('again')">Again</button>`
+              : `
+                <button onclick="gradeAnswer('hard')">Hard</button>
+                <button onclick="gradeAnswer('good')">Good</button>
+                <button onclick="gradeAnswer('easy')">Easy</button>
+              `
+          }
+        </div>
+
       </div>
     </div>
-
-    <div class="example">${current.example}</div>
-
-    <div style="margin-top:15px;">
-      ${
-        result === "wrong"
-        ? `<button onclick="gradeAnswer('again')">Again</button>`
-        : `
-          <button onclick="gradeAnswer('hard')">Hard</button>
-          <button onclick="gradeAnswer('good')">Good</button>
-          <button onclick="gradeAnswer('easy')">Easy</button>
-        `
-      }
-    </div>
-
-  </div>
-`;
+  `;
+}
 
 
 
