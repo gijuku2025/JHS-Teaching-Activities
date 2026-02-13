@@ -8,15 +8,15 @@
 .example {
   margin-top: 10px;
   font-style: italic;
-  color: #666;
+  color: #555;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #fff3e0; /* warm light orange */
-  color: #222;
+  background: #eef5f8; /* calm light blue */
+  color: #1f2937;
   margin: 0;
   min-height: 100vh;
 }
@@ -29,7 +29,7 @@ body {
 
 .prompt-label {
   font-size: 0.95em;
-  color: #666;
+  color: #6b7280;
   margin-bottom: 10px;
 }
 
@@ -39,11 +39,11 @@ body {
   height: 10px;
   margin: 0 4px;
   border-radius: 6px;
-  background: #ddd;
+  background: #cbd5e1;
 }
 
 .mastery-seg.filled {
-  background: #fbc02d; /* reward yellow */
+  background: #22c55e; /* growth green */
 }
 
 .answer-input {
@@ -77,34 +77,34 @@ button, input {
   font-size: 1.1em;
   padding: 14px 22px;
   border-radius: 999px;
-  border: 2px solid #ddd;
+  border: 2px solid #cbd5e1;
 }
 
 button {
-  background: #e53935; /* energetic red */
+  background: #2563eb; /* calm blue */
   color: white;
   font-weight: bold;
   font-size: 1.15em;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.15);
 }
 
 button:hover {
-  background: #d32f2f;
+  background: #1d4ed8;
 }
 
 input:focus {
   outline: none;
-  border-color: #e53935;
+  border-color: #2563eb;
 }
 
 .card {
   background: #ffffff;
-  color: #222;
+  color: #1f2937;
   padding: 30px;
   border-radius: 20px;
   max-width: 600px;
   margin: 40px auto;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 .chapter-grid {
@@ -117,17 +117,17 @@ input:focus {
 
 .chapter-tile {
   background: #ffffff;
-  color: #222;
+  color: #1f2937;
   padding: 14px;
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
   font-weight: bold;
-  border: 2px solid #ddd;
+  border: 2px solid #cbd5e1;
 }
 
 .chapter-tile.selected {
-  background: #e53935;
+  background: #2563eb;
   color: white;
-  border-color: #e53935;
+  border-color: #2563eb;
 }
