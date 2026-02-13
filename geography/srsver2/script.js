@@ -187,8 +187,15 @@ function nextQuestion() {
   app.innerHTML = `
   <div class="word">${prompt}</div>
   <div class="prompt-label center">${label}</div>
-  <input id="answer" class="answer-input" autofocus onkeydown="if(event.key==='Enter') submitAnswer()">
+
+  <input id="answer" class="answer-input" autofocus
+         onkeydown="if(event.key==='Enter') submitAnswer()">
+
+  <div class="center" style="margin-top:15px;">
+    <button onclick="submitAnswer()">Submit</button>
+  </div>
 `;
+
 
 
 }
