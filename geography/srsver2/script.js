@@ -415,9 +415,9 @@ function masterySegments(p) {
   let html = "";
   for (let i = 0; i < total; i++) {
     if (i < filled) {
-      html += `<span style="color:#4caf50;font-size:18px;">■</span>`;
+      html += `<span class="mastery-seg filled"></span>`;
     } else {
-      html += `<span style="color:#ccc;font-size:18px;">■</span>`;
+      html += `<span class="mastery-seg"></span>`;
     }
   }
   return html;
