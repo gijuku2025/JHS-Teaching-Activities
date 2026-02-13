@@ -171,6 +171,24 @@ function buildQueues() {
   shuffle(reviewQueue);
 }
 
+
+function renderProgress() {
+  const currentNum = sessionCount + 1;
+  const total = MAX_ITEMS_PER_SESSION;
+  const percent = Math.min((sessionCount / total) * 100, 100);
+
+  return `
+    <div class="progress-text">
+      Question ${currentNum} / ${total}
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:${percent}%"></div>
+    </div>
+  `;
+}
+
+
+
 function nextQuestion() {
   if (sessionCount >= MAX_ITEMS_PER_SESSION) return showResults();
   if (!reviewQueue.length && !learningQueue.length && !newQueue.length) return showResults();
@@ -188,6 +206,8 @@ function nextQuestion() {
   <div class="center">
     <div class="card">
 
+    ${renderProgress()}
+    
       <div class="word">${prompt}</div>
       <div class="prompt-label center">${label}</div>
 
