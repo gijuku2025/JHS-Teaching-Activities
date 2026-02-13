@@ -83,7 +83,7 @@ function showChapterScreen() {
   let html = `
     <div class="center">
       <div class="card">
-        <h2 class="heading">Welcome, ${state.nickname}</h2>
+        <h2 class="heading">Welcome to Smart Review, ${state.nickname}</h2>
         <p style="margin:5px 0;">Select chapters</p>
 
         <div class="chapter-grid">
