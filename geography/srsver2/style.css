@@ -135,3 +135,13 @@ input:focus {
   color: white;
   border-color: #2563eb;
 }
+
+.correct {
+  color: #16a34a; /* green */
+  font-weight: 700;
+}
+
+.incorrect {
+  color: #dc2626; /* red */
+  font-weight: 700;
+}
