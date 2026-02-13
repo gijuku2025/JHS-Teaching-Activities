@@ -185,16 +185,23 @@ function nextQuestion() {
   const label = direction==="en-jp"?"日本語でタイプ:":"Type the English word:";
 
   app.innerHTML = `
-  <div class="word">${prompt}</div>
-  <div class="prompt-label center">${label}</div>
+  <div class="center">
+    <div class="card">
 
-  <input id="answer" class="answer-input" autofocus
-         onkeydown="if(event.key==='Enter') submitAnswer()">
+      <div class="word">${prompt}</div>
+      <div class="prompt-label center">${label}</div>
 
-  <div class="center" style="margin-top:15px;">
-    <button onclick="submitAnswer()">Submit</button>
+      <input id="answer" class="answer-input" autofocus
+             onkeydown="if(event.key==='Enter') submitAnswer()">
+
+      <div class="center" style="margin-top:15px;">
+        <button onclick="submitAnswer()">Submit</button>
+      </div>
+
+    </div>
   </div>
 `;
+
 
 
 
