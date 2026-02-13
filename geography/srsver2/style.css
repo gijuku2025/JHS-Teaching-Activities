@@ -39,6 +39,20 @@ body {
 }
 
 
+.mastery-seg {
+  display: inline-block;
+  width: 26px;
+  height: 10px;
+  margin: 0 4px;
+  border-radius: 6px;
+  background: #555;
+}
+
+.mastery-seg.filled {
+  background: gold;
+}
+
+
 .answer-input {
   display: block;
   margin: 10px auto;
