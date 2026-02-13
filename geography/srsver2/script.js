@@ -240,7 +240,7 @@ function submitAnswer() {
 
   sessionCount++;
 
-  if (result === "wrong") {
+ if (result === "wrong") {
   state.stats.wrong++;
 
   // automatically apply "again"
@@ -248,15 +248,28 @@ function submitAnswer() {
 
   // show simple feedback (no grading buttons)
   app.innerHTML = `
-    <h3>✘ Incorrect</h3>
-    <div><strong>${current.en}</strong> = ${current.jp}</div>
-    <div>${current.kana || ""}</div>
-    <div class="example">${current.example || ""}</div>
-    <p>We’ll try this again later.</p>
-    <button onclick="nextQuestion()">Continue</button>
+    <div class="center">
+      <div class="card">
+
+        <h3 class="feedback-title">✘ Incorrect</h3>
+
+        <div class="feedback-word">
+          <strong>${current.en}</strong> = ${current.jp}
+        </div>
+
+        <div>${current.kana || ""}</div>
+        <div class="example">${current.example || ""}</div>
+
+        <p>We’ll try this again later.</p>
+
+        <button onclick="nextQuestion()">Continue</button>
+
+      </div>
+    </div>
   `;
   return;
 }
+
 
 
 // count successful recall here
