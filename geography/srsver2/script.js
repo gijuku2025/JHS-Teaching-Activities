@@ -287,7 +287,8 @@ function submitAnswer() {
     <div class="center">
       <div class="card">
 
-        <h3 class="feedback-title">✘ Incorrect</h3>
+       <h3 class="feedback-title incorrect">✘ Incorrect</h3>
+
 
         <div class="feedback-word">
           <strong>${current.en}</strong> = ${current.jp}
@@ -463,7 +464,10 @@ function showFeedback(result) {
     <div class="center">
       <div class="card">
 
-        <h3 class="feedback-title">${msg}</h3>
+        <h3 class="feedback-title ${result === "correct" ? "correct" : result === "wrong" ? "incorrect" : ""}">
+  ${msg}
+</h3>
+
 
         <div>Now choose how well you remembered it:</div>
 
