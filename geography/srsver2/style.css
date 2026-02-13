@@ -11,8 +11,9 @@
 .example {
   margin-top: 10px;
   font-style: italic;
-  color: #ddd;
+  color: #666;
 }
+
 
 
 
@@ -20,11 +21,12 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle, #6b21a8 0%, #46178f 100%);
-  color: white;
+  background: #e6f2ff;
+  color: #222;
   margin: 0;
   min-height: 100vh;
 }
+
 
 #app {
   max-width: 600px;
@@ -34,9 +36,10 @@ body {
 
 .prompt-label {
   font-size: 0.95em;
-  opacity: 0.8;
+  color: #666;
   margin-bottom: 10px;
 }
+
 
 
 .mastery-seg {
@@ -49,7 +52,7 @@ body {
 }
 
 .mastery-seg.filled {
-  background: gold;
+  background: #388e3c;
 }
 
 
@@ -90,12 +93,13 @@ button, input {
 
 
 button {
-  background: gold;
-  color: #46178f;
+  background: #f57c00;
+  color: white;
   font-weight: bold;
   font-size: 1.15em;
   box-shadow: 0 4px 0 rgba(0,0,0,0.2);
 }
+
 
 
 input:focus {
@@ -104,14 +108,15 @@ input:focus {
 }
 
 .card {
-  background: rgba(0, 0, 0, 0.25); /* slightly dark, semi-transparent */
-  color: white;
-  padding: 25px;
+  background: #ffffff;
+  color: #222;
+  padding: 30px;
   border-radius: 20px;
   max-width: 600px;
   margin: 40px auto;
-  backdrop-filter: blur(4px); /* soft glass effect (optional but nice) */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
+
 
 
 
@@ -124,18 +129,23 @@ input:focus {
 }
 
 .chapter-tile {
-  background: white;
-  color: #46178f;
+  background: #ffffff;
+  color: #222;
   padding: 14px;
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
   font-weight: bold;
+  border: 2px solid #ddd;
 }
 
+
 .chapter-tile.selected {
-  background: gold;
+  background: #f57c00;
+  color: white;
+  border-color: #f57c00;
 }
+
 
 
 .progress-text {
