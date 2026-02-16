@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Civics Ch 6 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "Civics Ch 6 Listen and Learn";
+
+const sentences = [
+            { en: "Sometimes the government starts companies, such as water companies, gas companies and hospitals.", jp: "時々、政府は水道会社やガス会社、病院などの会社を始める。", enAudio: "audio/01_sometimes_the_government_start_en.mp3", jpAudio: "audio/01_sometimes_the_government_start_jp.mp3" },
+  { en: "The government doesn’t start them to make profit.", jp: "政府はそれらを利益を上げるために始めるのではない。", enAudio: "audio/02_the_government_doesnt_start_th_en.mp3", jpAudio: "audio/02_the_government_doesnt_start_th_jp.mp3" },
+  { en: "It starts them to give people a service.", jp: "人々にサービスを与えるために始める。", enAudio: "audio/03_it_starts_them_to_give_people__en.mp3", jpAudio: "audio/03_it_starts_them_to_give_people__jp.mp3" },
+  { en: "Companies that people start to make profit are called private enterprises.", jp: "利益を上げるために人々が始める会社は私企業と呼ばれる。", enAudio: "audio/04_companies_that_people_start_to_en.mp3", jpAudio: "audio/04_companies_that_people_start_to_jp.mp3" },
+  { en: "Companies that governments start to give a service are called public enterprises.", jp: "サービスを与えるために政府が始める会社は公企業と呼ばれる。", enAudio: "audio/05_companies_that_governments_sta_en.mp3", jpAudio: "audio/05_companies_that_governments_sta_jp.mp3" },
+  { en: "Companies with a lot of capital and many workers are called large corporations.", jp: "たくさんの資本と多くの従業員を持つ会社は大企業と呼ばれる。", enAudio: "audio/06_companies_with_a_lot_of_capita_en.mp3", jpAudio: "audio/06_companies_with_a_lot_of_capita_jp.mp3" },
+  { en: "Companies with less capital and fewer workers are called small to medium-sized companies.", jp: "資本がより少なく、従業員がより少ない会社は中小企業と呼ばれる。", enAudio: "audio/07_companies_with_less_capital_an_en.mp3", jpAudio: "audio/07_companies_with_less_capital_an_jp.mp3" },
+  { en: "In Japan, 99 percent of all companies are small to medium-sized companies.", jp: "日本では、すべての会社の99パーセントが中小企業である。", enAudio: "audio/08_in_japan_99_percent_of_all_com_en.mp3", jpAudio: "audio/08_in_japan_99_percent_of_all_com_jp.mp3" },
+  { en: "Many small to medium-sized companies make parts for large corporations such as car companies.", jp: "多くの中小企業は自動車会社などの大企業のために部品を作る。", enAudio: "audio/09_many_small_to_mediumsized_comp_en.mp3", jpAudio: "audio/09_many_small_to_mediumsized_comp_jp.mp3" },
+  { en: "Sometimes they have very advanced technology, and they help large corporations decrease costs.", jp: "時々、とても進んだ技術を持ち、大企業が費用を減らすのを助ける。", enAudio: "audio/10_sometimes_they_have_very_advan_en.mp3", jpAudio: "audio/10_sometimes_they_have_very_advan_jp.mp3" },
+  { en: "Companies cannot make profit without society.", jp: "会社は社会がなければ利益を上げられない。", enAudio: "audio/11_companies_cannot_make_profit_w_en.mp3", jpAudio: "audio/11_companies_cannot_make_profit_w_jp.mp3" },
+  { en: "This is called corporate social responsibility.", jp: "これは企業の社会的責任と呼ばれる。", enAudio: "audio/12_this_is_called_corporate_socia_en.mp3", jpAudio: "audio/12_this_is_called_corporate_socia_jp.mp3" },
+];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
