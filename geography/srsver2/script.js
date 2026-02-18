@@ -521,18 +521,29 @@ function showResults() {
   const now = new Date();
   const chapters = state.activeChapters.map(ch=>ch.replace("chapter","")).join(", ");
   app.innerHTML = `
-    <h2>Smart Review – Junior High Geography</h2>
-    <p>Nickname: ${state.nickname}</p>
-    <p>Date: ${now.toLocaleDateString()}</p>
-    <p>Chapters studied: ${chapters}</p>
-    <p>New: ${state.stats.new}</p>
-    <p>Review: ${state.stats.review}</p>
-    <p>Correct: ${state.stats.correct}</p>
-    <p>Incorrect: ${state.stats.wrong}</p>
-    <p>Accuracy: ${Math.round(state.stats.correct/(state.stats.correct+state.stats.wrong)*100)||0}%</p>
-    <p><strong>Great work today!</strong></p>
+    <div class="center">
+      <div class="card">
+
+        <h2>Smart Review – Junior High Geography</h2>
+        <h3>${state.nickname}</h3>
+
+        <p>Date: ${now.toLocaleDateString()}</p>
+        <p>Chapters studied: ${chapters}</p>
+
+        <p>New: ${state.stats.new}</p>
+        <p>Review: ${state.stats.review}</p>
+        <p>Correct: ${state.stats.correct}</p>
+        <p>Incorrect: ${state.stats.wrong}</p>
+
+        <p>Accuracy: ${Math.round(state.stats.correct/(state.stats.correct+state.stats.wrong)*100)||0}%</p>
+
+        <p><strong>Great work today!</strong></p>
+
+      </div>
+    </div>
   `;
 }
+
 
 /* ================= UTILS ================= */
 
