@@ -15,6 +15,8 @@ const RARE_REVIEW_INTERVAL = 60; // days
 
 let sessionCount = 0;
 let failedThisSession = new Set();
+let sessionStartTime = null;
+
 
 let state = {
   nickname: localStorage.getItem("nickname"),
@@ -136,6 +138,7 @@ async function loadVocab() {
 async function startStudy() {
   if (state.activeChapters.length===0) return alert("Select at least one chapter.");
   resetDailyCountIfNeeded();
+  sessionStartTime = Date.now();
   sessionCount = 0;
   failedThisSession = new Set();
   state.stats = { correct: 0, wrong: 0, new: 0, review: 0 };
@@ -520,29 +523,44 @@ function showFeedback(result) {
 function showResults() {
   const now = new Date();
   const chapters = state.activeChapters.map(ch=>ch.replace("chapter","")).join(", ");
+
+const elapsed = sessionStartTime ? Date.now() - sessionStartTime : 0;
+const totalSeconds = Math.floor(elapsed / 1000);
+const minutes = Math.floor(totalSeconds / 60);
+const seconds = totalSeconds % 60;
+
+
   app.innerHTML = `
     <div class="center">
       <div class="card">
 
         <h2>Smart Review – Junior High Geography</h2>
-        <h3>${state.nickname}</h3>
 
-        <p>Date: ${now.toLocaleDateString()}</p>
-        <p>Chapters studied: ${chapters}</p>
+        <!-- student name stays centered -->
+        <h3 style="text-align:center;">${state.nickname}</h3>
 
-        <p>New: ${state.stats.new}</p>
-        <p>Review: ${state.stats.review}</p>
-        <p>Correct: ${state.stats.correct}</p>
-        <p>Incorrect: ${state.stats.wrong}</p>
+        <!-- results aligned left -->
+        <div style="text-align:left; margin-top:15px;">
+          <p>Date: ${now.toLocaleDateString()}</p>
+          <p>Chapters studied: ${chapters}</p>
 
-        <p>Accuracy: ${Math.round(state.stats.correct/(state.stats.correct+state.stats.wrong)*100)||0}%</p>
+          <p>Total study time: ${minutes} min ${seconds} sec</p>
 
-        <p><strong>Great work today!</strong></p>
+          <p>New: ${state.stats.new}</p>
+          <p>Review: ${state.stats.review}</p>
+          <p>Correct: ${state.stats.correct}</p>
+          <p>Incorrect: ${state.stats.wrong}</p>
+
+          <p>Accuracy: ${Math.round(state.stats.correct/(state.stats.correct+state.stats.wrong)*100)||0}%</p>
+        </div>
+
+        <p style="margin-top:15px;"><strong>Great work today!</strong></p>
 
       </div>
     </div>
   `;
 }
+
 
 
 /* ================= UTILS ================= */
