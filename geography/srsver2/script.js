@@ -127,11 +127,18 @@ function toggleChapter(ch, el) {
 async function loadVocab() {
   vocab = [];
   for (let ch of state.activeChapters) {
-    const res = await fetch("data/"+ch+".json");
-    const data = await res.json();
-    vocab = vocab.concat(data);
+    try {
+      const res = await fetch("data/" + ch + ".json");
+      if (!res.ok) throw new Error("Missing " + ch);
+      const data = await res.json();
+      vocab = vocab.concat(data);
+    } catch (e) {
+      console.error("Failed to load:", ch, e);
+      alert("Could not load " + ch + ".json");
+    }
   }
 }
+
 
 /* ================= SRS CORE ================= */
 
