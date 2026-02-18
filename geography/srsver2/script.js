@@ -464,7 +464,11 @@ function showFeedback(result) {
     <div class="center">
       <div class="card">
 
-        <h3 class="feedback-title ${result === "correct" ? "correct" : ""}">
+       <h3 class="feedback-title ${
+  result === "correct" ? "correct" :
+  result === "partial" ? "partial" : "incorrect"
+}">
+
           ${msg}
         </h3>
 
