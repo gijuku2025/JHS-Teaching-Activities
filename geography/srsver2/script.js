@@ -464,44 +464,9 @@ function showFeedback(result) {
     <div class="center">
       <div class="card">
 
-        <h3 class="feedback-title ${result === "correct" ? "correct" : result === "wrong" ? "incorrect" : ""}">
-  ${msg}
-</h3>
-
-
-       <div style="margin-top:20px; font-size:0.95em; color:#374151;">
-  Now choose how well you remembered it:<br>
-  <span style="font-size:0.9em; color:#6b7280;">
-    （どれくらい覚えていたか選びましょう）
-  </span>
-</div>
-
-<div style="margin-top:20px; font-size:0.95em; color:#374151;">
-  Now choose how well you remembered it:<br>
-  <span style="font-size:0.9em; color:#6b7280;">
-    （どれくらい覚えていたか選びましょう）
-  </span>
-</div>
-
-<div style="margin-top:15px;">
-  ${
-    result === "wrong"
-      ? `<button onclick="gradeAnswer('again')">Again<br><span style="font-size:0.75em;">（もう一度）</span></button>`
-      : `
-        <button onclick="gradeAnswer('hard')">
-          Hard<br><span style="font-size:0.75em;">（むずかしかった）</span>
-        </button>
-        <button onclick="gradeAnswer('good')">
-          Good<br><span style="font-size:0.75em;">（だいたい覚えていた）</span>
-        </button>
-        <button onclick="gradeAnswer('easy')">
-          Easy<br><span style="font-size:0.75em;">（かんたんだった）</span>
-        </button>
-      `
-  }
-</div>
-
-
+        <h3 class="feedback-title ${result === "correct" ? "correct" : ""}">
+          ${msg}
+        </h3>
 
         <div class="feedback-word">
           <strong>${current.en}</strong> = ${current.jp}
@@ -518,16 +483,25 @@ function showFeedback(result) {
 
         <div class="example">${current.example || ""}</div>
 
+        <!-- instruction -->
+        <div style="margin-top:20px; font-size:0.95em; color:#374151;">
+          Now choose how well you remembered it:<br>
+          <span style="font-size:0.9em; color:#6b7280;">
+            （どれくらい覚えていたか選びましょう）
+          </span>
+        </div>
+
+        <!-- buttons -->
         <div style="margin-top:15px;">
-          ${
-            result === "wrong"
-              ? `<button onclick="gradeAnswer('again')">Again</button>`
-              : `
-                <button onclick="gradeAnswer('hard')">Hard</button>
-                <button onclick="gradeAnswer('good')">Good</button>
-                <button onclick="gradeAnswer('easy')">Easy</button>
-              `
-          }
+          <button onclick="gradeAnswer('hard')">
+            Hard<br><span style="font-size:0.75em;">（むずかしかった）</span>
+          </button>
+          <button onclick="gradeAnswer('good')">
+            Good<br><span style="font-size:0.75em;">（だいたい覚えていた）</span>
+          </button>
+          <button onclick="gradeAnswer('easy')">
+            Easy<br><span style="font-size:0.75em;">（かんたんだった）</span>
+          </button>
         </div>
 
       </div>
