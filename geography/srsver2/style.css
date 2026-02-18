@@ -141,7 +141,24 @@ input:focus {
   font-weight: 700;
 }
 
+
 .incorrect {
   color: #dc2626; /* red */
   font-weight: 700;
 }
+
+.correct {
+  color: #16a34a; /* green */
+  font-weight: 700;
+}
+
+.incorrect {
+  color: #dc2626; /* red */
+  font-weight: 700;
+}
+
+.partial {
+  color: #f59e0b; /* orange */
+  font-weight: 700;
+}
+
