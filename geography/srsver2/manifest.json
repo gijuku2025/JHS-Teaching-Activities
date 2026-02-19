@@ -1,0 +1,15 @@
+{
+  "name": "Smart Review – Geography",
+  "short_name": "Geography",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#eef5f8",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "icons/geo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
