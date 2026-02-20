@@ -57,7 +57,8 @@
   <p id="targetText">The government collects taxes to provide public services.</p>
 </div>
 
-<button onclick="startListening()">🎤 Start Reading</button>
+<button onclick="startListening()" id="startBtn">🎤 Start Reading</button>
+<button onclick="stopListening()" id="stopBtn" disabled>⏹ Stop</button>
 
 <div class="box">
   <strong>What you said:</strong>
@@ -75,47 +76,48 @@ const targetText = document.getElementById("targetText").innerText;
 const spokenTextEl = document.getElementById("spokenText");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
-const button = document.querySelector("button");
+
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
 recognition.lang = "en";
 recognition.interimResults = false;
-recognition.continuous = false;
-recognition.maxAlternatives = 1;
-
-let timeoutId;
+recognition.continuous = true; // important
 
 function startListening() {
-  spokenTextEl.innerText = "🎤 Recording... (speak now)";
+  spokenTextEl.innerText = "🎤 Recording... Speak, then press Stop.";
   resultEl.innerHTML = "";
   scoreEl.innerText = "";
-  button.disabled = true;
+
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
 
   recognition.start();
+}
 
-  // FORCE STOP after 6 seconds
-  timeoutId = setTimeout(() => {
-    recognition.stop();
-  }, 6000);
+function stopListening() {
+  recognition.stop();
+  spokenTextEl.innerText = "⏹ Processing...";
 }
 
 recognition.onresult = function(event) {
-  clearTimeout(timeoutId);
-  const spoken = event.results[0][0].transcript;
+  const spoken = event.results[event.results.length - 1][0].transcript;
   spokenTextEl.innerText = spoken;
   compareText(targetText, spoken);
 };
 
 recognition.onerror = function(event) {
-  clearTimeout(timeoutId);
   spokenTextEl.innerText = "❌ Error: " + event.error;
-  button.disabled = false;
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
 };
 
 recognition.onend = function() {
-  button.disabled = false;
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
 };
 
 function compareText(target, spoken) {
