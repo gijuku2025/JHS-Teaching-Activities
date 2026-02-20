@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reading Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .box {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+
+    .wrong {
+      color: red;
+      font-weight: bold;
+    }
+
+    .spoken {
+      background: #eef;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Reading Practice</h1>
+
+<div class="box">
+  <strong>Read this sentence:</strong>
+  <p id="targetText">The government collects taxes to provide public services.</p>
+</div>
+
+<button onclick="startListening()">🎤 Start Reading</button>
+
+<div class="box">
+  <strong>What you said:</strong>
+  <p id="spokenText" class="spoken"></p>
+</div>
+
+<div class="box">
+  <strong>Result:</strong>
+  <p id="result"></p>
+  <p id="score"></p>
+</div>
+
+<script>
+const targetText = document.getElementById("targetText").innerText;
+const spokenTextEl = document.getElementById("spokenText");
+const resultEl = document.getElementById("result");
+const scoreEl = document.getElementById("score");
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+recognition.lang = "en-US";
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+function startListening() {
+  spokenTextEl.innerText = "";
+  resultEl.innerHTML = "";
+  scoreEl.innerText = "";
+  recognition.start();
+}
+
+recognition.onresult = function(event) {
+  const spoken = event.results[0][0].transcript;
+  spokenTextEl.innerText = spoken;
+  compareText(targetText, spoken);
+};
+
+function compareText(target, spoken) {
+  const targetWords = target.toLowerCase().replace(/[^\w\s]/g, "").split(" ");
+  const spokenWords = spoken.toLowerCase().replace(/[^\w\s]/g, "").split(" ");
+
+  let correctCount = 0;
+  let resultHTML = "";
+
+  for (let i = 0; i < targetWords.length; i++) {
+    if (spokenWords[i] === targetWords[i]) {
+      resultHTML += `<span class="correct">${targetWords[i]}</span> `;
+      correctCount++;
+    } else {
+      resultHTML += `<span class="wrong">${targetWords[i]}</span> `;
+    }
+  }
+
+  const score = Math.round((correctCount / targetWords.length) * 100);
+
+  resultEl.innerHTML = resultHTML;
+  scoreEl.innerText = "Score: " + score + "%";
+}
+</script>
+
+</body>
+</html>
