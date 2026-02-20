@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Speech Test</h2>
+<button id="btn">Start</button>
+<p id="out">Output:</p>
+
+<script>
+const btn = document.getElementById("btn");
+const out = document.getElementById("out");
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const rec = new SpeechRecognition();
+
+rec.lang = "en-US";
+rec.continuous = false;
+rec.interimResults = false;
+
+btn.onclick = () => {
+  out.textContent = "Listening...";
+  rec.start();
+};
+
+rec.onresult = (e) => {
+  out.textContent = "You said: " + e.results[0][0].transcript;
+};
+
+rec.onerror = (e) => {
+  out.textContent = "Error: " + e.error;
+};
+</script>
+</body>
+</html>
