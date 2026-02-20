@@ -83,41 +83,48 @@ const stopBtn = document.getElementById("stopBtn");
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-recognition.lang = "en";
+recognition.lang = "en-US";
 recognition.interimResults = false;
-recognition.continuous = true; // important
+recognition.continuous = false;
 
 function startListening() {
-  spokenTextEl.innerText = "🎤 Recording... Speak, then press Stop.";
+  spokenTextEl.innerText = "🎤 Recording... Speak clearly.";
   resultEl.innerHTML = "";
   scoreEl.innerText = "";
 
   startBtn.disabled = true;
-  stopBtn.disabled = false;
+  stopBtn.disabled = true; // not needed now
 
   recognition.start();
 }
 
+// DO NOT call recognition.stop() yourself
 function stopListening() {
-  recognition.stop();
-  spokenTextEl.innerText = "⏹ Processing...";
+  spokenTextEl.innerText = "⏹ Waiting for result...";
 }
 
 recognition.onresult = function(event) {
-  const spoken = event.results[event.results.length - 1][0].transcript;
+  const spoken = event.results[0][0].transcript;
   spokenTextEl.innerText = spoken;
   compareText(targetText, spoken);
 };
 
+recognition.onspeechend = function() {
+  spokenTextEl.innerText = "⏹ Processing...";
+};
+
 recognition.onerror = function(event) {
-  spokenTextEl.innerText = "❌ Error: " + event.error;
+  if (event.error === "aborted") {
+    // ignore Chrome bug
+    spokenTextEl.innerText = "⚠️ Try again and speak more clearly.";
+  } else {
+    spokenTextEl.innerText = "❌ Error: " + event.error;
+  }
   startBtn.disabled = false;
-  stopBtn.disabled = true;
 };
 
 recognition.onend = function() {
   startBtn.disabled = false;
-  stopBtn.disabled = true;
 };
 
 function compareText(target, spoken) {
