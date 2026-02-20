@@ -75,27 +75,36 @@ const targetText = document.getElementById("targetText").innerText;
 const spokenTextEl = document.getElementById("spokenText");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
-
 const button = document.querySelector("button");
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (!SpeechRecognition) {
-  alert("Speech Recognition is not supported in this browser. Please use Chrome.");
+  alert("Speech Recognition is not supported. Please use Chrome.");
 }
 
 const recognition = new SpeechRecognition();
 recognition.lang = "en-US";
 recognition.interimResults = false;
+recognition.continuous = false;
 recognition.maxAlternatives = 1;
 
 function startListening() {
-  spokenTextEl.innerText = "🎤 Listening...";
+  spokenTextEl.innerText = "🎤 Listening... (speak now)";
   resultEl.innerHTML = "";
   scoreEl.innerText = "";
   button.disabled = true;
   recognition.start();
 }
+
+recognition.onstart = function() {
+  spokenTextEl.innerText = "🎤 Recording... Speak clearly.";
+};
+
+recognition.onspeechend = function() {
+  spokenTextEl.innerText = "⏹️ Processing...";
+  recognition.stop();
+};
 
 recognition.onresult = function(event) {
   const spoken = event.results[0][0].transcript;
@@ -104,11 +113,14 @@ recognition.onresult = function(event) {
 };
 
 recognition.onerror = function(event) {
-  spokenTextEl.innerText = "Error: " + event.error;
+  spokenTextEl.innerText = "❌ Error: " + event.error;
   button.disabled = false;
 };
 
 recognition.onend = function() {
+  if (spokenTextEl.innerText.includes("Recording")) {
+    spokenTextEl.innerText = "⚠️ No speech detected. Try again.";
+  }
   button.disabled = false;
 };
 
