@@ -76,17 +76,24 @@ const spokenTextEl = document.getElementById("spokenText");
 const resultEl = document.getElementById("result");
 const scoreEl = document.getElementById("score");
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
+const button = document.querySelector("button");
 
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+  alert("Speech Recognition is not supported in this browser. Please use Chrome.");
+}
+
+const recognition = new SpeechRecognition();
 recognition.lang = "en-US";
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
 function startListening() {
-  spokenTextEl.innerText = "";
+  spokenTextEl.innerText = "🎤 Listening...";
   resultEl.innerHTML = "";
   scoreEl.innerText = "";
+  button.disabled = true;
   recognition.start();
 }
 
@@ -94,6 +101,15 @@ recognition.onresult = function(event) {
   const spoken = event.results[0][0].transcript;
   spokenTextEl.innerText = spoken;
   compareText(targetText, spoken);
+};
+
+recognition.onerror = function(event) {
+  spokenTextEl.innerText = "Error: " + event.error;
+  button.disabled = false;
+};
+
+recognition.onend = function() {
+  button.disabled = false;
 };
 
 function compareText(target, spoken) {
@@ -113,11 +129,9 @@ function compareText(target, spoken) {
   }
 
   const score = Math.round((correctCount / targetWords.length) * 100);
-
   resultEl.innerHTML = resultHTML;
   scoreEl.innerText = "Score: " + score + "%";
 }
 </script>
-
 </body>
 </html>
