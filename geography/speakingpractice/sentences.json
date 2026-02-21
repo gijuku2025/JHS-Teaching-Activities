@@ -1,0 +1,51 @@
+{
+  "chapters": {
+    "1": {
+      "title": "Sample Chapter",
+      "sections": {
+        "1": {
+          "sentences": [
+            {
+              "text": "I like studying geography.",
+              "audio": "audio/chapter1/c1s1_1.mp3"
+            },
+            {
+              "text": "Maps show us where places are.",
+              "audio": "audio/chapter1/c1s1_2.mp3"
+            }
+          ]
+        },
+        "2": {
+          "sentences": [
+            {
+              "text": "The weather is sunny today.",
+              "audio": "audio/chapter1/c1s2_1.mp3"
+            },
+            {
+              "text": "It is raining in the city.",
+              "audio": "audio/chapter1/c1s2_2.mp3"
+            }
+          ]
+        }
+      }
+    },
+
+    "2": {
+      "title": "Second Chapter",
+      "sections": {
+        "1": {
+          "sentences": [
+            {
+              "text": "People live in many different places.",
+              "audio": "audio/chapter2/c2s1_1.mp3"
+            },
+            {
+              "text": "Cities are larger than towns.",
+              "audio": "audio/chapter2/c2s1_2.mp3"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
