@@ -134,7 +134,13 @@ async function loadKanji() {
       const res = await fetch("data/" + ch + ".json");
       if (!res.ok) throw new Error("Missing " + ch);
       const data = await res.json();
-      kanjiList = kanjiList.concat(data);
+
+// ensure every kanji has a stable id
+data.forEach(item => {
+  if (!item.id) item.id = item.kanji;
+});
+
+kanjiList = kanjiList.concat(data);
     } catch (e) {
       console.error("Failed to load:", ch, e);
       alert("Could not load " + ch + ".json");
@@ -212,10 +218,18 @@ function nextQuestion() {
   else if (reviewQueue.length) current = reviewQueue.shift();
   else current = newQueue.shift();
 
-  let types = ["meaning", "on", "kun"];
+  let types = ["meaning"];
+
+if (current.onyomi && current.onyomi.length) {
+  types.push("on");
+}
+
+if (current.kunyomi && current.kunyomi.length) {
+  types.push("kun");
+}
 
 if (current.vocab && current.vocab.length) {
-  types.push("vocabReading", "vocabMeaning");
+  types.push("vocabMeaning");
 }
 
 const type = types[Math.floor(Math.random() * types.length)];
@@ -240,12 +254,7 @@ const type = types[Math.floor(Math.random() * types.length)];
     label = "Type the KUN reading (hiragana):";
   }
 
-  if (type === "vocabReading" && current.vocab && current.vocab.length) {
-    const v = current.vocab[Math.floor(Math.random() * current.vocab.length)];
-    current.activeVocab = v;
-    prompt = v.word;
-    label = "Type the reading:";
-  }
+  
 
   if (type === "vocabMeaning" && current.vocab && current.vocab.length) {
   const v = current.vocab[Math.floor(Math.random() * current.vocab.length)];
@@ -308,25 +317,28 @@ function submitAnswer() {
     return input === target || levenshtein(input, target) <= 1;
   });
 }
-  if (current.questionType === "on" && current.on && current.on.length) {
+  else if (current.questionType === "on" && current.onyomi && current.onyomi.length) {
   const normalizedInput = normalizeJP(input);
-  correct = current.on.some(r => normalizeJP(r) === normalizedInput);
+  correct = current.onyomi.some(r => normalizeJP(r) === normalizedInput);
 }
 
-if (current.questionType === "kun" && current.kun && current.kun.length) {
+else if (current.questionType === "kun" && current.kunyomi && current.kunyomi.length) {
   const normalizedInput = normalizeJP(input);
-  correct = current.kun.some(r => normalizeJP(r) === normalizedInput);
+  correct = current.kunyomi.some(r => normalizeJP(r) === normalizedInput);
 }
 
- if (current.questionType === "vocabReading") {
-  const normalizedInput = normalizeJP(input);
-  correct = normalizeJP(current.activeVocab.reading) === normalizedInput;
-}
 
-  if (current.questionType === "vocabMeaning") {
-  const target = current.activeVocab.meaning.toLowerCase();
-  correct = levenshtein(input, target) <= 1;
+else if (current.questionType === "vocabMeaning") {
+  const meanings = Array.isArray(current.activeVocab.meaning)
+    ? current.activeVocab.meaning
+    : [current.activeVocab.meaning];
+
+  correct = meanings.some(m => {
+    const target = m.toLowerCase().trim();
+    return input === target || levenshtein(input, target) <= 1;
+  });
 }
+  
 
   sessionCount++;
 
@@ -494,8 +506,18 @@ function showSimpleFeedback(isCorrect) {
         </h3>
 
         <div class="feedback-word">
-          ${current.kanji} – ${Array.isArray(current.meaning) ? current.meaning.join(", ") : current.meaning}
-        </div>
+  ${
+    current.questionType === "meaning"
+      ? `${current.kanji} – ${Array.isArray(current.meaning) ? current.meaning.join(", ") : current.meaning}`
+      : current.questionType === "on"
+      ? `${current.kanji} – ON: ${current.onyomi.join(", ")}`
+      : current.questionType === "kun"
+      ? `${current.kanji} – KUN: ${current.kunyomi.join(", ")}`
+      : current.questionType === "vocabMeaning"
+      ? `${current.activeVocab.word} – ${Array.isArray(current.activeVocab.meaning) ? current.activeVocab.meaning.join(", ") : current.activeVocab.meaning}`
+      : ""
+  }
+</div>
 
         <div style="margin:10px 0;">
           <div>Mastery:</div>
