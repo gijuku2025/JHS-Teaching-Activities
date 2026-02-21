@@ -128,29 +128,52 @@ nextBtn.onclick = () => {
   }
 };
 
-function gradeSentence() {
-  const clean = str =>
-  str.toLowerCase().replace(/[.,!?]/g, "").trim();
+function normalize(text) {
+  return text
+    .toLowerCase()
+    .replace(/[.,!?]/g, "")   // remove punctuation
+    .replace(/\s+/g, " ")     // collapse spaces
+    .trim();
+}
 
-const model = clean(sentenceEl.textContent).split(" ");
-const spoken = clean(input.value).split(" ");
+function isClose(word1, word2) {
+  if (!word2) return false;
+
+  // simple "close enough" rule:
+  // same first 2 letters OR one is inside the other
+  if (word1.startsWith(word2.slice(0,2)) || word2.startsWith(word1.slice(0,2))) {
+    return true;
+  }
+
+  if (word1.includes(word2) || word2.includes(word1)) {
+    return true;
+  }
+
+  return false;
+}
+
+function gradeSentence() {
+  const modelWords = normalize(sentenceEl.textContent).split(" ");
+  const spokenWords = normalize(input.value).split(" ");
 
   let html = "";
   let score = 0;
 
-  model.forEach(word => {
-    if (spoken.includes(word)) {
-      html += `<span class="close">${word} </span>`;
+  modelWords.forEach((modelWord, i) => {
+    const spokenWord = spokenWords[i];
+
+    if (spokenWord === modelWord) {
+      html += `<span class="correct">${modelWord} </span>`;
       score++;
-    } else {
-      html += `<span class="wrong">${word} </span>`;
+    } 
+    else if (isClose(modelWord, spokenWord)) {
+      html += `<span class="close">${modelWord} </span>`;
+      score += 0.5;
+    } 
+    else {
+      html += `<span class="wrong">${modelWord} </span>`;
     }
   });
-
-  if (spoken.join(" ") === model.join(" ")) {
-    html = model.map(w => `<span class="correct">${w} </span>`).join("");
-    score = model.length;
-  }
 
   if (score > bestScore) bestScore = score;
 
