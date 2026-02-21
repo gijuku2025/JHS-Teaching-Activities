@@ -1,79 +1,79 @@
 [
   {
     "kanji": "日",
-    "meaning": "day, sun",
-    "on": ["ニチ", "ジツ"],
-    "kun": ["ひ", "か"],
+    "meaning": ["day", "sun"],
+    "onyomi": ["ニチ", "ジツ"],
+    "kunyomi": ["ひ", "び", "か"],
     "vocab": [
-      { "word": "日本", "reading": "にほん", "meaning": "Japan" },
-      { "word": "日曜日", "reading": "にちようび", "meaning": "Sunday" },
-      { "word": "毎日", "reading": "まいにち", "meaning": "every day" }
+      { "word": "日本", "meaning": "Japan" },
+      { "word": "日曜日", "meaning": "Sunday" },
+      { "word": "毎日", "meaning": "every day" }
     ]
   },
   {
     "kanji": "月",
-    "meaning": "month, moon",
-    "on": ["ゲツ", "ガツ"],
-    "kun": ["つき"],
+    "meaning": ["month", "moon"],
+    "onyomi": ["ゲツ", "ガツ"],
+    "kunyomi": ["つき"],
     "vocab": [
-      { "word": "月曜日", "reading": "げつようび", "meaning": "Monday" },
-      { "word": "今月", "reading": "こんげつ", "meaning": "this month" },
-      { "word": "一ヶ月", "reading": "いっかげつ", "meaning": "one month" }
+      { "word": "月曜日", "meaning": "Monday" },
+      { "word": "今月", "meaning": "this month" },
+      { "word": "来月", "meaning": "next month" }
     ]
   },
   {
     "kanji": "火",
-    "meaning": "fire",
-    "on": ["カ"],
-    "kun": ["ひ"],
+    "meaning": ["fire"],
+    "onyomi": ["カ"],
+    "kunyomi": ["ひ"],
     "vocab": [
-      { "word": "火曜日", "reading": "かようび", "meaning": "Tuesday" },
-      { "word": "花火", "reading": "はなび", "meaning": "fireworks" },
-      { "word": "火山", "reading": "かざん", "meaning": "volcano" }
+      { "word": "火曜日", "meaning": "Tuesday" },
+      { "word": "火山", "meaning": "volcano" },
+      { "word": "花火", "meaning": "fireworks" }
     ]
   },
   {
     "kanji": "水",
-    "meaning": "water",
-    "on": ["スイ"],
-    "kun": ["みず"],
+    "meaning": ["water"],
+    "onyomi": ["スイ"],
+    "kunyomi": ["みず"],
     "vocab": [
-      { "word": "水曜日", "reading": "すいようび", "meaning": "Wednesday" },
-      { "word": "水道", "reading": "すいどう", "meaning": "water supply" },
-      { "word": "飲み水", "reading": "のみみず", "meaning": "drinking water" }
+      { "word": "水曜日", "meaning": "Wednesday" },
+      { "word": "水道", "meaning": "water supply" },
+      { "word": "海水", "meaning": "seawater" }
     ]
   },
   {
     "kanji": "木",
-    "meaning": "tree, wood",
-    "on": ["モク", "ボク"],
-    "kun": ["き"],
+    "meaning": ["tree", "wood"],
+    "onyomi": ["モク", "ボク"],
+    "kunyomi": ["き"],
     "vocab": [
-      { "word": "木曜日", "reading": "もくようび", "meaning": "Thursday" },
-      { "word": "木材", "reading": "もくざい", "meaning": "lumber" },
-      { "word": "大木", "reading": "たいぼく", "meaning": "large tree" }
+      { "word": "木曜日", "meaning": "Thursday" },
+      { "word": "木村", "meaning": "Kimura (surname)" },
+      { "word": "大木", "meaning": "big tree" }
     ]
   },
   {
     "kanji": "金",
-    "meaning": "gold, money",
-    "on": ["キン", "コン"],
-    "kun": ["かね"],
+    "meaning": ["gold", "money"],
+    "onyomi": ["キン"],
+    "kunyomi": ["かね"],
     "vocab": [
-      { "word": "金曜日", "reading": "きんようび", "meaning": "Friday" },
-      { "word": "お金", "reading": "おかね", "meaning": "money" },
-      { "word": "金魚", "reading": "きんぎょ", "meaning": "goldfish" }
+      { "word": "金曜日", "meaning": "Friday" },
+      { "word": "お金", "meaning": "money" },
+      { "word": "料金", "meaning": "fee" }
     ]
   },
   {
     "kanji": "土",
-    "meaning": "earth, soil",
-    "on": ["ド", "ト"],
-    "kun": ["つち"],
+    "meaning": ["earth", "soil"],
+    "onyomi": ["ド", "ト"],
+    "kunyomi": ["つち"],
     "vocab": [
-      { "word": "土曜日", "reading": "どようび", "meaning": "Saturday" },
-      { "word": "土地", "reading": "とち", "meaning": "land" },
-      { "word": "粘土", "reading": "ねんど", "meaning": "clay" }
+      { "word": "土曜日", "meaning": "Saturday" },
+      { "word": "土地", "meaning": "land" },
+      { "word": "土産", "meaning": "souvenir" }
     ]
   }
 ]
