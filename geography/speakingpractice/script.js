@@ -208,45 +208,60 @@ function gradeSentence() {
 
   let html = "";
   let score = 0;
-  let reasons = new Set();
+
+  // Feedback messages mapping (English + Japanese)
+  const feedbackMessages = {
+    "lr": "Check R and L sounds（RとLの発音に注意）",
+    "bv": "Check B and V sounds（BとVの発音に注意）",
+    "th": "Practice the TH sound（THの発音を練習）",
+    "ending": "Check word endings (s, ed)（語尾に注意）",
+    "spelling": "Check pronunciation（発音をもう一度確認）"
+  };
+
+  // Optional per-word custom messages (English + Japanese)
+  const wordFeedback = {
+    "library": "Remember the 'r' sound in the middle（真ん中のRの発音に注意）",
+    "think": "TH is pronounced like in 'thanks'（THはthanksのように発音）",
+    "vase": "B/V confusion possible（BとVの混同に注意）"
+    // Add more words as needed
+  };
 
   modelWords.forEach((modelWord, i) => {
     const spokenWord = spokenWords[i] || "";
     const displayWord = originalWords[i] || modelWord;
 
     if (spokenWord === modelWord) {
-      html += `<span class="correct">${displayWord} </span>`;
+      html += `<span class="correct">${displayWord}</span> `;
       score++;
     } else {
       const reason = Utils.isClose(modelWord, spokenWord);
-      if (reason) {
-        html += `<span class="close">${displayWord} </span>`;
-        score += 0.5;
-        reasons.add(reason);
+      html += `<span class="${reason ? "close" : "wrong"}">${displayWord}</span> `;
+
+      // partial credit for close matches
+      if (reason) score += 0.5;
+
+      // 1️⃣ Per-word feedback
+      if (wordFeedback[modelWord]) {
+        html += `<br><span class="word-feedback">⚠️ ${wordFeedback[modelWord]}</span>`;
+      } else if (reason && feedbackMessages[reason]) {
+        html += `<br><span class="word-feedback">⚠️ ${feedbackMessages[reason]}</span>`;
       } else {
-        html += `<span class="wrong">${displayWord} </span>`;
+        // Generic fallback
+        html += `<br><span class="word-feedback">⚠️ Check this word（この単語を確認）</span>`;
       }
     }
   });
 
+  // Update bestScore
   if (score > bestScore) bestScore = score;
 
+  // Display feedback
   feedback.innerHTML = html;
 
-  // Feedback list
-  if (reasons.size > 0) {
-    let message = "<p><strong>Feedback:</strong></p><ul>";
-    reasons.forEach(r => {
-      if (r === "lr") message += "<li>Check R and L sounds（RとLの発音に注意）</li>";
-      if (r === "bv") message += "<li>Check B and V sounds（BとVの発音に注意）</li>";
-      if (r === "th") message += "<li>Practice the TH sound（THの発音を練習）</li>";
-      if (r === "ending") message += "<li>Check word endings (s, ed)（語尾に注意）</li>";
-      if (r === "spelling") message += "<li>Check pronunciation（発音をもう一度確認）</li>";
-    });
-    message += "</ul>";
-    feedback.innerHTML += message;
-  }
-
+  // Overall percentage score
+  const percent = ((score / modelWords.length) * 100).toFixed(0);
+  feedback.innerHTML += `<p>Score: ${percent}%</p>`;
+}
   // Show score percentage
   const percent = ((score / modelWords.length) * 100).toFixed(0);
   feedback.innerHTML += `<p>Score: ${percent}%</p>`;
