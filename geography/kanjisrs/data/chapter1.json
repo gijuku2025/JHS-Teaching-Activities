@@ -1,0 +1,79 @@
+[
+  {
+    "kanji": "日",
+    "meaning": "day, sun",
+    "on": ["ニチ", "ジツ"],
+    "kun": ["ひ", "か"],
+    "vocab": [
+      { "word": "日本", "reading": "にほん", "meaning": "Japan" },
+      { "word": "日曜日", "reading": "にちようび", "meaning": "Sunday" },
+      { "word": "毎日", "reading": "まいにち", "meaning": "every day" }
+    ]
+  },
+  {
+    "kanji": "月",
+    "meaning": "month, moon",
+    "on": ["ゲツ", "ガツ"],
+    "kun": ["つき"],
+    "vocab": [
+      { "word": "月曜日", "reading": "げつようび", "meaning": "Monday" },
+      { "word": "今月", "reading": "こんげつ", "meaning": "this month" },
+      { "word": "一ヶ月", "reading": "いっかげつ", "meaning": "one month" }
+    ]
+  },
+  {
+    "kanji": "火",
+    "meaning": "fire",
+    "on": ["カ"],
+    "kun": ["ひ"],
+    "vocab": [
+      { "word": "火曜日", "reading": "かようび", "meaning": "Tuesday" },
+      { "word": "花火", "reading": "はなび", "meaning": "fireworks" },
+      { "word": "火山", "reading": "かざん", "meaning": "volcano" }
+    ]
+  },
+  {
+    "kanji": "水",
+    "meaning": "water",
+    "on": ["スイ"],
+    "kun": ["みず"],
+    "vocab": [
+      { "word": "水曜日", "reading": "すいようび", "meaning": "Wednesday" },
+      { "word": "水道", "reading": "すいどう", "meaning": "water supply" },
+      { "word": "飲み水", "reading": "のみみず", "meaning": "drinking water" }
+    ]
+  },
+  {
+    "kanji": "木",
+    "meaning": "tree, wood",
+    "on": ["モク", "ボク"],
+    "kun": ["き"],
+    "vocab": [
+      { "word": "木曜日", "reading": "もくようび", "meaning": "Thursday" },
+      { "word": "木材", "reading": "もくざい", "meaning": "lumber" },
+      { "word": "大木", "reading": "たいぼく", "meaning": "large tree" }
+    ]
+  },
+  {
+    "kanji": "金",
+    "meaning": "gold, money",
+    "on": ["キン", "コン"],
+    "kun": ["かね"],
+    "vocab": [
+      { "word": "金曜日", "reading": "きんようび", "meaning": "Friday" },
+      { "word": "お金", "reading": "おかね", "meaning": "money" },
+      { "word": "金魚", "reading": "きんぎょ", "meaning": "goldfish" }
+    ]
+  },
+  {
+    "kanji": "土",
+    "meaning": "earth, soil",
+    "on": ["ド", "ト"],
+    "kun": ["つち"],
+    "vocab": [
+      { "word": "土曜日", "reading": "どようび", "meaning": "Saturday" },
+      { "word": "土地", "reading": "とち", "meaning": "land" },
+      { "word": "粘土", "reading": "ねんど", "meaning": "clay" }
+    ]
+  }
+]
