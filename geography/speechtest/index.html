@@ -2,36 +2,77 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dictation Page</title>
+<title>Reading Feedback</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.correct { color: green; font-weight: bold; }
+.close { color: orange; font-weight: bold; }
+.wrong { color: red; font-weight: bold; }
+</style>
 </head>
 <body>
 
-<h2>Tap the box and speak</h2>
+<h3>Read this sentence:</h3>
+<p id="model">I like studying geography at school.</p>
 
-<textarea id="speechInput" rows="4" cols="30"
-  placeholder="Tap here, then tap the mic on the keyboard"></textarea>
+<textarea id="speechInput" rows="3" cols="40"
+  placeholder="Tap here, then tap the mic and read the sentence"></textarea>
 
 <br><br>
-
 <button id="stopBtn">🛑 Stop Listening</button>
 
-<p>You said:</p>
-<div id="output" style="border:1px solid #ccc; padding:10px; min-height:40px;"></div>
+<h3>Your result:</h3>
+<div id="feedback"></div>
 
 <script>
+const modelEl = document.getElementById("model");
 const input = document.getElementById("speechInput");
-const output = document.getElementById("output");
+const feedback = document.getElementById("feedback");
 const stopBtn = document.getElementById("stopBtn");
 
-input.addEventListener("input", () => {
-  output.textContent = input.value;
+// clean text: lowercase + remove punctuation
+function clean(text) {
+  return text
+    .toLowerCase()
+    .replace(/[.,!?]/g, "")
+    .trim();
+}
+
+stopBtn.addEventListener("click", () => {
+  input.blur(); // stop dictation
+  checkAnswer();
 });
 
-// Stop dictation when button is pressed
-stopBtn.addEventListener("click", () => {
-  input.blur(); // removes focus → iPad stops listening
-});
+function checkAnswer() {
+  const modelText = modelEl.textContent;
+  const spokenText = input.value;
+
+  if (!spokenText) return;
+
+  const modelWords = clean(modelText).split(" ");
+  const spokenWords = clean(spokenText).split(" ");
+
+  let resultHTML = "";
+
+  modelWords.forEach((word, i) => {
+    if (spokenWords.includes(word)) {
+      resultHTML += `<span class="close">${modelText.split(" ")[i]} </span>`;
+    } else {
+      resultHTML += `<span class="wrong">${modelText.split(" ")[i]} </span>`;
+    }
+  });
+
+  // perfect match → all green
+  if (clean(spokenText) === clean(modelText)) {
+    resultHTML = modelText
+      .split(" ")
+      .map(w => `<span class="correct">${w} </span>`)
+      .join("");
+  }
+
+  feedback.innerHTML = resultHTML;
+}
 </script>
 
 </body>
