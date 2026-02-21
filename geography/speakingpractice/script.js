@@ -155,23 +155,25 @@ function isClose(word1, word2) {
 function gradeSentence() {
   const originalWords = sentenceEl.textContent.split(" ");
   const modelWords = normalize(sentenceEl.textContent).split(" ");
+  const spokenWords = normalize(input.value).split(" ");
 
   let html = "";
   let score = 0;
 
   modelWords.forEach((modelWord, i) => {
     const spokenWord = spokenWords[i];
+    const displayWord = originalWords[i] || modelWord;
 
     if (spokenWord === modelWord) {
-      html += `<span class="correct">${modelWord} </span>`;
+      html += `<span class="correct">${displayWord} </span>`;
       score++;
     } 
     else if (isClose(modelWord, spokenWord)) {
-      html += `<span class="close">${modelWord} </span>`;
+      html += `<span class="close">${displayWord} </span>`;
       score += 0.5;
     } 
     else {
-      html += `<span class="wrong">${modelWord} </span>`;
+      html += `<span class="wrong">${displayWord} </span>`;
     }
   });
 
