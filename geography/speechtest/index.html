@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>Dictation Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
-<h2>Speech Test</h2>
-<button id="btn">Start</button>
-<p id="out">Output:</p>
+
+<h2>Tap the box and speak</h2>
+
+<textarea id="speechInput" rows="4" cols="30"
+  placeholder="Tap here, then tap the mic on the keyboard"></textarea>
+
+<p>You said:</p>
+<div id="output" style="border:1px solid #ccc; padding:10px; min-height:40px;"></div>
 
 <script>
-const btn = document.getElementById("btn");
-const out = document.getElementById("out");
+const input = document.getElementById("speechInput");
+const output = document.getElementById("output");
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const rec = new SpeechRecognition();
-
-rec.lang = "en-US";
-rec.continuous = false;
-rec.interimResults = false;
-
-btn.onclick = () => {
-  out.textContent = "Listening...";
-  rec.start();
-};
-
-rec.onresult = (e) => {
-  out.textContent = "You said: " + e.results[0][0].transcript;
-};
-
-rec.onerror = (e) => {
-  out.textContent = "Error: " + e.error;
-};
+input.addEventListener("input", () => {
+  output.textContent = input.value;
+});
 </script>
+
 </body>
 </html>
