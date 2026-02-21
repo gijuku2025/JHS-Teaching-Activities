@@ -129,8 +129,11 @@ nextBtn.onclick = () => {
 };
 
 function gradeSentence() {
-  const model = sentenceEl.textContent.toLowerCase().split(" ");
-  const spoken = input.value.toLowerCase().trim().split(" ");
+  const clean = str =>
+  str.toLowerCase().replace(/[.,!?]/g, "").trim();
+
+const model = clean(sentenceEl.textContent).split(" ");
+const spoken = clean(input.value).split(" ");
 
   let html = "";
   let score = 0;
