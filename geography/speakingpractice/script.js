@@ -136,20 +136,64 @@ function normalize(text) {
     .trim();
 }
 
-function isClose(word1, word2) {
-  if (!word2) return false;
+function isClose(model, spoken) {
+  if (!spoken) return false;
 
-  // simple "close enough" rule:
-  // same first 2 letters OR one is inside the other
-  if (word1.startsWith(word2.slice(0,2)) || word2.startsWith(word1.slice(0,2))) {
-    return true;
-  }
+  // exact handled elsewhere, so here we test "near matches"
+  const m = model;
+  const s = spoken;
 
-  if (word1.includes(word2) || word2.includes(word1)) {
-    return true;
-  }
+  // 1️⃣ L ↔ R confusion
+  if (swapChars(m, "l", "r") === s || swapChars(s, "l", "r") === m) return true;
+
+  // 2️⃣ B ↔ V confusion
+  if (swapChars(m, "b", "v") === s || swapChars(s, "b", "v") === m) return true;
+
+  // 3️⃣ TH ↔ S / Z / T
+  if (m.replace("th", "s") === s) return true;
+  if (m.replace("th", "z") === s) return true;
+  if (m.replace("th", "t") === s) return true;
+
+  // 4️⃣ Missing final consonant (s, ed, d, t)
+  if (m === s + "s") return true;
+  if (m === s + "ed") return true;
+  if (m === s + "d") return true;
+  if (m === s + "t") return true;
+
+  // 5️⃣ Small spelling difference (1 letter off)
+  if (levenshtein(m, s) === 1) return true;
 
   return false;
+}
+
+function swapChars(word, a, b) {
+  return word
+    .replaceAll(a, "#")
+    .replaceAll(b, a)
+    .replaceAll("#", b);
+}
+
+// Levenshtein distance (edit distance)
+function levenshtein(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, () =>
+    Array(b.length + 1).fill(0)
+  );
+
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return matrix[a.length][b.length];
 }
 
 function gradeSentence() {
