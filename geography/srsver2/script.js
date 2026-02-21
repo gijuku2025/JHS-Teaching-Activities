@@ -1,4 +1,5 @@
 const app = document.getElementById("app");
+const SUBJECT = "geography"; // change to "geometry" or "civics" in other copies
 
 const CHAPTER_FILES = [
  "chapter1","chapter2","chapter3","chapter4","chapter5","chapter6","chapter7","chapter8","chapter9","chapter10",
@@ -20,9 +21,9 @@ let sessionStartTime = null;
 
 let state = {
   nickname: localStorage.getItem("nickname"),
-  activeChapters: JSON.parse(localStorage.getItem("activeChapters") || "[]"),
-  progress: JSON.parse(localStorage.getItem("progress") || "{}"),
-  todayNewCount: Number(localStorage.getItem("todayNewCount") || 0),
+  activeChapters: JSON.parse(localStorage.getItem(SUBJECT + "_activeChapters") || "[]"),
+progress: JSON.parse(localStorage.getItem(SUBJECT + "_progress") || "{}"),
+todayNewCount: Number(localStorage.getItem(SUBJECT + "_todayNewCount") || 0),
 
   stats: { correct: 0, wrong: 0, new: 0, review: 0 }
 };
@@ -38,9 +39,9 @@ let direction = null;
 
 function save() {
   localStorage.setItem("nickname", state.nickname);
-  localStorage.setItem("activeChapters", JSON.stringify(state.activeChapters));
-  localStorage.setItem("progress", JSON.stringify(state.progress));
-  localStorage.setItem("todayNewCount", state.todayNewCount);
+  localStorage.setItem(SUBJECT + "_activeChapters", JSON.stringify(state.activeChapters));
+localStorage.setItem(SUBJECT + "_progress", JSON.stringify(state.progress));
+localStorage.setItem(SUBJECT + "_todayNewCount", state.todayNewCount);
 }
 
 function todayString() {
@@ -48,11 +49,12 @@ function todayString() {
 }
 
 function resetDailyCountIfNeeded() {
-  const last = localStorage.getItem("lastStudyDate");
+  const last = localStorage.getItem(SUBJECT + "_lastStudyDate");
   const today = todayString();
+
   if (last !== today) {
     state.todayNewCount = 0;
-    localStorage.setItem("lastStudyDate", today);
+    localStorage.setItem(SUBJECT + "_lastStudyDate", today);
   }
 }
 
