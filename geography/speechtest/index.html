@@ -12,18 +12,25 @@
 <textarea id="speechInput" rows="4" cols="30"
   placeholder="Tap here, then tap the mic on the keyboard"></textarea>
 
+<br><br>
+
+<button id="stopBtn">🛑 Stop Listening</button>
+
 <p>You said:</p>
 <div id="output" style="border:1px solid #ccc; padding:10px; min-height:40px;"></div>
 
 <script>
 const input = document.getElementById("speechInput");
 const output = document.getElementById("output");
+const stopBtn = document.getElementById("stopBtn");
 
 input.addEventListener("input", () => {
   output.textContent = input.value;
+});
 
-  // stop dictation after first speech
-  input.blur();
+// Stop dictation when button is pressed
+stopBtn.addEventListener("click", () => {
+  input.blur(); // removes focus → iPad stops listening
 });
 </script>
 
