@@ -1,32 +1,102 @@
+/* ---------------- BODY ---------------- */
 body {
   font-family: sans-serif;
   text-align: center;
   padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
+/* ---------------- HIDDEN ELEMENTS ---------------- */
 .hidden {
   display: none;
 }
 
+/* ---------------- MENU BUTTONS ---------------- */
 #menu button {
   margin: 5px;
   padding: 10px 15px;
   font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.2s;
 }
 
+#menu button:hover {
+  background-color: #e0e0e0;
+}
+
+/* ---------------- CARD ---------------- */
 #card {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
   max-width: 500px;
   margin: auto;
+  background-color: #fff;
+  overflow-x: auto; /* handle long feedback messages */
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
 }
 
+/* ---------------- TEXTAREA ---------------- */
 textarea {
   width: 90%;
   height: 60px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.correct { color: green; font-weight: bold; }
-.close { color: orange; font-weight: bold; }
-.wrong { color: red; font-weight: bold; }
+/* ---------------- GRADING COLORS ---------------- */
+.correct { 
+  color: #28a745;  /* green */
+  font-weight: bold; 
+  margin-right: 4px;
+}
+
+.close { 
+  color: #ffc107;  /* orange */
+  font-weight: bold; 
+  margin-right: 4px;
+}
+
+.wrong { 
+  color: #dc3545;  /* red */
+  font-weight: bold; 
+  margin-right: 4px;
+}
+
+/* ---------------- WORD FEEDBACK ---------------- */
+.word-feedback {
+  display: block;          /* show on new line */
+  font-size: 0.9em;        /* slightly smaller */
+  color: #d9534f;          /* red for visibility */
+  margin-left: 12px;        /* indent for clarity */
+  margin-bottom: 3px;       /* spacing between lines */
+  line-height: 1.2em;       /* avoid cramped lines */
+}
+
+/* ---------------- PROGRESS TEXT ---------------- */
+#progress {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+/* ---------------- BUTTONS (ACTIONS) ---------------- */
+#playAudio, #checkBtn, #retryBtn, #nextBtn {
+  margin: 5px;
+  padding: 8px 12px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #f8f8f8;
+  transition: background-color 0.2s;
+}
+
+#playAudio:hover, #checkBtn:hover, #retryBtn:hover, #nextBtn:hover {
+  background-color: #e0e0e0;
+}
