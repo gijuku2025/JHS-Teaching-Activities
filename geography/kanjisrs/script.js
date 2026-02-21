@@ -299,10 +299,15 @@ function submitAnswer() {
   let correct = false;
 
   if (current.questionType === "meaning") {
-  const target = current.meaning.toLowerCase();
-  correct = levenshtein(input, target) <= 1;
-}
+  const answers = Array.isArray(current.meaning)
+    ? current.meaning
+    : [current.meaning];
 
+  correct = answers.some(m => {
+    const target = m.toLowerCase();
+    return input === target || levenshtein(input, target) <= 1;
+  });
+}
   if (current.questionType === "on" && current.on && current.on.length) {
   const normalizedInput = normalizeJP(input);
   correct = current.on.some(r => normalizeJP(r) === normalizedInput);
@@ -489,7 +494,7 @@ function showSimpleFeedback(isCorrect) {
         </h3>
 
         <div class="feedback-word">
-          ${current.kanji} – ${current.meaning}
+          ${current.kanji} – ${Array.isArray(current.meaning) ? current.meaning.join(", ") : current.meaning}
         </div>
 
         <div style="margin:10px 0;">
