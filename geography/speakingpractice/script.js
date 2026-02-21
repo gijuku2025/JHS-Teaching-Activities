@@ -153,8 +153,8 @@ function isClose(word1, word2) {
 }
 
 function gradeSentence() {
+  const originalWords = sentenceEl.textContent.split(" ");
   const modelWords = normalize(sentenceEl.textContent).split(" ");
-  const spokenWords = normalize(input.value).split(" ");
 
   let html = "";
   let score = 0;
