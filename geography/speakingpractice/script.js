@@ -137,34 +137,31 @@ function normalize(text) {
 }
 
 function isClose(model, spoken) {
-  if (!spoken) return false;
+  if (!spoken) return null;
 
-  // exact handled elsewhere, so here we test "near matches"
   const m = model;
   const s = spoken;
 
-  // 1️⃣ L ↔ R confusion
-  if (swapChars(m, "l", "r") === s || swapChars(s, "l", "r") === m) return true;
+  // L ↔ R
+  if (swapChars(m, "l", "r") === s || swapChars(s, "l", "r") === m) return "lr";
 
-  // 2️⃣ B ↔ V confusion
-  if (swapChars(m, "b", "v") === s || swapChars(s, "b", "v") === m) return true;
+  // B ↔ V
+  if (swapChars(m, "b", "v") === s || swapChars(s, "b", "v") === m) return "bv";
 
-  // 3️⃣ TH ↔ S / Z / T
-  if (m.replace("th", "s") === s) return true;
-  if (m.replace("th", "z") === s) return true;
-  if (m.replace("th", "t") === s) return true;
+  // TH → S / Z / T
+  if (m.replace("th", "s") === s) return "th";
+  if (m.replace("th", "z") === s) return "th";
+  if (m.replace("th", "t") === s) return "th";
 
-  // 4️⃣ Missing final consonant (s, ed, d, t)
-  if (m === s + "s") return true;
-  if (m === s + "ed") return true;
-  if (m === s + "d") return true;
-  if (m === s + "t") return true;
+  // Missing word ending
+  if (m === s + "s" || m === s + "ed" || m === s + "d" || m === s + "t") return "ending";
 
-  // 5️⃣ Small spelling difference (1 letter off)
-  if (levenshtein(m, s) === 1) return true;
+  // Small spelling difference
+  if (levenshtein(m, s) === 1) return "spelling";
 
-  return false;
+  return null;
 }
+
 
 function swapChars(word, a, b) {
   return word
@@ -203,6 +200,7 @@ function gradeSentence() {
 
   let html = "";
   let score = 0;
+  let reasons = new Set();
 
   modelWords.forEach((modelWord, i) => {
     const spokenWord = spokenWords[i];
@@ -211,17 +209,37 @@ function gradeSentence() {
     if (spokenWord === modelWord) {
       html += `<span class="correct">${displayWord} </span>`;
       score++;
-    } 
-    else if (isClose(modelWord, spokenWord)) {
-      html += `<span class="close">${displayWord} </span>`;
-      score += 0.5;
-    } 
-    else {
-      html += `<span class="wrong">${displayWord} </span>`;
+    } else {
+      const reason = isClose(modelWord, spokenWord);
+
+      if (reason) {
+        html += `<span class="close">${displayWord} </span>`;
+        score += 0.5;
+        reasons.add(reason);
+      } else {
+        html += `<span class="wrong">${displayWord} </span>`;
+      }
     }
   });
 
   if (score > bestScore) bestScore = score;
 
+    
   feedback.innerHTML = html;
+
+  // show feedback text only if there were problems
+  if (reasons.size > 0) {
+    let message = "<p><strong>Feedback:</strong></p><ul>";
+
+    reasons.forEach(r => {
+      if (r === "lr") message += "<li>Check R and L sounds（RとLの発音に注意）</li>";
+      if (r === "bv") message += "<li>Check B and V sounds（BとVの発音に注意）</li>";
+      if (r === "th") message += "<li>Practice the TH sound（THの発音を練習）</li>";
+      if (r === "ending") message += "<li>Check word endings (s, ed)（語尾に注意）</li>";
+      if (r === "spelling") message += "<li>Check pronunciation（発音をもう一度確認）</li>";
+    });
+
+    message += "</ul>";
+    feedback.innerHTML += message;
+  }
 }
