@@ -8,13 +8,12 @@
 </head>
 <body>
 
-
 <div id="legend">
   🟢 Correct（正しい）　
   🟡 Close（だいたい合っている）　
   🔴 Different（ちがう）
 </div>
-  
+
 <h2 id="header"></h2>
 
 <div id="menu"></div>
@@ -27,9 +26,11 @@
 
   <textarea id="speechInput" placeholder="Tap here, then tap the mic and read the sentence."></textarea>
 
-  <button id="checkBtn">🛑 Stop & Check</button>
-  <button id="retryBtn">🔁 Try Again</button>
-  <button id="nextBtn" disabled>▶ Next</button>
+  <div id="action-buttons">
+    <button id="checkBtn" disabled>🛑 Stop & Check</button>
+    <button id="retryBtn">🔁 Try Again</button>
+    <button id="nextBtn" disabled>▶ Next</button>
+  </div>
 
   <div id="feedback"></div>
 </div>
