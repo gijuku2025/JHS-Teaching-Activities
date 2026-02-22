@@ -191,7 +191,8 @@ nextBtn.onclick = () => {
 
 // ------------------- GRADING -------------------
 function gradeSentence() {
-  const modelWords = normalize(sentenceEl.textContent).split(" ");
+  const modelWords = normalize(sentenceEl.textContent).split(" "); // for comparison
+  const originalWords = sentenceEl.textContent.split(/\s+/);       // for display
   const spokenWords = normalize(input.value).split(" ").filter(Boolean);
 
   let html = "";
@@ -217,7 +218,8 @@ function gradeSentence() {
 
     // Word color only
     const wordClass = spokenWord === modelWord ? "correct" : reason ? "close" : "wrong";
-    html += `<span class="${wordClass}">${modelWord}</span> `;
+    const displayWord = originalWords[i] || modelWord;
+    html += `<span class="${wordClass}">${displayWord}</span> `;
 
     // Per-word feedback on new line
     if (spokenWord !== modelWord) {
