@@ -7,10 +7,8 @@ body {
   color: #333;
 }
 
-/* ---------------- HIDDEN ELEMENTS ---------------- */
-.hidden {
-  display: none;
-}
+/* ---------------- HIDDEN ---------------- */
+.hidden { display: none; }
 
 /* ---------------- MENU BUTTONS ---------------- */
 #menu button {
@@ -23,10 +21,7 @@ body {
   background-color: #fff;
   transition: background-color 0.2s;
 }
-
-#menu button:hover {
-  background-color: #e0e0e0;
-}
+#menu button:hover { background-color: #e0e0e0; }
 
 /* ---------------- CARD ---------------- */
 #card {
@@ -50,60 +45,25 @@ textarea {
   border: 1px solid #ccc;
 }
 
-/* ---------------- GRADING COLORS ---------------- */
-.correct { 
-  color: #28a745;
-  background-color: #d4edda;
-  font-weight: bold;
-  margin-right: 4px;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
-
-.close { 
-  color: #856404;
-  background-color: #fff3cd;
-  font-weight: bold;
-  margin-right: 4px;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
-
-.wrong { 
-  color: #721c24;
-  background-color: #f8d7da;
-  font-weight: bold;
-  margin-right: 4px;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
+/* ---------------- WORD COLORS ---------------- */
+.correct { color: #28a745; font-weight: bold; }
+.close { color: #ffc107; font-weight: bold; }
+.wrong { color: #dc3545; font-weight: bold; }
 
 /* ---------------- WORD FEEDBACK ---------------- */
 .word-feedback {
   display: block;
   font-size: 0.9em;
+  color: #d9534f;
   margin-left: 12px;
   margin-bottom: 3px;
   line-height: 1.2em;
 }
 
-/* ---------------- FEEDBACK DIV ---------------- */
-#feedback {
-  max-height: 200px;
-  overflow-y: auto;
-  text-align: left;
-  padding: 5px;
-  border-top: 1px solid #ccc;
-  margin-top: 10px;
-}
+/* ---------------- PROGRESS ---------------- */
+#progress { margin: 10px 0; font-weight: bold; }
 
-/* ---------------- PROGRESS TEXT ---------------- */
-#progress {
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-/* ---------------- BUTTONS (ACTIONS) ---------------- */
+/* ---------------- BUTTONS ---------------- */
 #playAudio, #checkBtn, #retryBtn, #nextBtn {
   margin: 5px;
   padding: 8px 12px;
@@ -114,24 +74,4 @@ textarea {
   background-color: #f8f8f8;
   transition: background-color 0.2s;
 }
-
-#playAudio:hover, #checkBtn:hover, #retryBtn:hover, #nextBtn:hover {
-  background-color: #e0e0e0;
-}
-
-/* ---------------- DISABLED BUTTON ---------------- */
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 500px) {
-  textarea, #card {
-    width: 95%;
-  }
-  #menu button {
-    font-size: 14px;
-    padding: 8px 10px;
-  }
-}
+#playAudio:hover, #checkBtn:hover, #retryBtn:hover, #nextBtn:hover { background-color: #e0e0e0; }
