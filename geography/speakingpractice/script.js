@@ -84,6 +84,8 @@ function showChapters() {
   menu.innerHTML = "";
   card.classList.add("hidden");
 
+  document.getElementById("legend").classList.add("hidden");
+  
   for (let ch in data.chapters) {
     const chapterData = data.chapters[ch];
     const btn = document.createElement("button");
@@ -100,6 +102,7 @@ function showSections(ch) {
   header.textContent = chapterData.title ? `Chapter ${ch}: ${chapterData.title}` : `Chapter ${ch}`;
   menu.innerHTML = "";
   card.classList.add("hidden");
+  document.getElementById("legend").classList.add("hidden");  
 
   const sections = chapterData.sections || {};
   for (let s in sections) {
@@ -118,6 +121,9 @@ function startPractice(ch, s) {
   const chapterData = data.chapters[ch];
   const sectionData = chapterData.sections[s];
 
+  document.getElementById("legend").classList.remove("hidden");
+
+  
   if (!sectionData || !sectionData.sentences?.length) {
     alert("No sentences available in this section.");
     return;
@@ -185,6 +191,7 @@ nextBtn.onclick = () => {
   } else {
     header.textContent = "Finished!";
     card.classList.add("hidden");
+    document.getElementById("legend").classList.add("hidden"); // hide legend
     menu.innerHTML = `<button onclick="location.reload()">Back to Menu</button>`;
   }
 };
