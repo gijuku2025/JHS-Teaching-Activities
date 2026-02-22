@@ -18,6 +18,20 @@ const retryBtn = document.getElementById("retryBtn");
 
 let audioPlayer = new Audio();
 
+input.addEventListener("focus", () => {
+  if (!card.classList.contains("hidden")) {
+    header.style.visibility = "hidden";
+    setTimeout(() => {
+      sentenceEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 300);
+  }
+});
+
+input.addEventListener("blur", () => {
+  header.style.visibility = "visible";
+});
+
+
 // ------------------- UTILITY FUNCTIONS -------------------
 function normalize(text) {
   return text.toLowerCase().replace(/[.,!?]/g, "").replace(/\s+/g, " ").trim();
