@@ -2,8 +2,12 @@ let data;
 let currentChapter, currentSection;
 let sentences = [];
 let index = 0;
-let bestScore = 0;
 
+let studyStartTime = null;
+let resultsLog = [];
+
+const nickname = localStorage.getItem("nickname") || "Student";
+const subjectTitle = "Junior High Geography";
 const menu = document.getElementById("menu");
 const card = document.getElementById("card");
 const header = document.getElementById("header");
@@ -94,7 +98,7 @@ fetch("sentences.json")
 
 // ------------------- UI FUNCTIONS -------------------
 function showChapters() {
-  header.textContent = "Choose a Chapter";
+  header.innerHTML = `Welcome to Smart Speak, ${nickname}.<br>${subjectTitle}`;
   menu.innerHTML = "";
   card.classList.add("hidden");
 
@@ -141,11 +145,13 @@ function startPractice(ch, s) {
   if (!sectionData || !sectionData.sentences?.length) {
     alert("No sentences available in this section.");
     return;
-  }
-
+  }  
+  
   sentences = sectionData.sentences;
   index = 0;
   bestScore = 0;
+  resultsLog = [];
+  studyStartTime = new Date();
 
   menu.innerHTML = "";
   card.classList.remove("hidden");
@@ -201,22 +207,19 @@ retryBtn.onclick = () => {
 nextBtn.onclick = () => {
   index++;
   if (index < sentences.length) {
-    loadSentence();
-  } else {
-    header.textContent = "Finished!";
-    card.classList.add("hidden");
-    document.getElementById("legend").classList.add("hidden"); // hide legend
-    menu.innerHTML = `<button onclick="location.reload()">Back to Menu</button>`;
+    loadSentence();  } else {
+    showResults();
   }
 };
 
 // ------------------- GRADING -------------------
 function gradeSentence() {
-  const modelWords = normalize(sentenceEl.textContent).split(" "); // for comparison
-  const originalWords = sentenceEl.textContent.split(/\s+/);       // for display
+  const modelWords = normalize(sentenceEl.textContent).split(" ");
+  const originalWords = sentenceEl.textContent.split(/\s+/);
   const spokenWords = normalize(input.value).split(" ").filter(Boolean);
 
-  let html = "";
+  let html = "";          // full feedback (practice)
+  let sentenceHtml = ""; // clean feedback (results)
   let score = 0;
 
   const feedbackMessages = {
@@ -235,32 +238,69 @@ function gradeSentence() {
 
   modelWords.forEach((modelWord, i) => {
     const spokenWord = normalize(spokenWords[i] || "");
-const cleanModelWord = normalize(modelWords[i]);  // normalize for comparison
-const reason = isClose(cleanModelWord, spokenWord);
+    const cleanModelWord = normalize(modelWords[i]);
+    const reason = isClose(cleanModelWord, spokenWord);
 
-// Word color only
-const wordClass = spokenWord === cleanModelWord ? "correct" : reason ? "close" : "wrong";
-const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
-html += `<span class="${wordClass}">${displayWord}</span> `;
+    const wordClass =
+      spokenWord === cleanModelWord ? "correct" :
+      reason ? "close" : "wrong";
 
-    // Per-word feedback on new line
+    const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
+
+    // colored word (both outputs)
+    const coloredWord = `<span class="${wordClass}">${displayWord}</span> `;
+
+    html += coloredWord;
+    sentenceHtml += coloredWord;
+
+    // 🔽 word-by-word feedback (ONLY for practice)
     if (spokenWord !== cleanModelWord) {
-  let msg = wordFeedback[cleanModelWord] || (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
-  html += `<span class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</span>`;
-}
+      let msg =
+        wordFeedback[cleanModelWord] ||
+        (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
 
-    // Update score
-if (spokenWord === cleanModelWord) score++;
-else if (reason) score += 0.5;
+      html += `<span class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</span>`;
+    }
+
+    if (spokenWord === cleanModelWord) score++;
+    else if (reason) score += 0.5;
   });
 
-  // Update bestScore
-  if (score > bestScore) bestScore = score;
-
-  // Display feedback
+  // show full feedback now
   feedback.innerHTML = html;
 
-  // Overall percentage score
-  const percent = ((score / modelWords.length) * 100).toFixed(0);
-  feedback.innerHTML += `<p>Score: ${percent}%</p>`;
+  // save ONLY colored sentence for results page
+  resultsLog.push(sentenceHtml);
 }
+	  function showResults() {
+  const endTime = new Date();
+  const timeSpentMs = endTime - studyStartTime;
+  const minutes = Math.floor(timeSpentMs / 60000);
+  const seconds = Math.floor((timeSpentMs % 60000) / 1000);
+
+  const chapterData = data.chapters[currentChapter];
+  const sectionData = chapterData.sections[currentSection];
+
+  header.innerHTML = "Study Results";
+
+  card.classList.add("hidden");
+  document.getElementById("legend").classList.add("hidden");
+
+  let html = `
+    <p><strong>Name:</strong> ${nickname}</p>
+    <p><strong>Date:</strong> ${endTime.toLocaleDateString()}</p>
+    <p><strong>Finished at:</strong> ${endTime.toLocaleTimeString()}</p>
+    <p><strong>Studied:</strong> Chapter ${currentChapter} - Section ${currentSection}</p>
+    <p><strong>Time spent:</strong> ${minutes} min ${seconds} sec</p>
+    <hr>
+  `;
+
+  resultsLog.forEach((sentence, i) => {
+    html += `<p><strong>Sentence ${i + 1}:</strong><br>${sentence}</p>`;
+  });
+
+  html += `<button onclick="location.reload()">Back to Menu</button>`;
+
+  menu.innerHTML = html;
+}
+	  
