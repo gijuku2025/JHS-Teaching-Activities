@@ -36,7 +36,7 @@ body {
   max-width: 500px;
   margin: auto;
   background-color: #fff;
-  overflow-x: auto; /* handle long feedback messages */
+  overflow-x: auto;
   box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
 }
 
@@ -52,31 +52,49 @@ textarea {
 
 /* ---------------- GRADING COLORS ---------------- */
 .correct { 
-  color: #28a745;  /* green */
-  font-weight: bold; 
+  color: #28a745;
+  background-color: #d4edda;
+  font-weight: bold;
   margin-right: 4px;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 .close { 
-  color: #ffc107;  /* orange */
-  font-weight: bold; 
+  color: #856404;
+  background-color: #fff3cd;
+  font-weight: bold;
   margin-right: 4px;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 .wrong { 
-  color: #dc3545;  /* red */
-  font-weight: bold; 
+  color: #721c24;
+  background-color: #f8d7da;
+  font-weight: bold;
   margin-right: 4px;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 /* ---------------- WORD FEEDBACK ---------------- */
 .word-feedback {
-  display: block;          /* show on new line */
-  font-size: 0.9em;        /* slightly smaller */
-  color: #d9534f;          /* red for visibility */
-  margin-left: 12px;        /* indent for clarity */
-  margin-bottom: 3px;       /* spacing between lines */
-  line-height: 1.2em;       /* avoid cramped lines */
+  display: block;
+  font-size: 0.9em;
+  margin-left: 12px;
+  margin-bottom: 3px;
+  line-height: 1.2em;
+}
+
+/* ---------------- FEEDBACK DIV ---------------- */
+#feedback {
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+  padding: 5px;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
 }
 
 /* ---------------- PROGRESS TEXT ---------------- */
@@ -99,4 +117,21 @@ textarea {
 
 #playAudio:hover, #checkBtn:hover, #retryBtn:hover, #nextBtn:hover {
   background-color: #e0e0e0;
+}
+
+/* ---------------- DISABLED BUTTON ---------------- */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 500px) {
+  textarea, #card {
+    width: 95%;
+  }
+  #menu button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
 }
