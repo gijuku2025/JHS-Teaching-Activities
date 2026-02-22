@@ -194,34 +194,66 @@ function levenshtein(a, b) {
 }
 
 function gradeSentence() {
+  const modelWords = Utils.normalize(sentenceEl.textContent).split(" ");
+  const spokenWords = Utils.normalize(input.value).split(" ").filter(Boolean);
   const originalWords = sentenceEl.textContent.split(" ");
-  const modelWords = normalize(sentenceEl.textContent).split(" ");
-  const spokenWords = normalize(input.value).split(" ");
 
   let html = "";
   let score = 0;
-  let reasons = new Set();
+
+  // Feedback messages mapping (English + Japanese)
+  const feedbackMessages = {
+    "lr": "Check R and L sounds（RとLの発音に注意）",
+    "bv": "Check B and V sounds（BとVの発音に注意）",
+    "th": "Practice the TH sound（THの発音を練習）",
+    "ending": "Check word endings (s, ed)（語尾に注意）",
+    "spelling": "Check pronunciation（発音をもう一度確認）"
+  };
+
+  // Optional per-word custom messages (English + Japanese)
+  const wordFeedback = {
+    "library": "Remember the 'r' sound in the middle（真ん中のRの発音に注意）",
+    "think": "TH is pronounced like in 'thanks'（THはthanksのように発音）",
+    "vase": "B/V confusion possible（BとVの混同に注意）"
+    // Add more words as needed
+  };
 
   modelWords.forEach((modelWord, i) => {
-    const spokenWord = spokenWords[i];
+    const spokenWord = spokenWords[i] || "";
     const displayWord = originalWords[i] || modelWord;
 
     if (spokenWord === modelWord) {
-      html += `<span class="correct">${displayWord} </span>`;
+      html += `<span class="correct">${displayWord}</span> `;
       score++;
     } else {
-      const reason = isClose(modelWord, spokenWord);
+      const reason = Utils.isClose(modelWord, spokenWord);
+      html += `<span class="${reason ? "close" : "wrong"}">${displayWord}</span> `;
 
-      if (reason) {
-        html += `<span class="close">${displayWord} </span>`;
-        score += 0.5;
-        reasons.add(reason);
+      // partial credit for close matches
+      if (reason) score += 0.5;
+
+      // 1️⃣ Per-word feedback
+      if (wordFeedback[modelWord]) {
+        html += `<br><span class="word-feedback">⚠️ ${wordFeedback[modelWord]}</span>`;
+      } else if (reason && feedbackMessages[reason]) {
+        html += `<br><span class="word-feedback">⚠️ ${feedbackMessages[reason]}</span>`;
       } else {
-        html += `<span class="wrong">${displayWord} </span>`;
+        // Generic fallback
+        html += `<br><span class="word-feedback">⚠️ Check this word（この単語を確認）</span>`;
       }
     }
   });
 
+  // Update bestScore
+  if (score > bestScore) bestScore = score;
+
+  // Display feedback
+  feedback.innerHTML = html;
+
+  // Overall percentage score
+  const percent = ((score / modelWords.length) * 100).toFixed(0);
+  feedback.innerHTML += `<p>Score: ${percent}%</p>`;
+}
   if (score > bestScore) bestScore = score;
 
     
