@@ -9,7 +9,6 @@
 <body>
 
 <h2 id="header"></h2>  
-  
 
 <div id="menu"></div>
 
@@ -17,9 +16,6 @@
   <p id="progress"></p>
   <p id="sentence"></p>
 
-  
-
-  
   <button id="playAudio">🔊 Listen</button><br><br>
 
   <textarea id="speechInput" placeholder="Tap here, then tap the mic and read the sentence."></textarea>
@@ -33,12 +29,13 @@
   <div id="feedback"></div>
 </div>
 
-<div id="legend">
+<!-- ✅ Legend is OUTSIDE the card and hidden by default -->
+<div id="legend" class="hidden">
   🟢 Correct（正しい）　
   🟡 Close（だいたい合っている）　
   🔴 Different（ちがう）
 </div>  
-  
+
 <script src="script.js"></script>
 </body>
 </html>
