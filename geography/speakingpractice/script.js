@@ -193,12 +193,10 @@ nextBtn.onclick = () => {
 function gradeSentence() {
   const modelWords = normalize(sentenceEl.textContent).split(" ");
   const spokenWords = normalize(input.value).split(" ").filter(Boolean);
-  const originalWords = sentenceEl.textContent.split(" ");
 
   let html = "";
   let score = 0;
 
-  // Feedback messages mapping (English + Japanese)
   const feedbackMessages = {
     "lr": "Check R and L sounds（RとLの発音に注意）",
     "bv": "Check B and V sounds（BとVの発音に注意）",
@@ -207,7 +205,6 @@ function gradeSentence() {
     "spelling": "Check pronunciation（発音をもう一度確認）"
   };
 
-  // Optional per-word custom messages (English + Japanese)
   const wordFeedback = {
     "library": "Remember the 'r' sound in the middle（真ん中のRの発音に注意）",
     "think": "TH is pronounced like in 'thanks'（THはthanksのように発音）",
@@ -216,26 +213,21 @@ function gradeSentence() {
 
   modelWords.forEach((modelWord, i) => {
     const spokenWord = spokenWords[i] || "";
-    const displayWord = originalWords[i] || modelWord;
+    const reason = isClose(modelWord, spokenWord);
 
-    if (spokenWord === modelWord) {
-      html += `<span class="correct">${displayWord}</span> `;
-      score++;
-    } else {
-      const reason = isClose(modelWord, spokenWord);
-      html += `<span class="${reason ? "close" : "wrong"}">${displayWord}</span> `;
+    // Word color only
+    const wordClass = spokenWord === modelWord ? "correct" : reason ? "close" : "wrong";
+    html += `<span class="${wordClass}">${modelWord}</span> `;
 
-      if (reason) score += 0.5;
-
-      // Per-word feedback
-      if (wordFeedback[modelWord]) {
-        html += `<br><span class="word-feedback">⚠️ ${wordFeedback[modelWord]}</span>`;
-      } else if (reason && feedbackMessages[reason]) {
-        html += `<br><span class="word-feedback">⚠️ ${feedbackMessages[reason]}</span>`;
-      } else {
-        html += `<br><span class="word-feedback">⚠️ Check this word（この単語を確認）</span>`;
-      }
+    // Per-word feedback on new line
+    if (spokenWord !== modelWord) {
+      let msg = wordFeedback[modelWord] || (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
+      html += `<span class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</span>`;
     }
+
+    // Update score
+    if (spokenWord === modelWord) score++;
+    else if (reason) score += 0.5;
   });
 
   // Update bestScore
@@ -244,7 +236,7 @@ function gradeSentence() {
   // Display feedback
   feedback.innerHTML = html;
 
-  // Overall percentage
+  // Overall percentage score
   const percent = ((score / modelWords.length) * 100).toFixed(0);
   feedback.innerHTML += `<p>Score: ${percent}%</p>`;
 }
