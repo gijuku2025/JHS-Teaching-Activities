@@ -214,23 +214,23 @@ function gradeSentence() {
 
   modelWords.forEach((modelWord, i) => {
     const spokenWord = normalize(spokenWords[i] || "");
-const cleanModelWord = normalize(modelWord); // remove punctuation for comparison
+const cleanModelWord = normalize(modelWords[i]);  // normalize for comparison
 const reason = isClose(cleanModelWord, spokenWord);
 
 // Word color only
 const wordClass = spokenWord === cleanModelWord ? "correct" : reason ? "close" : "wrong";
-const displayWord = originalWords[i] || modelWord; // keep punctuation & capitalization
+const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
 html += `<span class="${wordClass}">${displayWord}</span> `;
 
     // Per-word feedback on new line
-    if (spokenWord !== modelWord) {
-      let msg = wordFeedback[modelWord] || (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
-      html += `<span class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</span>`;
-    }
+    if (spokenWord !== cleanModelWord) {
+  let msg = wordFeedback[cleanModelWord] || (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
+  html += `<span class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</span>`;
+}
 
     // Update score
-    if (spokenWord === modelWord) score++;
-    else if (reason) score += 0.5;
+if (spokenWord === cleanModelWord) score++;
+else if (reason) score += 0.5;
   });
 
   // Update bestScore
