@@ -10,6 +10,17 @@ body {
 /* ---------------- HIDDEN ---------------- */
 .hidden { display: none; }
 
+
+/* ---------------- LEGEND ---------------- */
+#legend {
+  margin: 10px 0 15px 0;  /* space above and below */
+  font-size: 0.9em;        /* slightly smaller text */
+  text-align: center;       /* centered under header */
+  display: block;           /* ensures it's a block element */
+}
+
+
+
 /* ---------------- MENU BUTTONS ---------------- */
 #menu button {
   margin: 5px;
