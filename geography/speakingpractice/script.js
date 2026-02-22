@@ -213,13 +213,14 @@ function gradeSentence() {
   };
 
   modelWords.forEach((modelWord, i) => {
-    const spokenWord = spokenWords[i] || "";
-    const reason = isClose(modelWord, spokenWord);
+    const spokenWord = normalize(spokenWords[i] || "");
+const cleanModelWord = normalize(modelWord); // remove punctuation for comparison
+const reason = isClose(cleanModelWord, spokenWord);
 
-    // Word color only
-    const wordClass = spokenWord === modelWord ? "correct" : reason ? "close" : "wrong";
-    const displayWord = originalWords[i] || modelWord;
-    html += `<span class="${wordClass}">${displayWord}</span> `;
+// Word color only
+const wordClass = spokenWord === cleanModelWord ? "correct" : reason ? "close" : "wrong";
+const displayWord = originalWords[i] || modelWord; // keep punctuation & capitalization
+html += `<span class="${wordClass}">${displayWord}</span> `;
 
     // Per-word feedback on new line
     if (spokenWord !== modelWord) {
