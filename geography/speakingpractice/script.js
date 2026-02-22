@@ -22,7 +22,7 @@ input.addEventListener("focus", () => {
   if (!card.classList.contains("hidden")) {
     header.style.visibility = "hidden";
     setTimeout(() => {
-      sentenceEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      sentenceEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 300);
   }
 });
