@@ -1,0 +1,112 @@
+[
+  {
+    "kanji": "義",
+    "meaning": ["justice", "honor", "meaning"],
+    "onyomi": ["ギ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "正義", "meaning": "justice" },
+      { "word": "講義", "meaning": "lecture" }
+    ],
+    "example_sentence": "大学で歴史の講義を聴きます。"
+  },
+  {
+    "kanji": "評",
+    "meaning": ["criticize", "evaluate", "comment"],
+    "onyomi": ["ヒョウ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "評価", "meaning": "evaluation" },
+      { "word": "評判", "meaning": "reputation" }
+    ],
+    "example_sentence": "そのレストランは評判が良いです。"
+  },
+  {
+    "kanji": "価",
+    "meaning": ["value", "price"],
+    "onyomi": ["カ"],
+    "kunyomi": ["あたい"],
+    "vocab": [
+      { "word": "価値", "meaning": "value" },
+      { "word": "価格", "meaning": "price" }
+    ],
+    "example_sentence": "この絵には高い価値があります。"
+  },
+  {
+    "kanji": "格",
+    "meaning": ["status", "rank", "standard"],
+    "onyomi": ["カク", "コウ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "合格", "meaning": "passing (an exam)" },
+      { "word": "性格", "meaning": "personality" }
+    ],
+    "example_sentence": "試験に合格して安心しました。"
+  },
+  {
+    "kanji": "総",
+    "meaning": ["general", "whole", "total"],
+    "onyomi": ["ソウ"],
+    "kunyomi": ["す(べて)"],
+    "vocab": [
+      { "word": "総合", "meaning": "synthesis / general" },
+      { "word": "総理大臣", "meaning": "Prime Minister" }
+    ],
+    "example_sentence": "日本の総理大臣が交代しました。"
+  },
+  {
+    "kanji": "領",
+    "meaning": ["territory", "jurisdiction", "reign"],
+    "onyomi": ["リョウ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "領収書", "meaning": "receipt" },
+      { "word": "大統領", "meaning": "President" }
+    ],
+    "example_sentence": "お店で領収書をもらいました。"
+  },
+  {
+    "kanji": "域",
+    "meaning": ["range", "region", "limits"],
+    "onyomi": ["イキ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "地域", "meaning": "region / area" },
+      { "word": "区域", "meaning": "district / zone" }
+    ],
+    "example_sentence": "この地域は雨が多いです。"
+  },
+  {
+    "kanji": "基",
+    "meaning": ["foundation", "base"],
+    "onyomi": ["キ"],
+    "kunyomi": ["もと", "もとい"],
+    "vocab": [
+      { "word": "基本", "meaning": "basics" },
+      { "word": "基準", "meaning": "standard" }
+    ],
+    "example_sentence": "まずは基本を覚えることが大切です。"
+  },
+  {
+    "kanji": "軍",
+    "meaning": ["army", "military", "troops"],
+    "onyomi": ["グン"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "軍隊", "meaning": "army / troops" },
+      { "word": "空軍", "meaning": "Air Force" }
+    ],
+    "example_sentence": "彼は軍隊に入りました。"
+  },
+  {
+    "kanji": "民",
+    "meaning": ["people", "nation", "subjects"],
+    "onyomi": ["ミン"],
+    "kunyomi": ["たみ"],
+    "vocab": [
+      { "word": "国民", "meaning": "citizen / nation" },
+      { "word": "民主主義", "meaning": "democracy" }
+    ],
+    "example_sentence": "国民の意見を聞く必要があります。"
+  }
+]
