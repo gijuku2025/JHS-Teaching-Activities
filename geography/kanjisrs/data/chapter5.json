@@ -1,52 +1,52 @@
 [
   {
-    "word": "別",
-    "meaning": ["separate", "branch off", "diverge"],
-    "reading": ["ベツ", "わかれる", "わける"]
+    "word": "賛",
+    "meaning": ["Approve", "agree"],
+    "reading": ["サン"]
   },
   {
-    "word": "産",
-    "meaning": ["products", "bear", "give birth"],
-    "reading": ["サン", "うむ", "うまれる", "うぶ"]
+    "word": "質",
+    "meaning": ["Quality", "matter"],
+    "reading": ["シツ"]
   },
   {
-    "word": "的",
-    "meaning": ["target", "object", "adjective ending"],
-    "reading": ["テキ", "まと"]
+    "word": "量",
+    "meaning": ["Amount"],
+    "reading": ["リョウ", "はか(る)"]
   },
   {
-    "word": "性",
-    "meaning": ["sex", "gender", "nature"],
-    "reading": ["セイ", "ショウ"]
+    "word": "価",
+    "meaning": ["Value", "price"],
+    "reading": ["カ", "あたい"]
   },
   {
-    "word": "法",
-    "meaning": ["method", "law", "principle"],
-    "reading": ["ホウ", "ハッ", "ホッ", "のり"]
+    "word": "格",
+    "meaning": ["Status", "standard"],
+    "reading": ["カク"]
   },
   {
-    "word": "規",
-    "meaning": ["standard", "measure", "rule"],
-    "reading": ["キ"]
+    "word": "費",
+    "meaning": ["Expense", "cost"],
+    "reading": ["ヒ", "つい(やす)"]
   },
   {
-    "word": "則",
-    "meaning": ["rule", "law", "follow"],
-    "reading": ["ソク", "のっとる"]
+    "word": "資",
+    "meaning": ["Resources", "capital"],
+    "reading": ["シ"]
   },
   {
-    "word": "備",
-    "meaning": ["equip", "provision", "prepare"],
-    "reading": ["ビ", "そなえる", "そなわる"]
+    "word": "源",
+    "meaning": ["Source", "origin"],
+    "reading": ["ゲン", "みなもと"]
   },
   {
-    "word": "宅",
-    "meaning": ["home", "house", "residence"],
-    "reading": ["タク"]
+    "word": "税",
+    "meaning": ["Tax"],
+    "reading": ["ゼイ"]
   },
   {
-    "word": "害",
-    "meaning": ["harm", "injury", "damage"],
-    "reading": ["ガイ"]
+    "word": "設",
+    "meaning": ["Establish"],
+    "reading": ["セツ", "もう(ける)"]
   }
 ]
