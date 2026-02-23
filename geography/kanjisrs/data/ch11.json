@@ -1,0 +1,52 @@
+[
+  {
+    "word": "史",
+    "meaning": ["History", "chronicle"],
+    "reading": ["シ"]
+  },
+  {
+    "word": "紀",
+    "meaning": ["Chronicle", "geological period"],
+    "reading": ["キ"]
+  },
+  {
+    "word": "代",
+    "meaning": ["Substitute", "generation", "period"],
+    "reading": ["ダイ", "タイ", "か(わる)", "よ"]
+  },
+  {
+    "word": "昔",
+    "meaning": ["Ancient times", "old days"],
+    "reading": ["セキ", "シャク", "むかし"]
+  },
+  {
+    "word": "将",
+    "meaning": ["Leader", "commander", "future"],
+    "reading": ["ショウ"]
+  },
+  {
+    "word": "過",
+    "meaning": ["Overdo", "pass", "error"],
+    "reading": ["カ", "す(ぎる)", "あやま(ち)"]
+  },
+  {
+    "word": "非",
+    "meaning": ["Mistake", "negative", "non-"],
+    "reading": ["ヒ", "あら(ず)"]
+  },
+  {
+    "word": "必",
+    "meaning": ["Necessary", "inevitable"],
+    "reading": ["ヒツ", "かなら(ず)"]
+  },
+  {
+    "word": "要",
+    "meaning": ["Need", "important", "pivot"],
+    "reading": ["ヨウ", "い(る)"]
+  },
+  {
+    "word": "適",
+    "meaning": ["Suitable", "proper"],
+    "reading": ["テキ"]
+  }
+]
