@@ -1,112 +1,53 @@
+
 [
   {
-    "kanji": "連",
+    "word": "連",
     "meaning": ["take along", "lead", "join"],
-    "onyomi": ["レン"],
-    "kunyomi": ["つ(れる)", "つら(なる)"],
-    "vocab": [
-      { "word": "連絡", "meaning": "contact" },
-      { "word": "連休", "meaning": "consecutive holidays" }
-    ],
-    "example_sentence": "友達に電話で連絡しました。"
+    "reading": ["レン", "つれる", "つらなる"]
   },
   {
-    "kanji": "説",
+    "word": "説",
     "meaning": ["opinion", "theory", "explain"],
-    "onyomi": ["セツ", "ゼイ"],
-    "kunyomi": ["と(く)"],
-    "vocab": [
-      { "word": "説明", "meaning": "explanation" },
-      { "word": "小説", "meaning": "novel" }
-    ],
-    "example_sentence": "先生の説明はとてもわかりやすいです。"
+    "reading": ["セツ", "ゼイ", "とく"]
   },
   {
-    "kanji": "関",
+    "word": "関",
     "meaning": ["connection", "barrier", "gate"],
-    "onyomi": ["カン"],
-    "kunyomi": ["せき"],
-    "vocab": [
-      { "word": "関係", "meaning": "relationship" },
-      { "word": "関心", "meaning": "interest" }
-    ],
-    "example_sentence": "私は日本の文化に関心があります。"
+    "reading": ["カン", "せき"]
   },
   {
-    "kanji": "諸",
+    "word": "諸",
     "meaning": ["various", "many", "together"],
-    "onyomi": ["ショ"],
-    "kunyomi": ["もろ"],
-    "vocab": [
-      { "word": "諸国", "meaning": "various countries" },
-      { "word": "諸問題", "meaning": "various problems" }
-    ],
-    "example_sentence": "アジア諸国を旅行したいです。"
+    "reading": ["ショ", "もろ"]
   },
   {
-    "kanji": "際",
+    "word": "際",
     "meaning": ["occasion", "side", "edge"],
-    "onyomi": ["サイ"],
-    "kunyomi": ["きわ"],
-    "vocab": [
-      { "word": "国際", "meaning": "international" },
-      { "word": "交際", "meaning": "association / dating" }
-    ],
-    "example_sentence": "彼は国際的な仕事に就いています。"
+    "reading": ["サイ", "きわ"]
   },
   {
-    "kanji": "官",
+    "word": "官",
     "meaning": ["bureaucrat", "government official"],
-    "onyomi": ["カン"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "警官", "meaning": "police officer" },
-      { "word": "裁判官", "meaning": "judge" }
-    ],
-    "example_sentence": "道で警官に道を尋ねました。"
+    "reading": ["カン"]
   },
   {
-    "kanji": "庁",
+    "word": "庁",
     "meaning": ["government office", "agency"],
-    "onyomi": ["チョウ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "官庁", "meaning": "government office" },
-      { "word": "気象庁", "meaning": "Meteorological Agency" }
-    ],
-    "example_sentence": "気象庁の予報によると明日は雨です。"
+    "reading": ["チョウ"]
   },
   {
-    "kanji": "策",
+    "word": "策",
     "meaning": ["scheme", "plan", "policy"],
-    "onyomi": ["サク"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "対策", "meaning": "countermeasure" },
-      { "word": "政策", "meaning": "policy" }
-    ],
-    "example_sentence": "渋滞の対策を考える必要があります。"
+    "reading": ["サク"]
   },
   {
-    "kanji": "再",
+    "word": "再",
     "meaning": ["again", "twice"],
-    "onyomi": ["サイ", "サ"],
-    "kunyomi": ["ふたた(び)"],
-    "vocab": [
-      { "word": "再生", "meaning": "regeneration / playback" },
-      { "word": "再来週", "meaning": "the week after next" }
-    ],
-    "example_sentence": "その映画をもう一度再生してください。"
+    "reading": ["サイ", "サ", "ふたたび"]
   },
   {
-    "kanji": "認",
+    "word": "認",
     "meaning": ["acknowledge", "witness", "recognize"],
-    "onyomi": ["ニン"],
-    "kunyomi": ["みと(める)"],
-    "vocab": [
-      { "word": "確認", "meaning": "confirmation" },
-      { "word": "認識", "meaning": "recognition" }
-    ],
-    "example_sentence": "予約の内容を確認します。"
+    "reading": ["ニン", "みとめる"]
   }
 ]
