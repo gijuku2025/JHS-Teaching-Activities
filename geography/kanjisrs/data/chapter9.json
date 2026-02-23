@@ -1,52 +1,52 @@
 [
   {
-    "word": "責",
-    "meaning": ["blame", "condemn", "censure"],
-    "reading": ["セキ", "せめる"]
+    "word": "査",
+    "meaning": ["Inspect"],
+    "reading": ["サ"]
+  },
+  {
+    "word": "認",
+    "meaning": ["Recognize"],
+    "reading": ["ニン", "みと(める)"]
   },
   {
     "word": "確",
-    "meaning": ["assurance", "firm", "tight"],
-    "reading": ["カク", "たしか", "たしかめる"]
+    "meaning": ["Certain"],
+    "reading": ["カク", "たし(か)"]
   },
   {
-    "word": "午",
-    "meaning": ["noon", "sign of the horse"],
-    "reading": ["ゴ", "うま"]
+    "word": "判",
+    "meaning": ["Judge"],
+    "reading": ["ハン"]
   },
   {
-    "word": "前",
-    "meaning": ["in front", "before"],
-    "reading": ["ゼン", "まえ"]
+    "word": "断",
+    "meaning": ["Decide", "cut off"],
+    "reading": ["ダン", "ことわ(る)"]
   },
   {
-    "word": "後",
-    "meaning": ["behind", "after", "later"],
-    "reading": ["ゴ", "コウ", "のち", "うしろ", "あと"]
+    "word": "可",
+    "meaning": ["Possible"],
+    "reading": ["カ"]
   },
   {
-    "word": "演",
-    "meaning": ["performance", "play", "render"],
-    "reading": ["エン"]
+    "word": "否",
+    "meaning": ["No", "reject"],
+    "reading": ["ヒ", "いな"]
   },
   {
-    "word": "奏",
-    "meaning": ["play music", "speak to a ruler"],
-    "reading": ["ソウ", "かなでる"]
+    "word": "危",
+    "meaning": ["Dangerous"],
+    "reading": ["キ", "あぶ(ない)"]
   },
   {
-    "word": "欲",
-    "meaning": ["longing", "greed", "want"],
-    "reading": ["ヨク", "ほしい", "ほっする"]
+    "word": "険",
+    "meaning": ["Steep", "dangerous"],
+    "reading": ["ケン", "けわ(しい)"]
   },
   {
-    "word": "質",
-    "meaning": ["substance", "quality", "matter"],
-    "reading": ["シツ", "シチ", "チ", "たち", "ただす"]
-  },
-  {
-    "word": "量",
-    "meaning": ["quantity", "measure", "weight"],
-    "reading": ["リョウ", "はかる"]
+    "word": "守",
+    "meaning": ["Protect"],
+    "reading": ["シュ", "ス", "まも(る)"]
   }
 ]
