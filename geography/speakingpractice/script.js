@@ -97,13 +97,14 @@ fetch("sentences.json")
   });
 
 // ------------------- UI FUNCTIONS -------------------
+// ------------------- UI FUNCTIONS -------------------
 function showChapters() {
   header.innerHTML = `Welcome to Smart Speak, ${nickname}.<br>${subjectTitle}`;
   menu.innerHTML = "";
   card.classList.add("hidden");
   document.getElementById("legend").classList.add("hidden");
 
-  // Apply grid styling for chapters
+  // Chapters displayed as numbers in a grid
   menu.style.display = "grid";
   menu.style.gridTemplateColumns = "repeat(auto-fit, minmax(80px, 1fr))";
   menu.style.gap = "12px";
@@ -111,7 +112,7 @@ function showChapters() {
 
   for (let ch in data.chapters) {
     const btn = document.createElement("button");
-    btn.textContent = ch; // just the chapter number
+    btn.textContent = ch; // just the number
     btn.style.padding = "12px 0";
     btn.style.fontSize = "18px";
     btn.style.width = "80px";
@@ -135,26 +136,19 @@ function showSections(ch) {
 
   const sections = chapterData.sections || {};
 
-  // Sections can be a vertical list or small grid
+  // Sections displayed as 1-1, 1-2 ... (no title here)
   menu.style.display = "grid";
-  menu.style.gridTemplateColumns = "repeat(auto-fit, minmax(120px, 1fr))";
+  menu.style.gridTemplateColumns = "repeat(auto-fit, minmax(100px, 1fr))";
   menu.style.gap = "10px";
-  menu.style.justifyItems = "start";
+  menu.style.justifyItems = "center";
 
   for (let s in sections) {
-    const sectionData = sections[s];
     const btn = document.createElement("button");
-
-    // Clean section key: drop leading chapter number if present
-    let sectionKey = s;
-    if (sectionKey.startsWith(ch + "-")) {
-      sectionKey = sectionKey.slice(ch.length + 1); // e.g. "1-1-1" → "1-1"
-    }
-
-    btn.textContent = sectionKey + (sectionData.title ? `: ${sectionData.title}` : "");
+    btn.textContent = s; // just the section key, e.g., 1-1, 1-2
     btn.style.padding = "10px";
     btn.style.fontSize = "16px";
-    btn.style.width = "100%";
+    btn.style.width = "100px";
+    btn.style.height = "45px";
     btn.style.borderRadius = "6px";
     btn.style.cursor = "pointer";
     btn.style.boxShadow = "0 1px 3px rgba(0,0,0,0.2)";
