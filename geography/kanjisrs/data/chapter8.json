@@ -1,0 +1,112 @@
+[
+  {
+    "kanji": "判",
+    "meaning": ["judgment", "signature", "stamp"],
+    "onyomi": ["ハン", "バン"],
+    "kunyomi": ["わか(る)"],
+    "vocab": [
+      { "word": "判断", "meaning": "judgment / decision" },
+      { "word": "裁判", "meaning": "trial" }
+    ],
+    "example_sentence": "状況を見て、自分で判断してください。"
+  },
+  {
+    "kanji": "断",
+    "meaning": ["severance", "decline", "refuse"],
+    "onyomi": ["ダン"],
+    "kunyomi": ["た(つ)", "ことわ(る)"],
+    "vocab": [
+      { "word": "断水", "meaning": "water outage" },
+      { "word": "断定", "meaning": "conclusion / assertion" }
+    ],
+    "example_sentence": "誘いを丁寧に断りました。"
+  },
+  {
+    "kanji": "視",
+    "meaning": ["inspection", "regard as", "look at"],
+    "onyomi": ["シ"],
+    "kunyomi": ["み(る)"],
+    "vocab": [
+      { "word": "視点", "meaning": "point of view" },
+      { "word": "無視", "meaning": "ignore" }
+    ],
+    "example_sentence": "新しい視点で問題を考えます。"
+  },
+  {
+    "kanji": "際",
+    "meaning": ["occasion", "side", "edge"],
+    "onyomi": ["サイ"],
+    "kunyomi": ["きわ"],
+    "vocab": [
+      { "word": "実際", "meaning": "reality / practical" },
+      { "word": "国際的", "meaning": "international" }
+    ],
+    "example_sentence": "それは実際にあった話です。"
+  },
+  {
+    "kanji": "委",
+    "meaning": ["committee", "entrust", "leave to"],
+    "onyomi": ["イ"],
+    "kunyomi": ["ゆだ(ねる)"],
+    "vocab": [
+      { "word": "委員会", "meaning": "committee" },
+      { "word": "委任", "meaning": "delegation / entrustment" }
+    ],
+    "example_sentence": "学校の委員会に出席します。"
+  },
+  {
+    "kanji": "施",
+    "meaning": ["give", "alms", "perform"],
+    "onyomi": ["シ", "セ"],
+    "kunyomi": ["ほどこ(す)"],
+    "vocab": [
+      { "word": "施設", "meaning": "facility / institution" },
+      { "word": "実施", "meaning": "implementation" }
+    ],
+    "example_sentence": "明日から新しい制度が実施されます。"
+  },
+  {
+    "kanji": "組",
+    "meaning": ["association", "assemble", "unite"],
+    "onyomi": ["ソ", "ソウ"],
+    "kunyomi": ["く(む)", "くみ"],
+    "vocab": [
+      { "word": "組織", "meaning": "organization" },
+      { "word": "番組", "meaning": "TV program" }
+    ],
+    "example_sentence": "彼は大きな組織のリーダーです。"
+  },
+  {
+    "kanji": "織",
+    "meaning": ["weave", "fabric"],
+    "onyomi": ["シキ", "ショク"],
+    "kunyomi": ["お(る)"],
+    "vocab": [
+      { "word": "組織", "meaning": "organization" },
+      { "word": "織物", "meaning": "textile / fabric" }
+    ],
+    "example_sentence": "この地域は伝統的な織物が有名です。"
+  },
+  {
+    "kanji": "導",
+    "meaning": ["guidance", "lead", "conduct"],
+    "onyomi": ["ドウ"],
+    "kunyomi": ["みちび(く)"],
+    "vocab": [
+      { "word": "指導", "meaning": "guidance / coaching" },
+      { "word": "導入", "meaning": "introduction / lead-in" }
+    ],
+    "example_sentence": "先生は熱心に生徒を指導しています。"
+  },
+  {
+    "kanji": "守",
+    "meaning": ["guard", "protect", "obey"],
+    "onyomi": ["シュ", "ス"],
+    "kunyomi": ["まも(る)", "もり"],
+    "vocab": [
+      { "word": "守備", "meaning": "defense" },
+      { "word": "留守", "meaning": "absence / away from home" }
+    ],
+    "example_sentence": "交通ルールをしっかり守りましょう。"
+  }
+]
