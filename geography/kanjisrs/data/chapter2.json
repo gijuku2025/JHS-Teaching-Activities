@@ -1,112 +1,52 @@
 [
   {
-    "kanji": "党",
-    "meaning": ["party", "faction", "faction"],
-    "onyomi": ["トウ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "政党", "meaning": "political party" },
-      { "word": "与党", "meaning": "ruling party" }
-    ],
-    "example_sentence": "彼は新しい政党を作りました。"
+    "word": "党",
+    "meaning": ["party", "faction"],
+    "reading": ["トウ"]
   },
   {
-    "kanji": "解",
+    "word": "解",
     "meaning": ["untie", "solve", "understand"],
-    "onyomi": ["カイ", "ゲ"],
-    "kunyomi": ["と(く)", "と(かす)", "と(ける)"],
-    "vocab": [
-      { "word": "解決", "meaning": "solution" },
-      { "word": "解説", "meaning": "explanation" }
-    ],
-    "example_sentence": "ようやく問題が解決しました。"
+    "reading": ["カイ", "ゲ", "とく", "とかす", "とける"]
   },
   {
-    "kanji": "放",
+    "word": "放",
     "meaning": ["release", "emit", "set free"],
-    "onyomi": ["ホウ"],
-    "kunyomi": ["はな(す)", "はな(つ)", "はな(れる)"],
-    "vocab": [
-      { "word": "放送", "meaning": "broadcasting" },
-      { "word": "解放", "meaning": "release / liberation" }
-    ],
-    "example_sentence": "夜にラジオ放送を聞きます。"
+    "reading": ["ホウ", "はなす", "はなつ", "はなれる"]
   },
   {
-    "kanji": "常",
+    "word": "常",
     "meaning": ["usual", "ordinary", "normal"],
-    "onyomi": ["ジョウ"],
-    "kunyomi": ["つね", "とこ"],
-    "vocab": [
-      { "word": "日常", "meaning": "daily" },
-      { "word": "常識", "meaning": "common sense" }
-    ],
-    "example_sentence": "それは社会の常識です。"
+    "reading": ["ジョウ", "つね", "とこ"]
   },
   {
-    "kanji": "状",
+    "word": "状",
     "meaning": ["status", "condition", "form"],
-    "onyomi": ["ジョウ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "状態", "meaning": "state / condition" },
-      { "word": "状況", "meaning": "situation" }
-    ],
-    "example_sentence": "今の状況を教えてください。"
+    "reading": ["ジョウ"]
   },
   {
-    "kanji": "態",
+    "word": "態",
     "meaning": ["appearance", "state", "condition"],
-    "onyomi": ["タイ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "状態", "meaning": "state / condition" },
-      { "word": "態度", "meaning": "attitude" }
-    ],
-    "example_sentence": "彼の態度はとても親切です。"
+    "reading": ["タイ"]
   },
   {
-    "kanji": "職",
+    "word": "職",
     "meaning": ["employment", "job", "office"],
-    "onyomi": ["ショク"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "職業", "meaning": "occupation" },
-      { "word": "職場", "meaning": "workplace" }
-    ],
-    "example_sentence": "あなたの職業は何ですか。"
+    "reading": ["ショク"]
   },
   {
-    "kanji": "権",
+    "word": "権",
     "meaning": ["authority", "power", "rights"],
-    "onyomi": ["ケン", "ゴン"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "権利", "meaning": "right" },
-      { "word": "政権", "meaning": "administration / political power" }
-    ],
-    "example_sentence": "人間には平等な権利があります。"
+    "reading": ["ケン", "ゴン"]
   },
   {
-    "kanji": "設",
+    "word": "設",
     "meaning": ["establish", "set up", "prepare"],
-    "onyomi": ["セツ"],
-    "kunyomi": ["もう(ける)"],
-    "vocab": [
-      { "word": "設計", "meaning": "design / plan" },
-      { "word": "建設", "meaning": "construction" }
-    ],
-    "example_sentence": "新しいビルを建設しています。"
+    "reading": ["セツ", "もうける"]
   },
   {
-    "kanji": "保",
+    "word": "保",
     "meaning": ["preserve", "keep", "protect"],
-    "onyomi": ["ホ"],
-    "kunyomi": ["たも(つ)"],
-    "vocab": [
-      { "word": "保存", "meaning": "preservation" },
-      { "word": "保険", "meaning": "insurance" }
-    ],
-    "example_sentence": "この肉は冷蔵庫で保存してください。"
+    "reading": ["ホ", "たもつ"]
   }
 ]
