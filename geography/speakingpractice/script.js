@@ -218,8 +218,8 @@ function gradeSentence() {
   const originalWords = sentenceEl.textContent.split(/\s+/);
   const spokenWords = normalize(input.value).split(" ").filter(Boolean);
 
-  let html = "";          // full feedback (practice)
-  let sentenceHtml = ""; // clean feedback (results)
+  let sentenceHtml = ""; // colored sentence
+  let wordMessages = ""; // feedback lines
   let score = 0;
 
   const feedbackMessages = {
@@ -247,32 +247,37 @@ function gradeSentence() {
 
     const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
 
-    // colored word (both outputs)
     const coloredWord = `<span class="${wordClass}">${displayWord}</span> `;
 
-    html += coloredWord;
+    // build full colored sentence
     sentenceHtml += coloredWord;
 
-    // 🔽 word-by-word feedback (ONLY for practice)
+    // build feedback lines UNDER sentence
     if (spokenWord !== cleanModelWord) {
       let msg =
         wordFeedback[cleanModelWord] ||
         (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
 
-      html += `<span class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</span>`;
+      wordMessages += `<div class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</div>`;
     }
 
     if (spokenWord === cleanModelWord) score++;
     else if (reason) score += 0.5;
   });
 
-  // show full feedback now
+  // show sentence first, then word feedback
+  const html = `
+    <div class="sentence-feedback">${sentenceHtml}</div>
+    <div class="word-feedback-list">${wordMessages}</div>
+  `;
+
   feedback.innerHTML = html;
 
   // save ONLY colored sentence for results page
   resultsLog.push(sentenceHtml);
-}
-	  function showResults() {
+}	  
+
+  function showResults() {
   const endTime = new Date();
   const timeSpentMs = endTime - studyStartTime;
   const minutes = Math.floor(timeSpentMs / 60000);
