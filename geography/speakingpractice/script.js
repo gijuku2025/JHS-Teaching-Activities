@@ -218,7 +218,8 @@ function gradeSentence() {
   const originalWords = sentenceEl.textContent.split(/\s+/);
   const spokenWords = normalize(input.value).split(" ").filter(Boolean);
 
-  let sentenceHtml = ""; // colored sentence
+  let sentenceHtml = "";        // word + feedback (for practice)
+  let resultsSentenceHtml = ""; // colored only (for results)
   let wordMessages = ""; // feedback lines
   let score = 0;
 
@@ -237,44 +238,44 @@ function gradeSentence() {
   };
 
   modelWords.forEach((modelWord, i) => {
-    const spokenWord = normalize(spokenWords[i] || "");
-    const cleanModelWord = normalize(modelWords[i]);
-    const reason = isClose(cleanModelWord, spokenWord);
+  const spokenWord = normalize(spokenWords[i] || "");
+  const cleanModelWord = normalize(modelWords[i]);
+  const reason = isClose(cleanModelWord, spokenWord);
 
-    const wordClass =
-      spokenWord === cleanModelWord ? "correct" :
-      reason ? "close" : "wrong";
+  const wordClass =
+    spokenWord === cleanModelWord ? "correct" :
+    reason ? "close" : "wrong";
 
-    const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
+  const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
 
-    const coloredWord = `<span class="${wordClass}">${displayWord}</span> `;
+  let msg = "";
+  if (spokenWord !== cleanModelWord) {
+    msg =
+      wordFeedback[cleanModelWord] ||
+      (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
+  }
 
-    // build full colored sentence
-    sentenceHtml += coloredWord;
+  // ✅ PRACTICE display (word + feedback)
+  sentenceHtml += `
+    <div class="word-line">
+      <span class="${wordClass}">${displayWord}</span>
+      ${msg ? `<span class="word-note"> → ${msg}</span>` : ""}
+    </div>
+  `;
 
-    // build feedback lines UNDER sentence
-    if (spokenWord !== cleanModelWord) {
-      let msg =
-        wordFeedback[cleanModelWord] ||
-        (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
-
-      wordMessages += `<div class="word-feedback ${reason ? "close" : ""}">⚠️ ${msg}</div>`;
-    }
-
-    if (spokenWord === cleanModelWord) score++;
-    else if (reason) score += 0.5;
-  });
+  // ✅ RESULTS display (colored words only)
+  resultsSentenceHtml += `<span class="${wordClass}">${displayWord}</span> `;
+});
 
   // show sentence first, then word feedback
   const html = `
-    <div class="sentence-feedback">${sentenceHtml}</div>
-    <div class="word-feedback-list">${wordMessages}</div>
-  `;
+  <div class="sentence-feedback">${sentenceHtml}</div>
+`;
 
   feedback.innerHTML = html;
 
   // save ONLY colored sentence for results page
-  resultsLog.push(sentenceHtml);
+  resultsLog.push(resultsSentenceHtml);
 }	  
 
   function showResults() {
