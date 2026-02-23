@@ -1,52 +1,52 @@
 [
   {
-    "word": "挙",
-    "meaning": ["raise", "plan", "project"],
-    "reading": ["キョ", "あげる", "あがる"]
+    "word": "機",
+    "meaning": ["Machine", "opportunity"],
+    "reading": ["キ", "はた"]
   },
   {
-    "word": "支",
-    "meaning": ["branch", "support", "sustain"],
-    "reading": ["シ", "ささえる"]
+    "word": "器",
+    "meaning": ["Tool", "container"],
+    "reading": ["キ", "うつわ"]
   },
   {
-    "word": "各",
-    "meaning": ["each", "every"],
-    "reading": ["カク", "おのおの"]
+    "word": "材",
+    "meaning": ["Material"],
+    "reading": ["ザイ"]
   },
   {
-    "word": "案",
-    "meaning": ["plan", "suggestion", "draft"],
-    "reading": ["アン"]
+    "word": "料",
+    "meaning": ["Material", "fee"],
+    "reading": ["リョウ"]
   },
   {
-    "word": "委",
-    "meaning": ["committee", "entrust", "leave to"],
-    "reading": ["イ", "ゆだねる"]
+    "word": "製",
+    "meaning": ["Manufacture"],
+    "reading": ["セイ"]
   },
   {
-    "word": "施",
-    "meaning": ["give", "alms", "perform"],
-    "reading": ["シ", "セ", "ほどこす"]
+    "word": "限",
+    "meaning": ["Limit"],
+    "reading": ["ゲン", "かぎ(る)"]
   },
   {
-    "word": "組",
-    "meaning": ["association", "assemble", "unite"],
-    "reading": ["ソ", "くむ", "くみ"]
+    "word": "程",
+    "meaning": ["Degree", "extent"],
+    "reading": ["テイ", "ほど"]
   },
   {
-    "word": "織",
-    "meaning": ["weave", "fabric"],
-    "reading": ["シキ", "ショク", "おる"]
+    "word": "率",
+    "meaning": ["Rate", "ratio"],
+    "reading": ["リツ", "ソツ", "ひき(いる)"]
   },
   {
-    "word": "若",
-    "meaning": ["young", "if", "perhaps"],
-    "reading": ["ジャク", "ニャク", "わかい", "もしくは"]
+    "word": "例",
+    "meaning": ["Example"],
+    "reading": ["レイ", "たと(える)"]
   },
   {
-    "word": "非",
-    "meaning": ["mistake", "negative", "non-"],
-    "reading": ["ヒ", "あらず"]
+    "word": "況",
+    "meaning": ["Condition", "situation"],
+    "reading": ["キョウ"]
   }
 ]
