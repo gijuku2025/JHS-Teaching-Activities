@@ -1,53 +1,52 @@
-
 [
   {
-    "word": "連",
-    "meaning": ["take along", "lead", "join"],
-    "reading": ["レン", "つれる", "つらなる"]
+    "word": "変",
+    "meaning": ["Change", "strange"],
+    "reading": ["ヘン", "か(わる)"]
   },
   {
-    "word": "説",
-    "meaning": ["opinion", "theory", "explain"],
-    "reading": ["セツ", "ゼイ", "とく"]
+    "word": "化",
+    "meaning": ["Change", "transform"],
+    "reading": ["カ", "ケ", "ば(ける)"]
+  },
+  {
+    "word": "続",
+    "meaning": ["Continue"],
+    "reading": ["ゾク", "つづ(く)"]
+  },
+  {
+    "word": "対",
+    "meaning": ["Opposite", "against"],
+    "reading": ["タイ", "ツイ"]
   },
   {
     "word": "関",
-    "meaning": ["connection", "barrier", "gate"],
-    "reading": ["カン", "せき"]
+    "meaning": ["Relation", "concern"],
+    "reading": ["カン", "かか(わる)"]
   },
   {
-    "word": "諸",
-    "meaning": ["various", "many", "together"],
-    "reading": ["ショ", "もろ"]
+    "word": "係",
+    "meaning": ["Connection", "in charge"],
+    "reading": ["ケイ", "かか(り)"]
   },
   {
-    "word": "際",
-    "meaning": ["occasion", "side", "edge"],
-    "reading": ["サイ", "きわ"]
+    "word": "比",
+    "meaning": ["Compare"],
+    "reading": ["ヒ", "くら(べる)"]
   },
   {
-    "word": "官",
-    "meaning": ["bureaucrat", "government official"],
-    "reading": ["カン"]
+    "word": "合",
+    "meaning": ["Fit", "join"],
+    "reading": ["ゴウ", "ガッ", "あ(う)"]
   },
   {
-    "word": "庁",
-    "meaning": ["government office", "agency"],
-    "reading": ["チョウ"]
+    "word": "違",
+    "meaning": ["Differ", "wrong"],
+    "reading": ["イ", "ちが(う)"]
   },
   {
-    "word": "策",
-    "meaning": ["scheme", "plan", "policy"],
-    "reading": ["サク"]
-  },
-  {
-    "word": "再",
-    "meaning": ["again", "twice"],
-    "reading": ["サイ", "サ", "ふたたび"]
-  },
-  {
-    "word": "認",
-    "meaning": ["acknowledge", "witness", "recognize"],
-    "reading": ["ニン", "みとめる"]
+    "word": "反",
+    "meaning": ["Oppose", "anti"],
+    "reading": ["ハン", "そ(る)"]
   }
 ]
