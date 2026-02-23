@@ -1,52 +1,52 @@
 [
   {
-    "word": "配",
-    "meaning": ["distribute", "spouse", "exile"],
-    "reading": ["ハイ", "くばる"]
+    "word": "備",
+    "meaning": ["Prepare", "equip"],
+    "reading": ["ビ", "そな(える)"]
   },
   {
-    "word": "視",
-    "meaning": ["inspection", "regard as", "look at"],
-    "reading": ["シ", "みる"]
+    "word": "整",
+    "meaning": ["Arrange", "organize"],
+    "reading": ["セイ", "ととの(える)"]
   },
   {
-    "word": "察",
-    "meaning": ["guess", "presume", "inspect"],
-    "reading": ["サツ"]
+    "word": "管",
+    "meaning": ["Manage", "pipe"],
+    "reading": ["カン", "くだ"]
   },
   {
-    "word": "録",
-    "meaning": ["record", "transcript"],
-    "reading": ["ロク"]
+    "word": "営",
+    "meaning": ["Operate", "camp"],
+    "reading": ["エイ", "いとな(む)"]
   },
   {
-    "word": "審",
-    "meaning": ["examine", "judge", "investigate"],
-    "reading": ["シン"]
+    "word": "務",
+    "meaning": ["Duty", "task"],
+    "reading": ["ム", "つと(める)"]
   },
   {
-    "word": "判",
-    "meaning": ["judgment", "signature", "stamp"],
-    "reading": ["ハン", "バン", "わかる"]
+    "word": "職",
+    "meaning": ["Job", "occupation"],
+    "reading": ["ショク"]
   },
   {
-    "word": "断",
-    "meaning": ["severance", "decline", "refuse"],
-    "reading": ["ダン", "たつ", "ことわる"]
+    "word": "任",
+    "meaning": ["Responsibility", "entrust"],
+    "reading": ["ニン", "まか(せる)"]
   },
   {
-    "word": "券",
-    "meaning": ["ticket", "certificate", "coupon"],
-    "reading": ["ケン"]
+    "word": "技",
+    "meaning": ["Skill", "technique"],
+    "reading": ["ギ", "わざ"]
   },
   {
-    "word": "師",
-    "meaning": ["expert", "teacher", "master"],
-    "reading": ["シ"]
+    "word": "術",
+    "meaning": ["Method", "technique"],
+    "reading": ["ジュツ", "すべ"]
   },
   {
-    "word": "導",
-    "meaning": ["guidance", "lead", "conduct"],
-    "reading": ["ドウ", "みちびく"]
+    "word": "能",
+    "meaning": ["Ability"],
+    "reading": ["ノウ"]
   }
 ]
