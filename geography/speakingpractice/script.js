@@ -218,7 +218,7 @@ function gradeSentence() {
   const originalWords = sentenceEl.textContent.split(/\s+/);
   const spokenWords = normalize(input.value).split(" ").filter(Boolean);
 
-  let sentenceHtml = "";        // word + feedback (for practice)
+  let sentenceHtml = "";        // word + feedback (for practice, only words needing feedback)
   let resultsSentenceHtml = ""; // colored only (for results)
 
   const feedbackMessages = {
@@ -235,9 +235,9 @@ function gradeSentence() {
     "vase": "B/V confusion possible（BとVの混同に注意）"
   };
 
-  const wordClasses = []; // store classes for full sentence
+  const wordClasses = []; // store classes for full sentence and reason
 
-  // First, determine class for each word
+  // Step 1: Determine class and reason for each word
   modelWords.forEach((modelWord, i) => {
     const spokenWord = normalize(spokenWords[i] || "");
     const cleanModelWord = normalize(modelWords[i]);
@@ -250,32 +250,33 @@ function gradeSentence() {
     wordClasses.push({ word: originalWords[i] || modelWords[i], class: wordClass, reason });
   });
 
-  // --- 1️⃣ Full sentence display with colors ---
+  // Step 2: Build full sentence HTML with colored words
   let fullSentenceHtml = "";
   wordClasses.forEach(({ word, class: wordClass }) => {
     fullSentenceHtml += `<span class="${wordClass}">${word}</span> `;
   });
 
-  // --- 2️⃣ Word-by-word detailed feedback ---
+  // Step 3: Build word-by-word feedback lines, ONLY for words with notes
   wordClasses.forEach(({ word, class: wordClass, reason }) => {
     let msg = "";
     const cleanWord = normalize(word);
+
     if (wordClass !== "correct") {
       msg = wordFeedback[cleanWord] || (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
-    }
 
-    sentenceHtml += `
-      <div class="word-line">
-        <span class="${wordClass}">${word}</span>
-        ${msg ? `<span class="word-note"> → ${msg}</span>` : ""}
-      </div>
-    `;
+      sentenceHtml += `
+        <div class="word-line">
+          <span class="${wordClass}">${word}</span>
+          ${msg ? `<span class="word-note"> → ${msg}</span>` : ""}
+        </div>
+      `;
+    }
 
     // Save colored sentence for results page
     resultsSentenceHtml += `<span class="${wordClass}">${word}</span> `;
   });
 
-  // Combine full sentence + detailed word feedback
+  // Step 4: Render full feedback
   feedback.innerHTML = `
     <div class="sentence-feedback">
       <div class="full-sentence">${fullSentenceHtml}</div>
@@ -283,6 +284,7 @@ function gradeSentence() {
     </div>
   `;
 
+  // Step 5: Store results
   resultsLog.push(resultsSentenceHtml);
 }	  
 
