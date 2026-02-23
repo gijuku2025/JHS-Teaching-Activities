@@ -220,8 +220,6 @@ function gradeSentence() {
 
   let sentenceHtml = "";        // word + feedback (for practice)
   let resultsSentenceHtml = ""; // colored only (for results)
-  let wordMessages = ""; // feedback lines
-  let score = 0;
 
   const feedbackMessages = {
     "lr": "Check R and L sounds（RとLの発音に注意）",
@@ -237,44 +235,54 @@ function gradeSentence() {
     "vase": "B/V confusion possible（BとVの混同に注意）"
   };
 
+  const wordClasses = []; // store classes for full sentence
+
+  // First, determine class for each word
   modelWords.forEach((modelWord, i) => {
-  const spokenWord = normalize(spokenWords[i] || "");
-  const cleanModelWord = normalize(modelWords[i]);
-  const reason = isClose(cleanModelWord, spokenWord);
+    const spokenWord = normalize(spokenWords[i] || "");
+    const cleanModelWord = normalize(modelWords[i]);
+    const reason = isClose(cleanModelWord, spokenWord);
 
-  const wordClass =
-    spokenWord === cleanModelWord ? "correct" :
-    reason ? "close" : "wrong";
+    const wordClass =
+      spokenWord === cleanModelWord ? "correct" :
+      reason ? "close" : "wrong";
 
-  const displayWord = originalWords[i] ? originalWords[i].trim() : modelWords[i];
+    wordClasses.push({ word: originalWords[i] || modelWords[i], class: wordClass, reason });
+  });
 
-  let msg = "";
-  if (spokenWord !== cleanModelWord) {
-    msg =
-      wordFeedback[cleanModelWord] ||
-      (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
-  }
+  // --- 1️⃣ Full sentence display with colors ---
+  let fullSentenceHtml = "";
+  wordClasses.forEach(({ word, class: wordClass }) => {
+    fullSentenceHtml += `<span class="${wordClass}">${word}</span> `;
+  });
 
-  // ✅ PRACTICE display (word + feedback)
-  sentenceHtml += `
-    <div class="word-line">
-      <span class="${wordClass}">${displayWord}</span>
-      ${msg ? `<span class="word-note"> → ${msg}</span>` : ""}
+  // --- 2️⃣ Word-by-word detailed feedback ---
+  wordClasses.forEach(({ word, class: wordClass, reason }) => {
+    let msg = "";
+    const cleanWord = normalize(word);
+    if (wordClass !== "correct") {
+      msg = wordFeedback[cleanWord] || (reason ? feedbackMessages[reason] : "Check this word（この単語を確認）");
+    }
+
+    sentenceHtml += `
+      <div class="word-line">
+        <span class="${wordClass}">${word}</span>
+        ${msg ? `<span class="word-note"> → ${msg}</span>` : ""}
+      </div>
+    `;
+
+    // Save colored sentence for results page
+    resultsSentenceHtml += `<span class="${wordClass}">${word}</span> `;
+  });
+
+  // Combine full sentence + detailed word feedback
+  feedback.innerHTML = `
+    <div class="sentence-feedback">
+      <div class="full-sentence">${fullSentenceHtml}</div>
+      ${sentenceHtml}
     </div>
   `;
 
-  // ✅ RESULTS display (colored words only)
-  resultsSentenceHtml += `<span class="${wordClass}">${displayWord}</span> `;
-});
-
-  // show sentence first, then word feedback
-  const html = `
-  <div class="sentence-feedback">${sentenceHtml}</div>
-`;
-
-  feedback.innerHTML = html;
-
-  // save ONLY colored sentence for results page
   resultsLog.push(resultsSentenceHtml);
 }	  
 
