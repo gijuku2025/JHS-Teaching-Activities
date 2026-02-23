@@ -1,0 +1,112 @@
+[
+  {
+    "kanji": "演",
+    "meaning": ["performance", "play", "render"],
+    "onyomi": ["エン"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "演説", "meaning": "speech" },
+      { "word": "演奏", "meaning": "musical performance" }
+    ],
+    "example_sentence": "大統領が広場で演説を行いました。"
+  },
+  {
+    "kanji": "奏",
+    "meaning": ["play music", "speak to a ruler"],
+    "onyomi": ["ソウ"],
+    "kunyomi": ["かな(でる)"],
+    "vocab": [
+      { "word": "演奏", "meaning": "musical performance" },
+      { "word": "合奏", "meaning": "ensemble" }
+    ],
+    "example_sentence": "彼女はピアノを見事に演奏しました。"
+  },
+  {
+    "kanji": "欲",
+    "meaning": ["longing", "greed", "want"],
+    "onyomi": ["ヨク"],
+    "kunyomi": ["ほ(しい)", "ほっ(する)"],
+    "vocab": [
+      { "word": "意欲", "meaning": "will / motivation" },
+      { "word": "食欲", "meaning": "appetite" }
+    ],
+    "example_sentence": "最近、勉強に対する意欲が高まっています。"
+  },
+  {
+    "kanji": "態",
+    "meaning": ["appearance", "state", "condition"],
+    "onyomi": ["タイ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "状態", "meaning": "state / condition" },
+      { "word": "態度", "meaning": "attitude" }
+    ],
+    "example_sentence": "接客の時は丁寧な態度を心がけます。"
+  },
+  {
+    "kanji": "確",
+    "meaning": ["assurance", "firm", "tight"],
+    "onyomi": ["カク"],
+    "kunyomi": ["たし(か)", "たし(かめる)"],
+    "vocab": [
+      { "word": "確認", "meaning": "confirmation" },
+      { "word": "正確", "meaning": "accurate / correct" }
+    ],
+    "example_sentence": "この時計の時間は正確です。"
+  },
+  {
+    "kanji": "午",
+    "meaning": ["noon", "sign of the horse"],
+    "onyomi": ["ゴ"],
+    "kunyomi": ["うま"],
+    "vocab": [
+      { "word": "午前", "meaning": "morning (A.M.)" },
+      { "word": "午後", "meaning": "afternoon (P.M.)" }
+    ],
+    "example_sentence": "明日の午前十時に会いましょう。"
+  },
+  {
+    "kanji": "前",
+    "meaning": ["in front", "before"],
+    "onyomi": ["ゼン"],
+    "kunyomi": ["まえ"],
+    "vocab": [
+      { "word": "名前", "meaning": "name" },
+      { "word": "以前", "meaning": "before / formerly" }
+    ],
+    "example_sentence": "駅の前で友達を待っています。"
+  },
+  {
+    "kanji": "後",
+    "meaning": ["behind", "after", "later"],
+    "onyomi": ["ゴ", "コウ"],
+    "kunyomi": ["のち", "うし(ろ)", "あと"],
+    "vocab": [
+      { "word": "最後", "meaning": "last" },
+      { "word": "放課後", "meaning": "after school" }
+    ],
+    "example_sentence": "放課後に図書館へ行きます。"
+  },
+  {
+    "kanji": "任",
+    "meaning": ["responsibility", "duty", "entrust"],
+    "onyomi": ["ニン"],
+    "kunyomi": ["まか(せる)", "まか(す)"],
+    "vocab": [
+      { "word": "責任", "meaning": "responsibility" },
+      { "word": "担任", "meaning": "homeroom teacher" }
+    ],
+    "example_sentence": "この仕事は私に任せてください。"
+  },
+  {
+    "kanji": "責",
+    "meaning": ["blame", "condemn", "censure"],
+    "onyomi": ["セキ"],
+    "kunyomi": ["せ(める)"],
+    "vocab": [
+      { "word": "責任", "meaning": "responsibility" },
+      { "word": "責務", "meaning": "duty / obligation" }
+    ],
+    "example_sentence": "リーダーとしての責任を感じます。"
+  }
+]
