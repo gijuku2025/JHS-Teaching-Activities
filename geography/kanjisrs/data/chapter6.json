@@ -1,112 +1,52 @@
 [
   {
-    "kanji": "挙",
-    "meaning": ["raise", "plan", "project"],
-    "onyomi": ["キョ"],
-    "kunyomi": ["あ(げる)", "あ(がる)"],
-    "vocab": [
-      { "word": "選挙", "meaning": "election" },
-      { "word": "挙手", "meaning": "raising one's hand" }
-    ],
-    "example_sentence": "質問がある人は挙手してください。"
+    "word": "配",
+    "meaning": ["distribute", "spouse", "exile"],
+    "reading": ["ハイ", "くばる"]
   },
   {
-    "kanji": "支",
-    "meaning": ["branch", "support", "sustain"],
-    "onyomi": ["シ"],
-    "kunyomi": ["ささ(える)"],
-    "vocab": [
-      { "word": "支持", "meaning": "support" },
-      { "word": "支店", "meaning": "branch office" }
-    ],
-    "example_sentence": "家族が私の夢を支えてくれています。"
+    "word": "視",
+    "meaning": ["inspection", "regard as", "look at"],
+    "reading": ["シ", "みる"]
   },
   {
-    "kanji": "各",
-    "meaning": ["each", "every"],
-    "onyomi": ["カク"],
-    "kunyomi": ["おのおの"],
-    "vocab": [
-      { "word": "各地", "meaning": "various places" },
-      { "word": "各国", "meaning": "each country" }
-    ],
-    "example_sentence": "世界各国から観光客が来ます。"
+    "word": "察",
+    "meaning": ["guess", "presume", "inspect"],
+    "reading": ["サツ"]
   },
   {
-    "kanji": "案",
-    "meaning": ["plan", "suggestion", "draft"],
-    "onyomi": ["アン"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "案内", "meaning": "guidance / information" },
-      { "word": "提案", "meaning": "proposal" }
-    ],
-    "example_sentence": "新しい企画を提案しました。"
+    "word": "録",
+    "meaning": ["record", "transcript"],
+    "reading": ["ロク"]
   },
   {
-    "kanji": "状",
-    "meaning": ["status", "condition", "form"],
-    "onyomi": ["ジョウ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "状態", "meaning": "state / condition" },
-      { "word": "状況", "meaning": "situation" }
-    ],
-    "example_sentence": "今の健康状態はとても良いです。"
+    "word": "審",
+    "meaning": ["examine", "judge", "investigate"],
+    "reading": ["シン"]
   },
   {
-    "kanji": "態",
-    "meaning": ["appearance", "state", "condition"],
-    "onyomi": ["タイ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "状態", "meaning": "state / condition" },
-      { "word": "態度", "meaning": "attitude" }
-    ],
-    "example_sentence": "真面目な態度で授業を受けます。"
+    "word": "判",
+    "meaning": ["judgment", "signature", "stamp"],
+    "reading": ["ハン", "バン", "わかる"]
   },
   {
-    "kanji": "職",
-    "meaning": ["employment", "job", "office"],
-    "onyomi": ["ショク"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "職業", "meaning": "occupation" },
-      { "word": "職場", "meaning": "workplace" }
-    ],
-    "example_sentence": "新しい職場に慣れてきました。"
+    "word": "断",
+    "meaning": ["severance", "decline", "refuse"],
+    "reading": ["ダン", "たつ", "ことわる"]
   },
   {
-    "kanji": "域",
-    "meaning": ["range", "region", "limits"],
-    "onyomi": ["イキ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "地域", "meaning": "region / area" },
-      { "word": "区域", "meaning": "district / zone" }
-    ],
-    "example_sentence": "この地域は自然が豊かです。"
+    "word": "券",
+    "meaning": ["ticket", "certificate", "coupon"],
+    "reading": ["ケン"]
   },
   {
-    "kanji": "質",
-    "meaning": ["substance", "quality", "matter"],
-    "onyomi": ["シツ", "シチ", "チ"],
-    "kunyomi": ["たち", "ただ(す)"],
-    "vocab": [
-      { "word": "質問", "meaning": "question" },
-      { "word": "品質", "meaning": "quality" }
-    ],
-    "example_sentence": "わからないことは質問してください。"
+    "word": "師",
+    "meaning": ["expert", "teacher", "master"],
+    "reading": ["シ"]
   },
   {
-    "kanji": "量",
-    "meaning": ["quantity", "measure", "weight"],
-    "onyomi": ["リョウ"],
-    "kunyomi": ["はか(る)"],
-    "vocab": [
-      { "word": "分量", "meaning": "amount / quantity" },
-      { "word": "大量", "meaning": "large amount" }
-    ],
-    "example_sentence": "スーパーで大量の野菜を買いました。"
+    "word": "導",
+    "meaning": ["guidance", "lead", "conduct"],
+    "reading": ["ドウ", "みちびく"]
   }
 ]
