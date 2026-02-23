@@ -1,52 +1,52 @@
 [
   {
     "word": "政",
-    "meaning": ["government", "politics"],
+    "meaning": ["Government", "politics"],
     "reading": ["セイ", "まつりごと"]
   },
   {
     "word": "治",
-    "meaning": ["govern", "rule", "cure"],
+    "meaning": ["Govern", "rule", "cure"],
     "reading": ["ジ", "チ", "おさめる", "なおる"]
   },
   {
     "word": "経",
-    "meaning": ["manage", "pass through", "economy"],
+    "meaning": ["Manage", "pass through", "economy"],
     "reading": ["ケイ", "キョウ", "へる"]
   },
   {
     "word": "済",
-    "meaning": ["settle", "finish", "economy"],
-    "reading": ["サイ", "ザイ", "すむ"]
+    "meaning": ["Settle", "finish", "economy"],
+    "reading": ["サイ", "セイ", "すむ"]
   },
   {
-    "word": "制",
-    "meaning": ["system", "control", "rule"],
-    "reading": ["セイ"]
+    "word": "法",
+    "meaning": ["Law", "method"],
+    "reading": ["ホウ"]
   },
   {
-    "word": "度",
-    "meaning": ["degree", "time", "occurrence"],
-    "reading": ["ド", "ト", "タク", "たび"]
+    "word": "律",
+    "meaning": ["Law", "regulation"],
+    "reading": ["リツ"]
   },
   {
-    "word": "務",
-    "meaning": ["task", "duty", "work"],
-    "reading": ["ム", "つとめる"]
+    "word": "議",
+    "meaning": ["Discussion", "deliberation"],
+    "reading": ["ギ"]
   },
   {
-    "word": "改",
-    "meaning": ["reformation", "change", "modify"],
-    "reading": ["カイ", "あらためる"]
+    "word": "員",
+    "meaning": ["Member"],
+    "reading": ["イン"]
   },
   {
-    "word": "否",
-    "meaning": ["negate", "no", "decline"],
-    "reading": ["ヒ", "いな"]
+    "word": "選",
+    "meaning": ["Choose", "elect"],
+    "reading": ["セン", "えらぶ"]
   },
   {
-    "word": "定",
-    "meaning": ["determine", "fix", "establish"],
-    "reading": ["テイ", "ジョウ", "さだめる"]
+    "word": "挙",
+    "meaning": ["Raise", "election"],
+    "reading": ["キョ", "あげる"]
   }
 ]
