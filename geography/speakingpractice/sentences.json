@@ -1,48 +1,94 @@
 {
   "chapters": {
     "1": {
-      "title": "Sample Chapter",
+      "title": "Junior High Geography",
       "sections": {
-        "1": {
+        "1-1": {
+          "title": "The Earth",
           "sentences": [
-            {
-              "text": "I like studying geography.",
-              "audio": "audio/chapter1/c1s1_1.mp3"
-            },
-            {
-              "text": "Maps show us where places are.",
-              "audio": "audio/chapter1/c1s1_2.mp3"
-            }
+            { "text": "This is the Earth", "audio": "audio/chapter1/c1s1_1.mp3" },
+            { "text": "The Earth has land, and the Earth has sea", "audio": "audio/chapter1/c1s1_2.mp3" },
+            { "text": "There is more sea than land", "audio": "audio/chapter1/c1s1_3.mp3" },
+            { "text": "70% of the Earth is sea, and 30% of the Earth is land", "audio": "audio/chapter1/c1s1_4.mp3" }
           ]
         },
-        "2": {
+        "1-2": {
+          "title": "Oceans",
           "sentences": [
-            {
-              "text": "The weather is sunny today.",
-              "audio": "audio/chapter1/c1s2_1.mp3"
-            },
-            {
-              "text": "It is raining in the city.",
-              "audio": "audio/chapter1/c1s2_2.mp3"
-            }
+            { "text": "Oceans are large areas of sea", "audio": "audio/chapter1/c1s2_1.mp3" },
+            { "text": "The Earth has three oceans", "audio": "audio/chapter1/c1s2_2.mp3" },
+            { "text": "The Pacific Ocean, the Atlantic Ocean, and the Indian Ocean", "audio": "audio/chapter1/c1s2_3.mp3" }
           ]
-        }
-      }
-    },
-
-    "2": {
-      "title": "Second Chapter",
-      "sections": {
-        "1": {
+        },
+        "1-3": {
+          "title": "Continents",
           "sentences": [
-            {
-              "text": "People live in many different places.",
-              "audio": "audio/chapter2/c2s1_1.mp3"
-            },
-            {
-              "text": "Cities are larger than towns.",
-              "audio": "audio/chapter2/c2s1_2.mp3"
-            }
+            { "text": "Continents are large areas of land", "audio": "audio/chapter1/c1s3_1.mp3" },
+            { "text": "The Earth has six continents", "audio": "audio/chapter1/c1s3_2.mp3" },
+            { "text": "The Eurasian Continent, the African Continent, the North American Continent, the South American Continent, the Australian Continent, and the Antarctic Continent", "audio": "audio/chapter1/c1s3_3.mp3" }
+          ]
+        },
+        "1-4": {
+          "title": "Islands and Island Countries",
+          "sentences": [
+            { "text": "Islands are small areas of land", "audio": "audio/chapter1/c1s4_1.mp3" },
+            { "text": "Islands are not part of a continent", "audio": "audio/chapter1/c1s4_2.mp3" },
+            { "text": "Japan is an island country", "audio": "audio/chapter1/c1s4_3.mp3" },
+            { "text": "Japan is not part of a continent", "audio": "audio/chapter1/c1s4_4.mp3" },
+            { "text": "Iceland is also an island country", "audio": "audio/chapter1/c1s4_5.mp3" },
+            { "text": "Iceland is not part of a continent", "audio": "audio/chapter1/c1s4_6.mp3" }
+          ]
+        },
+        "1-5": {
+          "title": "Regions",
+          "sentences": [
+            { "text": "Regions are groups of continents and islands", "audio": "audio/chapter1/c1s5_1.mp3" },
+            { "text": "Europe and Asia are regions", "audio": "audio/chapter1/c1s5_2.mp3" },
+            { "text": "Europe plus Asia equals Eurasia", "audio": "audio/chapter1/c1s5_3.mp3" },
+            { "text": "The Earth has six Regions: North America, South America, Africa, Europe, Asia, and Oceania", "audio": "audio/chapter1/c1s5_4.mp3" }
+          ]
+        },
+        "1-6": {
+          "title": "Japan, Iceland, and Oceania",
+          "sentences": [
+            { "text": "Japan is not part of a continent, but Japan is part of the region of Asia", "audio": "audio/chapter1/c1s6_1.mp3" },
+            { "text": "Iceland is not part of a continent, but Iceland is part of the region of Europe", "audio": "audio/chapter1/c1s6_2.mp3" },
+            { "text": "Oceania has many small island countries", "audio": "audio/chapter1/c1s6_3.mp3" }
+          ]
+        },
+        "1-7": {
+          "title": "Landlocked Countries",
+          "sentences": [
+            { "text": "Island countries have a lot of sea", "audio": "audio/chapter1/c1s7_1.mp3" },
+            { "text": "Landlocked countries have no sea", "audio": "audio/chapter1/c1s7_2.mp3" },
+            { "text": "Switzerland has no sea; it is a landlocked country", "audio": "audio/chapter1/c1s7_3.mp3" },
+            { "text": "Many countries in Africa are landlocked countries", "audio": "audio/chapter1/c1s7_4.mp3" }
+          ]
+        },
+        "1-8": {
+          "title": "High and Low",
+          "sentences": [
+            { "text": "The highest place on the Earth is the top of Mount Everest", "audio": "audio/chapter1/c1s8_1.mp3" },
+            { "text": "Mount Everest is 8,848 meters high", "audio": "audio/chapter1/c1s8_2.mp3" },
+            { "text": "The lowest place on the Earth is the bottom of Mariana Trench", "audio": "audio/chapter1/c1s8_3.mp3" },
+            { "text": "Mariana Trench is 10,920 meters deep", "audio": "audio/chapter1/c1s8_4.mp3" }
+          ]
+        },
+        "1-9": {
+          "title": "Round and Smooth",
+          "sentences": [
+            { "text": "The Earth looks round and smooth because it is very big", "audio": "audio/chapter1/c1s9_1.mp3" },
+            { "text": "Mount Everest is much smaller than the Earth", "audio": "audio/chapter1/c1s9_2.mp3" }
+          ]
+        },
+        "1-10": {
+          "title": "Antarctica",
+          "sentences": [
+            { "text": "Antarctica is bigger than Australia", "audio": "audio/chapter1/c1s10_1.mp3" },
+            { "text": "There are tall mountains in Antarctica", "audio": "audio/chapter1/c1s10_2.mp3" },
+            { "text": "Thick ice covers Antarctica", "audio": "audio/chapter1/c1s10_3.mp3" },
+            { "text": "The ice is 2,400 meters thick (average)", "audio": "audio/chapter1/c1s10_4.mp3" },
+            { "text": "The ice is very thick under the South Pole", "audio": "audio/chapter1/c1s10_5.mp3" }
           ]
         }
       }
