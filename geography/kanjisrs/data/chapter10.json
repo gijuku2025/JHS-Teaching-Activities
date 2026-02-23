@@ -1,52 +1,52 @@
 [
   {
-    "word": "型",
-    "meaning": ["mould", "type", "model"],
-    "reading": ["ケイ", "かた"]
+    "word": "護",
+    "meaning": ["Defend"],
+    "reading": ["ゴ"]
   },
   {
-    "word": "証",
-    "meaning": ["evidence", "proof", "certificate"],
-    "reading": ["ショウ", "あかし"]
+    "word": "犯",
+    "meaning": ["Crime", "commit"],
+    "reading": ["ハン", "おか(す)"]
   },
   {
-    "word": "氏",
-    "meaning": ["family name", "surname", "honorific"],
-    "reading": ["シ", "うじ"]
+    "word": "罪",
+    "meaning": ["Crime", "guilt"],
+    "reading": ["ザイ", "つみ"]
   },
   {
-    "word": "名",
-    "meaning": ["name", "noted", "distinguished"],
-    "reading": ["メイ", "ミョウ", "な"]
+    "word": "罰",
+    "meaning": ["Punishment"],
+    "reading": ["バツ"]
   },
   {
-    "word": "景",
-    "meaning": ["scenery", "view"],
-    "reading": ["ケイ"]
+    "word": "環",
+    "meaning": ["Environment", "ring"],
+    "reading": ["カン"]
   },
   {
-    "word": "影",
-    "meaning": ["shadow", "silhouette", "reflection"],
-    "reading": ["エイ", "かげ"]
+    "word": "境",
+    "meaning": ["Boundary", "environment"],
+    "reading": ["キョウ", "さかい"]
   },
   {
-    "word": "響",
-    "meaning": ["echo", "sound", "influence"],
-    "reading": ["キョウ", "ひびく"]
+    "word": "保",
+    "meaning": ["Preserve"],
+    "reading": ["ホ", "たも(つ)"]
   },
   {
-    "word": "与",
-    "meaning": ["bestow", "give", "award"],
-    "reading": ["ヨ", "あたえる"]
+    "word": "存",
+    "meaning": ["Exist"],
+    "reading": ["ソン", "ゾン"]
   },
   {
-    "word": "供",
-    "meaning": ["submit", "offer", "companion"],
-    "reading": ["キョウ", "ク", "そなえる", "とも"]
+    "word": "維",
+    "meaning": ["Maintain"],
+    "reading": ["イ"]
   },
   {
-    "word": "象",
-    "meaning": ["elephant", "phenomenon", "image"],
-    "reading": ["ゾウ", "ショウ"]
+    "word": "歴",
+    "meaning": ["History"],
+    "reading": ["レキ"]
   }
 ]
