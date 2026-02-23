@@ -1,112 +1,52 @@
 [
   {
-    "kanji": "政",
+    "word": "政",
     "meaning": ["government", "politics"],
-    "onyomi": ["セイ"],
-    "kunyomi": ["まつりごと"],
-    "vocab": [
-      { "word": "政府", "meaning": "government" },
-      { "word": "政策", "meaning": "policy" }
-    ],
-    "example_sentence": "政府が新しい政策を発表しました。"
+    "reading": ["セイ", "まつりごと"]
   },
   {
-    "kanji": "治",
+    "word": "治",
     "meaning": ["govern", "rule", "cure"],
-    "onyomi": ["ジ", "チ"],
-    "kunyomi": ["おさ(める)", "なお(る)"],
-    "vocab": [
-      { "word": "治安", "meaning": "public order" },
-      { "word": "治療", "meaning": "medical treatment" }
-    ],
-    "example_sentence": "医者は病気の治療を始めました。"
+    "reading": ["ジ", "チ", "おさめる", "なおる"]
   },
   {
-    "kanji": "経",
+    "word": "経",
     "meaning": ["manage", "pass through", "economy"],
-    "onyomi": ["ケイ", "キョウ"],
-    "kunyomi": ["へ(る)"],
-    "vocab": [
-      { "word": "経済", "meaning": "economy" },
-      { "word": "経営", "meaning": "management" }
-    ],
-    "example_sentence": "大学で経済を勉強しています。"
+    "reading": ["ケイ", "キョウ", "へる"]
   },
   {
-    "kanji": "済",
+    "word": "済",
     "meaning": ["settle", "finish", "economy"],
-    "onyomi": ["サイ", "ザイ"],
-    "kunyomi": ["す(む)"],
-    "vocab": [
-      { "word": "経済", "meaning": "economy" },
-      { "word": "返済", "meaning": "repayment" }
-    ],
-    "example_sentence": "借金の返済が終わりました。"
+    "reading": ["サイ", "ザイ", "すむ"]
   },
   {
-    "kanji": "制",
+    "word": "制",
     "meaning": ["system", "control", "rule"],
-    "onyomi": ["セイ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "制度", "meaning": "system" },
-      { "word": "制限", "meaning": "restriction" }
-    ],
-    "example_sentence": "この場所には入場制限があります。"
+    "reading": ["セイ"]
   },
   {
-    "kanji": "度",
+    "word": "度",
     "meaning": ["degree", "time", "occurrence"],
-    "onyomi": ["ド", "ト", "タク"],
-    "kunyomi": ["たび"],
-    "vocab": [
-      { "word": "制度", "meaning": "system" },
-      { "word": "温度", "meaning": "temperature" }
-    ],
-    "example_sentence": "今日の温度は三十度です。"
+    "reading": ["ド", "ト", "タク", "たび"]
   },
   {
-    "kanji": "務",
+    "word": "務",
     "meaning": ["task", "duty", "work"],
-    "onyomi": ["ム"],
-    "kunyomi": ["つと(める)"],
-    "vocab": [
-      { "word": "公務員", "meaning": "civil servant" },
-      { "word": "義務", "meaning": "duty" }
-    ],
-    "example_sentence": "彼は公務員として働いています。"
+    "reading": ["ム", "つとめる"]
   },
   {
-    "kanji": "改",
+    "word": "改",
     "meaning": ["reformation", "change", "modify"],
-    "onyomi": ["カイ"],
-    "kunyomi": ["あらた(める)"],
-    "vocab": [
-      { "word": "改正", "meaning": "revision" },
-      { "word": "改善", "meaning": "improvement" }
-    ],
-    "example_sentence": "生活の習慣を改善したいです。"
+    "reading": ["カイ", "あらためる"]
   },
   {
-    "kanji": "否",
+    "word": "否",
     "meaning": ["negate", "no", "decline"],
-    "onyomi": ["ヒ"],
-    "kunyomi": ["いな"],
-    "vocab": [
-      { "word": "否定", "meaning": "denial" },
-      { "word": "拒否", "meaning": "refusal" }
-    ],
-    "example_sentence": "彼はその事実を否定しました。"
+    "reading": ["ヒ", "いな"]
   },
   {
-    "kanji": "定",
+    "word": "定",
     "meaning": ["determine", "fix", "establish"],
-    "onyomi": ["テイ", "ジョウ"],
-    "kunyomi": ["さだ(める)"],
-    "vocab": [
-      { "word": "予定", "meaning": "schedule" },
-      { "word": "決定", "meaning": "decision" }
-    ],
-    "example_sentence": "明日の予定を確認します。"
+    "reading": ["テイ", "ジョウ", "さだめる"]
   }
 ]
