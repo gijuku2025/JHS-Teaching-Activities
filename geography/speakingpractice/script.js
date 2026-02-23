@@ -101,13 +101,24 @@ function showChapters() {
   header.innerHTML = `Welcome to Smart Speak, ${nickname}.<br>${subjectTitle}`;
   menu.innerHTML = "";
   card.classList.add("hidden");
-
   document.getElementById("legend").classList.add("hidden");
-  
+
+  // Apply grid styling for chapters
+  menu.style.display = "grid";
+  menu.style.gridTemplateColumns = "repeat(auto-fit, minmax(80px, 1fr))";
+  menu.style.gap = "12px";
+  menu.style.justifyItems = "center";
+
   for (let ch in data.chapters) {
-    const chapterData = data.chapters[ch];
     const btn = document.createElement("button");
-    btn.textContent = chapterData.title ? `${ch}. ${chapterData.title}` : `Chapter ${ch}`;
+    btn.textContent = ch; // just the chapter number
+    btn.style.padding = "12px 0";
+    btn.style.fontSize = "18px";
+    btn.style.width = "80px";
+    btn.style.height = "50px";
+    btn.style.borderRadius = "8px";
+    btn.style.cursor = "pointer";
+    btn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.2)";
     btn.onclick = () => showSections(ch);
     menu.appendChild(btn);
   }
@@ -120,13 +131,33 @@ function showSections(ch) {
   header.textContent = chapterData.title ? `Chapter ${ch}: ${chapterData.title}` : `Chapter ${ch}`;
   menu.innerHTML = "";
   card.classList.add("hidden");
-  document.getElementById("legend").classList.add("hidden");  
+  document.getElementById("legend").classList.add("hidden");
 
   const sections = chapterData.sections || {};
+
+  // Sections can be a vertical list or small grid
+  menu.style.display = "grid";
+  menu.style.gridTemplateColumns = "repeat(auto-fit, minmax(120px, 1fr))";
+  menu.style.gap = "10px";
+  menu.style.justifyItems = "start";
+
   for (let s in sections) {
     const sectionData = sections[s];
     const btn = document.createElement("button");
-    btn.textContent = sectionData.title ? `${ch}-${s}: ${sectionData.title}` : `${ch}-${s}`;
+
+    // Clean section key: drop leading chapter number if present
+    let sectionKey = s;
+    if (sectionKey.startsWith(ch + "-")) {
+      sectionKey = sectionKey.slice(ch.length + 1); // e.g. "1-1-1" → "1-1"
+    }
+
+    btn.textContent = sectionKey + (sectionData.title ? `: ${sectionData.title}` : "");
+    btn.style.padding = "10px";
+    btn.style.fontSize = "16px";
+    btn.style.width = "100%";
+    btn.style.borderRadius = "6px";
+    btn.style.cursor = "pointer";
+    btn.style.boxShadow = "0 1px 3px rgba(0,0,0,0.2)";
     btn.onclick = () => startPractice(ch, s);
     menu.appendChild(btn);
   }
