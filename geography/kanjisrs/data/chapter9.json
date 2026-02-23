@@ -1,112 +1,52 @@
 [
   {
-    "kanji": "挙",
-    "meaning": ["raise", "plan", "project"],
-    "onyomi": ["キョ"],
-    "kunyomi": ["あ(げる)", "あ(がる)"],
-    "vocab": [
-      { "word": "選挙", "meaning": "election" },
-      { "word": "挙手", "meaning": "raising one's hand" }
-    ],
-    "example_sentence": "クラス委員の選挙を行います。"
+    "word": "責",
+    "meaning": ["blame", "condemn", "censure"],
+    "reading": ["セキ", "せめる"]
   },
   {
-    "kanji": "判",
-    "meaning": ["judgment", "signature", "stamp"],
-    "onyomi": ["ハン", "バン"],
-    "kunyomi": ["わか(る)"],
-    "vocab": [
-      { "word": "判断", "meaning": "judgment / decision" },
-      { "word": "裁判", "meaning": "trial" }
-    ],
-    "example_sentence": "正しい判断をすることが難しいです。"
+    "word": "確",
+    "meaning": ["assurance", "firm", "tight"],
+    "reading": ["カク", "たしか", "たしかめる"]
   },
   {
-    "kanji": "券",
-    "meaning": ["ticket", "certificate", "coupon"],
-    "onyomi": ["ケン"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "入場券", "meaning": "entrance ticket" },
-      { "word": "乗車券", "meaning": "boarding ticket" }
-    ],
-    "example_sentence": "駅で電車の乗車券を買いました。"
+    "word": "午",
+    "meaning": ["noon", "sign of the horse"],
+    "reading": ["ゴ", "うま"]
   },
   {
-    "kanji": "師",
-    "meaning": ["expert", "teacher", "master"],
-    "onyomi": ["シ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "教師", "meaning": "teacher" },
-      { "word": "医師", "meaning": "doctor" }
-    ],
-    "example_sentence": "私の将来の夢は教師になることです。"
+    "word": "前",
+    "meaning": ["in front", "before"],
+    "reading": ["ゼン", "まえ"]
   },
   {
-    "kanji": "導",
-    "meaning": ["guidance", "lead", "conduct"],
-    "onyomi": ["ドウ"],
-    "kunyomi": ["みちび(く)"],
-    "vocab": [
-      { "word": "指導", "meaning": "guidance / coaching" },
-      { "word": "導入", "meaning": "introduction / lead-in" }
-    ],
-    "example_sentence": "コーチの指導のおかげで上達しました。"
+    "word": "後",
+    "meaning": ["behind", "after", "later"],
+    "reading": ["ゴ", "コウ", "のち", "うしろ", "あと"]
   },
   {
-    "kanji": "守",
-    "meaning": ["guard", "protect", "obey"],
-    "onyomi": ["シュ", "ス"],
-    "kunyomi": ["まも(る)", "もり"],
-    "vocab": [
-      { "word": "守備", "meaning": "defense" },
-      { "word": "留守", "meaning": "absence / away from home" }
-    ],
-    "example_sentence": "約束は必ず守ってください。"
+    "word": "演",
+    "meaning": ["performance", "play", "render"],
+    "reading": ["エン"]
   },
   {
-    "kanji": "若",
-    "meaning": ["young", "if", "perhaps"],
-    "onyomi": ["ジャク", "ニャク"],
-    "kunyomi": ["わか(い)", "も(しくわ)"],
-    "vocab": [
-      { "word": "若者", "meaning": "young people" },
-      { "word": "若干", "meaning": "somewhat / a few" }
-    ],
-    "example_sentence": "最近の若者はSNSをよく使います。"
+    "word": "奏",
+    "meaning": ["play music", "speak to a ruler"],
+    "reading": ["ソウ", "かなでる"]
   },
   {
-    "kanji": "格",
-    "meaning": ["status", "rank", "standard"],
-    "onyomi": ["カク", "コウ"],
-    "kunyomi": ["-"],
-    "vocab": [
-      { "word": "合格", "meaning": "passing (an exam)" },
-      { "word": "性格", "meaning": "personality" }
-    ],
-    "example_sentence": "彼女はとても明るい性格です。"
+    "word": "欲",
+    "meaning": ["longing", "greed", "want"],
+    "reading": ["ヨク", "ほしい", "ほっする"]
   },
   {
-    "kanji": "認",
-    "meaning": ["acknowledge", "witness", "recognize"],
-    "onyomi": ["ニン"],
-    "kunyomi": ["みと(める)"],
-    "vocab": [
-      { "word": "確認", "meaning": "confirmation" },
-      { "word": "承認", "meaning": "approval" }
-    ],
-    "example_sentence": "部長が私の企画を承認しました。"
+    "word": "質",
+    "meaning": ["substance", "quality", "matter"],
+    "reading": ["シツ", "シチ", "チ", "たち", "ただす"]
   },
   {
-    "kanji": "非",
-    "meaning": ["mistake", "negative", "non-"],
-    "onyomi": ["ヒ"],
-    "kunyomi": ["あら(ず)"],
-    "vocab": [
-      { "word": "非公開", "meaning": "private" },
-      { "word": "非難", "meaning": "criticism" }
-    ],
-    "example_sentence": "この写真は非公開に設定されています。"
+    "word": "量",
+    "meaning": ["quantity", "measure", "weight"],
+    "reading": ["リョウ", "はかる"]
   }
 ]
