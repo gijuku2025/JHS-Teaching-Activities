@@ -1,52 +1,52 @@
 [
   {
+    "word": "権",
+    "meaning": ["Authority", "rights", "power"],
+    "reading": ["ケン"]
+  },
+  {
     "word": "義",
-    "meaning": ["justice", "honor", "meaning"],
+    "meaning": ["Justice", "duty", "meaning"],
     "reading": ["ギ"]
   },
   {
-    "word": "評",
-    "meaning": ["criticize", "evaluate", "comment"],
-    "reading": ["ヒョウ"]
+    "word": "情",
+    "meaning": ["Feeling", "emotion", "situation"],
+    "reading": ["ジョウ", "なさ(け)"]
   },
   {
-    "word": "価",
-    "meaning": ["value", "price"],
-    "reading": ["カ", "あたい"]
+    "word": "報",
+    "meaning": ["Report", "inform"],
+    "reading": ["ホウ", "むく(いる)"]
   },
   {
-    "word": "格",
-    "meaning": ["status", "rank", "standard"],
-    "reading": ["カク", "コウ"]
+    "word": "想",
+    "meaning": ["Idea", "thought"],
+    "reading": ["ソウ", "ソ", "おも(う)"]
   },
   {
-    "word": "総",
-    "meaning": ["general", "whole", "total"],
-    "reading": ["ソウ", "すべて"]
+    "word": "感",
+    "meaning": ["Feeling", "sense"],
+    "reading": ["カン"]
   },
   {
-    "word": "領",
-    "meaning": ["territory", "jurisdiction", "reign"],
-    "reading": ["リョウ"]
+    "word": "決",
+    "meaning": ["Decide"],
+    "reading": ["ケツ", "き(める)"]
   },
   {
-    "word": "域",
-    "meaning": ["range", "region", "limits"],
-    "reading": ["イキ"]
+    "word": "定",
+    "meaning": ["Decide", "fix"],
+    "reading": ["テイ", "ジョウ", "さだ(める)"]
   },
   {
-    "word": "基",
-    "meaning": ["foundation", "base"],
-    "reading": ["キ", "もと", "もとい"]
+    "word": "増",
+    "meaning": ["Increase"],
+    "reading": ["ゾウ", "ふ(える)"]
   },
   {
-    "word": "軍",
-    "meaning": ["army", "military", "troops"],
-    "reading": ["グン"]
-  },
-  {
-    "word": "民",
-    "meaning": ["people", "nation", "subjects"],
-    "reading": ["ミン", "たみ"]
+    "word": "減",
+    "meaning": ["Decrease"],
+    "reading": ["ゲン", "へ(る)"]
   }
 ]
