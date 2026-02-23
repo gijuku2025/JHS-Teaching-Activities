@@ -1,0 +1,112 @@
+[
+  {
+    "kanji": "必",
+    "meaning": ["necessary", "inevitable"],
+    "onyomi": ["ヒツ"],
+    "kunyomi": ["かなら(ず)"],
+    "vocab": [
+      { "word": "必要", "meaning": "necessary" },
+      { "word": "必須", "meaning": "indispensable" }
+    ],
+    "example_sentence": "健康のために運動は必要です。"
+  },
+  {
+    "kanji": "要",
+    "meaning": ["need", "important", "pivot"],
+    "onyomi": ["ヨウ"],
+    "kunyomi": ["い(る)"],
+    "vocab": [
+      { "word": "重要", "meaning": "important" },
+      { "word": "要求", "meaning": "demand" }
+    ],
+    "example_sentence": "これは非常に重要な書類です。"
+  },
+  {
+    "kanji": "適",
+    "meaning": ["suitable", "proper"],
+    "onyomi": ["テキ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "適切", "meaning": "appropriate" },
+      { "word": "適用", "meaning": "application" }
+    ],
+    "example_sentence": "その場に適切な言葉を選んでください。"
+  },
+  {
+    "kanji": "資",
+    "meaning": ["assets", "resources", "capital"],
+    "onyomi": ["シ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "資料", "meaning": "materials / data" },
+      { "word": "資本", "meaning": "capital" }
+    ],
+    "example_sentence": "会議のための資料を準備します。"
+  },
+  {
+    "kanji": "源",
+    "meaning": ["source", "origin"],
+    "onyomi": ["ゲン"],
+    "kunyomi": ["みなもと"],
+    "vocab": [
+      { "word": "資源", "meaning": "resources" },
+      { "word": "源泉", "meaning": "source / fountainhead" }
+    ],
+    "example_sentence": "日本は天然資源が少ない国です。"
+  },
+  {
+    "kanji": "越",
+    "meaning": ["surpass", "cross over", "exceed"],
+    "onyomi": ["エツ"],
+    "kunyomi": ["こ(す)", "こ(える)"],
+    "vocab": [
+      { "word": "追い越す", "meaning": "to overtake" },
+      { "word": "越境", "meaning": "border-crossing" }
+    ],
+    "example_sentence": "前の車を追い越しました。"
+  },
+  {
+    "kanji": "軍",
+    "meaning": ["army", "military", "troops"],
+    "onyomi": ["グン"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "軍事", "meaning": "military affairs" },
+      { "word": "軍人", "meaning": "military personnel" }
+    ],
+    "example_sentence": "彼は軍人になりたいと思っています。"
+  },
+  {
+    "kanji": "防",
+    "meaning": ["prevent", "defend", "protect"],
+    "onyomi": ["ボウ"],
+    "kunyomi": ["ふせ(ぐ)"],
+    "vocab": [
+      { "word": "防止", "meaning": "prevention" },
+      { "word": "予防", "meaning": "precaution" }
+    ],
+    "example_sentence": "風邪の予防に手洗いをしましょう。"
+  },
+  {
+    "kanji": "守",
+    "meaning": ["guard", "protect", "obey"],
+    "onyomi": ["シュ", "ス"],
+    "kunyomi": ["まも(る)", "もり"],
+    "vocab": [
+      { "word": "守備", "meaning": "defense" },
+      { "word": "保守", "meaning": "maintenance / conservative" }
+    ],
+    "example_sentence": "彼は保守的な考えを持っています。"
+  },
+  {
+    "kanji": "規",
+    "meaning": ["standard", "measure", "rule"],
+    "onyomi": ["キ"],
+    "kunyomi": ["-"],
+    "vocab": [
+      { "word": "規則", "meaning": "rule" },
+      { "word": "規模", "meaning": "scale" }
+    ],
+    "example_sentence": "学校の規則を守らなければなりません。"
+  }
+]
