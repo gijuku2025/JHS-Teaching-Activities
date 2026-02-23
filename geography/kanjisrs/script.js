@@ -137,7 +137,7 @@ async function loadKanji() {
 
 // ensure every kanji has a stable id
 data.forEach(item => {
-  if (!item.id) item.id = item.kanji;
+  if (!item.id) item.id = ch + "_" + item.kanji;
 });
 
 kanjiList = kanjiList.concat(data);
@@ -230,6 +230,11 @@ if (current.kunyomi && current.kunyomi.length) {
 
 if (current.vocab && current.vocab.length) {
   types.push("vocabMeaning");
+
+  // only push reading if vocab has reading field
+  if (current.vocab.some(v => v.reading && v.reading.length)) {
+    types.push("vocabReading");
+  }
 }
 
 const type = types[Math.floor(Math.random() * types.length)];
@@ -262,6 +267,13 @@ const type = types[Math.floor(Math.random() * types.length)];
   prompt = v.word;
   label = "Type the meaning:";
 }
+		
+	if (type === "vocabReading" && current.vocab && current.vocab.length) {
+  const v = current.vocab[Math.floor(Math.random() * current.vocab.length)];
+  current.activeVocab = v;
+  prompt = v.word;
+  label = "Type the reading (hiragana):";
+}	
 
   app.innerHTML = `
   <div class="center">
@@ -337,6 +349,16 @@ else if (current.questionType === "vocabMeaning") {
     const target = m.toLowerCase().trim();
     return input === target || levenshtein(input, target) <= 1;
   });
+}
+
+else if (current.questionType === "vocabReading") {
+  const normalizedInput = normalizeJP(input);
+
+  const readings = Array.isArray(current.activeVocab.reading)
+    ? current.activeVocab.reading
+    : [current.activeVocab.reading];
+
+  correct = readings.some(r => normalizeJP(r) === normalizedInput);
 }
   
 
@@ -514,7 +536,9 @@ function showSimpleFeedback(isCorrect) {
       : current.questionType === "kun"
       ? `${current.kanji} – KUN: ${current.kunyomi.join(", ")}`
       : current.questionType === "vocabMeaning"
-      ? `${current.activeVocab.word} – ${Array.isArray(current.activeVocab.meaning) ? current.activeVocab.meaning.join(", ") : current.activeVocab.meaning}`
+  ? `${current.activeVocab.word} – ${Array.isArray(current.activeVocab.meaning) ? current.activeVocab.meaning.join(", ") : current.activeVocab.meaning}`
+: current.questionType === "vocabReading"
+  ? `${current.activeVocab.word} – ${Array.isArray(current.activeVocab.reading) ? current.activeVocab.reading.join(", ") : current.activeVocab.reading}`
       : ""
   }
 </div>
