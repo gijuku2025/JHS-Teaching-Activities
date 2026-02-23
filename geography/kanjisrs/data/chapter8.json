@@ -1,52 +1,52 @@
 [
   {
-    "word": "必",
-    "meaning": ["necessary", "inevitable"],
-    "reading": ["ヒツ", "かならず"]
+    "word": "段",
+    "meaning": ["Step", "stage"],
+    "reading": ["ダン"]
   },
   {
-    "word": "要",
-    "meaning": ["need", "important", "pivot"],
-    "reading": ["ヨウ", "いる"]
+    "word": "論",
+    "meaning": ["Theory", "argument"],
+    "reading": ["ロン"]
   },
   {
-    "word": "適",
-    "meaning": ["suitable", "proper"],
-    "reading": ["テキ"]
+    "word": "説",
+    "meaning": ["Explanation", "opinion"],
+    "reading": ["セツ", "と(く)"]
   },
   {
-    "word": "資",
-    "meaning": ["assets", "resources", "capital"],
-    "reading": ["シ"]
+    "word": "談",
+    "meaning": ["Talk", "discussion"],
+    "reading": ["ダン"]
   },
   {
-    "word": "源",
-    "meaning": ["source", "origin"],
-    "reading": ["ゲン", "みなもと"]
+    "word": "題",
+    "meaning": ["Topic", "title"],
+    "reading": ["ダイ"]
   },
   {
-    "word": "越",
-    "meaning": ["surpass", "cross over", "exceed"],
-    "reading": ["エツ", "こす", "こえる"]
+    "word": "表",
+    "meaning": ["Express", "surface"],
+    "reading": ["ヒョウ", "おもて", "あらわ(す)"]
   },
   {
-    "word": "防",
-    "meaning": ["prevent", "defend", "protect"],
-    "reading": ["ボウ", "ふせぐ"]
+    "word": "現",
+    "meaning": ["Appear", "actual"],
+    "reading": ["ゲン", "あらわ(れる)"]
   },
   {
-    "word": "守",
-    "meaning": ["guard", "protect", "obey"],
-    "reading": ["シュ", "ス", "まもる", "もり"]
+    "word": "示",
+    "meaning": ["Show"],
+    "reading": ["ジ", "しめ(す)"]
   },
   {
-    "word": "治",
-    "meaning": ["govern", "rule", "cure"],
-    "reading": ["ジ", "チ", "おさめる", "なおる", "なおす"]
+    "word": "伝",
+    "meaning": ["Convey"],
+    "reading": ["デン", "つた(える)"]
   },
   {
-    "word": "任",
-    "meaning": ["responsibility", "duty", "entrust"],
-    "reading": ["ニン", "まかせる", "まかす"]
+    "word": "調",
+    "meaning": ["Investigate", "tone"],
+    "reading": ["チョウ", "しら(べる)"]
   }
 ]
