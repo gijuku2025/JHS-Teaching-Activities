@@ -6,89 +6,203 @@
         "1-1": {
           "title": "The Earth",
           "sentences": [
-            { "text": "This is the Earth", "audio": "audio/chapter1/c1s1_1.mp3" },
-            { "text": "The Earth has land, and the Earth has sea", "audio": "audio/chapter1/c1s1_2.mp3" },
-            { "text": "There is more sea than land", "audio": "audio/chapter1/c1s1_3.mp3" },
-            { "text": "Seventy percent of the Earth is sea, and thirty percent of the Earth is land", "audio": "audio/chapter1/c1s1_4.mp3" }
+            {
+              "text": "This is the Earth",
+              "audio": "audio/chapter1/c1s1_1.mp3"
+            },
+            {
+              "text": "The Earth has land, and the Earth has sea",
+              "audio": "audio/chapter1/c1s1_2.mp3"
+            },
+            {
+              "text": "There is more sea than land",
+              "audio": "audio/chapter1/c1s1_3.mp3"
+            },
+            {
+              "text": "Seventy percent of the Earth is sea, and thirty percent of the Earth is land",
+              "audio": "audio/chapter1/c1s1_4.mp3"
+            }
           ]
         },
         "1-2": {
           "title": "Oceans",
           "sentences": [
-            { "text": "Oceans are large areas of sea", "audio": "audio/chapter1/c1s2_1.mp3" },
-            { "text": "The Earth has three oceans", "audio": "audio/chapter1/c1s2_2.mp3" },
-            { "text": "The Pacific Ocean, the Atlantic Ocean, and the Indian Ocean", "audio": "audio/chapter1/c1s2_3.mp3" }
+            {
+              "text": "Oceans are large areas of sea",
+              "audio": "audio/chapter1/c1s2_1.mp3"
+            },
+            {
+              "text": "The Earth has three oceans",
+              "audio": "audio/chapter1/c1s2_2.mp3"
+            },
+            {
+              "text": "The Pacific Ocean, the Atlantic Ocean, and the Indian Ocean",
+              "audio": "audio/chapter1/c1s2_3.mp3"
+            }
           ]
         },
         "1-3": {
           "title": "Continents",
           "sentences": [
-            { "text": "Continents are large areas of land", "audio": "audio/chapter1/c1s3_1.mp3" },
-            { "text": "The Earth has six continents", "audio": "audio/chapter1/c1s3_2.mp3" },
-            { "text": "The Eurasian Continent, the African Continent, the North American Continent, the South American Continent, the Australian Continent, and the Antarctic Continent", "audio": "audio/chapter1/c1s3_3.mp3" }
+            {
+              "text": "Continents are large areas of land",
+              "audio": "audio/chapter1/c1s3_1.mp3"
+            },
+            {
+              "text": "The Earth has six continents",
+              "audio": "audio/chapter1/c1s3_2.mp3"
+            },
+            {
+              "text": "The Eurasian Continent, the African Continent, the North American Continent, the South American Continent, the Australian Continent, and the Antarctic Continent",
+              "audio": "audio/chapter1/c1s3_3.mp3"
+            }
           ]
         },
         "1-4": {
           "title": "Islands and Island Countries",
           "sentences": [
-            { "text": "Islands are small areas of land", "audio": "audio/chapter1/c1s4_1.mp3" },
-            { "text": "Islands are not part of a continent", "audio": "audio/chapter1/c1s4_2.mp3" },
-            { "text": "Japan is an island country", "audio": "audio/chapter1/c1s4_3.mp3" },
-            { "text": "Japan is not part of a continent", "audio": "audio/chapter1/c1s4_4.mp3" },
-            { "text": "Iceland is also an island country", "audio": "audio/chapter1/c1s4_5.mp3" },
-            { "text": "Iceland is not part of a continent", "audio": "audio/chapter1/c1s4_6.mp3" }
+            {
+              "text": "Islands are small areas of land",
+              "audio": "audio/chapter1/c1s4_1.mp3"
+            },
+            {
+              "text": "Islands are not part of a continent",
+              "audio": "audio/chapter1/c1s4_2.mp3"
+            },
+            {
+              "text": "Japan is an island country",
+              "audio": "audio/chapter1/c1s4_3.mp3"
+            },
+            {
+              "text": "Japan is not part of a continent",
+              "audio": "audio/chapter1/c1s4_4.mp3"
+            },
+            {
+              "text": "Iceland is also an island country",
+              "audio": "audio/chapter1/c1s4_5.mp3"
+            },
+            {
+              "text": "Iceland is not part of a continent",
+              "audio": "audio/chapter1/c1s4_6.mp3"
+            }
           ]
         },
         "1-5": {
           "title": "Regions",
           "sentences": [
-            { "text": "Regions are groups of continents and islands", "audio": "audio/chapter1/c1s5_1.mp3" },
-            { "text": "Europe and Asia are regions", "audio": "audio/chapter1/c1s5_2.mp3" },
-            { "text": "Europe plus Asia equals Eurasia", "audio": "audio/chapter1/c1s5_3.mp3" },
-            { "text": "The Earth has six Regions: North America, South America, Africa, Europe, Asia, and Oceania", "audio": "audio/chapter1/c1s5_4.mp3" }
+            {
+              "text": "Regions are groups of continents and islands",
+              "audio": "audio/chapter1/c1s5_1.mp3"
+            },
+            {
+              "text": "Europe and Asia are regions",
+              "audio": "audio/chapter1/c1s5_2.mp3"
+            },
+            {
+              "text": "Europe plus Asia equals Eurasia",
+              "audio": "audio/chapter1/c1s5_3.mp3"
+            },
+            {
+              "text": "The Earth has six Regions: North America, South America, Africa, Europe, Asia, and Oceania",
+              "audio": "audio/chapter1/c1s5_4.mp3"
+            }
           ]
         },
         "1-6": {
           "title": "Japan, Iceland, and Oceania",
           "sentences": [
-            { "text": "Japan is not part of a continent, but Japan is part of the region of Asia", "audio": "audio/chapter1/c1s6_1.mp3" },
-            { "text": "Iceland is not part of a continent, but Iceland is part of the region of Europe", "audio": "audio/chapter1/c1s6_2.mp3" },
-            { "text": "Oceania has many small island countries", "audio": "audio/chapter1/c1s6_3.mp3" }
+            {
+              "text": "Japan is not part of a continent, but Japan is part of the region of Asia",
+              "audio": "audio/chapter1/c1s6_1.mp3"
+            },
+            {
+              "text": "Iceland is not part of a continent, but Iceland is part of the region of Europe",
+              "audio": "audio/chapter1/c1s6_2.mp3"
+            },
+            {
+              "text": "Oceania has many small island countries",
+              "audio": "audio/chapter1/c1s6_3.mp3"
+            }
           ]
         },
         "1-7": {
           "title": "Landlocked Countries",
           "sentences": [
-            { "text": "Island countries have a lot of sea", "audio": "audio/chapter1/c1s7_1.mp3" },
-            { "text": "Landlocked countries have no sea", "audio": "audio/chapter1/c1s7_2.mp3" },
-            { "text": "Switzerland has no sea; it is a landlocked country", "audio": "audio/chapter1/c1s7_3.mp3" },
-            { "text": "Many countries in Africa are landlocked countries", "audio": "audio/chapter1/c1s7_4.mp3" }
+            {
+              "text": "Island countries have a lot of sea",
+              "audio": "audio/chapter1/c1s7_1.mp3"
+            },
+            {
+              "text": "Landlocked countries have no sea",
+              "audio": "audio/chapter1/c1s7_2.mp3"
+            },
+            {
+              "text": "Switzerland has no sea; it is a landlocked country",
+              "audio": "audio/chapter1/c1s7_3.mp3"
+            },
+            {
+              "text": "Many countries in Africa are landlocked countries",
+              "audio": "audio/chapter1/c1s7_4.mp3"
+            }
           ]
         },
         "1-8": {
           "title": "High and Low",
           "sentences": [
-            { "text": "The highest place on the Earth is the top of Mount Everest", "audio": "audio/chapter1/c1s8_1.mp3" },
-            { "text": "Mount Everest is eight thousand eight hundred forty-eight meters high", "audio": "audio/chapter1/c1s8_2.mp3" },
-            { "text": "The lowest place on the Earth is the bottom of Mariana Trench", "audio": "audio/chapter1/c1s8_3.mp3" },
-            { "text": "Mariana Trench is ten thousand nine hundred twenty meters deep", "audio": "audio/chapter1/c1s8_4.mp3" }
+            {
+              "text": "The highest place on the Earth is the top of Mount Everest",
+              "audio": "audio/chapter1/c1s8_1.mp3"
+            },
+            {
+              "text": "Mount Everest is eight thousand eight hundred forty-eight meters high",
+              "audio": "audio/chapter1/c1s8_2.mp3"
+            },
+            {
+              "text": "The lowest place on the Earth is the bottom of Mariana Trench",
+              "audio": "audio/chapter1/c1s8_3.mp3"
+            },
+            {
+              "text": "Mariana Trench is ten thousand nine hundred twenty meters deep",
+              "audio": "audio/chapter1/c1s8_4.mp3"
+            }
           ]
         },
         "1-9": {
           "title": "Round and Smooth",
           "sentences": [
-            { "text": "The Earth looks round and smooth because it is very big", "audio": "audio/chapter1/c1s9_1.mp3" },
-            { "text": "Mount Everest is much smaller than the Earth", "audio": "audio/chapter1/c1s9_2.mp3" }
+            {
+              "text": "The Earth looks round and smooth because it is very big",
+              "audio": "audio/chapter1/c1s9_1.mp3"
+            },
+            {
+              "text": "Mount Everest is much smaller than the Earth",
+              "audio": "audio/chapter1/c1s9_2.mp3"
+            }
           ]
         },
         "1-10": {
           "title": "Antarctica",
           "sentences": [
-            { "text": "Antarctica is bigger than Australia", "audio": "audio/chapter1/c1s10_1.mp3" },
-            { "text": "There are tall mountains in Antarctica", "audio": "audio/chapter1/c1s10_2.mp3" },
-            { "text": "Thick ice covers Antarctica", "audio": "audio/chapter1/c1s10_3.mp3" },
-            { "text": "The ice is two thousand four hundred meters thick on average", "audio": "audio/chapter1/c1s10_4.mp3" },
-            { "text": "The ice is very thick under the South Pole", "audio": "audio/chapter1/c1s10_5.mp3" }
+            {
+              "text": "Antarctica is bigger than Australia",
+              "audio": "audio/chapter1/c1s10_1.mp3"
+            },
+            {
+              "text": "There are tall mountains in Antarctica",
+              "audio": "audio/chapter1/c1s10_2.mp3"
+            },
+            {
+              "text": "Thick ice covers Antarctica",
+              "audio": "audio/chapter1/c1s10_3.mp3"
+            },
+            {
+              "text": "The ice is two thousand four hundred meters thick on average",
+              "audio": "audio/chapter1/c1s10_4.mp3"
+            },
+            {
+              "text": "The ice is very thick under the South Pole",
+              "audio": "audio/chapter1/c1s10_5.mp3"
+            }
           ]
         }
       }
@@ -99,115 +213,277 @@
         "2-1": {
           "title": "Large Land Areas",
           "sentences": [
-            { "text": "There are more than one hundred ninety countries in the world.", "audio": "audio/chapter2/c2s1_1.mp3" },
-            { "text": "Some countries have very large land areas.", "audio": "audio/chapter2/c2s1_2.mp3" },
-            { "text": "Russia is more than forty-five times as large as Japan.", "audio": "audio/chapter2/c2s1_3.mp3" },
-            { "text": "Canada is more than twenty-six times as large as Japan.", "audio": "audio/chapter2/c2s1_4.mp3" },
-            { "text": "China is more than twenty-five times as large as Japan.", "audio": "audio/chapter2/c2s1_5.mp3" }
+            {
+              "text": "There are more than one hundred ninety countries in the world.",
+              "audio": "audio/chapter2/c2s1_1.mp3"
+            },
+            {
+              "text": "Some countries have very large land areas.",
+              "audio": "audio/chapter2/c2s1_2.mp3"
+            },
+            {
+              "text": "Russia is more than forty-five times as large as Japan.",
+              "audio": "audio/chapter2/c2s1_3.mp3"
+            },
+            {
+              "text": "Canada is more than twenty-six times as large as Japan.",
+              "audio": "audio/chapter2/c2s1_4.mp3"
+            },
+            {
+              "text": "China is more than twenty-five times as large as Japan.",
+              "audio": "audio/chapter2/c2s1_5.mp3"
+            }
           ]
         },
         "2-2": {
           "title": "Large Populations",
           "sentences": [
-            { "text": "Some countries have very large populations.", "audio": "audio/chapter2/c2s2_1.mp3" },
-            { "text": "Japan has a large population.", "audio": "audio/chapter2/c2s2_2.mp3" },
-            { "text": "About one hundred twenty-six million people.", "audio": "audio/chapter2/c2s2_3.mp3" },
-            { "text": "This is number eleven in the world.", "audio": "audio/chapter2/c2s2_4.mp3" }
+            {
+              "text": "Some countries have very large populations.",
+              "audio": "audio/chapter2/c2s2_1.mp3"
+            },
+            {
+              "text": "Japan has a large population.",
+              "audio": "audio/chapter2/c2s2_2.mp3"
+            },
+            {
+              "text": "About one hundred twenty-six million people.",
+              "audio": "audio/chapter2/c2s2_3.mp3"
+            },
+            {
+              "text": "This is number eleven in the world.",
+              "audio": "audio/chapter2/c2s2_4.mp3"
+            }
           ]
         },
         "2-3": {
           "title": "China and India",
           "sentences": [
-            { "text": "But two countries have more than eleven times as many people as Japan.", "audio": "audio/chapter2/c2s3_1.mp3" },
-            { "text": "About one billion four hundred forty million in China and about one billion three hundred eighty million in India.", "audio": "audio/chapter2/c2s3_2.mp3" },
-            { "text": "China is number one in the world and India is number two.", "audio": "audio/chapter2/c2s3_3.mp3" }
+            {
+              "text": "But two countries have more than eleven times as many people as Japan.",
+              "audio": "audio/chapter2/c2s3_1.mp3"
+            },
+            {
+              "text": "About one billion four hundred forty million in China and about one billion three hundred eighty million in India.",
+              "audio": "audio/chapter2/c2s3_2.mp3"
+            },
+            {
+              "text": "China is number one in the world and India is number two.",
+              "audio": "audio/chapter2/c2s3_3.mp3"
+            }
           ]
         },
         "2-4": {
           "title": "The United States",
           "sentences": [
-            { "text": "The United States also has a large population.", "audio": "audio/chapter2/c2s4_1.mp3" },
-            { "text": "About three hundred thirty-one million people.", "audio": "audio/chapter2/c2s4_2.mp3" },
-            { "text": "This is number three in the world.", "audio": "audio/chapter2/c2s4_3.mp3" },
-            { "text": "There are fourteen countries with populations of over one hundred million people.", "audio": "audio/chapter2/c2s4_4.mp3" }
+            {
+              "text": "The United States also has a large population.",
+              "audio": "audio/chapter2/c2s4_1.mp3"
+            },
+            {
+              "text": "About three hundred thirty-one million people.",
+              "audio": "audio/chapter2/c2s4_2.mp3"
+            },
+            {
+              "text": "This is number three in the world.",
+              "audio": "audio/chapter2/c2s4_3.mp3"
+            },
+            {
+              "text": "There are fourteen countries with populations of over one hundred million people.",
+              "audio": "audio/chapter2/c2s4_4.mp3"
+            }
           ]
         },
         "2-5": {
           "title": "Small Countries",
           "sentences": [
-            { "text": "Some countries have very small land areas.", "audio": "audio/chapter2/c2s5_1.mp3" },
-            { "text": "The country with the smallest land area is Vatican City.", "audio": "audio/chapter2/c2s5_2.mp3" },
-            { "text": "Vatican City is about the same size as Hirosaki Park.", "audio": "audio/chapter2/c2s5_3.mp3" },
-            { "text": "Monaco is about four times the size of Hirosaki Park.", "audio": "audio/chapter2/c2s5_4.mp3" },
-            { "text": "Nauru is about the same size as Inakadate Village.", "audio": "audio/chapter2/c2s5_5.mp3" },
-            { "text": "Tuvalu is a little bit bigger than Inakadate Village.", "audio": "audio/chapter2/c2s5_6.mp3" }
+            {
+              "text": "Some countries have very small land areas.",
+              "audio": "audio/chapter2/c2s5_1.mp3"
+            },
+            {
+              "text": "The country with the smallest land area is Vatican City.",
+              "audio": "audio/chapter2/c2s5_2.mp3"
+            },
+            {
+              "text": "Vatican City is about the same size as Hirosaki Park.",
+              "audio": "audio/chapter2/c2s5_3.mp3"
+            },
+            {
+              "text": "Monaco is about four times the size of Hirosaki Park.",
+              "audio": "audio/chapter2/c2s5_4.mp3"
+            },
+            {
+              "text": "Nauru is about the same size as Inakadate Village.",
+              "audio": "audio/chapter2/c2s5_5.mp3"
+            },
+            {
+              "text": "Tuvalu is a little bit bigger than Inakadate Village.",
+              "audio": "audio/chapter2/c2s5_6.mp3"
+            }
           ]
         },
         "2-6": {
           "title": "Small Populations",
           "sentences": [
-            { "text": "Vatican City has less than one thousand people.", "audio": "audio/chapter2/c2s6_1.mp3" },
-            { "text": "Nauru has about ten thousand people.", "audio": "audio/chapter2/c2s6_2.mp3" },
-            { "text": "Tuvalu has about twelve thousand people.", "audio": "audio/chapter2/c2s6_3.mp3" },
-            { "text": "But Monaco has about thirty-four thousand people.", "audio": "audio/chapter2/c2s6_4.mp3" },
-            { "text": "These countries have high population densities.", "audio": "audio/chapter2/c2s6_5.mp3" }
+            {
+              "text": "Vatican City has less than one thousand people.",
+              "audio": "audio/chapter2/c2s6_1.mp3"
+            },
+            {
+              "text": "Nauru has about ten thousand people.",
+              "audio": "audio/chapter2/c2s6_2.mp3"
+            },
+            {
+              "text": "Tuvalu has about twelve thousand people.",
+              "audio": "audio/chapter2/c2s6_3.mp3"
+            },
+            {
+              "text": "But Monaco has about thirty-four thousand people.",
+              "audio": "audio/chapter2/c2s6_4.mp3"
+            },
+            {
+              "text": "These countries have high population densities.",
+              "audio": "audio/chapter2/c2s6_5.mp3"
+            }
           ]
         },
         "2-7": {
           "title": "Population Density",
           "sentences": [
-            { "text": "Population density is population divided by land area.", "audio": "audio/chapter2/c2s7_1.mp3" },
-            { "text": "Many large countries have low population densities.", "audio": "audio/chapter2/c2s7_2.mp3" },
-            { "text": "These three countries don’t have much rain.", "audio": "audio/chapter2/c2s7_3.mp3" },
-            { "text": "Japan’s population density is three hundred thirty-three per square kilometer.", "audio": "audio/chapter2/c2s7_4.mp3" },
-            { "text": "This is number twenty-five in the world.", "audio": "audio/chapter2/c2s7_5.mp3" }
+            {
+              "text": "Population density is population divided by land area.",
+              "audio": "audio/chapter2/c2s7_1.mp3"
+            },
+            {
+              "text": "Many large countries have low population densities.",
+              "audio": "audio/chapter2/c2s7_2.mp3"
+            },
+            {
+              "text": "These three countries don’t have much rain.",
+              "audio": "audio/chapter2/c2s7_3.mp3"
+            },
+            {
+              "text": "Japan’s population density is three hundred thirty-three per square kilometer.",
+              "audio": "audio/chapter2/c2s7_4.mp3"
+            },
+            {
+              "text": "This is number twenty-five in the world.",
+              "audio": "audio/chapter2/c2s7_5.mp3"
+            }
           ]
         },
         "2-8": {
           "title": "Country Names",
           "sentences": [
-            { "text": "Countries have names.", "audio": "audio/chapter2/c2s8_1.mp3" },
-            { "text": "India’s name comes from the Indus River.", "audio": "audio/chapter2/c2s8_2.mp3" },
-            { "text": "The Philippines’ name comes from King Philipp of Spain.", "audio": "audio/chapter2/c2s8_3.mp3" },
-            { "text": "Colombia’s name comes from Christopher Columbus.", "audio": "audio/chapter2/c2s8_4.mp3" },
-            { "text": "Ecuador’s name comes from Spanish for Equator.", "audio": "audio/chapter2/c2s8_5.mp3" }
+            {
+              "text": "Countries have names.",
+              "audio": "audio/chapter2/c2s8_1.mp3"
+            },
+            {
+              "text": "India’s name comes from the Indus River.",
+              "audio": "audio/chapter2/c2s8_2.mp3"
+            },
+            {
+              "text": "The Philippines’ name comes from King Philipp of Spain.",
+              "audio": "audio/chapter2/c2s8_3.mp3"
+            },
+            {
+              "text": "Colombia’s name comes from Christopher Columbus.",
+              "audio": "audio/chapter2/c2s8_4.mp3"
+            },
+            {
+              "text": "Ecuador’s name comes from Spanish for Equator.",
+              "audio": "audio/chapter2/c2s8_5.mp3"
+            }
           ]
         },
         "2-9": {
           "title": "The Union Jack",
           "sentences": [
-            { "text": "Countries have flags.", "audio": "audio/chapter2/c2s9_1.mp3" },
-            { "text": "The United Kingdom is a union of four countries.", "audio": "audio/chapter2/c2s9_2.mp3" },
-            { "text": "The flag of the United Kingdom is three flags in one.", "audio": "audio/chapter2/c2s9_3.mp3" },
-            { "text": "The nickname of this flag is the Union Jack.", "audio": "audio/chapter2/c2s9_4.mp3" },
-            { "text": "We can see the Union Jack on many flags in Oceania.", "audio": "audio/chapter2/c2s9_5.mp3" },
-            { "text": "These countries were all colonies of the United Kingdom.", "audio": "audio/chapter2/c2s9_6.mp3" }
+            {
+              "text": "Countries have flags.",
+              "audio": "audio/chapter2/c2s9_1.mp3"
+            },
+            {
+              "text": "The United Kingdom is a union of four countries.",
+              "audio": "audio/chapter2/c2s9_2.mp3"
+            },
+            {
+              "text": "The flag of the United Kingdom is three flags in one.",
+              "audio": "audio/chapter2/c2s9_3.mp3"
+            },
+            {
+              "text": "The nickname of this flag is the Union Jack.",
+              "audio": "audio/chapter2/c2s9_4.mp3"
+            },
+            {
+              "text": "We can see the Union Jack on many flags in Oceania.",
+              "audio": "audio/chapter2/c2s9_5.mp3"
+            },
+            {
+              "text": "These countries were all colonies of the United Kingdom.",
+              "audio": "audio/chapter2/c2s9_6.mp3"
+            }
           ]
         },
         "2-10": {
           "title": "Stars",
           "sentences": [
-            { "text": "We can see the Southern Cross on many flags in the Southern Hemisphere.", "audio": "audio/chapter2/c2s10_1.mp3" },
-            { "text": "There is a star and crescent on the flags of many Muslim countries.", "audio": "audio/chapter2/c2s10_2.mp3" },
-            { "text": "This was the symbol of the Turkish Ottoman Empire.", "audio": "audio/chapter2/c2s10_3.mp3" }
+            {
+              "text": "We can see the Southern Cross on many flags in the Southern Hemisphere.",
+              "audio": "audio/chapter2/c2s10_1.mp3"
+            },
+            {
+              "text": "There is a star and crescent on the flags of many Muslim countries.",
+              "audio": "audio/chapter2/c2s10_2.mp3"
+            },
+            {
+              "text": "This was the symbol of the Turkish Ottoman Empire.",
+              "audio": "audio/chapter2/c2s10_3.mp3"
+            }
           ]
         },
         "2-11": {
           "title": "National Borders",
           "sentences": [
-            { "text": "Countries have national borders.", "audio": "audio/chapter2/c2s11_1.mp3" },
-            { "text": "Many national borders in Europe divide language groups.", "audio": "audio/chapter2/c2s11_2.mp3" },
-            { "text": "Japan’s national border is the sea.", "audio": "audio/chapter2/c2s11_3.mp3" },
-            { "text": "Chile’s national border with Argentina is the Andes Mountains.", "audio": "audio/chapter2/c2s11_4.mp3" }
+            {
+              "text": "Countries have national borders.",
+              "audio": "audio/chapter2/c2s11_1.mp3"
+            },
+            {
+              "text": "Many national borders in Europe divide language groups.",
+              "audio": "audio/chapter2/c2s11_2.mp3"
+            },
+            {
+              "text": "Japan’s national border is the sea.",
+              "audio": "audio/chapter2/c2s11_3.mp3"
+            },
+            {
+              "text": "Chile’s national border with Argentina is the Andes Mountains.",
+              "audio": "audio/chapter2/c2s11_4.mp3"
+            }
           ]
         },
         "2-12": {
           "title": "Rivers and Lines",
           "sentences": [
-            { "text": "Mexico’s national border with the USA is a river, the Rio Grande.", "audio": "audio/chapter2/c2s12_1.mp3" },
-            { "text": "There is a straight line between the USA and Canada.", "audio": "audio/chapter2/c2s12_2.mp3" },
-            { "text": "Many national borders in Africa are also straight lines.", "audio": "audio/chapter2/c2s12_3.mp3" },
-            { "text": "European countries made most of these lines.", "audio": "audio/chapter2/c2s12_4.mp3" }
+            {
+              "text": "Mexico’s national border with the USA is a river, the Rio Grande.",
+              "audio": "audio/chapter2/c2s12_1.mp3"
+            },
+            {
+              "text": "There is a straight line between the USA and Canada.",
+              "audio": "audio/chapter2/c2s12_2.mp3"
+            },
+            {
+              "text": "Many national borders in Africa are also straight lines.",
+              "audio": "audio/chapter2/c2s12_3.mp3"
+            },
+            {
+              "text": "European countries made most of these lines.",
+              "audio": "audio/chapter2/c2s12_4.mp3"
+            }
           ]
         }
       }
@@ -218,93 +494,234 @@
         "3-1": {
           "title": "The North Pole and the South Pole",
           "sentences": [
-            { "text": "This is the Earth.", "audio": "audio/chapter3/c3s1_1.mp3" },
-            { "text": "At the top of the Earth is the North Pole.", "audio": "audio/chapter3/c3s1_2.mp3" },
-            { "text": "At the bottom of the Earth is the South Pole.", "audio": "audio/chapter3/c3s1_3.mp3" },
-            { "text": "The North Pole is in the Arctic Sea.", "audio": "audio/chapter3/c3s1_4.mp3" },
-            { "text": "The Arctic Sea is very cold.", "audio": "audio/chapter3/c3s1_5.mp3" },
-            { "text": "The South Pole is in Antarctica.", "audio": "audio/chapter3/c3s1_6.mp3" },
-            { "text": "Antarctica is also very cold.", "audio": "audio/chapter3/c3s1_7.mp3" }
+            {
+              "text": "This is the Earth.",
+              "audio": "audio/chapter3/c3s1_1.mp3"
+            },
+            {
+              "text": "At the top of the Earth is the North Pole.",
+              "audio": "audio/chapter3/c3s1_2.mp3"
+            },
+            {
+              "text": "At the bottom of the Earth is the South Pole.",
+              "audio": "audio/chapter3/c3s1_3.mp3"
+            },
+            {
+              "text": "The North Pole is in the Arctic Sea.",
+              "audio": "audio/chapter3/c3s1_4.mp3"
+            },
+            {
+              "text": "The Arctic Sea is very cold.",
+              "audio": "audio/chapter3/c3s1_5.mp3"
+            },
+            {
+              "text": "The South Pole is in Antarctica.",
+              "audio": "audio/chapter3/c3s1_6.mp3"
+            },
+            {
+              "text": "Antarctica is also very cold.",
+              "audio": "audio/chapter3/c3s1_7.mp3"
+            }
           ]
         },
         "3-2": {
           "title": "Distances on Earth",
           "sentences": [
-            { "text": "How far is the North Pole from the South Pole?", "audio": "audio/chapter3/c3s2_1.mp3" },
-            { "text": "About twenty thousand kilometers.", "audio": "audio/chapter3/c3s2_2.mp3" },
-            { "text": "Look at the red line on the map.", "audio": "audio/chapter3/c3s2_3.mp3" },
-            { "text": "This line is the Equator.", "audio": "audio/chapter3/c3s2_4.mp3" },
-            { "text": "How far is the Equator from the North Pole?", "audio": "audio/chapter3/c3s2_5.mp3" },
-            { "text": "About ten thousand kilometers.", "audio": "audio/chapter3/c3s2_6.mp3" },
-            { "text": "The distance is about ten thousand kilometers.", "audio": "audio/chapter3/c3s2_7.mp3" }
+            {
+              "text": "How far is the North Pole from the South Pole?",
+              "audio": "audio/chapter3/c3s2_1.mp3"
+            },
+            {
+              "text": "About twenty thousand kilometers.",
+              "audio": "audio/chapter3/c3s2_2.mp3"
+            },
+            {
+              "text": "Look at the red line on the map.",
+              "audio": "audio/chapter3/c3s2_3.mp3"
+            },
+            {
+              "text": "This line is the Equator.",
+              "audio": "audio/chapter3/c3s2_4.mp3"
+            },
+            {
+              "text": "How far is the Equator from the North Pole?",
+              "audio": "audio/chapter3/c3s2_5.mp3"
+            },
+            {
+              "text": "About ten thousand kilometers.",
+              "audio": "audio/chapter3/c3s2_6.mp3"
+            },
+            {
+              "text": "The distance is about ten thousand kilometers.",
+              "audio": "audio/chapter3/c3s2_7.mp3"
+            }
           ]
         },
         "3-3": {
           "title": "The Equator",
           "sentences": [
-            { "text": "How far is the Equator from the South Pole?", "audio": "audio/chapter3/c3s3_1.mp3" },
-            { "text": "About ten thousand kilometers.", "audio": "audio/chapter3/c3s3_2.mp3" },
-            { "text": "The distances are equal.", "audio": "audio/chapter3/c3s3_4.mp3" },
-            { "text": "Equal, Equate, Equator.", "audio": "audio/chapter3/c3s3_5.mp3" },
-            { "text": "The Equator.", "audio": "audio/chapter3/c3s3_6.mp3" },
-            { "text": "Countries near the Equator are hot.", "audio": "audio/chapter3/c3s3_7.mp3" }
+            {
+              "text": "How far is the Equator from the South Pole?",
+              "audio": "audio/chapter3/c3s3_1.mp3"
+            },
+            {
+              "text": "About ten thousand kilometers.",
+              "audio": "audio/chapter3/c3s3_2.mp3"
+            },
+            {
+              "text": "The distances are equal.",
+              "audio": "audio/chapter3/c3s3_4.mp3"
+            },
+            {
+              "text": "Equal, Equate, Equator.",
+              "audio": "audio/chapter3/c3s3_5.mp3"
+            },
+            {
+              "text": "The Equator.",
+              "audio": "audio/chapter3/c3s3_6.mp3"
+            },
+            {
+              "text": "Countries near the Equator are hot.",
+              "audio": "audio/chapter3/c3s3_7.mp3"
+            }
           ]
         },
         "3-4": {
           "title": "Latitude lines",
           "sentences": [
-            { "text": "Latitude lines are parallel with the Equator.", "audio": "audio/chapter3/c3s4_1.mp3" },
-            { "text": "The distance between them is always the same.", "audio": "audio/chapter3/c3s4_2.mp3" },
-            { "text": "The Equator is at zero degrees latitude.", "audio": "audio/chapter3/c3s4_3.mp3" },
-            { "text": "The North Pole is at ninety degrees north latitude.", "audio": "audio/chapter3/c3s4_4.mp3" },
-            { "text": "The South Pole is at ninety degrees south latitude.", "audio": "audio/chapter3/c3s4_5.mp3" }
+            {
+              "text": "Latitude lines are parallel with the Equator.",
+              "audio": "audio/chapter3/c3s4_1.mp3"
+            },
+            {
+              "text": "The distance between them is always the same.",
+              "audio": "audio/chapter3/c3s4_2.mp3"
+            },
+            {
+              "text": "The Equator is at zero degrees latitude.",
+              "audio": "audio/chapter3/c3s4_3.mp3"
+            },
+            {
+              "text": "The North Pole is at ninety degrees north latitude.",
+              "audio": "audio/chapter3/c3s4_4.mp3"
+            },
+            {
+              "text": "The South Pole is at ninety degrees south latitude.",
+              "audio": "audio/chapter3/c3s4_5.mp3"
+            }
           ]
         },
         "3-5": {
           "title": "Degrees of Latitude",
           "sentences": [
-            { "text": "Latitude is the angle between lines from the Earth's center.", "audio": "audio/chapter3/c3s5_1.mp3" },
-            { "text": "Ten thousand kilometers divided by ninety is about one hundred eleven kilometers.", "audio": "audio/chapter3/c3s5_2.mp3" },
-            { "text": "One degree latitude is about one hundred eleven kilometers.", "audio": "audio/chapter3/c3s5_3.mp3" },
-            { "text": "Ten degrees latitude is about one thousand one hundred eleven kilometers.", "audio": "audio/chapter3/c3s5_4.mp3" }
+            {
+              "text": "Latitude is the angle between lines from the Earth's center.",
+              "audio": "audio/chapter3/c3s5_1.mp3"
+            },
+            {
+              "text": "Ten thousand kilometers divided by ninety is about one hundred eleven kilometers.",
+              "audio": "audio/chapter3/c3s5_2.mp3"
+            },
+            {
+              "text": "One degree latitude is about one hundred eleven kilometers.",
+              "audio": "audio/chapter3/c3s5_3.mp3"
+            },
+            {
+              "text": "Ten degrees latitude is about one thousand one hundred eleven kilometers.",
+              "audio": "audio/chapter3/c3s5_4.mp3"
+            }
           ]
         },
         "3-6": {
           "title": "Longitude lines",
           "sentences": [
-            { "text": "Longitude lines connect the North Pole and the South Pole.", "audio": "audio/chapter3/c3s6_1.mp3" },
-            { "text": "Longitude lines are not parallel.", "audio": "audio/chapter3/c3s6_2.mp3" },
-            { "text": "Longitude is also the angle between lines from the Earth's center.", "audio": "audio/chapter3/c3s6_3.mp3" },
-            { "text": "One degree longitude is about one hundred eleven kilometers at the Equator.", "audio": "audio/chapter3/c3s6_4.mp3" },
-            { "text": "One degree longitude is zero kilometers at the North Pole.", "audio": "audio/chapter3/c3s6_5.mp3" },
-            { "text": "One degree longitude near Hirosaki is about eighty-five kilometers.", "audio": "audio/chapter3/c3s6_6.mp3" }
+            {
+              "text": "Longitude lines connect the North Pole and the South Pole.",
+              "audio": "audio/chapter3/c3s6_1.mp3"
+            },
+            {
+              "text": "Longitude lines are not parallel.",
+              "audio": "audio/chapter3/c3s6_2.mp3"
+            },
+            {
+              "text": "Longitude is also the angle between lines from the Earth's center.",
+              "audio": "audio/chapter3/c3s6_3.mp3"
+            },
+            {
+              "text": "One degree longitude is about one hundred eleven kilometers at the Equator.",
+              "audio": "audio/chapter3/c3s6_4.mp3"
+            },
+            {
+              "text": "One degree longitude is zero kilometers at the North Pole.",
+              "audio": "audio/chapter3/c3s6_5.mp3"
+            },
+            {
+              "text": "One degree longitude near Hirosaki is about eighty-five kilometers.",
+              "audio": "audio/chapter3/c3s6_6.mp3"
+            }
           ]
         },
         "3-7": {
           "title": "The Prime Meridian",
           "sentences": [
-            { "text": "The Prime Meridian goes through London.", "audio": "audio/chapter3/c3s7_1.mp3" },
-            { "text": "London is at zero degrees longitude.", "audio": "audio/chapter3/c3s7_2.mp3" },
-            { "text": "West of London is West Longitude.", "audio": "audio/chapter3/c3s7_3.mp3" },
-            { "text": "East of London is East Longitude.", "audio": "audio/chapter3/c3s7_4.mp3" },
-            { "text": "The one hundred eighty degree meridian is in the Pacific Ocean.", "audio": "audio/chapter3/c3s7_5.mp3" },
-            { "text": "One hundred eighty degrees west longitude equals one hundred eighty degrees east longitude.", "audio": "audio/chapter3/c3s7_6.mp3" }
+            {
+              "text": "The Prime Meridian goes through London.",
+              "audio": "audio/chapter3/c3s7_1.mp3"
+            },
+            {
+              "text": "London is at zero degrees longitude.",
+              "audio": "audio/chapter3/c3s7_2.mp3"
+            },
+            {
+              "text": "West of London is West Longitude.",
+              "audio": "audio/chapter3/c3s7_3.mp3"
+            },
+            {
+              "text": "East of London is East Longitude.",
+              "audio": "audio/chapter3/c3s7_4.mp3"
+            },
+            {
+              "text": "The one hundred eighty degree meridian is in the Pacific Ocean.",
+              "audio": "audio/chapter3/c3s7_5.mp3"
+            },
+            {
+              "text": "One hundred eighty degrees west longitude equals one hundred eighty degrees east longitude.",
+              "audio": "audio/chapter3/c3s7_6.mp3"
+            }
           ]
         },
         "3-8": {
           "title": "Hirosaki's Coordinates",
           "sentences": [
-            { "text": "We can use latitude and longitude to find Hirosaki.", "audio": "audio/chapter3/c3s8_1.mp3" },
-            { "text": "Latitude and longitude for Hirosaki are forty point six degrees north latitude and one hundred forty point five degrees east longitude.", "audio": "audio/chapter3/c3s8_2.mp3" },
-            { "text": "These are Hirosaki’s geographic coordinates.", "audio": "audio/chapter3/c3s8_3.mp3" }
+            {
+              "text": "We can use latitude and longitude to find Hirosaki.",
+              "audio": "audio/chapter3/c3s8_1.mp3"
+            },
+            {
+              "text": "Latitude and longitude for Hirosaki are forty point six degrees north latitude and one hundred forty point five degrees east longitude.",
+              "audio": "audio/chapter3/c3s8_2.mp3"
+            },
+            {
+              "text": "These are Hirosaki’s geographic coordinates.",
+              "audio": "audio/chapter3/c3s8_3.mp3"
+            }
           ]
         },
         "3-9": {
           "title": "Melbourne's Coordinates",
           "sentences": [
-            { "text": "We can use latitude and longitude to find Melbourne.", "audio": "audio/chapter3/c3s9_1.mp3" },
-            { "text": "Latitude and longitude for Melbourne are thirty-seven point eight degrees south latitude and one hundred forty-five point zero degrees east longitude.", "audio": "audio/chapter3/c3s9_2.mp3" },
-            { "text": "These are Melbourne’s geographic coordinates.", "audio": "audio/chapter3/c3s9_3.mp3" }
+            {
+              "text": "We can use latitude and longitude to find Melbourne.",
+              "audio": "audio/chapter3/c3s9_1.mp3"
+            },
+            {
+              "text": "Latitude and longitude for Melbourne are thirty-seven point eight degrees south latitude and one hundred forty-five point zero degrees east longitude.",
+              "audio": "audio/chapter3/c3s9_2.mp3"
+            },
+            {
+              "text": "These are Melbourne’s geographic coordinates.",
+              "audio": "audio/chapter3/c3s9_3.mp3"
+            }
           ]
         }
       }
@@ -315,73 +732,184 @@
         "4-1": {
           "title": "Weather in Melbourne",
           "sentences": [
-            { "text": "This is Melbourne in Australia.", "audio": "audio/chapter4/c4s1_1.mp3" },
-            { "text": "What is the weather like in Melbourne today?", "audio": "audio/chapter4/c4s1_2.mp3" },
-            { "text": "What is weather?", "audio": "audio/chapter4/c4s1_3.mp3" },
-            { "text": "Weather is sunny, cloudy, rainy, snowy, and windy.", "audio": "audio/chapter4/c4s1_4.mp3" },
-            { "text": "What is the weather like today?", "audio": "audio/chapter4/c4s1_5.mp3" },
-            { "text": "It is sunny.", "audio": "audio/chapter4/c4s1_6.mp3" }
+            {
+              "text": "This is Melbourne in Australia.",
+              "audio": "audio/chapter4/c4s1_1.mp3"
+            },
+            {
+              "text": "What is the weather like in Melbourne today?",
+              "audio": "audio/chapter4/c4s1_2.mp3"
+            },
+            {
+              "text": "What is weather?",
+              "audio": "audio/chapter4/c4s1_3.mp3"
+            },
+            {
+              "text": "Weather is sunny, cloudy, rainy, snowy, and windy.",
+              "audio": "audio/chapter4/c4s1_4.mp3"
+            },
+            {
+              "text": "What is the weather like today?",
+              "audio": "audio/chapter4/c4s1_5.mp3"
+            },
+            {
+              "text": "It is sunny.",
+              "audio": "audio/chapter4/c4s1_6.mp3"
+            }
           ]
         },
         "4-2": {
           "title": "Weather vs. Climate",
           "sentences": [
-            { "text": "Is it sunny in Melbourne every day?", "audio": "audio/chapter4/c4s2_1.mp3" },
-            { "text": "No, sometimes it is cloudy.", "audio": "audio/chapter4/c4s2_2.mp3" },
-            { "text": "Sometimes it is rainy.", "audio": "audio/chapter4/c4s2_3.mp3" },
-            { "text": "Sometimes it is windy.", "audio": "audio/chapter4/c4s2_4.mp3" },
-            { "text": "But it is never snowy.", "audio": "audio/chapter4/c4s2_5.mp3" },
-            { "text": "What is the climate like in Melbourne?", "audio": "audio/chapter4/c4s2_6.mp3" },
-            { "text": "What is climate?", "audio": "audio/chapter4/c4s2_7.mp3" },
-            { "text": "Weather is sunny, cloudy, rainy, snowy, and windy.", "audio": "audio/chapter4/c4s2_8.mp3" },
-            { "text": "Climate is Polar, Tropical, Temperate, and Arid.", "audio": "audio/chapter4/c4s2_9.mp3" }
+            {
+              "text": "Is it sunny in Melbourne every day?",
+              "audio": "audio/chapter4/c4s2_1.mp3"
+            },
+            {
+              "text": "No, sometimes it is cloudy.",
+              "audio": "audio/chapter4/c4s2_2.mp3"
+            },
+            {
+              "text": "Sometimes it is rainy.",
+              "audio": "audio/chapter4/c4s2_3.mp3"
+            },
+            {
+              "text": "Sometimes it is windy.",
+              "audio": "audio/chapter4/c4s2_4.mp3"
+            },
+            {
+              "text": "But it is never snowy.",
+              "audio": "audio/chapter4/c4s2_5.mp3"
+            },
+            {
+              "text": "What is the climate like in Melbourne?",
+              "audio": "audio/chapter4/c4s2_6.mp3"
+            },
+            {
+              "text": "What is climate?",
+              "audio": "audio/chapter4/c4s2_7.mp3"
+            },
+            {
+              "text": "Weather is sunny, cloudy, rainy, snowy, and windy.",
+              "audio": "audio/chapter4/c4s2_8.mp3"
+            },
+            {
+              "text": "Climate is Polar, Tropical, Temperate, and Arid.",
+              "audio": "audio/chapter4/c4s2_9.mp3"
+            }
           ]
         },
         "4-3": {
           "title": "Polar Climate",
           "sentences": [
-            { "text": "What is a Polar Climate?", "audio": "audio/chapter4/c4s3_1.mp3" },
-            { "text": "The climate near the North Pole is Polar.", "audio": "audio/chapter4/c4s3_2.mp3" },
-            { "text": "The climate near the South Pole is Polar.", "audio": "audio/chapter4/c4s3_3.mp3" },
-            { "text": "Polar bears live in the Polar Zone.", "audio": "audio/chapter4/c4s3_4.mp3" },
-            { "text": "In the Polar Zone, it is always cold.", "audio": "audio/chapter4/c4s3_5.mp3" }
+            {
+              "text": "What is a Polar Climate?",
+              "audio": "audio/chapter4/c4s3_1.mp3"
+            },
+            {
+              "text": "The climate near the North Pole is Polar.",
+              "audio": "audio/chapter4/c4s3_2.mp3"
+            },
+            {
+              "text": "The climate near the South Pole is Polar.",
+              "audio": "audio/chapter4/c4s3_3.mp3"
+            },
+            {
+              "text": "Polar bears live in the Polar Zone.",
+              "audio": "audio/chapter4/c4s3_4.mp3"
+            },
+            {
+              "text": "In the Polar Zone, it is always cold.",
+              "audio": "audio/chapter4/c4s3_5.mp3"
+            }
           ]
         },
         "4-4": {
           "title": "Tropical Climate",
           "sentences": [
-            { "text": "What is a Tropical Climate?", "audio": "audio/chapter4/c4s4_1.mp3" },
-            { "text": "This is tropical fruit, and these are tropical fish.", "audio": "audio/chapter4/c4s4_2.mp3" },
-            { "text": "Look at the red line on the map.", "audio": "audio/chapter4/c4s4_3.mp3" },
-            { "text": "This line is the Equator.", "audio": "audio/chapter4/c4s4_4.mp3" },
-            { "text": "Countries near the Equator are Tropical.", "audio": "audio/chapter4/c4s4_5.mp3" },
-            { "text": "The Tropical Zone is always hot.", "audio": "audio/chapter4/c4s4_6.mp3" }
+            {
+              "text": "What is a Tropical Climate?",
+              "audio": "audio/chapter4/c4s4_1.mp3"
+            },
+            {
+              "text": "This is tropical fruit, and these are tropical fish.",
+              "audio": "audio/chapter4/c4s4_2.mp3"
+            },
+            {
+              "text": "Look at the red line on the map.",
+              "audio": "audio/chapter4/c4s4_3.mp3"
+            },
+            {
+              "text": "This line is the Equator.",
+              "audio": "audio/chapter4/c4s4_4.mp3"
+            },
+            {
+              "text": "Countries near the Equator are Tropical.",
+              "audio": "audio/chapter4/c4s4_5.mp3"
+            },
+            {
+              "text": "The Tropical Zone is always hot.",
+              "audio": "audio/chapter4/c4s4_6.mp3"
+            }
           ]
         },
         "4-5": {
           "title": "Temperate Climate",
           "sentences": [
-            { "text": "What is a Temperate Climate?", "audio": "audio/chapter4/c4s5_1.mp3" },
-            { "text": "Hirosaki has a Temperate Climate.", "audio": "audio/chapter4/c4s5_2.mp3" },
-            { "text": "Hirosaki has hot summers.", "audio": "audio/chapter4/c4s5_3.mp3" },
-            { "text": "Hirosaki has cold winters.", "audio": "audio/chapter4/c4s5_4.mp3" },
-            { "text": "Temperate Climates have summers and winters.", "audio": "audio/chapter4/c4s5_5.mp3" }
+            {
+              "text": "What is a Temperate Climate?",
+              "audio": "audio/chapter4/c4s5_1.mp3"
+            },
+            {
+              "text": "Hirosaki has a Temperate Climate.",
+              "audio": "audio/chapter4/c4s5_2.mp3"
+            },
+            {
+              "text": "Hirosaki has hot summers.",
+              "audio": "audio/chapter4/c4s5_3.mp3"
+            },
+            {
+              "text": "Hirosaki has cold winters.",
+              "audio": "audio/chapter4/c4s5_4.mp3"
+            },
+            {
+              "text": "Temperate Climates have summers and winters.",
+              "audio": "audio/chapter4/c4s5_5.mp3"
+            }
           ]
         },
         "4-6": {
           "title": "Arid Climate",
           "sentences": [
-            { "text": "What is an Arid Climate?", "audio": "audio/chapter4/c4s6_1.mp3" },
-            { "text": "The Arid Zone has little rain.", "audio": "audio/chapter4/c4s6_2.mp3" },
-            { "text": "The Sahara Desert is Arid.", "audio": "audio/chapter4/c4s6_3.mp3" }
+            {
+              "text": "What is an Arid Climate?",
+              "audio": "audio/chapter4/c4s6_1.mp3"
+            },
+            {
+              "text": "The Arid Zone has little rain.",
+              "audio": "audio/chapter4/c4s6_2.mp3"
+            },
+            {
+              "text": "The Sahara Desert is Arid.",
+              "audio": "audio/chapter4/c4s6_3.mp3"
+            }
           ]
         },
         "4-7": {
           "title": "Summary of Climates",
           "sentences": [
-            { "text": "Climate is Polar (always cold), Tropical (always hot), Temperate (has summers and winters), and Arid (has little rain).", "audio": "audio/chapter4/c4s7_1.mp3" },
-            { "text": "So, what is the climate like in Melbourne?", "audio": "audio/chapter4/c4s7_2.mp3" },
-            { "text": "Melbourne has a Temperate Climate.", "audio": "audio/chapter4/c4s7_3.mp3" }
+            {
+              "text": "Climate is Polar (always cold), Tropical (always hot), Temperate (has summers and winters), and Arid (has little rain).",
+              "audio": "audio/chapter4/c4s7_1.mp3"
+            },
+            {
+              "text": "So, what is the climate like in Melbourne?",
+              "audio": "audio/chapter4/c4s7_2.mp3"
+            },
+            {
+              "text": "Melbourne has a Temperate Climate.",
+              "audio": "audio/chapter4/c4s7_3.mp3"
+            }
           ]
         }
       }
@@ -392,69 +920,302 @@
         "5-1": {
           "title": "Climate in Australia",
           "sentences": [
-            { "text": "Do you remember what climate is?", "audio": "audio/chapter5/c5s1_1.mp3" },
-            { "text": "Climate is Polar, Tropical, Temperate, and Arid.", "audio": "audio/chapter5/c5s1_2.mp3" },
-            { "text": "What is the climate like in Australia?", "audio": "audio/chapter5/c5s1_3.mp3" },
-            { "text": "It is Tropical, Arid, and Temperate.", "audio": "audio/chapter5/c5s1_4.mp3" },
-            { "text": "Darwin has a tropical climate.", "audio": "audio/chapter5/c5s1_5.mp3" },
-            { "text": "Darwin is always hot.", "audio": "audio/chapter5/c5s1_6.mp3" }
+            {
+              "text": "Do you remember what climate is?",
+              "audio": "audio/chapter5/c5s1_1.mp3"
+            },
+            {
+              "text": "Climate is Polar, Tropical, Temperate, and Arid.",
+              "audio": "audio/chapter5/c5s1_2.mp3"
+            },
+            {
+              "text": "What is the climate like in Australia?",
+              "audio": "audio/chapter5/c5s1_3.mp3"
+            },
+            {
+              "text": "It is Tropical, Arid, and Temperate.",
+              "audio": "audio/chapter5/c5s1_4.mp3"
+            },
+            {
+              "text": "Darwin has a tropical climate.",
+              "audio": "audio/chapter5/c5s1_5.mp3"
+            },
+            {
+              "text": "Darwin is always hot.",
+              "audio": "audio/chapter5/c5s1_6.mp3"
+            }
           ]
         },
         "5-2": {
           "title": "Reading a Climate Graph",
           "sentences": [
-            { "text": "This is a climate graph for Darwin.", "audio": "audio/chapter5/c5s2_1.mp3" },
-            { "text": "The red line is the average monthly temperature.", "audio": "audio/chapter5/c5s2_2.mp3" },
-            { "text": "The dotted red line is the average yearly temperature.", "audio": "audio/chapter5/c5s2_3.mp3" },
-            { "text": "The blue bars are the average monthly rainfall.", "audio": "audio/chapter5/c5s2_4.mp3" },
-            { "text": "The number above the blue bars is the average yearly rainfall.", "audio": "audio/chapter5/c5s2_5.mp3" }
+            {
+              "text": "This is a climate graph for Darwin.",
+              "audio": "audio/chapter5/c5s2_1.mp3"
+            },
+            {
+              "text": "The red line is the average monthly temperature.",
+              "audio": "audio/chapter5/c5s2_2.mp3"
+            },
+            {
+              "text": "The dotted red line is the average yearly temperature.",
+              "audio": "audio/chapter5/c5s2_3.mp3"
+            },
+            {
+              "text": "The blue bars are the average monthly rainfall.",
+              "audio": "audio/chapter5/c5s2_4.mp3"
+            },
+            {
+              "text": "The number above the blue bars is the average yearly rainfall.",
+              "audio": "audio/chapter5/c5s2_5.mp3"
+            }
           ]
         },
         "5-3": {
           "title": "Tropical Darwin",
           "sentences": [
-            { "text": "Darwin is always hot.", "audio": "audio/chapter5/c5s3_1.mp3" },
-            { "text": "The climate is tropical.", "audio": "audio/chapter5/c5s3_2.mp3" },
-            { "text": "The summer is wet.", "audio": "audio/chapter5/c5s3_3.mp3" },
-            { "text": "The winter is dry.", "audio": "audio/chapter5/c5s3_4.mp3" },
-            { "text": "Darwin is south of the Equator.", "audio": "audio/chapter5/c5s3_5.mp3" },
-            { "text": "Darwin is in the Southern Hemisphere.", "audio": "audio/chapter5/c5s3_6.mp3" }
+            {
+              "text": "Darwin is always hot.",
+              "audio": "audio/chapter5/c5s3_1.mp3"
+            },
+            {
+              "text": "The climate is tropical.",
+              "audio": "audio/chapter5/c5s3_2.mp3"
+            },
+            {
+              "text": "The summer is wet.",
+              "audio": "audio/chapter5/c5s3_3.mp3"
+            },
+            {
+              "text": "The winter is dry.",
+              "audio": "audio/chapter5/c5s3_4.mp3"
+            },
+            {
+              "text": "Darwin is south of the Equator.",
+              "audio": "audio/chapter5/c5s3_5.mp3"
+            },
+            {
+              "text": "Darwin is in the Southern Hemisphere.",
+              "audio": "audio/chapter5/c5s3_6.mp3"
+            }
           ]
         },
         "5-4": {
           "title": "Arid Coober Pedy",
           "sentences": [
-            { "text": "Coober Pedy has an Arid Climate.", "audio": "audio/chapter5/c5s4_1.mp3" },
-            { "text": "Coober Pedy has almost no rain.", "audio": "audio/chapter5/c5s4_2.mp3" },
-            { "text": "This is a climate graph for Coober Pedy.", "audio": "audio/chapter5/c5s4_3.mp3" },
-            { "text": "Coober Pedy is always dry.", "audio": "audio/chapter5/c5s4_4.mp3" },
-            { "text": "The climate is Arid.", "audio": "audio/chapter5/c5s4_5.mp3" },
-            { "text": "The summer is hot.", "audio": "audio/chapter5/c5s4_6.mp3" },
-            { "text": "The winter is cool.", "audio": "audio/chapter5/c5s4_7.mp3" },
-            { "text": "Coober Pedy is in the Southern Hemisphere.", "audio": "audio/chapter5/c5s4_8.mp3" }
+            {
+              "text": "Coober Pedy has an Arid Climate.",
+              "audio": "audio/chapter5/c5s4_1.mp3"
+            },
+            {
+              "text": "Coober Pedy has almost no rain.",
+              "audio": "audio/chapter5/c5s4_2.mp3"
+            },
+            {
+              "text": "This is a climate graph for Coober Pedy.",
+              "audio": "audio/chapter5/c5s4_3.mp3"
+            },
+            {
+              "text": "Coober Pedy is always dry.",
+              "audio": "audio/chapter5/c5s4_4.mp3"
+            },
+            {
+              "text": "The climate is Arid.",
+              "audio": "audio/chapter5/c5s4_5.mp3"
+            },
+            {
+              "text": "The summer is hot.",
+              "audio": "audio/chapter5/c5s4_6.mp3"
+            },
+            {
+              "text": "The winter is cool.",
+              "audio": "audio/chapter5/c5s4_7.mp3"
+            },
+            {
+              "text": "Coober Pedy is in the Southern Hemisphere.",
+              "audio": "audio/chapter5/c5s4_8.mp3"
+            }
           ]
         },
         "5-5": {
           "title": "Temperate Melbourne",
           "sentences": [
-            { "text": "Melbourne has a Temperate Climate.", "audio": "audio/chapter5/c5s5_1.mp3" },
-            { "text": "This is a climate graph for Melbourne.", "audio": "audio/chapter5/c5s5_2.mp3" },
-            { "text": "Melbourne has summer and winter.", "audio": "audio/chapter5/c5s5_3.mp3" },
-            { "text": "The climate is Temperate.", "audio": "audio/chapter5/c5s5_4.mp3" },
-            { "text": "The summer is warm.", "audio": "audio/chapter5/c5s5_5.mp3" },
-            { "text": "The winter is cool.", "audio": "audio/chapter5/c5s5_6.mp3" },
-            { "text": "Melbourne is in the Southern Hemisphere.", "audio": "audio/chapter5/c5s5_7.mp3" }
+            {
+              "text": "Melbourne has a Temperate Climate.",
+              "audio": "audio/chapter5/c5s5_1.mp3"
+            },
+            {
+              "text": "This is a climate graph for Melbourne.",
+              "audio": "audio/chapter5/c5s5_2.mp3"
+            },
+            {
+              "text": "Melbourne has summer and winter.",
+              "audio": "audio/chapter5/c5s5_3.mp3"
+            },
+            {
+              "text": "The climate is Temperate.",
+              "audio": "audio/chapter5/c5s5_4.mp3"
+            },
+            {
+              "text": "The summer is warm.",
+              "audio": "audio/chapter5/c5s5_5.mp3"
+            },
+            {
+              "text": "The winter is cool.",
+              "audio": "audio/chapter5/c5s5_6.mp3"
+            },
+            {
+              "text": "Melbourne is in the Southern Hemisphere.",
+              "audio": "audio/chapter5/c5s5_7.mp3"
+            }
           ]
         },
         "5-6": {
           "title": "Temperate Hirosaki",
           "sentences": [
-            { "text": "This is a climate graph for Hirosaki.", "audio": "audio/chapter5/c5s6_1.mp3" },
-            { "text": "Hirosaki has summer and winter.", "audio": "audio/chapter5/c5s6_2.mp3" },
-            { "text": "The climate is Temperate.", "audio": "audio/chapter5/c5s6_3.mp3" },
-            { "text": "The summer is hot.", "audio": "audio/chapter5/c5s6_4.mp3" },
-            { "text": "The winter is cold.", "audio": "audio/chapter5/c5s6_5.mp3" },
-            { "text": "Hirosaki is in the Northern Hemisphere.", "audio": "audio/chapter5/c5s6_6.mp3" }
+            {
+              "text": "This is a climate graph for Hirosaki.",
+              "audio": "audio/chapter5/c5s6_1.mp3"
+            },
+            {
+              "text": "Hirosaki has summer and winter.",
+              "audio": "audio/chapter5/c5s6_2.mp3"
+            },
+            {
+              "text": "The climate is Temperate.",
+              "audio": "audio/chapter5/c5s6_3.mp3"
+            },
+            {
+              "text": "The summer is hot.",
+              "audio": "audio/chapter5/c5s6_4.mp3"
+            },
+            {
+              "text": "The winter is cold.",
+              "audio": "audio/chapter5/c5s6_5.mp3"
+            },
+            {
+              "text": "Hirosaki is in the Northern Hemisphere.",
+              "audio": "audio/chapter5/c5s6_6.mp3"
+            }
+          ]
+        }
+      }
+    },
+    "6": {
+      "title": "Junior High Geography",
+      "sections": {
+        "6-1": {
+          "title": "Solar Energy",
+          "sentences": [
+            {
+              "text": "Solar panels get energy from the Sun.",
+              "audio": "audio/chapter6/c6s1_1.mp3"
+            },
+            {
+              "text": "Solar energy (energy from the Sun) makes the Earth warm.",
+              "audio": "audio/chapter6/c6s1_2.mp3"
+            },
+            {
+              "text": "Solar energy hits the Earth at different angles.",
+              "audio": "audio/chapter6/c6s1_3.mp3"
+            },
+            {
+              "text": "Near the Equator, a lot of energy hits a small area.",
+              "audio": "audio/chapter6/c6s1_4.mp3"
+            },
+            {
+              "text": "This makes the Equator hot.",
+              "audio": "audio/chapter6/c6s1_5.mp3"
+            }
+          ]
+        },
+        "6-2": {
+          "title": "Poles and the Subsolar Point",
+          "sentences": [
+            {
+              "text": "Near the North and South Poles, the same energy hits a large area.",
+              "audio": "audio/chapter6/c6s2_1.mp3"
+            },
+            {
+              "text": "This makes the North and South Poles cold.",
+              "audio": "audio/chapter6/c6s2_2.mp3"
+            },
+            {
+              "text": "The Subsolar point gets the most solar energy.",
+              "audio": "audio/chapter6/c6s2_3.mp3"
+            },
+            {
+              "text": "The Subsolar Point is perpendicular with the solar energy.",
+              "audio": "audio/chapter6/c6s2_4.mp3"
+            }
+          ]
+        },
+        "6-3": {
+          "title": "Earth's Tilt and Movement",
+          "sentences": [
+            {
+              "text": "Because of the tilt of the Earth, the Subsolar Point moves.",
+              "audio": "audio/chapter6/c6s3_1.mp3"
+            },
+            {
+              "text": "On March 21, the Subsolar Point is at the Equator.",
+              "audio": "audio/chapter6/c6s3_2.mp3"
+            },
+            {
+              "text": "After March 21 the Subsolar Point moves north.",
+              "audio": "audio/chapter6/c6s3_3.mp3"
+            }
+          ]
+        },
+        "6-4": {
+          "title": "Summer in the Northern Hemisphere",
+          "sentences": [
+            {
+              "text": "On June 22 the Subsolar Point is at 23.5° North Latitude.",
+              "audio": "audio/chapter6/c6s4_1.mp3"
+            },
+            {
+              "text": "This is summer in the Northern Hemisphere.",
+              "audio": "audio/chapter6/c6s4_2.mp3"
+            },
+            {
+              "text": "After June 22, the Subsolar Point moves south.",
+              "audio": "audio/chapter6/c6s4_3.mp3"
+            },
+            {
+              "text": "On September 23, the Subsolar Point is back at the Equator.",
+              "audio": "audio/chapter6/c6s4_4.mp3"
+            }
+          ]
+        },
+        "6-5": {
+          "title": "Winter in the Northern Hemisphere",
+          "sentences": [
+            {
+              "text": "After September 23, the Subsolar Point moves south again.",
+              "audio": "audio/chapter6/c6s5_1.mp3"
+            },
+            {
+              "text": "On December 22, the Subsolar Point is at 23.5° South Latitude.",
+              "audio": "audio/chapter6/c6s5_2.mp3"
+            },
+            {
+              "text": "This is winter in the Northern Hemisphere.",
+              "audio": "audio/chapter6/c6s5_3.mp3"
+            }
+          ]
+        },
+        "6-6": {
+          "title": "Returning to the Equator",
+          "sentences": [
+            {
+              "text": "After December 22, the Subsolar Point moves north again.",
+              "audio": "audio/chapter6/c6s6_1.mp3"
+            },
+            {
+              "text": "On March 21, the Subsolar Point is back at the Equator again.",
+              "audio": "audio/chapter6/c6s6_2.mp3"
+            }
           ]
         }
       }
