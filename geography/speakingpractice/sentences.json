@@ -244,10 +244,10 @@
           "sentences": [
             { "text": "How far is the Equator from the South Pole?", "audio": "audio/chapter3/c3s3_1.mp3" },
             { "text": "About ten thousand kilometers.", "audio": "audio/chapter3/c3s3_2.mp3" },
-            { "text": "The distances are equal.", "audio": "audio/chapter3/c3s3_3.mp3" },
-            { "text": "Equal, Equate, Equator.", "audio": "audio/chapter3/c3s3_4.mp3" },
-            { "text": "The Equator.", "audio": "audio/chapter3/c3s3_5.mp3" },
-            { "text": "Countries near the Equator are hot.", "audio": "audio/chapter3/c3s3_6.mp3" }
+            { "text": "The distances are equal.", "audio": "audio/chapter3/c3s3_4.mp3" },
+            { "text": "Equal, Equate, Equator.", "audio": "audio/chapter3/c3s3_5.mp3" },
+            { "text": "The Equator.", "audio": "audio/chapter3/c3s3_6.mp3" },
+            { "text": "Countries near the Equator are hot.", "audio": "audio/chapter3/c3s3_7.mp3" }
           ]
         },
         "3-4": {
@@ -305,6 +305,83 @@
             { "text": "We can use latitude and longitude to find Melbourne.", "audio": "audio/chapter3/c3s9_1.mp3" },
             { "text": "Latitude and longitude for Melbourne are thirty-seven point eight degrees south latitude and one hundred forty-five point zero degrees east longitude.", "audio": "audio/chapter3/c3s9_2.mp3" },
             { "text": "These are Melbourne’s geographic coordinates.", "audio": "audio/chapter3/c3s9_3.mp3" }
+          ]
+        }
+      }
+    },
+    "4": {
+      "title": "Junior High Geography",
+      "sections": {
+        "4-1": {
+          "title": "Weather in Melbourne",
+          "sentences": [
+            { "text": "This is Melbourne in Australia.", "audio": "audio/chapter4/c4s1_1.mp3" },
+            { "text": "What is the weather like in Melbourne today?", "audio": "audio/chapter4/c4s1_2.mp3" },
+            { "text": "What is weather?", "audio": "audio/chapter4/c4s1_3.mp3" },
+            { "text": "Weather is sunny, cloudy, rainy, snowy, and windy.", "audio": "audio/chapter4/c4s1_4.mp3" },
+            { "text": "What is the weather like today?", "audio": "audio/chapter4/c4s1_5.mp3" },
+            { "text": "It is sunny.", "audio": "audio/chapter4/c4s1_6.mp3" }
+          ]
+        },
+        "4-2": {
+          "title": "Weather vs. Climate",
+          "sentences": [
+            { "text": "Is it sunny in Melbourne every day?", "audio": "audio/chapter4/c4s2_1.mp3" },
+            { "text": "No, sometimes it is cloudy.", "audio": "audio/chapter4/c4s2_2.mp3" },
+            { "text": "Sometimes it is rainy.", "audio": "audio/chapter4/c4s2_3.mp3" },
+            { "text": "Sometimes it is windy.", "audio": "audio/chapter4/c4s2_4.mp3" },
+            { "text": "But it is never snowy.", "audio": "audio/chapter4/c4s2_5.mp3" },
+            { "text": "What is the climate like in Melbourne?", "audio": "audio/chapter4/c4s2_6.mp3" },
+            { "text": "What is climate?", "audio": "audio/chapter4/c4s2_7.mp3" },
+            { "text": "Weather is sunny, cloudy, rainy, snowy, and windy.", "audio": "audio/chapter4/c4s2_8.mp3" },
+            { "text": "Climate is Polar, Tropical, Temperate, and Arid.", "audio": "audio/chapter4/c4s2_9.mp3" }
+          ]
+        },
+        "4-3": {
+          "title": "Polar Climate",
+          "sentences": [
+            { "text": "What is a Polar Climate?", "audio": "audio/chapter4/c4s3_1.mp3" },
+            { "text": "The climate near the North Pole is Polar.", "audio": "audio/chapter4/c4s3_2.mp3" },
+            { "text": "The climate near the South Pole is Polar.", "audio": "audio/chapter4/c4s3_3.mp3" },
+            { "text": "Polar bears live in the Polar Zone.", "audio": "audio/chapter4/c4s3_4.mp3" },
+            { "text": "In the Polar Zone, it is always cold.", "audio": "audio/chapter4/c4s3_5.mp3" }
+          ]
+        },
+        "4-4": {
+          "title": "Tropical Climate",
+          "sentences": [
+            { "text": "What is a Tropical Climate?", "audio": "audio/chapter4/c4s4_1.mp3" },
+            { "text": "This is tropical fruit, and these are tropical fish.", "audio": "audio/chapter4/c4s4_2.mp3" },
+            { "text": "Look at the red line on the map.", "audio": "audio/chapter4/c4s4_3.mp3" },
+            { "text": "This line is the Equator.", "audio": "audio/chapter4/c4s4_4.mp3" },
+            { "text": "Countries near the Equator are Tropical.", "audio": "audio/chapter4/c4s4_5.mp3" },
+            { "text": "The Tropical Zone is always hot.", "audio": "audio/chapter4/c4s4_6.mp3" }
+          ]
+        },
+        "4-5": {
+          "title": "Temperate Climate",
+          "sentences": [
+            { "text": "What is a Temperate Climate?", "audio": "audio/chapter4/c4s5_1.mp3" },
+            { "text": "Hirosaki has a Temperate Climate.", "audio": "audio/chapter4/c4s5_2.mp3" },
+            { "text": "Hirosaki has hot summers.", "audio": "audio/chapter4/c4s5_3.mp3" },
+            { "text": "Hirosaki has cold winters.", "audio": "audio/chapter4/c4s5_4.mp3" },
+            { "text": "Temperate Climates have summers and winters.", "audio": "audio/chapter4/c4s5_5.mp3" }
+          ]
+        },
+        "4-6": {
+          "title": "Arid Climate",
+          "sentences": [
+            { "text": "What is an Arid Climate?", "audio": "audio/chapter4/c4s6_1.mp3" },
+            { "text": "The Arid Zone has little rain.", "audio": "audio/chapter4/c4s6_2.mp3" },
+            { "text": "The Sahara Desert is Arid.", "audio": "audio/chapter4/c4s6_3.mp3" }
+          ]
+        },
+        "4-7": {
+          "title": "Summary of Climates",
+          "sentences": [
+            { "text": "Climate is Polar (always cold), Tropical (always hot), Temperate (has summers and winters), and Arid (has little rain).", "audio": "audio/chapter4/c4s7_1.mp3" },
+            { "text": "So, what is the climate like in Melbourne?", "audio": "audio/chapter4/c4s7_2.mp3" },
+            { "text": "Melbourne has a Temperate Climate.", "audio": "audio/chapter4/c4s7_3.mp3" }
           ]
         }
       }
