@@ -96,7 +96,7 @@ fetch("sentences.json")
     menu.innerHTML = "";
   });
 
-// ------------------- UI FUNCTIONS -------------------
+
 // ------------------- UI FUNCTIONS -------------------
 function showChapters() {
   header.innerHTML = `Welcome to Smart Speak, ${nickname}.<br>${subjectTitle}`;
@@ -174,7 +174,7 @@ function startPractice(ch, s) {
   
   sentences = sectionData.sentences;
   index = 0;
-  bestScore = 0;
+  
   resultsLog = [];
   studyStartTime = new Date();
 
@@ -198,8 +198,8 @@ function loadSentence() {
   progressEl.textContent = `Sentence ${index + 1} of ${sentences.length}`;
   input.value = "";
   feedback.innerHTML = "";
-  nextBtn.disabled = true;
   checkBtn.disabled = true;
+  setButtonState("beforeCheck");
 
   playAudioBtn.onclick = () => {
     if (!current.audio) return alert("Audio not available");
@@ -220,13 +220,14 @@ input.oninput = () => {
 
 checkBtn.onclick = () => {
   gradeSentence();
-  nextBtn.disabled = false;
+  setButtonState("afterCheck");
 };
 
 retryBtn.onclick = () => {
   input.value = "";
   feedback.innerHTML = "";
   checkBtn.disabled = true;
+  setButtonState("beforeCheck");
 };
 
 nextBtn.onclick = () => {
@@ -236,6 +237,23 @@ nextBtn.onclick = () => {
     showResults();
   }
 };
+
+							   
+function setButtonState(state) {
+  if (state === "beforeCheck") {
+    checkBtn.style.display = "inline-block";
+    retryBtn.style.display = "none";
+    nextBtn.style.display = "none";
+  }
+
+  if (state === "afterCheck") {
+    checkBtn.style.display = "none";
+    retryBtn.style.display = "inline-block";
+    nextBtn.style.display = "inline-block";
+  }
+}							   
+							   
+							   
 
 // ------------------- GRADING -------------------
 function gradeSentence() {
