@@ -15,19 +15,31 @@
 
 <div id="card" class="hidden">
   <p id="progress"></p>
-  <p id="sentence"></p>
 
-  <button id="playAudio">🔊 Listen</button><br><br>
+  <!-- ⭐ Sentence Block -->
+  <div class="sentence-block">
+    <p id="sentence"></p>
+  </div>
 
-  <textarea id="speechInput" placeholder="Tap here, then tap the mic and read the sentence."></textarea>
+  <!-- 🎤 Speak Block -->
+  <div class="speak-block">
+    <button id="playAudio">🔊 Listen</button>
 
-  <div id="action-buttons">
+    <textarea id="speechInput"
+      placeholder="Tap here, then tap the mic and read the sentence."></textarea>
+  </div>
+
+  <!-- ▶ Control Block -->
+  <div class="control-block">
     <button id="checkBtn" disabled>🛑 Stop & Check</button>
     <button id="retryBtn">🔁 Try Again</button>
     <button id="nextBtn" disabled>▶ Next</button>
   </div>
 
-  <div id="feedback"></div>
+  <!-- 🧠 Feedback Block -->
+  <div class="feedback-block">
+    <div id="feedback"></div>
+  </div>
 </div>
 
 <!-- ✅ Legend is OUTSIDE the card and hidden by default -->
