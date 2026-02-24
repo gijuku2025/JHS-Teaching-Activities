@@ -9,7 +9,7 @@
             { "text": "This is the Earth", "audio": "audio/chapter1/c1s1_1.mp3" },
             { "text": "The Earth has land, and the Earth has sea", "audio": "audio/chapter1/c1s1_2.mp3" },
             { "text": "There is more sea than land", "audio": "audio/chapter1/c1s1_3.mp3" },
-            { "text": "70% of the Earth is sea, and 30% of the Earth is land", "audio": "audio/chapter1/c1s1_4.mp3" }
+            { "text": "Seventy percent of the Earth is sea, and thirty percent of the Earth is land", "audio": "audio/chapter1/c1s1_4.mp3" }
           ]
         },
         "1-2": {
@@ -69,9 +69,9 @@
           "title": "High and Low",
           "sentences": [
             { "text": "The highest place on the Earth is the top of Mount Everest", "audio": "audio/chapter1/c1s8_1.mp3" },
-            { "text": "Mount Everest is 8,848 meters high", "audio": "audio/chapter1/c1s8_2.mp3" },
+            { "text": "Mount Everest is eight thousand eight hundred forty-eight meters high", "audio": "audio/chapter1/c1s8_2.mp3" },
             { "text": "The lowest place on the Earth is the bottom of Mariana Trench", "audio": "audio/chapter1/c1s8_3.mp3" },
-            { "text": "Mariana Trench is 10,920 meters deep", "audio": "audio/chapter1/c1s8_4.mp3" }
+            { "text": "Mariana Trench is ten thousand nine hundred twenty meters deep", "audio": "audio/chapter1/c1s8_4.mp3" }
           ]
         },
         "1-9": {
@@ -87,8 +87,127 @@
             { "text": "Antarctica is bigger than Australia", "audio": "audio/chapter1/c1s10_1.mp3" },
             { "text": "There are tall mountains in Antarctica", "audio": "audio/chapter1/c1s10_2.mp3" },
             { "text": "Thick ice covers Antarctica", "audio": "audio/chapter1/c1s10_3.mp3" },
-            { "text": "The ice is 2,400 meters thick (average)", "audio": "audio/chapter1/c1s10_4.mp3" },
+            { "text": "The ice is two thousand four hundred meters thick (average)", "audio": "audio/chapter1/c1s10_4.mp3" },
             { "text": "The ice is very thick under the South Pole", "audio": "audio/chapter1/c1s10_5.mp3" }
+          ]
+        }
+      }
+    },
+    "2": {
+      "title": "Junior High Geography",
+      "sections": {
+        "2-1": {
+          "title": "Large Land Areas",
+          "sentences": [
+            { "text": "There are more than one hundred ninety countries in the world.", "audio": "audio/chapter2/c2s1_1.mp3" },
+            { "text": "Some countries have very large land areas.", "audio": "audio/chapter2/c2s1_2.mp3" },
+            { "text": "Russia is more than forty-five times as large as Japan.", "audio": "audio/chapter2/c2s1_3.mp3" },
+            { "text": "Canada is more than twenty-six times as large as Japan.", "audio": "audio/chapter2/c2s1_4.mp3" },
+            { "text": "China is more than twenty-five times as large as Japan.", "audio": "audio/chapter2/c2s1_5.mp3" }
+          ]
+        },
+        "2-2": {
+          "title": "Large Populations",
+          "sentences": [
+            { "text": "Some countries have very large populations (numbers of people).", "audio": "audio/chapter2/c2s2_1.mp3" },
+            { "text": "Japan has a large population.", "audio": "audio/chapter2/c2s2_2.mp3" },
+            { "text": "About one hundred twenty-six million people.", "audio": "audio/chapter2/c2s2_3.mp3" },
+            { "text": "This is number eleven in the world.", "audio": "audio/chapter2/c2s2_4.mp3" }
+          ]
+        },
+        "2-3": {
+          "title": "China and India",
+          "sentences": [
+            { "text": "But two countries have more than eleven times as many people as Japan.", "audio": "audio/chapter2/c2s3_1.mp3" },
+            { "text": "About one billion four hundred forty million in China and about one billion three hundred eighty million in India.", "audio": "audio/chapter2/c2s3_2.mp3" },
+            { "text": "China is number one in the world and India is number two.", "audio": "audio/chapter2/c2s3_3.mp3" }
+          ]
+        },
+        "2-4": {
+          "title": "The United States",
+          "sentences": [
+            { "text": "The United States also has a large population.", "audio": "audio/chapter2/c2s4_1.mp3" },
+            { "text": "About three hundred thirty-one million people.", "audio": "audio/chapter2/c2s4_2.mp3" },
+            { "text": "This is number three in the world.", "audio": "audio/chapter2/c2s4_3.mp3" },
+            { "text": "There are fourteen countries with populations of over one hundred million people.", "audio": "audio/chapter2/c2s4_4.mp3" }
+          ]
+        },
+        "2-5": {
+          "title": "Small Countries",
+          "sentences": [
+            { "text": "Some countries have very small land areas.", "audio": "audio/chapter2/c2s5_1.mp3" },
+            { "text": "The country with the smallest land area is Vatican City.", "audio": "audio/chapter2/c2s5_2.mp3" },
+            { "text": "Vatican City is about the same size as Hirosaki Park.", "audio": "audio/chapter2/c2s5_3.mp3" },
+            { "text": "Monaco is about four times the size of Hirosaki Park.", "audio": "audio/chapter2/c2s5_4.mp3" },
+            { "text": "Nauru is about the same size as Inakadate Village.", "audio": "audio/chapter2/c2s5_5.mp3" },
+            { "text": "Tuvalu is a little bit bigger than Inakadate Village.", "audio": "audio/chapter2/c2s5_6.mp3" }
+          ]
+        },
+        "2-6": {
+          "title": "Small Populations",
+          "sentences": [
+            { "text": "Vatican City has less than one thousand people.", "audio": "audio/chapter2/c2s6_1.mp3" },
+            { "text": "Nauru has about ten thousand people.", "audio": "audio/chapter2/c2s6_2.mp3" },
+            { "text": "Tuvalu has about twelve thousand people.", "audio": "audio/chapter2/c2s6_3.mp3" },
+            { "text": "But Monaco has about thirty-four thousand people.", "audio": "audio/chapter2/c2s6_4.mp3" },
+            { "text": "These countries have high population densities.", "audio": "audio/chapter2/c2s6_5.mp3" }
+          ]
+        },
+        "2-7": {
+          "title": "Population Density",
+          "sentences": [
+            { "text": "Population density is population divided by land area.", "audio": "audio/chapter2/c2s7_1.mp3" },
+            { "text": "Many large countries have low population densities.", "audio": "audio/chapter2/c2s7_2.mp3" },
+            { "text": "These three countries don’t have much rain.", "audio": "audio/chapter2/c2s7_3.mp3" },
+            { "text": "Japan’s population density is three hundred thirty-three per square kilometer.", "audio": "audio/chapter2/c2s7_4.mp3" },
+            { "text": "This is number twenty-five in the world.", "audio": "audio/chapter2/c2s7_5.mp3" }
+          ]
+        },
+        "2-8": {
+          "title": "Country Names",
+          "sentences": [
+            { "text": "Countries have names.", "audio": "audio/chapter2/c2s8_1.mp3" },
+            { "text": "India’s name comes from the Indus River.", "audio": "audio/chapter2/c2s8_2.mp3" },
+            { "text": "The Philippines’ name comes from King Philipp of Spain.", "audio": "audio/chapter2/c2s8_3.mp3" },
+            { "text": "Colombia’s name comes from Christopher Columbus.", "audio": "audio/chapter2/c2s8_4.mp3" },
+            { "text": "Ecuador’s name comes from Spanish for Equator.", "audio": "audio/chapter2/c2s8_5.mp3" }
+          ]
+        },
+        "2-9": {
+          "title": "The Union Jack",
+          "sentences": [
+            { "text": "Countries have flags.", "audio": "audio/chapter2/c2s9_1.mp3" },
+            { "text": "The United Kingdom is a union of four countries.", "audio": "audio/chapter2/c2s9_2.mp3" },
+            { "text": "The flag of the United Kingdom is three flags in one.", "audio": "audio/chapter2/c2s9_3.mp3" },
+            { "text": "The nickname of this flag is the Union Jack.", "audio": "audio/chapter2/c2s9_4.mp3" },
+            { "text": "We can see the Union Jack on many flags in Oceania.", "audio": "audio/chapter2/c2s9_5.mp3" },
+            { "text": "These countries were all colonies of the United Kingdom.", "audio": "audio/chapter2/c2s9_6.mp3" }
+          ]
+        },
+        "2-10": {
+          "title": "Stars",
+          "sentences": [
+            { "text": "We can see the Southern Cross on many flags in the Southern Hemisphere.", "audio": "audio/chapter2/c2s10_1.mp3" },
+            { "text": "There is a star and crescent on the flags of many Muslim countries.", "audio": "audio/chapter2/c2s10_2.mp3" },
+            { "text": "This was the symbol of the Turkish Ottoman Empire.", "audio": "audio/chapter2/c2s10_3.mp3" }
+          ]
+        },
+        "2-11": {
+          "title": "National Borders",
+          "sentences": [
+            { "text": "Countries have national borders.", "audio": "audio/chapter2/c2s11_1.mp3" },
+            { "text": "Many national borders in Europe divide language groups.", "audio": "audio/chapter2/c2s11_2.mp3" },
+            { "text": "Japan’s national border is the sea.", "audio": "audio/chapter2/c2s11_3.mp3" },
+            { "text": "Chile’s national border with Argentina is the Andes Mountains.", "audio": "audio/chapter2/c2s11_4.mp3" }
+          ]
+        },
+        "2-12": {
+          "title": "Rivers and Lines",
+          "sentences": [
+            { "text": "Mexico’s national border with the USA is a river, the Rio Grande.", "audio": "audio/chapter2/c2s12_1.mp3" },
+            { "text": "There is a straight line between the USA and Canada.", "audio": "audio/chapter2/c2s12_2.mp3" },
+            { "text": "Many national borders in Africa are also straight lines.", "audio": "audio/chapter2/c2s12_3.mp3" },
+            { "text": "European countries made most of these lines.", "audio": "audio/chapter2/c2s12_4.mp3" }
           ]
         }
       }
