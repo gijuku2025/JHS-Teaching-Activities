@@ -87,7 +87,7 @@
             { "text": "Antarctica is bigger than Australia", "audio": "audio/chapter1/c1s10_1.mp3" },
             { "text": "There are tall mountains in Antarctica", "audio": "audio/chapter1/c1s10_2.mp3" },
             { "text": "Thick ice covers Antarctica", "audio": "audio/chapter1/c1s10_3.mp3" },
-            { "text": "The ice is two thousand four hundred meters thick (average)", "audio": "audio/chapter1/c1s10_4.mp3" },
+            { "text": "The ice is two thousand four hundred meters thick on average", "audio": "audio/chapter1/c1s10_4.mp3" },
             { "text": "The ice is very thick under the South Pole", "audio": "audio/chapter1/c1s10_5.mp3" }
           ]
         }
@@ -109,7 +109,7 @@
         "2-2": {
           "title": "Large Populations",
           "sentences": [
-            { "text": "Some countries have very large populations (numbers of people).", "audio": "audio/chapter2/c2s2_1.mp3" },
+            { "text": "Some countries have very large populations.", "audio": "audio/chapter2/c2s2_1.mp3" },
             { "text": "Japan has a large population.", "audio": "audio/chapter2/c2s2_2.mp3" },
             { "text": "About one hundred twenty-six million people.", "audio": "audio/chapter2/c2s2_3.mp3" },
             { "text": "This is number eleven in the world.", "audio": "audio/chapter2/c2s2_4.mp3" }
@@ -218,93 +218,93 @@
         "3-1": {
           "title": "The North Pole and the South Pole",
           "sentences": [
-            [cite_start]{ "text": "This is the Earth. [cite: 2]", "audio": "audio/chapter3/c3s1_1.mp3" },
-            [cite_start]{ "text": "At the top of the Earth is the North Pole. [cite: 2]", "audio": "audio/chapter3/c3s1_2.mp3" },
-            [cite_start]{ "text": "At the bottom of the Earth is the South Pole. [cite: 2]", "audio": "audio/chapter3/c3s1_3.mp3" },
-            [cite_start]{ "text": "The North Pole is in the Arctic Sea. [cite: 2]", "audio": "audio/chapter3/c3s1_4.mp3" },
-            [cite_start]{ "text": "The Arctic Sea is very cold. [cite: 2]", "audio": "audio/chapter3/c3s1_5.mp3" },
-            [cite_start]{ "text": "The South Pole is in Antarctica. [cite: 2]", "audio": "audio/chapter3/c3s1_6.mp3" },
-            [cite_start]{ "text": "Antarctica is also very cold. [cite: 2]", "audio": "audio/chapter3/c3s1_7.mp3" }
+            { "text": "This is the Earth.", "audio": "audio/chapter3/c3s1_1.mp3" },
+            { "text": "At the top of the Earth is the North Pole.", "audio": "audio/chapter3/c3s1_2.mp3" },
+            { "text": "At the bottom of the Earth is the South Pole.", "audio": "audio/chapter3/c3s1_3.mp3" },
+            { "text": "The North Pole is in the Arctic Sea.", "audio": "audio/chapter3/c3s1_4.mp3" },
+            { "text": "The Arctic Sea is very cold.", "audio": "audio/chapter3/c3s1_5.mp3" },
+            { "text": "The South Pole is in Antarctica.", "audio": "audio/chapter3/c3s1_6.mp3" },
+            { "text": "Antarctica is also very cold.", "audio": "audio/chapter3/c3s1_7.mp3" }
           ]
         },
         "3-2": {
           "title": "Distances on Earth",
           "sentences": [
-            [cite_start]{ "text": "How far is the North Pole from the South Pole? [cite: 2]", "audio": "audio/chapter3/c3s2_1.mp3" },
-            [cite_start]{ "text": "About twenty thousand kilometers. [cite: 2]", "audio": "audio/chapter3/c3s2_2.mp3" },
-            [cite_start]{ "text": "Look at the red line on the map. [cite: 2]", "audio": "audio/chapter3/c3s2_3.mp3" },
-            [cite_start]{ "text": "This line is the Equator. [cite: 2]", "audio": "audio/chapter3/c3s2_4.mp3" },
-            [cite_start]{ "text": "How far is the Equator from the North Pole? [cite: 2]", "audio": "audio/chapter3/c3s2_5.mp3" },
-            [cite_start]{ "text": "About ten thousand kilometers. [cite: 2]", "audio": "audio/chapter3/c3s2_6.mp3" },
-            [cite_start]{ "text": "The distance is about ten thousand kilometers. [cite: 2]", "audio": "audio/chapter3/c3s2_7.mp3" }
+            { "text": "How far is the North Pole from the South Pole?", "audio": "audio/chapter3/c3s2_1.mp3" },
+            { "text": "About twenty thousand kilometers.", "audio": "audio/chapter3/c3s2_2.mp3" },
+            { "text": "Look at the red line on the map.", "audio": "audio/chapter3/c3s2_3.mp3" },
+            { "text": "This line is the Equator.", "audio": "audio/chapter3/c3s2_4.mp3" },
+            { "text": "How far is the Equator from the North Pole?", "audio": "audio/chapter3/c3s2_5.mp3" },
+            { "text": "About ten thousand kilometers.", "audio": "audio/chapter3/c3s2_6.mp3" },
+            { "text": "The distance is about ten thousand kilometers.", "audio": "audio/chapter3/c3s2_7.mp3" }
           ]
         },
         "3-3": {
           "title": "The Equator",
           "sentences": [
-            [cite_start]{ "text": "How far is the Equator from the South Pole? [cite: 2]", "audio": "audio/chapter3/c3s3_1.mp3" },
-            [cite_start]{ "text": "About ten thousand kilometers. [cite: 2]", "audio": "audio/chapter3/c3s3_2.mp3" },
-            [cite_start]{ "text": "The distances are equal. [cite: 2]", "audio": "audio/chapter3/c3s3_3.mp3" },
-            [cite_start]{ "text": "Equal, Equate, Equator. [cite: 2]", "audio": "audio/chapter3/c3s3_4.mp3" },
-            [cite_start]{ "text": "The Equator. [cite: 2]", "audio": "audio/chapter3/c3s3_5.mp3" },
-            [cite_start]{ "text": "Countries near the Equator are hot. [cite: 2]", "audio": "audio/chapter3/c3s3_6.mp3" }
+            { "text": "How far is the Equator from the South Pole?", "audio": "audio/chapter3/c3s3_1.mp3" },
+            { "text": "About ten thousand kilometers.", "audio": "audio/chapter3/c3s3_2.mp3" },
+            { "text": "The distances are equal.", "audio": "audio/chapter3/c3s3_3.mp3" },
+            { "text": "Equal, Equate, Equator.", "audio": "audio/chapter3/c3s3_4.mp3" },
+            { "text": "The Equator.", "audio": "audio/chapter3/c3s3_5.mp3" },
+            { "text": "Countries near the Equator are hot.", "audio": "audio/chapter3/c3s3_6.mp3" }
           ]
         },
         "3-4": {
           "title": "Latitude lines",
           "sentences": [
-            [cite_start]{ "text": "Latitude lines are parallel with the Equator. [cite: 2]", "audio": "audio/chapter3/c3s4_1.mp3" },
-            [cite_start]{ "text": "The distance between them is always the same. [cite: 2]", "audio": "audio/chapter3/c3s4_2.mp3" },
-            [cite_start]{ "text": "The Equator is at zero degrees latitude. [cite: 2]", "audio": "audio/chapter3/c3s4_3.mp3" },
-            [cite_start]{ "text": "The North Pole is at ninety degrees north latitude. [cite: 2]", "audio": "audio/chapter3/c3s4_4.mp3" },
-            [cite_start]{ "text": "The South Pole is at ninety degrees south latitude. [cite: 2]", "audio": "audio/chapter3/c3s4_5.mp3" }
+            { "text": "Latitude lines are parallel with the Equator.", "audio": "audio/chapter3/c3s4_1.mp3" },
+            { "text": "The distance between them is always the same.", "audio": "audio/chapter3/c3s4_2.mp3" },
+            { "text": "The Equator is at zero degrees latitude.", "audio": "audio/chapter3/c3s4_3.mp3" },
+            { "text": "The North Pole is at ninety degrees north latitude.", "audio": "audio/chapter3/c3s4_4.mp3" },
+            { "text": "The South Pole is at ninety degrees south latitude.", "audio": "audio/chapter3/c3s4_5.mp3" }
           ]
         },
         "3-5": {
           "title": "Degrees of Latitude",
           "sentences": [
-            [cite_start]{ "text": "Latitude is the angle between lines from the Earth's center. [cite: 2]", "audio": "audio/chapter3/c3s5_1.mp3" },
-            [cite_start]{ "text": "Ten thousand kilometers divided by ninety is about one hundred eleven kilometers. [cite: 2]", "audio": "audio/chapter3/c3s5_2.mp3" },
-            [cite_start]{ "text": "One degree latitude is about one hundred eleven kilometers. [cite: 2]", "audio": "audio/chapter3/c3s5_3.mp3" },
-            [cite_start]{ "text": "Ten degrees latitude is about one thousand one hundred eleven kilometers. [cite: 2]", "audio": "audio/chapter3/c3s5_4.mp3" }
+            { "text": "Latitude is the angle between lines from the Earth's center.", "audio": "audio/chapter3/c3s5_1.mp3" },
+            { "text": "Ten thousand kilometers divided by ninety is about one hundred eleven kilometers.", "audio": "audio/chapter3/c3s5_2.mp3" },
+            { "text": "One degree latitude is about one hundred eleven kilometers.", "audio": "audio/chapter3/c3s5_3.mp3" },
+            { "text": "Ten degrees latitude is about one thousand one hundred eleven kilometers.", "audio": "audio/chapter3/c3s5_4.mp3" }
           ]
         },
         "3-6": {
           "title": "Longitude lines",
           "sentences": [
-            [cite_start]{ "text": "Longitude lines connect the North Pole and the South Pole. [cite: 2]", "audio": "audio/chapter3/c3s6_1.mp3" },
-            [cite_start]{ "text": "Longitude lines are not parallel. [cite: 2]", "audio": "audio/chapter3/c3s6_2.mp3" },
-            [cite_start]{ "text": "Longitude is also the angle between lines from the Earth's center. [cite: 2]", "audio": "audio/chapter3/c3s6_3.mp3" },
-            [cite_start]{ "text": "One degree longitude is about one hundred eleven kilometers at the Equator. [cite: 2]", "audio": "audio/chapter3/c3s6_4.mp3" },
-            [cite_start]{ "text": "One degree longitude is zero kilometers at the North Pole. [cite: 2]", "audio": "audio/chapter3/c3s6_5.mp3" },
-            [cite_start]{ "text": "One degree longitude near Hirosaki is about eighty-five kilometers. [cite: 2]", "audio": "audio/chapter3/c3s6_6.mp3" }
+            { "text": "Longitude lines connect the North Pole and the South Pole.", "audio": "audio/chapter3/c3s6_1.mp3" },
+            { "text": "Longitude lines are not parallel.", "audio": "audio/chapter3/c3s6_2.mp3" },
+            { "text": "Longitude is also the angle between lines from the Earth's center.", "audio": "audio/chapter3/c3s6_3.mp3" },
+            { "text": "One degree longitude is about one hundred eleven kilometers at the Equator.", "audio": "audio/chapter3/c3s6_4.mp3" },
+            { "text": "One degree longitude is zero kilometers at the North Pole.", "audio": "audio/chapter3/c3s6_5.mp3" },
+            { "text": "One degree longitude near Hirosaki is about eighty-five kilometers.", "audio": "audio/chapter3/c3s6_6.mp3" }
           ]
         },
         "3-7": {
           "title": "The Prime Meridian",
           "sentences": [
-            [cite_start]{ "text": "The Prime Meridian goes through London. [cite: 2]", "audio": "audio/chapter3/c3s7_1.mp3" },
-            [cite_start]{ "text": "London is at zero degrees longitude. [cite: 2]", "audio": "audio/chapter3/c3s7_2.mp3" },
-            [cite_start]{ "text": "West of London is West Longitude. [cite: 2]", "audio": "audio/chapter3/c3s7_3.mp3" },
-            [cite_start]{ "text": "East of London is East Longitude. [cite: 2]", "audio": "audio/chapter3/c3s7_4.mp3" },
-            [cite_start]{ "text": "The one hundred eighty Degree Meridian is in the Pacific Ocean. [cite: 2]", "audio": "audio/chapter3/c3s7_5.mp3" },
-            [cite_start]{ "text": "One hundred eighty degrees West Longitude equals one hundred eighty degrees East Longitude. [cite: 2]", "audio": "audio/chapter3/c3s7_6.mp3" }
+            { "text": "The Prime Meridian goes through London.", "audio": "audio/chapter3/c3s7_1.mp3" },
+            { "text": "London is at zero degrees longitude.", "audio": "audio/chapter3/c3s7_2.mp3" },
+            { "text": "West of London is West Longitude.", "audio": "audio/chapter3/c3s7_3.mp3" },
+            { "text": "East of London is East Longitude.", "audio": "audio/chapter3/c3s7_4.mp3" },
+            { "text": "The one hundred eighty degree meridian is in the Pacific Ocean.", "audio": "audio/chapter3/c3s7_5.mp3" },
+            { "text": "One hundred eighty degrees west longitude equals one hundred eighty degrees east longitude.", "audio": "audio/chapter3/c3s7_6.mp3" }
           ]
         },
         "3-8": {
           "title": "Hirosaki's Coordinates",
           "sentences": [
-            [cite_start]{ "text": "We can use Latitude and Longitude to find Hirosaki. [cite: 2]", "audio": "audio/chapter3/c3s8_1.mp3" },
-            [cite_start]{ "text": "Latitude and Longitude for Hirosaki are forty point six degrees North Latitude and one hundred forty point five degrees East Longitude. [cite: 2]", "audio": "audio/chapter3/c3s8_2.mp3" },
-            [cite_start]{ "text": "These are Hirosaki’s geographic coordinates. [cite: 2]", "audio": "audio/chapter3/c3s8_3.mp3" }
+            { "text": "We can use latitude and longitude to find Hirosaki.", "audio": "audio/chapter3/c3s8_1.mp3" },
+            { "text": "Latitude and longitude for Hirosaki are forty point six degrees north latitude and one hundred forty point five degrees east longitude.", "audio": "audio/chapter3/c3s8_2.mp3" },
+            { "text": "These are Hirosaki’s geographic coordinates.", "audio": "audio/chapter3/c3s8_3.mp3" }
           ]
         },
         "3-9": {
           "title": "Melbourne's Coordinates",
           "sentences": [
-            [cite_start]{ "text": "We can use Latitude and Longitude to find Melbourne. [cite: 2]", "audio": "audio/chapter3/c3s9_1.mp3" },
-            [cite_start]{ "text": "Latitude and Longitude for Melbourne are thirty-seven point eight degrees South Latitude and one hundred forty-five point zero degrees East Longitude. [cite: 2]", "audio": "audio/chapter3/c3s9_2.mp3" },
-            [cite_start]{ "text": "These are Melbourne’s geographic coordinates. [cite: 2]", "audio": "audio/chapter3/c3s9_3.mp3" }
+            { "text": "We can use latitude and longitude to find Melbourne.", "audio": "audio/chapter3/c3s9_1.mp3" },
+            { "text": "Latitude and longitude for Melbourne are thirty-seven point eight degrees south latitude and one hundred forty-five point zero degrees east longitude.", "audio": "audio/chapter3/c3s9_2.mp3" },
+            { "text": "These are Melbourne’s geographic coordinates.", "audio": "audio/chapter3/c3s9_3.mp3" }
           ]
         }
       }
