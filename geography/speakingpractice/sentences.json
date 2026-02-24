@@ -385,6 +385,79 @@
           ]
         }
       }
+    },
+    "5": {
+      "title": "Junior High Geography",
+      "sections": {
+        "5-1": {
+          "title": "Climate in Australia",
+          "sentences": [
+            { "text": "Do you remember what climate is?", "audio": "audio/chapter5/c5s1_1.mp3" },
+            { "text": "Climate is Polar, Tropical, Temperate, and Arid.", "audio": "audio/chapter5/c5s1_2.mp3" },
+            { "text": "What is the climate like in Australia?", "audio": "audio/chapter5/c5s1_3.mp3" },
+            { "text": "It is Tropical, Arid, and Temperate.", "audio": "audio/chapter5/c5s1_4.mp3" },
+            { "text": "Darwin has a tropical climate.", "audio": "audio/chapter5/c5s1_5.mp3" },
+            { "text": "Darwin is always hot.", "audio": "audio/chapter5/c5s1_6.mp3" }
+          ]
+        },
+        "5-2": {
+          "title": "Reading a Climate Graph",
+          "sentences": [
+            { "text": "This is a climate graph for Darwin.", "audio": "audio/chapter5/c5s2_1.mp3" },
+            { "text": "The red line is the average monthly temperature.", "audio": "audio/chapter5/c5s2_2.mp3" },
+            { "text": "The dotted red line is the average yearly temperature.", "audio": "audio/chapter5/c5s2_3.mp3" },
+            { "text": "The blue bars are the average monthly rainfall.", "audio": "audio/chapter5/c5s2_4.mp3" },
+            { "text": "The number above the blue bars is the average yearly rainfall.", "audio": "audio/chapter5/c5s2_5.mp3" }
+          ]
+        },
+        "5-3": {
+          "title": "Tropical Darwin",
+          "sentences": [
+            { "text": "Darwin is always hot.", "audio": "audio/chapter5/c5s3_1.mp3" },
+            { "text": "The climate is tropical.", "audio": "audio/chapter5/c5s3_2.mp3" },
+            { "text": "The summer is wet.", "audio": "audio/chapter5/c5s3_3.mp3" },
+            { "text": "The winter is dry.", "audio": "audio/chapter5/c5s3_4.mp3" },
+            { "text": "Darwin is south of the Equator.", "audio": "audio/chapter5/c5s3_5.mp3" },
+            { "text": "Darwin is in the Southern Hemisphere.", "audio": "audio/chapter5/c5s3_6.mp3" }
+          ]
+        },
+        "5-4": {
+          "title": "Arid Coober Pedy",
+          "sentences": [
+            { "text": "Coober Pedy has an Arid Climate.", "audio": "audio/chapter5/c5s4_1.mp3" },
+            { "text": "Coober Pedy has almost no rain.", "audio": "audio/chapter5/c5s4_2.mp3" },
+            { "text": "This is a climate graph for Coober Pedy.", "audio": "audio/chapter5/c5s4_3.mp3" },
+            { "text": "Coober Pedy is always dry.", "audio": "audio/chapter5/c5s4_4.mp3" },
+            { "text": "The climate is Arid.", "audio": "audio/chapter5/c5s4_5.mp3" },
+            { "text": "The summer is hot.", "audio": "audio/chapter5/c5s4_6.mp3" },
+            { "text": "The winter is cool.", "audio": "audio/chapter5/c5s4_7.mp3" },
+            { "text": "Coober Pedy is in the Southern Hemisphere.", "audio": "audio/chapter5/c5s4_8.mp3" }
+          ]
+        },
+        "5-5": {
+          "title": "Temperate Melbourne",
+          "sentences": [
+            { "text": "Melbourne has a Temperate Climate.", "audio": "audio/chapter5/c5s5_1.mp3" },
+            { "text": "This is a climate graph for Melbourne.", "audio": "audio/chapter5/c5s5_2.mp3" },
+            { "text": "Melbourne has summer and winter.", "audio": "audio/chapter5/c5s5_3.mp3" },
+            { "text": "The climate is Temperate.", "audio": "audio/chapter5/c5s5_4.mp3" },
+            { "text": "The summer is warm.", "audio": "audio/chapter5/c5s5_5.mp3" },
+            { "text": "The winter is cool.", "audio": "audio/chapter5/c5s5_6.mp3" },
+            { "text": "Melbourne is in the Southern Hemisphere.", "audio": "audio/chapter5/c5s5_7.mp3" }
+          ]
+        },
+        "5-6": {
+          "title": "Temperate Hirosaki",
+          "sentences": [
+            { "text": "This is a climate graph for Hirosaki.", "audio": "audio/chapter5/c5s6_1.mp3" },
+            { "text": "Hirosaki has summer and winter.", "audio": "audio/chapter5/c5s6_2.mp3" },
+            { "text": "The climate is Temperate.", "audio": "audio/chapter5/c5s6_3.mp3" },
+            { "text": "The summer is hot.", "audio": "audio/chapter5/c5s6_4.mp3" },
+            { "text": "The winter is cold.", "audio": "audio/chapter5/c5s6_5.mp3" },
+            { "text": "Hirosaki is in the Northern Hemisphere.", "audio": "audio/chapter5/c5s6_6.mp3" }
+          ]
+        }
+      }
     }
   }
 }
