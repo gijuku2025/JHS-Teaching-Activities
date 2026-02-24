@@ -1219,6 +1219,228 @@
           ]
         }
       }
+    },
+    "7": {
+      "title": "Junior High Geography",
+      "sections": {
+        "7-1": {
+          "title": "The Polar Climate",
+          "sentences": [
+            {
+              "text": "Do you remember what climate is?",
+              "audio": "audio/chapter7/c7s1_1.mp3"
+            },
+            {
+              "text": "Climate is Polar, Tropical, Temperate, and Arid.",
+              "audio": "audio/chapter7/c7s1_2.mp3"
+            },
+            {
+              "text": "Do you remember what a Polar Climate is?",
+              "audio": "audio/chapter7/c7s1_3.mp3"
+            },
+            {
+              "text": "Polar Bears live in the Polar Zone.",
+              "audio": "audio/chapter7/c7s1_4.mp3"
+            },
+            {
+              "text": "The climate near the North Pole is Polar.",
+              "audio": "audio/chapter7/c7s1_5.mp3"
+            },
+            {
+              "text": "The climate near the South Pole is Polar.",
+              "audio": "audio/chapter7/c7s1_6.mp3"
+            }
+          ]
+        },
+        "7-2": {
+          "title": "Day and Night in the Polar Zone",
+          "sentences": [
+            {
+              "text": "In the Polar Zone, it is always cold.",
+              "audio": "audio/chapter7/c7s2_1.mp3"
+            },
+            {
+              "text": "In summer, the Polar Zone has no night.",
+              "audio": "audio/chapter7/c7s2_2.mp3"
+            },
+            {
+              "text": "The sun is low in the sky, and the solar energy is weak.",
+              "audio": "audio/chapter7/c7s2_3.mp3"
+            },
+            {
+              "text": "In winter, the Polar Zone has no day.",
+              "audio": "audio/chapter7/c7s2_4.mp3"
+            },
+            {
+              "text": "The Sun never appears, and it is always dark.",
+              "audio": "audio/chapter7/c7s2_5.mp3"
+            }
+          ]
+        },
+        "7-3": {
+          "title": "Tundra Climate",
+          "sentences": [
+            {
+              "text": "In some places the ice melts, and short grass and moss grow.",
+              "audio": "audio/chapter7/c7s3_1.mp3"
+            },
+            {
+              "text": "Caribou come and eat the short grass.",
+              "audio": "audio/chapter7/c7s3_2.mp3"
+            },
+            {
+              "text": "These places in the Polar Zone have a Tundra Climate.",
+              "audio": "audio/chapter7/c7s3_3.mp3"
+            }
+          ]
+        },
+        "7-4": {
+          "title": "Nuuk, Greenland",
+          "sentences": [
+            {
+              "text": "Nuuk is the capital city of Greenland.",
+              "audio": "audio/chapter7/c7s4_1.mp3"
+            },
+            {
+              "text": "It has a Tundra Climate.",
+              "audio": "audio/chapter7/c7s4_2.mp3"
+            },
+            {
+              "text": "This is a climate graph for Nuuk.",
+              "audio": "audio/chapter7/c7s4_3.mp3"
+            },
+            {
+              "text": "Nuuk is in the Polar Zone.",
+              "audio": "audio/chapter7/c7s4_4.mp3"
+            },
+            {
+              "text": "The winter is very cold but the ice melts in summer.",
+              "audio": "audio/chapter7/c7s4_5.mp3"
+            }
+          ]
+        },
+        "7-5": {
+          "title": "Showa Station",
+          "sentences": [
+            {
+              "text": "At Showa Station, the ice never melts.",
+              "audio": "audio/chapter7/c7s5_1.mp3"
+            },
+            {
+              "text": "It has an Ice Cap Climate.",
+              "audio": "audio/chapter7/c7s5_2.mp3"
+            },
+            {
+              "text": "This is a climate graph for Showa Station.",
+              "audio": "audio/chapter7/c7s5_3.mp3"
+            },
+            {
+              "text": "Showa Station is in the Polar Zone.",
+              "audio": "audio/chapter7/c7s5_4.mp3"
+            },
+            {
+              "text": "It is cold all year and the ice never melts.",
+              "audio": "audio/chapter7/c7s5_5.mp3"
+            }
+          ]
+        },
+        "7-6": {
+          "title": "Traditional Inuit Life",
+          "sentences": [
+            {
+              "text": "Inuit people live in the Polar Zone.",
+              "audio": "audio/chapter7/c7s6_1.mp3"
+            },
+            {
+              "text": "Traditional Inuit were nomads.",
+              "audio": "audio/chapter7/c7s6_2.mp3"
+            },
+            {
+              "text": "They didn't live in one place.",
+              "audio": "audio/chapter7/c7s6_3.mp3"
+            },
+            {
+              "text": "They hunted seals and caribou and fished as they moved.",
+              "audio": "audio/chapter7/c7s6_4.mp3"
+            },
+            {
+              "text": "They made warm water-proof clothes and boots with the skins.",
+              "audio": "audio/chapter7/c7s6_5.mp3"
+            }
+          ]
+        },
+        "7-7": {
+          "title": "Shelter and Food",
+          "sentences": [
+            {
+              "text": "In winter they lived in Igloos built with bricks made of snow.",
+              "audio": "audio/chapter7/c7s7_1.mp3"
+            },
+            {
+              "text": "In summer, they lived in tents made of seal skins.",
+              "audio": "audio/chapter7/c7s7_2.mp3"
+            },
+            {
+              "text": "They used whale bones and driftwood to put them up.",
+              "audio": "audio/chapter7/c7s7_3.mp3"
+            },
+            {
+              "text": "Most of their food was raw seal meat and raw fish.",
+              "audio": "audio/chapter7/c7s7_4.mp3"
+            },
+            {
+              "text": "They used the things in their environment in their daily life.",
+              "audio": "audio/chapter7/c7s7_5.mp3"
+            }
+          ]
+        },
+        "7-8": {
+          "title": "Modern Inuit Life",
+          "sentences": [
+            {
+              "text": "Life has changed for the Inuit people.",
+              "audio": "audio/chapter7/c7s8_1.mp3"
+            },
+            {
+              "text": "Many modern Inuit now live in towns with electricity.",
+              "audio": "audio/chapter7/c7s8_2.mp3"
+            },
+            {
+              "text": "They use snowmobiles for hunting instead of dogsleds.",
+              "audio": "audio/chapter7/c7s8_3.mp3"
+            },
+            {
+              "text": "They buy bread and vegetables in a supermarket.",
+              "audio": "audio/chapter7/c7s8_4.mp3"
+            }
+          ]
+        },
+        "7-9": {
+          "title": "Iqaluit, Canada",
+          "sentences": [
+            {
+              "text": "Many Inuit people live in Iqaluit in northern Canada.",
+              "audio": "audio/chapter7/c7s9_1.mp3"
+            },
+            {
+              "text": "This is a climate graph for Iqaluit.",
+              "audio": "audio/chapter7/c7s9_2.mp3"
+            },
+            {
+              "text": "Iqaluit is in the Polar Zone.",
+              "audio": "audio/chapter7/c7s9_3.mp3"
+            },
+            {
+              "text": "It has a Tundra Climate.",
+              "audio": "audio/chapter7/c7s9_4.mp3"
+            },
+            {
+              "text": "The winter is very cold, but the ice melts in summer.",
+              "audio": "audio/chapter7/c7s9_5.mp3"
+            }
+          ]
+        }
+      }
     }
   }
 }
