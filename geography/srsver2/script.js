@@ -92,10 +92,7 @@ function showChapterScreen() {
         <h2 class="heading">Junior High ${SUBJECT_LABEL}</h2>   
         <p style="margin:5px 0;">Select chapters</p>
 
-        <div class="chapter-controls">
-          <button onclick="selectAllChapters()">Select All</button>
-          <button onclick="clearAllChapters()">Clear All</button>
-        </div>
+        
 
         <div class="chapter-grid">
   `;
