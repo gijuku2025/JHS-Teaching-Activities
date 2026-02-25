@@ -110,7 +110,8 @@ input:focus {
 
   width: 520px;        /* business-card style width */
   max-width: 90vw;     /* still mobile-safe */
-  min-height: 260px;   /* short and stable */
+  height: 260px;       /* fixed business-card height */
+  overflow-y: auto;   /* scroll if content is long */   /* short and stable */
 
   margin: 20px auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
