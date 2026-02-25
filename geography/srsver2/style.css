@@ -110,6 +110,11 @@ input:focus {
   max-width: 600px;
   margin: 10px auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+  min-height: 420px;   /* 👈 add this */
+  display: flex;       /* 👇 helps vertical centering */
+  flex-direction: column;
+  justify-content: center;
 }
 
 .chapter-grid {
