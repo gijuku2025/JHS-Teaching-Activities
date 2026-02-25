@@ -265,7 +265,7 @@ function nextQuestion() {
 
   app.innerHTML = `
   <div class="center">
-    <div class="card">
+    <div class="card study-card">
 
     ${renderProgress()}
 
@@ -530,7 +530,7 @@ function showFeedback(result) {
 
   app.innerHTML = `
     <div class="center">
-      <div class="card">
+      <div class="card study-card">
 
        <h3 class="feedback-title ${
   result === "correct" ? "correct" :
