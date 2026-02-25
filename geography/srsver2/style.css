@@ -108,24 +108,16 @@ input:focus {
   padding: 20px 24px;
   border-radius: 16px;
 
-  width: 520px;        /* business-card style width */
-  max-width: 90vw;     /* still mobile-safe */
- min-height: 260px;
- overflow-y: auto;   /* scroll if content is long */   /* short and stable */
-
+  width: 520px;
+  max-width: 90vw;
+  height: 300px;              /* fixed, uniform size */
+  
   margin: 20px auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-
-.study-card {
-  height: 260px;
-  overflow-y: auto;
-  justify-content: space-between; /* prevent bottom cutoff */
+  justify-content: space-between;
 }
 
 
