@@ -145,10 +145,13 @@ function toggleChapter(ch, el) {
 
 function handleEnterContinue() {
   document.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-      const btn = document.querySelector("button");
-      if (btn) btn.click();
-    }
+    if (e.key !== "Enter") return;
+
+    const input = document.querySelector(".answer-input");
+    if (!input) return; // only during answer screen
+
+    const submitBtn = document.querySelector("#submitBtn");
+    if (submitBtn) submitBtn.click();
   });
 }
 
@@ -214,18 +217,23 @@ function buildQueues() {
 }
 
 
-function renderProgress() {
+
+ function renderProgress() {
   const remaining =
     newQueue.length + learningQueue.length + reviewQueue.length + 1;
 
   const currentNum = sessionCount + 1;
-  const total = currentNum + remaining - 1;
 
-  const percent = Math.min((currentNum / total) * 100, 100);
+  const maxTotal = Math.min(
+    currentNum + remaining - 1,
+    MAX_ITEMS_PER_SESSION
+  );
+
+  const percent = Math.round((currentNum / maxTotal) * 100);
 
   return `
     <div class="progress-text">
-      Word ${currentNum} / ${total}
+      Word ${currentNum} / ${maxTotal}
     </div>
     <div class="progress-bar">
       <div class="progress-fill" style="width:${percent}%"></div>
@@ -271,11 +279,10 @@ function nextQuestion() {
       <div class="word">${prompt}</div>
       <div class="prompt-label center">${label}</div>
 
-      <input id="answer" class="answer-input"
-             onkeydown="if(event.key==='Enter') submitAnswer()">
-
+      <input id="answer" class="answer-input">
+            
       <div class="center" style="margin-top:15px;">
-        <button onclick="submitAnswer()">Submit</button>
+        <button id="submitBtn" onclick="submitAnswer()">Submit</button>
       </div>
 
     </div>
