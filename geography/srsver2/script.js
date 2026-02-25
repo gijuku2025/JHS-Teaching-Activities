@@ -89,8 +89,13 @@ function showChapterScreen() {
     <div class="center">
       <div class="card">
         <h2 class="heading">Welcome to Smart Review, ${state.nickname}</h2>
-      <h2 class="heading">Junior High ${SUBJECT_LABEL}</h2>   
-       <p style="margin:5px 0;">Select chapters</p>
+        <h2 class="heading">Junior High ${SUBJECT_LABEL}</h2>   
+        <p style="margin:5px 0;">Select chapters</p>
+
+        <div class="chapter-controls">
+          <button onclick="selectAllChapters()">Select All</button>
+          <button onclick="clearAllChapters()">Clear All</button>
+        </div>
 
         <div class="chapter-grid">
   `;
@@ -111,7 +116,17 @@ function showChapterScreen() {
 }
 
 
+function selectAllChapters() {
+  state.activeChapters = [...CHAPTER_FILES];
+  save();
+  showChapterScreen();
+}
 
+function clearAllChapters() {
+  state.activeChapters = [];
+  save();
+  showChapterScreen();
+}
  
 
 function toggleChapter(ch, el) {
@@ -126,6 +141,18 @@ function toggleChapter(ch, el) {
 }
 
 /* ================= LOAD ================= */
+
+
+function handleEnterContinue() {
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      const btn = document.querySelector("button");
+      if (btn) btn.click();
+    }
+  });
+}
+
+
 
 async function loadVocab() {
   vocab = [];
@@ -188,13 +215,17 @@ function buildQueues() {
 
 
 function renderProgress() {
+  const remaining =
+    newQueue.length + learningQueue.length + reviewQueue.length + 1;
+
   const currentNum = sessionCount + 1;
-  const total = MAX_ITEMS_PER_SESSION;
-  const percent = Math.min((sessionCount / total) * 100, 100);
+  const total = currentNum + remaining - 1;
+
+  const percent = Math.min((currentNum / total) * 100, 100);
 
   return `
     <div class="progress-text">
-      Question ${currentNum} / ${total}
+      Word ${currentNum} / ${total}
     </div>
     <div class="progress-bar">
       <div class="progress-fill" style="width:${percent}%"></div>
@@ -203,6 +234,14 @@ function renderProgress() {
 }
 
 
+function getChapterNumber(item) {
+  // id looks like "ch3_earth" → extract the 3
+  const match = item.id.match(/^ch(\d+)_/);
+  return match ? match[1] : "?";
+}		
+		
+		
+		
 
 function nextQuestion() {
   if (sessionCount >= MAX_ITEMS_PER_SESSION) return showResults();
@@ -215,6 +254,8 @@ function nextQuestion() {
   direction = Math.random()<0.5?"en-jp":"jp-en";
 
   const prompt = direction==="en-jp"?current.en:current.jp;
+
+  const chapterNum = getChapterNumber(current);
   const label = direction==="en-jp"?"日本語でタイプ:":"Type the English word:";
 
   app.innerHTML = `
@@ -222,11 +263,15 @@ function nextQuestion() {
     <div class="card">
 
     ${renderProgress()}
-    
+
+      <div style="font-size:0.9em; color:#6b7280; margin-bottom:6px;">
+        Chapter ${chapterNum}
+      </div>
+
       <div class="word">${prompt}</div>
       <div class="prompt-label center">${label}</div>
 
-      <input id="answer" class="answer-input" autofocus
+      <input id="answer" class="answer-input"
              onkeydown="if(event.key==='Enter') submitAnswer()">
 
       <div class="center" style="margin-top:15px;">
@@ -236,6 +281,12 @@ function nextQuestion() {
     </div>
   </div>
 `;
+
+// force focus (mobile friendly)
+setTimeout(() => {
+  const input = document.getElementById("answer");
+  if (input) input.focus();
+}, 50);
 
 
 
@@ -308,7 +359,7 @@ function submitAnswer() {
         </div>
 
         <div>${current.kana || ""}</div>
-        <div class="example">${current.example || ""}</div>
+        ${current.example ? `<div class="example">${current.example}</div>` : ""}
 
         <p>We’ll try this again later.</p>
 
@@ -498,7 +549,7 @@ function showFeedback(result) {
           </div>
         </div>
 
-        <div class="example">${current.example || ""}</div>
+        ${current.example ? `<div class="example">${current.example}</div>` : ""}
 
         <!-- instruction -->
         <div style="margin-top:20px; font-size:0.95em; color:#374151;">
@@ -583,6 +634,8 @@ function shuffle(arr){
 }
 
 /* ================= START ================= */
+
+handleEnterContinue();
 
 if (!state.nickname) showNicknameScreen();
 else showChapterScreen();
