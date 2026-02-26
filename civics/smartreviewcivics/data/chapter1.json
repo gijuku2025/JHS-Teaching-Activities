@@ -1,0 +1,100 @@
+[
+  {
+    "id": "civ1_commodity",
+    "en": "commodity",
+    "jp": "商品",
+    "kana": "しょうひん",
+    "example": "Commodities are goods and services."
+  },
+  {
+    "id": "civ1_good",
+    "en": "good",
+    "jp": "財",
+    "kana": "ざい",
+    "example": "Goods are things like apples, cars, and T-shirts."
+  },
+  {
+    "id": "civ1_service",
+    "en": "service",
+    "jp": "サービス",
+    "kana": "さーびす",
+    "example": "Services are things like haircuts, taxi rides, and piano lessons."
+  },
+  {
+    "id": "civ1_consumer",
+    "en": "consumer",
+    "jp": "消費者",
+    "kana": "しょうひしゃ",
+    "example": "We all buy commodities, so we are all consumers."
+  },
+  {
+    "id": "civ1_producer",
+    "en": "producer",
+    "jp": "生産者",
+    "kana": "せいさんしゃ",
+    "example": "Producers make commodities on farms and in factories and sell them in shops."
+  },
+  {
+    "id": "civ1_economy",
+    "en": "economy",
+    "jp": "経済",
+    "kana": "けいざい",
+    "example": "This system of buying and selling is the economy."
+  },
+  {
+    "id": "civ1_demand",
+    "en": "demand",
+    "jp": "需要",
+    "kana": "じゅよう",
+    "example": "First, consumers want them. This is called demand."
+  },
+  {
+    "id": "civ1_supply",
+    "en": "supply",
+    "jp": "供給",
+    "kana": "きょうきゅう",
+    "example": "Second, commodities are not limitless. This is called supply."
+  },
+  {
+    "id": "civ1_scarcity",
+    "en": "scarcity",
+    "jp": "希少性",
+    "kana": "きしょうせい",
+    "example": "The difference between demand and supply is called scarcity."
+  },
+  {
+    "id": "civ1_consumption",
+    "en": "consumption",
+    "jp": "消費",
+    "kana": "しょうひ",
+    "example": "We must plan consumption and choose well to live comfortable lives."
+  },
+  {
+    "id": "civ1_limitless",
+    "en": "limitless",
+    "jp": "無制限",
+    "kana": "むせいげん",
+    "example": "However, our income is not limitless."
+  },
+  {
+    "id": "civ1_savings",
+    "en": "savings",
+    "jp": "貯蓄",
+    "kana": "ちょちく",
+    "example": "Income minus expenditure equals savings."
+  },
+  {
+    "id": "civ1_income",
+    "en": "income",
+    "jp": "収入",
+    "kana": "しゅうにゅう",
+    "example": "Money that comes into households is income."
+  },
+  {
+    "id": "civ1_expenditure",
+    "en": "expenditure",
+    "jp": "支出",
+    "kana": "ししゅつ",
+    "example": "Money that goes out of households is expenditure."
+  }
+]
