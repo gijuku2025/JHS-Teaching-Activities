@@ -1,0 +1,51 @@
+[
+  {
+    "id": "ch10_system",
+    "en": "system",
+    "jp": "制度",
+    "kana": "せいど",
+    "example": "The economy is the system of production and consumption."
+  },
+  {
+    "id": "ch10_household",
+    "en": "household",
+    "jp": "世帯",
+    "kana": "せたい",
+    "example": "Households sell their labor to companies."
+  },
+  {
+    "id": "ch10_network",
+    "en": "network",
+    "jp": "ネットワーク",
+    "kana": "ねっとわーく",
+    "example": "Households and companies are connected in a network called the economy."
+  },
+  {
+    "id": "ch10_market",
+    "en": "market",
+    "jp": "市場",
+    "kana": "しじょう",
+    "example": "In a balanced market, prices settle and don’t change very much."
+  },
+  {
+    "id": "ch10_economics",
+    "en": "economics",
+    "jp": "経済学",
+    "kana": "けいざいがく",
+    "example": "Economics is the study of how people use resources."
+  },
+  {
+    "id": "ch10_price",
+    "en": "price",
+    "jp": "価格",
+    "kana": "かかく",
+    "example": "Prices change when demand or supply changes."
+  },
+  {
+    "id": "ch10_scarcity",
+    "en": "scarcity",
+    "jp": "希少性",
+    "kana": "きしょうせい",
+    "example": "Scarcity is high when demand is higher than supply."
+  }
+]
