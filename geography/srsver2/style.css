@@ -119,7 +119,7 @@ input:focus {
   flex-direction: column;
   justify-content: space-between;
 
-  overflow: hidden;          /* keep edges clean */
+  overflow: visible;          /* keep edges clean */
 }
 
 
@@ -131,8 +131,9 @@ input:focus {
   max-width: 400px;
   margin: 10px auto;
 
-  flex: 1;              /* 🔑 take remaining height in the card */
-  overflow-y: auto;    /* scroll inside card */
+  flex: 1;
+  overflow-y: auto;     /* scroll inside card */
+  min-height: 0;        /* 🔑 required for flexbox scrolling */
   padding-bottom: 10px;
 }
 
