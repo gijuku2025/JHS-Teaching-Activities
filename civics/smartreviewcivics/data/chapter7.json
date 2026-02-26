@@ -1,0 +1,79 @@
+[
+  {
+    "id": "ch7_owner",
+    "en": "owner",
+    "jp": "所有者",
+    "kana": "しょゆうしゃ",
+    "example": "Many companies such as farms and shops have one owner."
+  },
+  {
+    "id": "ch7_share",
+    "en": "share",
+    "jp": "株",
+    "kana": "かぶ",
+    "example": "People often sell shares and use the money to start companies."
+  },
+  {
+    "id": "ch7_shareholder",
+    "en": "shareholder",
+    "jp": "株主",
+    "kana": "かぶぬし",
+    "example": "People with shares are called shareholders."
+  },
+  {
+    "id": "ch7_corporation",
+    "en": "corporation",
+    "jp": "株式会社",
+    "kana": "かぶしきがいしゃ",
+    "example": "These companies are called corporations."
+  },
+  {
+    "id": "ch7_business",
+    "en": "business",
+    "jp": "事業",
+    "kana": "じぎょう",
+    "example": "The manager is the person who runs the business."
+  },
+  {
+    "id": "ch7_manager",
+    "en": "manager",
+    "jp": "経営者",
+    "kana": "けいえいしゃ",
+    "example": "The manager is the person who runs the business."
+  },
+  {
+    "id": "ch7_shareholders_meeting",
+    "en": "shareholders' meeting",
+    "jp": "株主総会",
+    "kana": "かぶぬしそうかい",
+    "example": "Shareholders make important decisions at the shareholders' meeting."
+  },
+  {
+    "id": "ch7_dividend",
+    "en": "dividend",
+    "jp": "配当金",
+    "kana": "はいとうきん",
+    "example": "When a company makes a profit, shareholders get a dividend."
+  },
+  {
+    "id": "ch7_stock_exchange",
+    "en": "stock exchange",
+    "jp": "証券取引所",
+    "kana": "しょうけんとりひきじょ",
+    "example": "People buy and sell shares at a stock exchange."
+  },
+  {
+    "id": "ch7_limited_liability",
+    "en": "limited liability",
+    "jp": "有限責任",
+    "kana": "ゆうげんせきにん",
+    "example": "If a corporation goes bankrupt, the shareholders have limited liability."
+  },
+  {
+    "id": "ch7_share_price",
+    "en": "share price",
+    "jp": "株価",
+    "kana": "かぶか",
+    "example": "People look at the price of shares when they decide to buy or sell."
+  }
+]
