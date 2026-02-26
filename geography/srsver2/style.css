@@ -131,7 +131,8 @@ input:focus {
   max-width: 400px;
   margin: 10px auto;
 
-  overflow-y: auto;          /* scroll INSIDE the card */
+  flex: 1;              /* 🔑 take remaining height in the card */
+  overflow-y: auto;    /* scroll inside card */
   padding-bottom: 10px;
 }
 
