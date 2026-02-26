@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ch4_wholesaler",
+    "en": "wholesaler",
+    "jp": "卸売業者",
+    "kana": "おろしうりぎょうしゃ",
+    "example": "Goods from factories go to wholesalers, and wholesalers sell them to retailers."
+  },
+  {
+    "id": "ch4_retailer",
+    "en": "retailer",
+    "jp": "小売業者",
+    "kana": "こうりぎょうしゃ",
+    "example": "These shops and stores are called retailers."
+  },
+  {
+    "id": "ch4_trading_company",
+    "en": "trading company",
+    "jp": "貿易会社",
+    "kana": "ぼうえきがいしゃ",
+    "example": "Trading companies buy goods from overseas and sell them to retailers."
+  },
+  {
+    "id": "ch4_distribution",
+    "en": "distribution",
+    "jp": "流通",
+    "kana": "りゅうつう",
+    "example": "The path from producers to consumers is called distribution."
+  },
+  {
+    "id": "ch4_commerce",
+    "en": "commerce",
+    "jp": "商業",
+    "kana": "しょうぎょう",
+    "example": "In recent years, commerce became very efficient because of ICT."
+  },
+  {
+    "id": "ch4_deliver",
+    "en": "deliver",
+    "jp": "配達する",
+    "kana": "はいたつする",
+    "example": "Computers manage buying, transporting, storing, selling, and delivering goods very efficiently."
+  },
+  {
+    "id": "ch4_efficient",
+    "en": "efficient",
+    "jp": "効率的",
+    "kana": "こうりつてき",
+    "example": "Efficient distribution makes goods cheaper and easier to buy."
+  },
+  {
+    "id": "ch4_directly",
+    "en": "directly",
+    "jp": "直接",
+    "kana": "ちょくせつ",
+    "example": "Internet shopping directly connects producers and consumers."
+  },
+  {
+    "id": "ch4_transport",
+    "en": "transport",
+    "jp": "輸送",
+    "kana": "ゆそう",
+    "example": "Computers manage buying, transporting, storing, selling, and delivering goods."
+  },
+  {
+    "id": "ch4_storing",
+    "en": "storing",
+    "jp": "貯蔵",
+    "kana": "ちょぞう",
+    "example": "Internet shopping makes goods cheaper because storing costs are lower."
+  },
+  {
+    "id": "ch4_costs",
+    "en": "costs",
+    "jp": "費用",
+    "kana": "ひよう",
+    "example": "This makes distribution costs lower, so goods become cheaper."
+  },
+  {
+    "id": "ch4_manage",
+    "en": "manage",
+    "jp": "管理する",
+    "kana": "かんりする",
+    "example": "Computers manage buying, transporting, storing, selling, and delivering goods very efficiently."
+  }
+]
