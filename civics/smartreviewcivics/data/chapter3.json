@@ -1,0 +1,93 @@
+[
+  {
+    "id": "ch3_company",
+    "en": "company",
+    "jp": "会社",
+    "kana": "かいしゃ",
+    "example": "Most producers are companies."
+  },
+  {
+    "id": "ch3_private_company",
+    "en": "private company",
+    "jp": "私企業",
+    "kana": "しきぎょう",
+    "example": "Most companies are private companies."
+  },
+  {
+    "id": "ch3_public_company",
+    "en": "public company",
+    "jp": "公企業",
+    "kana": "こうきぎょう",
+    "example": "Local governments manage public companies."
+  },
+  {
+    "id": "ch3_joint_stock_company",
+    "en": "joint-stock company",
+    "jp": "株式会社",
+    "kana": "かぶしきがいしゃ",
+    "example": "About 90% of private companies are joint-stock companies."
+  },
+  {
+    "id": "ch3_stock",
+    "en": "stock",
+    "jp": "株式",
+    "kana": "かぶしき",
+    "example": "Joint-stock companies get money by selling stocks."
+  },
+  {
+    "id": "ch3_stockholder",
+    "en": "stockholder",
+    "jp": "株主",
+    "kana": "かぶぬし",
+    "example": "People who buy stocks are stockholders."
+  },
+  {
+    "id": "ch3_dividend",
+    "en": "dividend",
+    "jp": "配当",
+    "kana": "はいとう",
+    "example": "If a company makes a profit, the stockholders get dividends."
+  },
+  {
+    "id": "ch3_limited_liability",
+    "en": "limited liability",
+    "jp": "有限責任",
+    "kana": "ゆうげんせきにん",
+    "example": "Stockholders have limited liability."
+  },
+  {
+    "id": "ch3_csr",
+    "en": "CSR",
+    "jp": "企業の社会的責任",
+    "kana": "きぎょうのしゃかいてきせきにん",
+    "example": "Companies must have CSR (Corporate Social Responsibility)."
+  },
+  {
+    "id": "ch3_legal_compliance",
+    "en": "legal compliance",
+    "jp": "法令遵守",
+    "kana": "ほうれいじゅんしゅ",
+    "example": "Legal compliance is important for companies."
+  },
+  {
+    "id": "ch3_contribution_to_society",
+    "en": "contribution to society",
+    "jp": "社会貢献",
+    "kana": "しゃかいこうけん",
+    "example": "Companies make a contribution to society."
+  },
+  {
+    "id": "ch3_internal_reserve",
+    "en": "internal reserve",
+    "jp": "内部留保",
+    "kana": "ないぶりゅうほ",
+    "example": "Some profit is kept in the company as internal reserves."
+  },
+  {
+    "id": "ch3_capital",
+    "en": "capital",
+    "jp": "資本",
+    "kana": "しほん",
+    "example": "Companies need capital to produce commodities."
+  }
+]
