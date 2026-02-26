@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ch11_commodity_price",
+    "en": "commodity price",
+    "jp": "商品価格",
+    "kana": "しょうひんかかく",
+    "example": "Consumers compare commodity prices and decide which commodities to buy."
+  },
+  {
+    "id": "ch11_make_decisions",
+    "en": "make decisions",
+    "jp": "決断する",
+    "kana": "けつだんする",
+    "example": "Consumers and producers use prices to make decisions."
+  },
+  {
+    "id": "ch11_factor",
+    "en": "factor",
+    "jp": "要素",
+    "kana": "ようそ",
+    "example": "Price is an important factor when people buy and sell."
+  },
+  {
+    "id": "ch11_shortage",
+    "en": "shortage",
+    "jp": "不足",
+    "kana": "ふそく",
+    "example": "If the price is very low, many people want to buy it, but producers don’t want to produce much. This is a shortage."
+  },
+  {
+    "id": "ch11_surplus",
+    "en": "surplus",
+    "jp": "余剰",
+    "kana": "よじょう",
+    "example": "If the price is very high, producers want to produce a lot, but consumers don’t want to buy much. This is a surplus."
+  },
+  {
+    "id": "ch11_public_services",
+    "en": "public services",
+    "jp": "公共サービス",
+    "kana": "こうきょうさーびす",
+    "example": "Commodities such as water, electricity and gas are called public services."
+  }
+]
