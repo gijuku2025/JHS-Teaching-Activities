@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ch5_specialization",
+    "en": "specialization",
+    "jp": "分業",
+    "kana": "ぶんぎょう",
+    "example": "This is called specialization or division of labor."
+  },
+  {
+    "id": "ch5_exchange",
+    "en": "exchange",
+    "jp": "交換",
+    "kana": "こうかん",
+    "example": "They live by exchanging things."
+  },
+  {
+    "id": "ch5_efficiency",
+    "en": "efficiency",
+    "jp": "効率性",
+    "kana": "こうりつせい",
+    "example": "Specialization and exchange increase efficiency."
+  },
+  {
+    "id": "ch5_quantity",
+    "en": "quantity",
+    "jp": "量",
+    "kana": "りょう",
+    "example": "They can produce a larger quantity of goods."
+  },
+  {
+    "id": "ch5_raw_material",
+    "en": "raw material",
+    "jp": "原料",
+    "kana": "げんりょう",
+    "example": "Companies buy raw materials and use equipment to produce goods."
+  },
+  {
+    "id": "ch5_equipment",
+    "en": "equipment",
+    "jp": "設備",
+    "kana": "せつび",
+    "example": "Companies buy raw materials and use equipment to produce goods."
+  },
+  {
+    "id": "ch5_capital",
+    "en": "capital",
+    "jp": "資本",
+    "kana": "しほん",
+    "example": "The money people use to start a company is called capital."
+  },
+  {
+    "id": "ch5_capitalism",
+    "en": "capitalism",
+    "jp": "資本主義",
+    "kana": "しほんしゅぎ",
+    "example": "This system of producing goods and selling them to make profit is called a capitalist economy."
+  },
+  {
+    "id": "ch5_research",
+    "en": "research",
+    "jp": "研究",
+    "kana": "けんきゅう",
+    "example": "Companies do research and compete with other companies for new ideas."
+  },
+  {
+    "id": "ch5_compete",
+    "en": "compete",
+    "jp": "競争する",
+    "kana": "きょうそうする",
+    "example": "Companies do research and compete with other companies for new ideas."
+  },
+  {
+    "id": "ch5_invent",
+    "en": "invent",
+    "jp": "発明する",
+    "kana": "はつめいする",
+    "example": "They work hard to invent new products and make production more efficient."
+  },
+  {
+    "id": "ch5_innovation",
+    "en": "innovation",
+    "jp": "技術革新",
+    "kana": "ぎじゅつかくしん",
+    "example": "This is called technological innovation."
+  }
+]
