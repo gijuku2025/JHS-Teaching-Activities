@@ -1,0 +1,100 @@
+[
+  {
+    "id": "ch2_market",
+    "en": "market",
+    "jp": "市場",
+    "kana": "しじょう",
+    "example": "A place where people buy and sell commodities is a market."
+  },
+  {
+    "id": "ch2_market_economy",
+    "en": "market economy",
+    "jp": "市場経済",
+    "kana": "しじょうけいざい",
+    "example": "An economy where many things are decided in markets is a market economy."
+  },
+  {
+    "id": "ch2_price",
+    "en": "price",
+    "jp": "価格",
+    "kana": "かかく",
+    "example": "The amount of money we pay for a commodity is its price."
+  },
+  {
+    "id": "ch2_market_price",
+    "en": "market price",
+    "jp": "市場価格",
+    "kana": "しじょうかかく",
+    "example": "A price decided by demand and supply in a market is a market price."
+  },
+  {
+    "id": "ch2_equilibrium_price",
+    "en": "equilibrium price",
+    "jp": "均衡価格",
+    "kana": "きんこうかかく",
+    "example": "When demand and supply are the same, it is the equilibrium price."
+  },
+  {
+    "id": "ch2_monopoly",
+    "en": "monopoly",
+    "jp": "独占",
+    "kana": "どくせん",
+    "example": "When there is only one producer, it is a monopoly."
+  },
+  {
+    "id": "ch2_oligopoly",
+    "en": "oligopoly",
+    "jp": "寡占",
+    "kana": "かせん",
+    "example": "When there are only a few producers, it is an oligopoly."
+  },
+  {
+    "id": "ch2_monopoly_price",
+    "en": "monopoly price",
+    "jp": "独占価格",
+    "kana": "どくせんかかく",
+    "example": "Monopoly prices and oligopoly prices are often high."
+  },
+  {
+    "id": "ch2_public_rates",
+    "en": "public rates",
+    "jp": "公共料金",
+    "kana": "こうきょうりょうきん",
+    "example": "Prices for things like electricity, gas, and water are public rates."
+  },
+  {
+    "id": "ch2_increase",
+    "en": "increase",
+    "jp": "増える",
+    "kana": "ふえる",
+    "example": "If demand increases, the price increases."
+  },
+  {
+    "id": "ch2_decrease",
+    "en": "decrease",
+    "jp": "減る",
+    "kana": "へる",
+    "example": "If supply increases, the price decreases."
+  },
+  {
+    "id": "ch2_competition",
+    "en": "competition",
+    "jp": "競争",
+    "kana": "きょうそう",
+    "example": "Competition is important for the market economy."
+  },
+  {
+    "id": "ch2_fair_trade_commission",
+    "en": "Fair Trade Commission",
+    "jp": "公正取引委員会",
+    "kana": "こうせいとりひきいいんかい",
+    "example": "The Fair Trade Commission watches the activities of companies."
+  },
+  {
+    "id": "ch2_anti_monopoly_act",
+    "en": "Anti-Monopoly Act",
+    "jp": "独占禁止法",
+    "kana": "どくせんきんしほう",
+    "example": "The Fair Trade Commission uses a law called the Anti-Monopoly Act."
+  }
+]
