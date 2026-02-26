@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ch12_unit_of_money",
+    "en": "unit of money",
+    "jp": "お金の単位",
+    "kana": "おかねのたんい",
+    "example": "They use units of money to compare prices."
+  },
+  {
+    "id": "ch12_barter",
+    "en": "barter",
+    "jp": "物々交換する",
+    "kana": "ぶつぶつこうかんする",
+    "example": "Before there was money, people bartered goods and services."
+  },
+  {
+    "id": "ch12_inconvenient",
+    "en": "inconvenient",
+    "jp": "不便",
+    "kana": "ふべん",
+    "example": "This was very inconvenient, so people began to use silver and gold."
+  },
+  {
+    "id": "ch12_keep_safe",
+    "en": "keep safe",
+    "jp": "安全に保管する",
+    "kana": "あんぜんにほかんする",
+    "example": "Banks were places to keep money safe."
+  },
+  {
+    "id": "ch12_banknote",
+    "en": "banknote",
+    "jp": "紙幣",
+    "kana": "しへい",
+    "example": "Governments made banknotes with paper, and coins with cheap metals."
+  },
+  {
+    "id": "ch12_coin",
+    "en": "coin",
+    "jp": "貨幣",
+    "kana": "かへい",
+    "example": "Governments made banknotes with paper, and coins with cheap metals."
+  },
+  {
+    "id": "ch12_bank",
+    "en": "bank",
+    "jp": "銀行",
+    "kana": "ぎんこう",
+    "example": "Banks were places to keep money safe."
+  },
+  {
+    "id": "ch12_finance",
+    "en": "finance",
+    "jp": "金融",
+    "kana": "きんゆう",
+    "example": "This system of lending and borrowing is called finance."
+  },
+  {
+    "id": "ch12_direct_indirect",
+    "en": "direct and indirect",
+    "jp": "直接、間接",
+    "kana": "ちょくせつ、かんせつ",
+    "example": "There are two ways of finance, direct and indirect."
+  },
+  {
+    "id": "ch12_corporate_bond",
+    "en": "corporate bond",
+    "jp": "社債",
+    "kana": "しゃさい",
+    "example": "Companies also get money by selling certificates called corporate bonds."
+  },
+  {
+    "id": "ch12_certificate",
+    "en": "certificate",
+    "jp": "証明書",
+    "kana": "しょうめいしょ",
+    "example": "The certificates promise to pay back the money."
+  },
+  {
+    "id": "ch12_active",
+    "en": "active",
+    "jp": "活発",
+    "kana": "かっぱつ",
+    "example": "To make money move, an economy needs finance. Finance makes the economy active."
+  }
+]
