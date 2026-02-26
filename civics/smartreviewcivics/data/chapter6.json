@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ch6_private_enterprise",
+    "en": "private enterprise",
+    "jp": "私企業",
+    "kana": "しきぎょう",
+    "example": "Companies that people start to make profit are called private enterprises."
+  },
+  {
+    "id": "ch6_public_enterprise",
+    "en": "public enterprise",
+    "jp": "公企業",
+    "kana": "こうきぎょう",
+    "example": "Companies that governments start to give a service are called public enterprises."
+  },
+  {
+    "id": "ch6_large_corporation",
+    "en": "large corporation",
+    "jp": "大企業",
+    "kana": "だいきぎょう",
+    "example": "Companies with a lot of capital and many workers are called large corporations."
+  },
+  {
+    "id": "ch6_small_medium_company",
+    "en": "small to medium-sized company",
+    "jp": "中小企業",
+    "kana": "ちゅうしょうきぎょう",
+    "example": "Companies with less capital and fewer workers are called small to medium-sized companies."
+  },
+  {
+    "id": "ch6_startup",
+    "en": "startup",
+    "jp": "ベンチャー企業",
+    "kana": "べんちゃーきぎょう",
+    "example": "Japan needs startups for the economy to grow."
+  },
+  {
+    "id": "ch6_go_bankrupt",
+    "en": "go bankrupt",
+    "jp": "倒産する",
+    "kana": "とうさんする",
+    "example": "If a company cannot make a profit, it might go bankrupt."
+  },
+  {
+    "id": "ch6_society",
+    "en": "society",
+    "jp": "社会",
+    "kana": "しゃかい",
+    "example": "Companies have responsibilities to society."
+  },
+  {
+    "id": "ch6_pollute",
+    "en": "pollute",
+    "jp": "汚染する",
+    "kana": "おせんする",
+    "example": "In the past, some companies polluted the environment."
+  },
+  {
+    "id": "ch6_pollution",
+    "en": "pollution",
+    "jp": "公害",
+    "kana": "こうがい",
+    "example": "There are laws to stop pollution and companies must obey them."
+  },
+  {
+    "id": "ch6_responsibility",
+    "en": "responsibility",
+    "jp": "責任",
+    "kana": "せきにん",
+    "example": "Companies have responsibilities to society."
+  }
+]
