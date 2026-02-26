@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ch8_laborer",
+    "en": "laborer",
+    "jp": "労働者",
+    "kana": "ろうどうしゃ",
+    "example": "Laborers work for corporations and corporations give them wages."
+  },
+  {
+    "id": "ch8_corporation",
+    "en": "corporation",
+    "jp": "企業",
+    "kana": "きぎょう",
+    "example": "Corporations are very important for laborers but not only for income."
+  },
+  {
+    "id": "ch8_take_part",
+    "en": "take part",
+    "jp": "参加する",
+    "kana": "さんかする",
+    "example": "Corporations help laborers take part in society."
+  },
+  {
+    "id": "ch8_specialize",
+    "en": "specialize",
+    "jp": "専門化する",
+    "kana": "せんもんかする",
+    "example": "Having an occupation means to specialize, and take part in society."
+  },
+  {
+    "id": "ch8_occupation",
+    "en": "occupation",
+    "jp": "職業",
+    "kana": "しょくぎょう",
+    "example": "Having an occupation means to specialize, and take part in society."
+  },
+  {
+    "id": "ch8_exchange",
+    "en": "exchange",
+    "jp": "交換する",
+    "kana": "こうかんする",
+    "example": "By exchanging goods and services, laborers take part in society."
+  },
+  {
+    "id": "ch8_labor_laws",
+    "en": "labor laws",
+    "jp": "労働法",
+    "kana": "ろうどうほう",
+    "example": "Laborers are protected by labor laws."
+  },
+  {
+    "id": "ch8_labor_union",
+    "en": "labor union",
+    "jp": "労働組合",
+    "kana": "ろうどうくみあい",
+    "example": "The law says that laborers can join labor unions."
+  },
+  {
+    "id": "ch8_working_condition",
+    "en": "working condition",
+    "jp": "労働条件",
+    "kana": "ろうどうじょうけん",
+    "example": "Their wages are often low and working conditions are often poor."
+  },
+  {
+    "id": "ch8_relation",
+    "en": "relation",
+    "jp": "関係",
+    "kana": "かんけい",
+    "example": "Labor unions help to improve the relation between laborers and managers."
+  },
+  {
+    "id": "ch8_adjustment",
+    "en": "adjustment",
+    "jp": "調整",
+    "kana": "ちょうせい",
+    "example": "Labor unions make adjustments to wages and working hours."
+  },
+  {
+    "id": "ch8_balance",
+    "en": "balance",
+    "jp": "バランス",
+    "kana": "ばらんす",
+    "example": "It is important to have a good balance between work and life."
+  }
+]
