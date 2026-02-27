@@ -224,6 +224,9 @@
             { q: "Smallest unit of life?", a: ["Atom", "Cell", "Organ", "Virus"], correct: "Cell" }
         ];
 
+		
+		let nextDir = null;
+		
         let state = {
             pacman: { x: 40, y: 40, dir: 'right' },
             ghosts: [
@@ -267,15 +270,15 @@ mazeContainer.addEventListener("touchend", (e) => {
   const dx = t.clientX - touchStartX;
   const dy = t.clientY - touchStartY;
 
-  const minSwipe = 30; // ignore tiny movements
+  const minSwipe = 30;
 
   if (Math.abs(dx) > Math.abs(dy)) {
     if (Math.abs(dx) > minSwipe) {
-      state.pacman.dir = dx > 0 ? "right" : "left";
+      nextDir = dx > 0 ? "right" : "left";
     }
   } else {
     if (Math.abs(dy) > minSwipe) {
-      state.pacman.dir = dy > 0 ? "down" : "up";
+      nextDir = dy > 0 ? "down" : "up";
     }
   }
 });
@@ -285,7 +288,29 @@ mazeContainer.addEventListener("touchend", (e) => {
 		
         const pacmanEl = document.getElementById('pacman');
 
-        function createMaze() {
+       
+		
+		function snapToGrid(value) {
+  return Math.round(value / GRID_SIZE) * GRID_SIZE;
+}
+
+function canMove(x, y, dir) {
+  const speed = 4;
+  let nx = x;
+  let ny = y;
+
+  if (dir === "up") ny -= speed;
+  if (dir === "down") ny += speed;
+  if (dir === "left") nx -= speed;
+  if (dir === "right") nx += speed;
+
+  return !isWall(nx, ny);
+}
+		
+		
+		
+		
+		function createMaze() {
             mazeContainer.innerHTML = '<div id="pacman"></div>';
             mazeLayout.forEach((row, rIdx) => {
                 row.forEach((cell, cIdx) => {
@@ -332,20 +357,27 @@ mazeContainer.addEventListener("touchend", (e) => {
         function update() {
             if (!state.gameActive) return;
 
-            // Move Pacman
-            let nextX = state.pacman.x;
-            let nextY = state.pacman.y;
             const speed = 4;
 
-            if (state.pacman.dir === 'up') nextY -= speed;
-            if (state.pacman.dir === 'down') nextY += speed;
-            if (state.pacman.dir === 'left') nextX -= speed;
-            if (state.pacman.dir === 'right') nextX += speed;
+// ✅ apply queued turn with grid snapping
+if (nextDir && canMove(state.pacman.x, state.pacman.y, nextDir)) {
+  if (nextDir === "up" || nextDir === "down") {
+    state.pacman.x = snapToGrid(state.pacman.x);
+  }
+  if (nextDir === "left" || nextDir === "right") {
+    state.pacman.y = snapToGrid(state.pacman.y);
+  }
+  state.pacman.dir = nextDir;
+  nextDir = null;
+}
 
-            if (!isWall(nextX, nextY)) {
-                state.pacman.x = nextX;
-                state.pacman.y = nextY;
-            }
+// move in current direction if possible
+if (canMove(state.pacman.x, state.pacman.y, state.pacman.dir)) {
+    if (state.pacman.dir === 'up') state.pacman.y -= speed;
+    if (state.pacman.dir === 'down') state.pacman.y += speed;
+    if (state.pacman.dir === 'left') state.pacman.x -= speed;
+    if (state.pacman.dir === 'right') state.pacman.x += speed;
+}
 
             const pacmanEl = document.getElementById('pacman');
             pacmanEl.style.left = state.pacman.x + 'px';
