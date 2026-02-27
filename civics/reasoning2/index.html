@@ -19,9 +19,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
-  h1, h2 {
-    text-align: center;
-  }
+  h1, h2 { text-align: center; }
   .box {
     background: #eef2f7;
     padding: 10px;
@@ -40,12 +38,8 @@
     margin: 8px 0;
     text-align: left;
   }
-  .hidden {
-    display: none;
-  }
-  .score {
-    font-weight: bold;
-  }
+  .hidden { display: none; }
+  .score { font-weight: bold; }
 </style>
 </head>
 <body>
@@ -116,15 +110,23 @@ const cases = [
   text: "A student wants to play loud music in a public park. Other people want quiet.",
   sideA: "The student should be allowed to play loud music in the park.",
   sideB: "The student should NOT be allowed to play loud music in the park.",
+
   argumentsA: [
-    { text: "People can choose where to sit. The park is for free use.", points: 2, feedback: "Good. You used individual freedom." },
-    { text: "Some people enjoy music in public places.", points: 1, feedback: "Okay. You talked about happiness." },
-    { text: "I like loud music.", points: 0, feedback: "Weak. This is only personal opinion." }
+    { text: "The park is a public space for many activities, not only quiet rest.", points: 2, feedback: "Good. You used public space purpose." },
+    { text: "People who want quiet can move to another area of the park.", points: 2, feedback: "Good. You used choice and flexibility." },
+    { text: "There is no rule against playing music in the park.", points: 2, feedback: "Good. You used rule and agreement." },
+    { text: "Music can make the park lively and enjoyable for many visitors.", points: 1, feedback: "Okay. You used social happiness." },
+    { text: "Some people like listening to music while relaxing.", points: 1, feedback: "Okay. You used happiness." },
+    { text: "It’s fun to play loud music.", points: 0, feedback: "Weak. Only personal happiness." }
   ],
+
   argumentsB: [
-    { text: "Many people want a quiet place to rest and talk.", points: 2, feedback: "Good. You used society." },
-    { text: "Noise can cause stress and conflict.", points: 2, feedback: "Good. You used public order." },
-    { text: "I hate loud music.", points: 0, feedback: "Weak. This is only emotion." }
+    { text: "The park is a shared space, so one person’s music should not disturb many others.", points: 2, feedback: "Good. You used society over individual." },
+    { text: "People use parks to rest and enjoy nature, and loud music prevents this.", points: 2, feedback: "Good. You used purpose of the park." },
+    { text: "Noise spreads far and affects people who did not choose to hear it.", points: 2, feedback: "Good. You used lack of consent." },
+    { text: "Rules are needed in public spaces to protect everyone’s comfort.", points: 2, feedback: "Good. You used agreement and order." },
+    { text: "Many people go to parks to escape city noise.", points: 1, feedback: "Okay. You used environment and happiness." },
+    { text: "Loud music is annoying.", points: 0, feedback: "Weak. Only emotion." }
   ]
 },
 
@@ -153,6 +155,7 @@ let otherSide = "";
 let chosenArgument = "";
 let otherArgument = "";
 let argumentSet = [];
+let otherArgumentSet = [];
 
 function startGame() {
   document.getElementById("startScreen").classList.add("hidden");
