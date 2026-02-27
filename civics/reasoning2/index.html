@@ -14,7 +14,7 @@
   }
   #game {
     background: white;
-    width: 700px;
+    width: 750px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -45,7 +45,6 @@
   }
   .score {
     font-weight: bold;
-    margin-top: 10px;
   }
 </style>
 </head>
@@ -53,104 +52,98 @@
 
 <div id="game">
 
-  <!-- START -->
-  <div id="startScreen">
-    <h1>Public Space: Argument Game</h1>
-    <p>You will read a situation.</p>
-    <p>The game will give you a position.</p>
-    <p>Choose the strongest argument.</p>
-    <p>This is about reasoning, not your opinion.</p>
-    <button onclick="startGame()">Start Game</button>
-  </div>
+<div id="startScreen">
+  <h1>Public Space: Argument Game</h1>
+  <p>You will read a situation.</p>
+  <p>The game will give you a position.</p>
+  <p>Choose the strongest argument.</p>
+  <button onclick="startGame()">Start</button>
+</div>
 
-  <!-- CASE -->
-  <div id="caseScreen" class="hidden">
-    <h2 id="caseTitle"></h2>
-    <div class="box" id="caseText"></div>
-    <button onclick="assignSide()">Get My Position</button>
-  </div>
+<div id="caseScreen" class="hidden">
+  <h2 id="caseTitle"></h2>
+  <div class="box" id="caseText"></div>
+  <button onclick="assignSide()">Get My Position</button>
+</div>
 
-  <!-- SIDE -->
-  <div id="sideScreen" class="hidden">
-    <h2>Your Position</h2>
-    <div class="box" id="sideSituation"></div>
-    <div class="box" id="sideText"></div>
-    <button onclick="showArguments()">Choose Argument</button>
-  </div>
+<div id="sideScreen" class="hidden">
+  <h2>Your Position</h2>
+  <div class="box" id="sideSituation"></div>
+  <div class="box" id="sideText"></div>
+  <button onclick="showArguments()">Choose Argument</button>
+</div>
 
-  <!-- ARGUMENT -->
-  <div id="argumentScreen" class="hidden">
-    <h2>Choose Your Argument</h2>
-    <div class="box" id="argumentSituation"></div>
-    <div class="box" id="argumentSide"></div>
-    <div id="argumentButtons"></div>
-  </div>
+<div id="argumentScreen" class="hidden">
+  <h2>Choose Your Argument</h2>
+  <div class="box" id="argumentSituation"></div>
+  <div class="box" id="argumentSide"></div>
+  <div id="argumentButtons"></div>
+</div>
 
-  <!-- FEEDBACK -->
-  <div id="feedbackScreen" class="hidden">
-    <h2>Judge's Decision</h2>
-    <p id="feedbackText"></p>
-    <p class="score" id="scoreText"></p>
-    <button onclick="showOtherSide()">See Result</button>
-  </div>
+<div id="feedbackScreen" class="hidden">
+  <h2>Judge</h2>
+  <p id="feedbackText"></p>
+  <p class="score" id="scoreText"></p>
+  <button onclick="showOtherSide()">See Both Arguments</button>
+</div>
 
-  <!-- RESULT DETAIL -->
-  <div id="otherSideScreen" class="hidden">
-    <h2>You Argued</h2>
-    <div class="box" id="resultSituation"></div>
-    <div class="box" id="resultSide"></div>
-    <div class="box" id="resultArgument"></div>
+<div id="otherSideScreen" class="hidden">
+  <h2>Argument Result</h2>
+  <div class="box" id="resultSituation"></div>
+  <div class="box" id="resultSide"></div>
+  <div class="box" id="resultArgument"></div>
 
-    <h3>Other Side</h3>
-    <div class="box" id="otherSideText"></div>
+  <h3>Other Side</h3>
+  <div class="box" id="otherSidePosition"></div>
+  <div class="box" id="otherSideArgument"></div>
 
-    <button onclick="nextCase()">Next Case</button>
-  </div>
+  <button onclick="nextCase()">Next Case</button>
+</div>
 
-  <!-- FINAL -->
-  <div id="resultScreen" class="hidden">
-    <h2>Your Result</h2>
-    <p id="finalScore"></p>
-    <p id="finalComment"></p>
-    <button onclick="restart()">Play Again</button>
-  </div>
+<div id="resultScreen" class="hidden">
+  <h2>Your Result</h2>
+  <p id="finalScore"></p>
+  <p id="finalComment"></p>
+  <button onclick="restart()">Play Again</button>
+</div>
 
 </div>
 
 <script>
 const cases = [
-  {
-    title: "Case 1: Music in the Park",
-    text: "A student wants to play loud music in a public park. Other people want quiet. There is a conflict. The city must decide.",
-    sideA: "The student should be allowed to play loud music in the park.",
-    sideB: "The student should NOT be allowed to play loud music in the park."
-  },
-  {
-    title: "Case 2: Club Room",
-    text: "Two school clubs want the same classroom after school. Only one club can use it. The school must decide.",
-    sideA: "The school should give the room to the bigger club.",
-    sideB: "The school should make the clubs share the room."
-  },
-  {
-    title: "Case 3: Curfew",
-    text: "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
-    sideA: "The city should NOT have a curfew for 16-year-olds.",
-    sideB: "The city should have a curfew for 16-year-olds."
-  },
-  {
-    title: "Case 4: Voting Age",
-    text: "People can vote at 18. Some people say this is good. Some people say it is too early.",
-    sideA: "18-year-olds should be allowed to vote.",
-    sideB: "18-year-olds should NOT be allowed to vote yet."
-  }
-];
+{
+  title: "Case 1: Music in the Park",
+  text: "A student wants to play loud music in a public park. Other people want quiet.",
+  sideA: "The student should be allowed to play loud music in the park.",
+  sideB: "The student should NOT be allowed to play loud music in the park.",
+  argumentsA: [
+    { text: "People can choose where to sit. The park is for free use.", points: 2, feedback: "Good. You used individual freedom." },
+    { text: "Some people enjoy music in public places.", points: 1, feedback: "Okay. You talked about happiness." },
+    { text: "I like loud music.", points: 0, feedback: "Weak. This is only personal opinion." }
+  ],
+  argumentsB: [
+    { text: "Many people want a quiet place to rest and talk.", points: 2, feedback: "Good. You used society." },
+    { text: "Noise can cause stress and conflict.", points: 2, feedback: "Good. You used public order." },
+    { text: "I hate loud music.", points: 0, feedback: "Weak. This is only emotion." }
+  ]
+},
 
-const argumentsList = [
-  { text: "This is fair because everyone can use the park peacefully.", points: 2, feedback: "Good argument. You used fairness." },
-  { text: "This helps many people, not only one person.", points: 2, feedback: "Good argument. You used society." },
-  { text: "This rule makes decisions clear and easy.", points: 2, feedback: "Good argument. You used efficiency." },
-  { text: "Some people will be happy with this decision.", points: 1, feedback: "Okay argument. You talked about happiness." },
-  { text: "I think this is better.", points: 0, feedback: "Weak argument. This is only personal opinion." }
+{
+  title: "Case 2: Club Room",
+  text: "Two school clubs want the same classroom after school. Only one club can use it.",
+  sideA: "The school should give the room to the bigger club.",
+  sideB: "The school should make the clubs share the room.",
+  argumentsA: [
+    { text: "More students can use the room this way.", points: 2, feedback: "Good. You used efficiency." },
+    { text: "The bigger club needs more space.", points: 1, feedback: "Okay. You used need." },
+    { text: "Big clubs are cooler.", points: 0, feedback: "Weak. Not a social reason." }
+  ],
+  argumentsB: [
+    { text: "Both clubs are equal and should have a chance.", points: 2, feedback: "Good. You used fairness." },
+    { text: "Sharing teaches cooperation.", points: 2, feedback: "Good. You used society." },
+    { text: "I feel sorry for the small club.", points: 0, feedback: "Weak. Only emotion." }
+  ]
+}
 ];
 
 let currentCase = 0;
@@ -158,6 +151,8 @@ let score = 0;
 let currentSide = "";
 let otherSide = "";
 let chosenArgument = "";
+let otherArgument = "";
+let argumentSet = [];
 
 function startGame() {
   document.getElementById("startScreen").classList.add("hidden");
@@ -178,9 +173,13 @@ function assignSide() {
   if (Math.random() < 0.5) {
     currentSide = c.sideA;
     otherSide = c.sideB;
+    argumentSet = c.argumentsA;
+    otherArgumentSet = c.argumentsB;
   } else {
     currentSide = c.sideB;
     otherSide = c.sideA;
+    argumentSet = c.argumentsB;
+    otherArgumentSet = c.argumentsA;
   }
 
   document.getElementById("sideSituation").innerText = c.text;
@@ -197,7 +196,7 @@ function showArguments() {
   document.getElementById("argumentSituation").innerText = c.text;
   document.getElementById("argumentSide").innerText = "Your position: " + currentSide;
 
-  argumentsList.forEach((arg, index) => {
+  argumentSet.forEach((arg, index) => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerText = arg.text;
@@ -210,9 +209,12 @@ function showArguments() {
 
 function chooseArgument(index) {
   document.getElementById("argumentScreen").classList.add("hidden");
-  const arg = argumentsList[index];
+  const arg = argumentSet[index];
   chosenArgument = arg.text;
   score += arg.points;
+
+  const rand = Math.floor(Math.random() * otherArgumentSet.length);
+  otherArgument = otherArgumentSet[rand].text;
 
   document.getElementById("feedbackText").innerText = arg.feedback;
   document.getElementById("scoreText").innerText = "+" + arg.points + " points";
@@ -226,7 +228,8 @@ function showOtherSide() {
   document.getElementById("resultSituation").innerText = "Situation: " + c.text;
   document.getElementById("resultSide").innerText = "Your position: " + currentSide;
   document.getElementById("resultArgument").innerText = "Your argument: " + chosenArgument;
-  document.getElementById("otherSideText").innerText = "Other position: " + otherSide;
+  document.getElementById("otherSidePosition").innerText = "Other position: " + otherSide;
+  document.getElementById("otherSideArgument").innerText = "Other argument: " + otherArgument;
 
   document.getElementById("otherSideScreen").classList.remove("hidden");
 }
@@ -247,12 +250,12 @@ function showResult() {
     "Total Score: " + score + " / " + (cases.length * 2);
 
   let comment = "";
-  if (score >= 7) {
-    comment = "Excellent. You used strong arguments about society and fairness.";
-  } else if (score >= 4) {
-    comment = "Good job. Try to use more fairness and efficiency next time.";
+  if (score >= 3) {
+    comment = "Excellent. You used strong social arguments.";
+  } else if (score >= 2) {
+    comment = "Good. Try to use fairness and society more.";
   } else {
-    comment = "Try again. Use arguments about society, not only opinion.";
+    comment = "Try again. Avoid opinion-only arguments.";
   }
 
   document.getElementById("finalComment").innerText = comment;
