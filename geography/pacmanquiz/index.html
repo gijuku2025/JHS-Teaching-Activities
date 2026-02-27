@@ -8,6 +8,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
+		
+		
+		
         body {
             background-color: #000;
             color: #fff;
@@ -18,7 +21,9 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-        }
+			touch-action: none; /* ✅ iPad fix */
+			
+			 }
 
         .game-container {
             position: relative;
@@ -146,6 +151,23 @@
             50% { background: #4a0000; }
         }
 
+		
+		.touch-btn {
+  background: #2424ff;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  font-size: 18px;
+  border-radius: 8px;
+}
+.touch-btn:active {
+  background: #5555ff;
+}
+		
+		
+		
+		
+		
         .flash-green { animation: flashGreen 0.5s; }
         @keyframes flashGreen {
             0%, 100% { background: #000; }
@@ -171,7 +193,15 @@
                 <p id="question-text">Use arrow keys to eat the correct answer!</p>
             </div>
 
-            <div class="controls-hint">
+            
+			<div id="touch-controls" style="display:flex; justify-content:center; gap:10px; margin-top:10px;">
+  <button class="touch-btn" data-dir="up">⬆️</button>
+  <button class="touch-btn" data-dir="left">⬅️</button>
+  <button class="touch-btn" data-dir="down">⬇️</button>
+  <button class="touch-btn" data-dir="right">➡️</button>
+</div>
+			
+			<div class="controls-hint">
                 ARROWS TO MOVE • SPACE TO START
             </div>
         </div>
@@ -350,6 +380,19 @@
             });
         }
 
+		
+		document.querySelectorAll('.touch-btn').forEach(btn => {
+  btn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // stop scrolling/zooming
+    state.pacman.dir = btn.dataset.dir;
+  });
+});
+		
+		
+		
+		
+		
+		
         function moveGhosts() {
             const pX = state.pacman.x;
             const pY = state.pacman.y;
