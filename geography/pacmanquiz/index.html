@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pac-Quiz: iPad Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            touch-action: none; /* Prevents default iPad gestures */
+            overflow: hidden;
+        }
+
+        .game-wrapper {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #maze-container {
+            position: relative;
+            width: 600px;
+            height: 480px;
+            background: #000;
+            border: 4px solid #2424ff;
+            box-shadow: 0 0 15px #2424ff;
+            margin: 0 auto;
+            transform-origin: center;
+        }
+
+        /* Scale maze for smaller iPad screens if needed */
+        @media (max-width: 620px) {
+            #maze-container { transform: scale(0.9); }
+        }
+
+        .wall { position: absolute; background: #2424ff; }
+        
+        #pacman {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ffff00;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .ghost {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            z-index: 9;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .answer-node {
+            position: absolute;
+            padding: 4px 8px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #fff;
+            color: #fff;
+            font-size: 10px;
+            border-radius: 4px;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+
+        /* iPad Controls */
+        .controls-grid {
+            display: grid;
+            grid-template-areas: 
+                ". up ."
+                "left . right"
+                ". down .";
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .touch-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #2424ff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            user-select: none;
+        }
+
+        .touch-btn:active { background: #2424ff; }
+
+        .hud {
+            text-align: center;
+            padding: 10px;
+        }
+
+        #question-text { font-size: 12px; margin-bottom: 10px; color: #ffff00; }
+    </style>
+</head>
+<body>
+
+    <div class="game-wrapper">
+        <div class="hud">
+            <div id="question-text">TAP START TO PLAY</div>
+            <div class="flex justify-between text-xs px-4">
+                <span>SCORE: <span id="score">0</span></span>
+                <span>LEVEL: <span id="level">1</span></span>
+            </div>
+        </div>
+
+        <div id="maze-container">
+            <div id="pacman"></div>
+        </div>
+
+        <!-- Virtual Controls for iPad -->
+        <div class="controls-grid">
+            <div class="touch-btn" style="grid-area: up" id="btn-up">▲</div>
+            <div class="touch-btn" style="grid-area: left" id="btn-left">◀</div>
+            <div class="touch-btn" style="grid-area: right" id="btn-right">▶</div>
+            <div class="touch-btn" style="grid-area: down" id="btn-down">▼</div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/90 flex flex-col items-center justify-center z-50">
+        <h1 class="text-2xl text-yellow-400 mb-8">PAC-QUIZ IPAD</h1>
+        <p class="text-[10px] mb-8 text-center px-10 leading-loose">
+            SWIPE or TAP ARROWS to move.<br>
+            Eat the correct answers!
+        </p>
+        <button id="start-btn" class="bg-blue-600 text-white px-8 py-4 rounded-xl border-4 border-blue-400 font-bold">START</button>
+    </div>
+
+    <script>
+        const GRID_SIZE = 40;
+        const questData = [
+            { q: "What is 10 x 10?", a: ["20", "100", "110", "1010"], correct: "100" },
+            { q: "Capital of France?", a: ["London", "Paris", "Berlin", "Rome"], correct: "Paris" },
+            { q: "Which is a gas?", a: ["Gold", "Iron", "Oxygen", "Rock"], correct: "Oxygen" }
+        ];
+
+        let state = {
+            pacman: { x: 40, y: 40, dir: 'right' },
+            ghosts: [
+                { x: 520, y: 40, vx: 2, vy: 0, emoji: '👻' },
+                { x: 520, y: 400, vx: -2, vy: 0, emoji: '💀' }
+            ],
+            score: 0,
+            currentQuestion: 0,
+            gameActive: false
+        };
+
+        const mazeLayout = [
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,1,0,0,0,1,0,0,0,0,1],
+            [1,0,1,1,0,0,0,1,0,0,0,1,1,0,1],
+            [1,0,0,0,0,1,1,1,1,1,0,0,0,0,1],
+            [1,1,1,1,0,0,0,0,0,0,0,1,1,1,1],
+            [1,0,0,0,0,1,1,1,1,1,0,0,0,0,1],
+            [1,0,1,1,0,0,0,0,0,0,0,1,1,0,1],
+            [1,0,0,0,0,1,1,1,1,1,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        ];
+
+        // --- Touch & Swipe Logic ---
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, false);
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+        }, false);
+
+        function handleSwipe(x1, y1, x2, y2) {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (Math.abs(dx) > 30) state.pacman.dir = dx > 0 ? 'right' : 'left';
+            } else {
+                if (Math.abs(dy) > 30) state.pacman.dir = dy > 0 ? 'down' : 'up';
+            }
+        }
+
+        // Virtual Button Listeners
+        const bindBtn = (id, dir) => {
+            document.getElementById(id).addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                state.pacman.dir = dir;
+            });
+        };
+        bindBtn('btn-up', 'up');
+        bindBtn('btn-down', 'down');
+        bindBtn('btn-left', 'left');
+        bindBtn('btn-right', 'right');
+
+        // --- Game Core ---
+        function createMaze() {
+            const maze = document.getElementById('maze-container');
+            maze.innerHTML = '<div id="pacman"></div>';
+            mazeLayout.forEach((row, rIdx) => {
+                row.forEach((cell, cIdx) => {
+                    if (cell === 1) {
+                        const wall = document.createElement('div');
+                        wall.className = 'wall';
+                        wall.style.cssText = `width:40px;height:40px;left:${cIdx*40}px;top:${rIdx*40}px;`;
+                        maze.appendChild(wall);
+                    }
+                });
+            });
+        }
+
+        function isWall(x, y) {
+            const points = [{x:x+5,y:y+5}, {x:x+25,y:y+5}, {x:x+5,y:y+25}, {x:x+25,y:y+25}];
+            return points.some(p => {
+                const c = Math.floor(p.x/40), r = Math.floor(p.y/40);
+                return mazeLayout[r] && mazeLayout[r][c] === 1;
+            });
+        }
+
+        function update() {
+            if (!state.gameActive) return;
+
+            let nx = state.pacman.x, ny = state.pacman.y;
+            if (state.pacman.dir === 'up') ny -= 4;
+            if (state.pacman.dir === 'down') ny += 4;
+            if (state.pacman.dir === 'left') nx -= 4;
+            if (state.pacman.dir === 'right') nx += 4;
+
+            if (!isWall(nx, ny)) {
+                state.pacman.x = nx;
+                state.pacman.y = ny;
+            }
+
+            const pac = document.getElementById('pacman');
+            pac.style.left = state.pacman.x + 'px';
+            pac.style.top = state.pacman.y + 'px';
+
+            // Ghost Logic
+            state.ghosts.forEach((g, i) => {
+                let gel = document.getElementById(`ghost-${i}`);
+                if (!gel) {
+                    gel = document.createElement('div');
+                    gel.id = `ghost-${i}`;
+                    gel.className = 'ghost';
+                    gel.innerText = g.emoji;
+                    document.getElementById('maze-container').appendChild(gel);
+                }
+
+                if (Math.random() > 0.95 || isWall(g.x + g.vx, g.y + g.vy)) {
+                    const dirs = [{x:2,y:0},{x:-2,y:0},{x:0,y:2},{x:0,y:-2}];
+                    const valid = dirs.filter(d => !isWall(g.x + d.x, g.y + d.y));
+                    if (valid.length) {
+                        const pick = valid[Math.floor(Math.random() * valid.length)];
+                        g.vx = pick.x; g.vy = pick.y;
+                    }
+                }
+                g.x += g.vx; g.y += g.vy;
+                gel.style.left = g.x + 'px';
+                gel.style.top = g.y + 'px';
+            });
+
+            checkCollision();
+            requestAnimationFrame(update);
+        }
+
+        function checkCollision() {
+            const pacRect = document.getElementById('pacman').getBoundingClientRect();
+            // Answers
+            document.querySelectorAll('.answer-node').forEach(node => {
+                const nRect = node.getBoundingClientRect();
+                if (!(pacRect.right < nRect.left || pacRect.left > nRect.right || pacRect.bottom < nRect.top || pacRect.top > nRect.bottom)) {
+                    if (node.innerText === questData[state.currentQuestion].correct) {
+                        state.score += 100;
+                        state.currentQuestion++;
+                        if (state.currentQuestion >= questData.length) endGame(true);
+                        else spawnAnswers();
+                    } else {
+                        state.score = Math.max(0, state.score - 50);
+                        node.remove();
+                    }
+                    document.getElementById('score').innerText = state.score;
+                }
+            });
+            // Ghosts
+            document.querySelectorAll('.ghost').forEach(g => {
+                const gRect = g.getBoundingClientRect();
+                if (!(pacRect.right < gRect.left || pacRect.left > gRect.right || pacRect.bottom < gRect.top || pacRect.top > gRect.bottom)) {
+                    endGame(false);
+                }
+            });
+        }
+
+        function spawnAnswers() {
+            document.querySelectorAll('.answer-node').forEach(n => n.remove());
+            const q = questData[state.currentQuestion];
+            document.getElementById('question-text').innerText = q.q;
+            const pts = [{x:100,y:100}, {x:500,y:100}, {x:100,y:380}, {x:500,y:380}];
+            q.a.forEach((ans, i) => {
+                const node = document.createElement('div');
+                node.className = 'answer-node';
+                node.innerText = ans;
+                node.style.left = pts[i].x + 'px';
+                node.style.top = pts[i].y + 'px';
+                document.getElementById('maze-container').appendChild(node);
+            });
+        }
+
+        function startGame() {
+            document.getElementById('overlay').classList.add('hidden');
+            createMaze();
+            state.gameActive = true;
+            state.currentQuestion = 0;
+            state.score = 0;
+            state.pacman = { x: 40, y: 40, dir: 'right' };
+            spawnAnswers();
+            update();
+        }
+
+        function endGame(win) {
+            state.gameActive = false;
+            document.getElementById('overlay').classList.remove('hidden');
+            document.querySelector('#overlay h1').innerText = win ? "VICTORY!" : "CAUGHT!";
+            document.getElementById('start-btn').innerText = "REPLAY";
+        }
+
+        document.getElementById('start-btn').onclick = startGame;
+    </script>
+</body>
+</html>
