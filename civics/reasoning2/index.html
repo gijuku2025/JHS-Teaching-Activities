@@ -44,6 +44,10 @@
 </head>
 <body>
 
+	
+	
+
+	
 <div id="game">
 
 <div id="startScreen">
@@ -81,20 +85,32 @@
   <button onclick="showOtherSide()">See Both Arguments</button>
 </div>
 
-<div id="otherSideScreen" class="hidden">
-  <h2>Argument Result</h2>
-  <div class="box" id="resultSituation"></div>
-  <div class="box" id="resultSide"></div>
-  <div class="box" id="resultArgument"></div>
 
-  <h3>Other Side</h3>
-  <div class="box" id="otherSidePosition"></div>
-  <div class="box" id="otherSideArgument"></div>
+  
+	
+
+	
+	<div id="reflectionScreen" class="hidden">
+  <h2>Case Complete</h2>
+
+  <p id="caseDoneText"></p>
+  <p id="dateTimeText"></p>
+  <p class="score" id="caseScoreText"></p>
+
+  <h3>Which argument is the strongest?</h3>
+  <button class="choice" id="strongBtn1"></button>
+  <button class="choice" id="strongBtn2"></button>
+
+  <h3>Why?</h3>
+  <textarea id="reflectionText" rows="4" style="width:100%;"></textarea>
+
+  <p><b>Please screenshot this screen.</b></p>
 
   <button onclick="nextCase()">Next Case</button>
 </div>
-
-<div id="resultScreen" class="hidden">
+	
+	
+ <div id="resultScreen" class="hidden">
   <h2>Your Result</h2>
   <p id="finalScore"></p>
   <p id="finalComment"></p>
@@ -183,6 +199,8 @@ let chosenArgument = "";
 let otherArgument = "";
 let argumentSet = [];
 let otherArgumentSet = [];
+let caseScore = 0;
+	
 
 function startGame() {
   document.getElementById("startScreen").classList.add("hidden");
@@ -191,11 +209,15 @@ function startGame() {
 
 function showCase() {
   const c = cases[currentCase];
+
+  document.getElementById("caseScreen").classList.remove("hidden");
+  document.getElementById("sideScreen").classList.add("hidden");
+  document.getElementById("argumentScreen").classList.add("hidden");
+  document.getElementById("feedbackScreen").classList.add("hidden");
+
   document.getElementById("caseTitle").innerText = c.title;
   document.getElementById("caseText").innerText = c.text;
-  document.getElementById("caseScreen").classList.remove("hidden");
 }
-
 function assignSide() {
   document.getElementById("caseScreen").classList.add("hidden");
   const c = cases[currentCase];
@@ -241,7 +263,11 @@ function chooseArgument(index) {
   document.getElementById("argumentScreen").classList.add("hidden");
   const arg = argumentSet[index];
   chosenArgument = arg.text;
-  score += arg.points;
+ score += arg.points;
+ caseScore = arg.points;
+	
+	
+	
 
   const rand = Math.floor(Math.random() * otherArgumentSet.length);
   otherArgument = otherArgumentSet[rand].text;
@@ -253,19 +279,47 @@ function chooseArgument(index) {
 
 function showOtherSide() {
   document.getElementById("feedbackScreen").classList.add("hidden");
+
   const c = cases[currentCase];
 
-  document.getElementById("resultSituation").innerText = "Situation: " + c.text;
-  document.getElementById("resultSide").innerText = "Your position: " + currentSide;
-  document.getElementById("resultArgument").innerText = "Your argument: " + chosenArgument;
-  document.getElementById("otherSidePosition").innerText = "Other position: " + otherSide;
-  document.getElementById("otherSideArgument").innerText = "Other argument: " + otherArgument;
+  const now = new Date();
+  const dateTime = now.toLocaleString();
 
-  document.getElementById("otherSideScreen").classList.remove("hidden");
+  document.getElementById("caseDoneText").innerText =
+    "Completed: " + c.title;
+
+  document.getElementById("dateTimeText").innerText =
+    "Date & Time: " + dateTime;
+
+  document.getElementById("caseScoreText").innerText =
+    "Score for this case: " + caseScore + " / 2";
+
+  const btn1 = document.getElementById("strongBtn1");
+  const btn2 = document.getElementById("strongBtn2");
+
+  btn1.innerText = "Your side: " + chosenArgument;
+  btn2.innerText = "Other side: " + otherArgument;
+
+  btn1.onclick = () => selectStrongest("your");
+  btn2.onclick = () => selectStrongest("other");
+
+  document.getElementById("reflectionText").value = "";
+
+  document.getElementById("reflectionScreen").classList.remove("hidden");
 }
 
-function nextCase() {
-  document.getElementById("otherSideScreen").classList.add("hidden");
+
+	function selectStrongest(side) {
+  if (side === "your") {
+    alert("You chose: Your argument");
+  } else {
+    alert("You chose: Other side's argument");
+  }
+}
+	
+	
+	function nextCase() {
+  document.getElementById("reflectionScreen").classList.add("hidden");
   currentCase++;
 
   if (currentCase < cases.length) {
@@ -274,8 +328,10 @@ function nextCase() {
     showResult();
   }
 }
-
-function showResult() {
+	
+	
+	
+	function showResult() {
   document.getElementById("finalScore").innerText =
     "Total Score: " + score + " / " + (cases.length * 2);
 
