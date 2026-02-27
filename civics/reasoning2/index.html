@@ -14,7 +14,7 @@
   }
   #game {
     background: white;
-    width: 650px;
+    width: 700px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -38,6 +38,7 @@
     display: block;
     width: 100%;
     margin: 8px 0;
+    text-align: left;
   }
   .hidden {
     display: none;
@@ -56,7 +57,7 @@
   <div id="startScreen">
     <h1>Public Space: Argument Game</h1>
     <p>You will read a situation.</p>
-    <p>The game will give you a side.</p>
+    <p>The game will give you a position.</p>
     <p>Choose the strongest argument.</p>
     <p>This is about reasoning, not your opinion.</p>
     <button onclick="startGame()">Start Game</button>
@@ -66,12 +67,12 @@
   <div id="caseScreen" class="hidden">
     <h2 id="caseTitle"></h2>
     <div class="box" id="caseText"></div>
-    <button onclick="assignSide()">Get My Side</button>
+    <button onclick="assignSide()">Get My Position</button>
   </div>
 
   <!-- SIDE -->
   <div id="sideScreen" class="hidden">
-    <h2>Your Side</h2>
+    <h2>Your Position</h2>
     <div class="box" id="sideSituation"></div>
     <div class="box" id="sideText"></div>
     <button onclick="showArguments()">Choose Argument</button>
@@ -90,10 +91,10 @@
     <h2>Judge's Decision</h2>
     <p id="feedbackText"></p>
     <p class="score" id="scoreText"></p>
-    <button onclick="showOtherSide()">See Other Side</button>
+    <button onclick="showOtherSide()">See Result</button>
   </div>
 
-  <!-- OTHER SIDE -->
+  <!-- RESULT DETAIL -->
   <div id="otherSideScreen" class="hidden">
     <h2>You Argued</h2>
     <div class="box" id="resultSituation"></div>
@@ -106,7 +107,7 @@
     <button onclick="nextCase()">Next Case</button>
   </div>
 
-  <!-- RESULT -->
+  <!-- FINAL -->
   <div id="resultScreen" class="hidden">
     <h2>Your Result</h2>
     <p id="finalScore"></p>
@@ -121,35 +122,35 @@ const cases = [
   {
     title: "Case 1: Music in the Park",
     text: "A student wants to play loud music in a public park. Other people want quiet. There is a conflict. The city must decide.",
-    sideA: "Individual happiness is more important.",
-    sideB: "Society’s happiness is more important."
+    sideA: "The student should be allowed to play loud music in the park.",
+    sideB: "The student should NOT be allowed to play loud music in the park."
   },
   {
     title: "Case 2: Club Room",
-    text: "Two school clubs want the same classroom after school. Only one can use it. The school must decide.",
-    sideA: "Give the room to the bigger club (efficiency).",
-    sideB: "Share the room equally (fairness)."
+    text: "Two school clubs want the same classroom after school. Only one club can use it. The school must decide.",
+    sideA: "The school should give the room to the bigger club.",
+    sideB: "The school should make the clubs share the room."
   },
   {
     title: "Case 3: Curfew",
     text: "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
-    sideA: "Adolescents need freedom.",
-    sideB: "Society needs safety."
+    sideA: "The city should NOT have a curfew for 16-year-olds.",
+    sideB: "The city should have a curfew for 16-year-olds."
   },
   {
     title: "Case 4: Voting Age",
     text: "People can vote at 18. Some people say this is good. Some people say it is too early.",
-    sideA: "18-year-olds are adults and should vote.",
-    sideB: "People should vote after economic independence."
+    sideA: "18-year-olds should be allowed to vote.",
+    sideB: "18-year-olds should NOT be allowed to vote yet."
   }
 ];
 
 const argumentsList = [
-  { text: "This is fair for everyone.", points: 2, feedback: "Good argument. You used fairness." },
-  { text: "This helps many people quickly.", points: 2, feedback: "Good argument. You used efficiency." },
-  { text: "This is good for society.", points: 2, feedback: "Good argument. You used society." },
-  { text: "Many people will be happy.", points: 1, feedback: "Okay argument. You talked about happiness." },
-  { text: "I like this idea.", points: 0, feedback: "Weak argument. This is only personal opinion." }
+  { text: "This is fair because everyone can use the park peacefully.", points: 2, feedback: "Good argument. You used fairness." },
+  { text: "This helps many people, not only one person.", points: 2, feedback: "Good argument. You used society." },
+  { text: "This rule makes decisions clear and easy.", points: 2, feedback: "Good argument. You used efficiency." },
+  { text: "Some people will be happy with this decision.", points: 1, feedback: "Okay argument. You talked about happiness." },
+  { text: "I think this is better.", points: 0, feedback: "Weak argument. This is only personal opinion." }
 ];
 
 let currentCase = 0;
@@ -184,7 +185,6 @@ function assignSide() {
 
   document.getElementById("sideSituation").innerText = c.text;
   document.getElementById("sideText").innerText = "Your position: " + currentSide;
-
   document.getElementById("sideScreen").classList.remove("hidden");
 }
 
@@ -224,9 +224,9 @@ function showOtherSide() {
   const c = cases[currentCase];
 
   document.getElementById("resultSituation").innerText = "Situation: " + c.text;
-  document.getElementById("resultSide").innerText = "Your side: " + currentSide;
+  document.getElementById("resultSide").innerText = "Your position: " + currentSide;
   document.getElementById("resultArgument").innerText = "Your argument: " + chosenArgument;
-  document.getElementById("otherSideText").innerText = otherSide;
+  document.getElementById("otherSideText").innerText = "Other position: " + otherSide;
 
   document.getElementById("otherSideScreen").classList.remove("hidden");
 }
