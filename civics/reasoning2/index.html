@@ -14,13 +14,19 @@
   }
   #game {
     background: white;
-    width: 600px;
+    width: 650px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   h1, h2 {
     text-align: center;
+  }
+  .box {
+    background: #eef2f7;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
   }
   button {
     padding: 10px 15px;
@@ -59,20 +65,23 @@
   <!-- CASE -->
   <div id="caseScreen" class="hidden">
     <h2 id="caseTitle"></h2>
-    <p id="caseText"></p>
+    <div class="box" id="caseText"></div>
     <button onclick="assignSide()">Get My Side</button>
   </div>
 
   <!-- SIDE -->
   <div id="sideScreen" class="hidden">
     <h2>Your Side</h2>
-    <p id="sideText"></p>
+    <div class="box" id="sideSituation"></div>
+    <div class="box" id="sideText"></div>
     <button onclick="showArguments()">Choose Argument</button>
   </div>
 
   <!-- ARGUMENT -->
   <div id="argumentScreen" class="hidden">
     <h2>Choose Your Argument</h2>
+    <div class="box" id="argumentSituation"></div>
+    <div class="box" id="argumentSide"></div>
     <div id="argumentButtons"></div>
   </div>
 
@@ -86,8 +95,14 @@
 
   <!-- OTHER SIDE -->
   <div id="otherSideScreen" class="hidden">
-    <h2>Other Side</h2>
-    <p id="otherSideText"></p>
+    <h2>You Argued</h2>
+    <div class="box" id="resultSituation"></div>
+    <div class="box" id="resultSide"></div>
+    <div class="box" id="resultArgument"></div>
+
+    <h3>Other Side</h3>
+    <div class="box" id="otherSideText"></div>
+
     <button onclick="nextCase()">Next Case</button>
   </div>
 
@@ -141,6 +156,7 @@ let currentCase = 0;
 let score = 0;
 let currentSide = "";
 let otherSide = "";
+let chosenArgument = "";
 
 function startGame() {
   document.getElementById("startScreen").classList.add("hidden");
@@ -166,14 +182,20 @@ function assignSide() {
     otherSide = c.sideA;
   }
 
-  document.getElementById("sideText").innerText = currentSide;
+  document.getElementById("sideSituation").innerText = c.text;
+  document.getElementById("sideText").innerText = "Your position: " + currentSide;
+
   document.getElementById("sideScreen").classList.remove("hidden");
 }
 
 function showArguments() {
   document.getElementById("sideScreen").classList.add("hidden");
+  const c = cases[currentCase];
   const container = document.getElementById("argumentButtons");
   container.innerHTML = "";
+
+  document.getElementById("argumentSituation").innerText = c.text;
+  document.getElementById("argumentSide").innerText = "Your position: " + currentSide;
 
   argumentsList.forEach((arg, index) => {
     const btn = document.createElement("button");
@@ -189,6 +211,7 @@ function showArguments() {
 function chooseArgument(index) {
   document.getElementById("argumentScreen").classList.add("hidden");
   const arg = argumentsList[index];
+  chosenArgument = arg.text;
   score += arg.points;
 
   document.getElementById("feedbackText").innerText = arg.feedback;
@@ -198,8 +221,13 @@ function chooseArgument(index) {
 
 function showOtherSide() {
   document.getElementById("feedbackScreen").classList.add("hidden");
-  document.getElementById("otherSideText").innerText =
-    "You argued: " + currentSide + "\n\nThe other side says: " + otherSide;
+  const c = cases[currentCase];
+
+  document.getElementById("resultSituation").innerText = "Situation: " + c.text;
+  document.getElementById("resultSide").innerText = "Your side: " + currentSide;
+  document.getElementById("resultArgument").innerText = "Your argument: " + chosenArgument;
+  document.getElementById("otherSideText").innerText = otherSide;
+
   document.getElementById("otherSideScreen").classList.remove("hidden");
 }
 
