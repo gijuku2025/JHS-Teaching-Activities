@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +41,7 @@
             width: 100%;
             height: 500px;
             background: #000;
+			touch-action: none;
         }
 
         .wall {
@@ -194,16 +196,11 @@
             </div>
 
             
-			<div id="touch-controls" style="display:flex; justify-content:center; gap:10px; margin-top:10px;">
-  <button class="touch-btn" data-dir="up">⬆️</button>
-  <button class="touch-btn" data-dir="left">⬅️</button>
-  <button class="touch-btn" data-dir="down">⬇️</button>
-  <button class="touch-btn" data-dir="right">➡️</button>
-</div>
+			
 			
 			<div class="controls-hint">
-                ARROWS TO MOVE • SPACE TO START
-            </div>
+    SWIPE TO MOVE
+</div>
         </div>
     </div>
 
@@ -256,6 +253,36 @@
         ];
 
         const mazeContainer = document.getElementById('maze-container');
+		let touchStartX = 0;
+let touchStartY = 0;
+
+mazeContainer.addEventListener("touchstart", (e) => {
+  const t = e.touches[0];
+  touchStartX = t.clientX;
+  touchStartY = t.clientY;
+}, { passive: false });
+
+mazeContainer.addEventListener("touchend", (e) => {
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touchStartX;
+  const dy = t.clientY - touchStartY;
+
+  const minSwipe = 30; // ignore tiny movements
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (Math.abs(dx) > minSwipe) {
+      state.pacman.dir = dx > 0 ? "right" : "left";
+    }
+  } else {
+    if (Math.abs(dy) > minSwipe) {
+      state.pacman.dir = dy > 0 ? "down" : "up";
+    }
+  }
+});
+		
+		
+		
+		
         const pacmanEl = document.getElementById('pacman');
 
         function createMaze() {
@@ -381,12 +408,7 @@
         }
 
 		
-		document.querySelectorAll('.touch-btn').forEach(btn => {
-  btn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // stop scrolling/zooming
-    state.pacman.dir = btn.dataset.dir;
-  });
-});
+		
 		
 		
 		
@@ -461,15 +483,7 @@
             document.getElementById('start-btn').innerText = "TRY AGAIN";
         }
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowUp') state.pacman.dir = 'up';
-            if (e.key === 'ArrowDown') state.pacman.dir = 'down';
-            if (e.key === 'ArrowLeft') state.pacman.dir = 'left';
-            if (e.key === 'ArrowRight') state.pacman.dir = 'right';
-            
-            if (e.code === 'Space' && !state.gameActive) startGame();
-        });
-
+       
         document.getElementById('start-btn').onclick = startGame;
 
         function startGame() {
