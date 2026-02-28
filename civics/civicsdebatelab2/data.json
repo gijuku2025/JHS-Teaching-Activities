@@ -1,0 +1,97 @@
+{
+  "globalGlossary": {
+    "curfew": "夜間外出禁止",
+    "shared space": "共有空間",
+    "responsibility": "責任",
+    "authority": "権限",
+    "regulation": "規制",
+    "restrict": "制限する",
+    "independence": "自立",
+    "cooperation": "協力",
+    "consequence": "結果",
+    "interfere": "干渉する",
+    "enforce": "施行する"
+  },
+  "chapters": [...]
+}
+
+
+{
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Public Space",
+      "cases": [
+        {
+          "id": 1,
+          "title": "Music in the Park",
+          "text": "A student wants to play loud music in a public park. Other people want quiet.",
+          "sideA": "The student should be allowed to play loud music in the park.",
+          "sideB": "The student should NOT be allowed to play loud music in the park.",
+          "argumentsA": [
+            { "text": "The park is a public space for many activities, not only quiet rest.", "type": "social", "strength": "strong" },
+            { "text": "People who want quiet can move to another area of the park.", "type": "practical", "strength": "strong" },
+            { "text": "There is no rule against playing music in the park.", "type": "rule", "strength": "strong" },
+            { "text": "Music can make the park lively and enjoyable for many visitors.", "type": "social", "strength": "moderate" },
+            { "text": "Some people like listening to music while relaxing.", "type": "emotional", "strength": "moderate" },
+            { "text": "It’s fun to play loud music.", "type": "emotional", "strength": "weak" }
+          ],
+          "argumentsB": [
+            { "text": "The park is a shared space, so one person’s music should not disturb many others.", "type": "social", "strength": "strong" },
+            { "text": "People use parks to rest and enjoy nature, and loud music prevents this.", "type": "social", "strength": "strong" },
+            { "text": "Noise spreads far and affects people who did not choose to hear it.", "type": "social", "strength": "strong" },
+            { "text": "Rules are needed in public spaces to protect everyone’s comfort.", "type": "rule", "strength": "strong" },
+            { "text": "Many people go to parks to escape city noise.", "type": "practical", "strength": "moderate" },
+            { "text": "Loud music is annoying.", "type": "emotional", "strength": "weak" }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Club Room",
+          "text": "Two school clubs want the same classroom after school. Only one club can use it.",
+          "sideA": "The school should give the room to the bigger club.",
+          "sideB": "The school should make the clubs share the room.",
+          "argumentsA": [
+            { "text": "More students can use the room if the bigger club gets it.", "type": "practical", "strength": "strong" },
+            { "text": "The bigger club needs more space to practice safely and properly.", "type": "practical", "strength": "strong" },
+            { "text": "Using the room for the bigger club makes the best use of school resources.", "type": "practical", "strength": "strong" },
+            { "text": "If the room is always shared, practice time will be too short for both clubs.", "type": "practical", "strength": "moderate" },
+            { "text": "The school should choose the option that helps the most students.", "type": "social", "strength": "moderate" },
+            { "text": "Big clubs are more important.", "type": "emotional", "strength": "weak" }
+          ],
+          "argumentsB": [
+            { "text": "Both clubs are school activities and should be treated equally.", "type": "social", "strength": "strong" },
+            { "text": "Sharing teaches cooperation and respect between students.", "type": "developmental", "strength": "strong" },
+            { "text": "No club should have special power just because it is bigger.", "type": "social", "strength": "strong" },
+            { "text": "If one club always wins, the smaller club may disappear.", "type": "social", "strength": "moderate" },
+            { "text": "The school should make rules that are fair for all clubs.", "type": "rule", "strength": "moderate" },
+            { "text": "It feels unfair.", "type": "emotional", "strength": "weak" }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Curfew",
+          "text": "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
+          "sideA": "The city should NOT have a curfew for 16-year-olds.",
+          "sideB": "The city SHOULD have a curfew for 16-year-olds.",
+          "argumentsA": [
+            { "text": "Most 16-year-olds follow the law, so a curfew punishes many for the actions of a few.", "type": "social", "strength": "strong" },
+            { "text": "Young people may need to travel for jobs, clubs, or family reasons.", "type": "practical", "strength": "strong" },
+            { "text": "Freedom helps adolescents learn responsibility and independence.", "type": "developmental", "strength": "strong" },
+            { "text": "Police time should be used for serious crime, not checking teenagers’ ages.", "type": "practical", "strength": "strong" },
+            { "text": "A curfew does not solve the real causes of crime.", "type": "practical", "strength": "moderate" },
+            { "text": "Staying out late is fun.", "type": "emotional", "strength": "weak" }
+          ],
+          "argumentsB": [
+            { "text": "A curfew can reduce the risk of young people becoming victims of crime at night.", "type": "practical", "strength": "strong" },
+            { "text": "Late at night, it is harder for police to protect minors.", "type": "practical", "strength": "strong" },
+            { "text": "Clear rules help parents and police work together to protect adolescents.", "type": "rule", "strength": "strong" },
+            { "text": "Fewer young people on the streets at night can reduce noise and trouble.", "type": "practical", "strength": "moderate" },
+            { "text": "Society has a duty to protect minors more than adults.", "type": "social", "strength": "moderate" },
+            { "text": "People feel worried when teens are outside late at night.", "type": "emotional", "strength": "weak" }
+          ]
+        }
+      ]
+    }
+  ]
+}
