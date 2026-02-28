@@ -1,0 +1,23 @@
+{
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Public Space",
+      "cases": [
+        {
+          "id": 1,
+          "title": "Music in the Park",
+          "text": "A student wants to play loud music in a public park. Other people want quiet.",
+          "sideA": "The student should be allowed to play loud music in the park.",
+          "sideB": "The student should NOT be allowed to play loud music in the park.",
+          "argumentsA": [
+            { "text": "The park is a public space for many activities, not only quiet rest.", "feedback": "Strong social reasoning." }
+          ],
+          "argumentsB": [
+            { "text": "The park is shared, so one person’s music should not disturb many.", "feedback": "Strong fairness reasoning." }
+          ]
+        }
+      ]
+    }
+  ]
+}
