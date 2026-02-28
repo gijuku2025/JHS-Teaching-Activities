@@ -60,8 +60,10 @@ function openCase(c) {
   document.getElementById("caseSelectScreen").classList.add("hidden");
   document.getElementById("caseScreen").classList.remove("hidden");
 
-  document.getElementById("caseTitle").innerText = c.title;
-  document.getElementById("caseText").innerText = c.text;
+document.getElementById("caseTitle").innerText = c.title;
+document.getElementById("caseText").innerText = c.text;
+
+assignSide(); // automatically assign
 }
 
 function assignSide() {
@@ -86,9 +88,11 @@ function assignSide() {
   const sideText =
     currentSide === "A" ? currentCase.sideA : currentCase.sideB;
 
-  document.getElementById("caseScreen").classList.add("hidden");
-  document.getElementById("sideScreen").classList.remove("hidden");
-  document.getElementById("sideText").innerText = sideText;
+  document.getElementById("caseScreen").classList.remove("hidden");
+
+document.getElementById("caseText").innerHTML =
+  "<strong>Situation:</strong><br><br>" + currentCase.text +
+  "<br><br><strong>Your Position:</strong><br><br>" + sideText;
 }
 
 function showArguments() {
