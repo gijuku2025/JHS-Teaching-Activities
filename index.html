@@ -1,271 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>JHS Teaching Activities</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background: #f9f9f9;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    h2 {
-      color: #444;
-      margin-top: 30px;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      margin: 10px 0;
-    }
-    a {
-      text-decoration: none;
-      color: #0066cc;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Public Space Argument Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #game {
+    background: white;
+    width: 760px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h1, h2 { text-align: center; }
+  .box {
+    background: #eef2f7;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .choice {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    text-align: left;
+  }
+  .hidden { display: none; }
+  .score { font-weight: bold; }
+</style>
 </head>
 <body>
-  <h1>JHS Teaching Activities</h1>
 
-  <h2>🌍 Geography</h2>
-  <ul>
+	
+	
 
-    <li><a href="geography/srsver2/">SRS Ver 8.3</li>   
+	
+<div id="game">
 
-<li><a href="geography/pacmanquiz/">Pac Man quiz 5</li>   
+<div id="startScreen">
+  <h1>Public Space: Argument Game</h1>
+  <p>You will read a situation.</p>
+  <p>The game will give you a position.</p>
+  <p>Choose the strongest argument.</p>
+  <button onclick="startGame()">Start</button>
+</div>
 
-<li><a href="geography/rpg/">RPG 1</li>       
+<div id="caseScreen" class="hidden">
+  <h2 id="caseTitle"></h2>
+  <div class="box" id="caseText"></div>
+  <button onclick="assignSide()">Get My Position</button>
+</div>
 
-      <li><a href="geography/speechtest/">Speech Test 5</a></li>   
+<div id="sideScreen" class="hidden">
+  <h2>Your Position</h2>
+  <div class="box" id="sideSituation"></div>
+  <div class="box" id="sideText"></div>
+  <button onclick="showArguments()">Choose Argument</button>
+</div>
 
-<li><a href="geography/speakingpractice/">Speaking Practice Ver 4.7</a></li>   
-    
-    
-      <li><a href="geography/3minutechallengever7/">3 Minute Challenge</a></li> 
-    
-    <li><a href="geography/ch7listening/">Chapter 7 New Words Quiz</a></li> 
+<div id="argumentScreen" class="hidden">
+  <h2>Choose Your Argument</h2>
+  <div class="box" id="argumentSituation"></div>
+  <div class="box" id="argumentSide"></div>
+  <div id="argumentButtons"></div>
+</div>
 
-    <li><a href="geography/ch8listening/">Chapter 8 New Words Quiz</a></li>    
+<div id="feedbackScreen" class="hidden">
+  <h2>Judge</h2>
+  <p id="feedbackText"></p>
+ 
+  <button onclick="showOtherSide()">See Both Arguments</button>
+</div>
 
-    <li><a href="geography/ch8listenandlearn/">Chapter 8 Listen and Learn</a></li> 
 
-    <li><a href="geography/ch9newwords/">Chapter 9 New Words Quiz</a></li> 
-
-    <li><a href="geography/ch9listenandlearn/">Chapter 9 Listen and Learn</a></li>   
-
-    <li><a href="geography/ch10newwords/">Chapter 10 New Words Quiz</a></li>     
-
-    <li><a href="geography/ch10listenandlearn/">Chapter 10 Listen and Learn</a></li>   
-    
-   <li><a href="geography/ch11newwords/">Chapter 11 New Words Quiz</a></li>         
-
-     <li><a href="geography/ch11listenandlearn/">Chapter 11 Listen and Learn</a></li> 
-
-<li><a href="geography/ch12newwords/">Chapter 12 New Words Quiz</a></li>             
-
-       <li><a href="geography/ch12listenandlearn/">Chapter 12 Listen and Learn</a></li> 
-
-<li><a href="geography/ch13newwords/">Chapter 13 New Words Quiz</a></li>    
-
- <li><a href="geography/ch13listenandlearn/">Chapter 13 Listen and Learn</a></li> 
-
-<li><a href="geography/ch15newwords/">Chapter 15 New Words Quiz</a></li>        
-
-    <li><a href="geography/ch15listenandlearn/">Chapter 15 Listen and Learn</a></li> 
-
-<li><a href="geography/ch16newwords/">Chapter 16 New Words Quiz</a></li>   
-    
-<li><a href="geography/ch16listenandlearn/">Chapter 16 Listen and Learn</a></li> 
-
-<li><a href="geography/ch17newwords/">Chapter 17 New Words Quiz</a></li>   
-
-    <li><a href="geography/ch17listenandlearn/">Chapter 17 Listen and Learn</a></li> 
-    
-    <li><a href="geography/ch29mp3/">Chapter 29 New Words Quiz</a></li>
-    
-    <li><a href="geography/ch29freetradesim/">Chapter 29 Free Trade Simulation</a></li>
-
-    <li><a href="geography/ch30listening/">Chapter 30 New Words Quiz</a></li>  
-
-   <li><a href="geography/ch30listenandlearn/">Chapter 30 Listen and Learn</a></li>  
-
-   <li><a href="geography/ch31listening/">Chapter 31 New Words Quiz</a></li> 
-   
-    <li><a href="geography/ch31listenandlearn/">Chapter 31 Listen and Learn</a></li>  
-
- <li><a href="geography/ch32newwords/">Chapter 32 New Words Quiz</a></li>     
   
- <li><a href="geography/ch32listenandlearn/">Chapter 32 Listen and Learn</a></li>     
+	
+
+	
+	<div id="reflectionScreen" class="hidden">
+  <h2>Case Complete</h2>
+
+  <p id="caseDoneText"></p>
+  <p id="dateTimeText"></p>
+  
+
+  <h3>Which argument is the strongest?</h3>
+  <button class="choice" id="strongBtn1"></button>
+  <button class="choice" id="strongBtn2"></button>
+
+  <h3>Why?</h3>
+  <textarea id="reflectionText" rows="4" style="width:100%;"></textarea>
+
+  <p><b>Please screenshot this screen.</b></p>
+
+  <button onclick="nextCase()">Next Case</button>
+</div>
+	
+	
+ <div id="resultScreen" class="hidden">
+  <h2>Your Result</h2>
+  
+  <p id="finalComment"></p>
+  <button onclick="restart()">Play Again</button>
+</div>
+
+</div>
+
+<script>
+const cases = [
+{
+  title: "Case 1: Music in the Park",
+  text: "A student wants to play loud music in a public park. Other people want quiet.",
+  sideA: "The student should be allowed to play loud music in the park.",
+  sideB: "The student should NOT be allowed to play loud music in the park.",
+  argumentsA: [
+    { text: "The park is a public space for many activities, not only quiet rest.", points: 2, feedback: "Good. You used public space purpose." },
+    { text: "People who want quiet can move to another area of the park.", points: 2, feedback: "Good. You used choice and flexibility." },
+    { text: "There is no rule against playing music in the park.", points: 2, feedback: "Good. You used rule and agreement." },
+    { text: "Music can make the park lively and enjoyable for many visitors.", points: 1, feedback: "Okay. You used social happiness." },
+    { text: "Some people like listening to music while relaxing.", points: 1, feedback: "Okay. You used happiness." },
+    { text: "It’s fun to play loud music.", points: 0, feedback: "Weak. Only personal happiness." }
+  ],
+  argumentsB: [
+    { text: "The park is a shared space, so one person’s music should not disturb many others.", points: 2, feedback: "Good. You used society over individual." },
+    { text: "People use parks to rest and enjoy nature, and loud music prevents this.", points: 2, feedback: "Good. You used purpose of the park." },
+    { text: "Noise spreads far and affects people who did not choose to hear it.", points: 2, feedback: "Good. You used lack of consent." },
+    { text: "Rules are needed in public spaces to protect everyone’s comfort.", points: 2, feedback: "Good. You used agreement and order." },
+    { text: "Many people go to parks to escape city noise.", points: 1, feedback: "Okay. You used environment and happiness." },
+    { text: "Loud music is annoying.", points: 0, feedback: "Weak. Only emotion." }
+  ]
+},
+
+{
+  title: "Case 2: Club Room",
+  text: "Two school clubs want the same classroom after school. Only one club can use it.",
+  sideA: "The school should give the room to the bigger club.",
+  sideB: "The school should make the clubs share the room.",
+  argumentsA: [
+    { text: "More students can use the room if the bigger club gets it.", points: 2, feedback: "Good. You used efficiency." },
+    { text: "The bigger club needs more space to practice safely and properly.", points: 2, feedback: "Good. You used need and safety." },
+    { text: "Using the room for the bigger club makes the best use of school resources.", points: 2, feedback: "Good. You used resource management." },
+    { text: "If the room is always shared, practice time will be too short for both clubs.", points: 1, feedback: "Okay. You used practical consequences." },
+    { text: "The school should choose the option that helps the most students.", points: 1, feedback: "Okay. You used society-first logic." },
+    { text: "Big clubs are more important.", points: 0, feedback: "Weak. Value judgment only." }
+  ],
+  argumentsB: [
+    { text: "Both clubs are school activities and should be treated equally.", points: 2, feedback: "Good. You used fairness and equality." },
+    { text: "Sharing teaches cooperation and respect between students.", points: 2, feedback: "Good. You used social learning." },
+    { text: "No club should have special power just because it is bigger.", points: 2, feedback: "Good. You used anti-discrimination logic." },
+    { text: "If one club always wins, the smaller club may disappear.", points: 1, feedback: "Okay. You used protection of minority groups." },
+    { text: "The school should make rules that are fair for all clubs.", points: 1, feedback: "Okay. You used rule-based reasoning." },
+    { text: "It feels unfair.", points: 0, feedback: "Weak. Emotion only." }
+  ]
+},
+
+{
+  title: "Case 3: Curfew",
+  text: "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
+  sideA: "The city should NOT have a curfew for 16-year-olds.",
+  sideB: "The city SHOULD have a curfew for 16-year-olds.",
+  argumentsA: [
+    { text: "Most 16-year-olds follow the law, so a curfew punishes many for the actions of a few.", points: 2, feedback: "Good. You used fairness." },
+    { text: "Young people may need to travel for jobs, clubs, or family reasons.", points: 2, feedback: "Good. You used real-life needs." },
+    { text: "Freedom helps adolescents learn responsibility and independence.", points: 2, feedback: "Good. You used civic development." },
+    { text: "Police time should be used for serious crime, not checking teenagers’ ages.", points: 2, feedback: "Good. You used efficiency." },
+    { text: "A curfew does not solve the real causes of crime.", points: 1, feedback: "Okay. You used policy effectiveness." },
+    { text: "Staying out late is fun.", points: 0, feedback: "Weak. Only personal pleasure." }
+  ],
+  argumentsB: [
+    { text: "A curfew can reduce the risk of young people becoming victims of crime at night.", points: 2, feedback: "Good. You used protection and safety." },
+    { text: "Late at night, it is harder for police to protect minors.", points: 2, feedback: "Good. You used limits of public services." },
+    { text: "Clear rules help parents and police work together to protect adolescents.", points: 2, feedback: "Good. You used cooperation and agreement." },
+    { text: "Fewer young people on the streets at night can reduce noise and trouble.", points: 1, feedback: "Okay. You used public order." },
+    { text: "Society has a duty to protect minors more than adults.", points: 1, feedback: "Okay. You used special protection." },
+    { text: "People feel worried when teens are outside late at night.", points: 0, feedback: "Weak. Stereotype." }
+  ]
+}
+];
+
+let currentCase = 0;
+
+let currentSide = "";
+let otherSide = "";
+let chosenArgument = "";
+let otherArgument = "";
+let argumentSet = [];
+let otherArgumentSet = [];
+
+	
+
+function startGame() {
+  document.getElementById("startScreen").classList.add("hidden");
+  showCase();
+}
+
+function showCase() {
+  const c = cases[currentCase];
+
+  document.getElementById("caseScreen").classList.remove("hidden");
+  document.getElementById("sideScreen").classList.add("hidden");
+  document.getElementById("argumentScreen").classList.add("hidden");
+  document.getElementById("feedbackScreen").classList.add("hidden");
+
+  document.getElementById("caseTitle").innerText = c.title;
+  document.getElementById("caseText").innerText = c.text;
+}
+function assignSide() {
+  document.getElementById("caseScreen").classList.add("hidden");
+  const c = cases[currentCase];
+
+  if (Math.random() < 0.5) {
+    currentSide = c.sideA;
+    otherSide = c.sideB;
+    argumentSet = c.argumentsA;
+    otherArgumentSet = c.argumentsB;
+  } else {
+    currentSide = c.sideB;
+    otherSide = c.sideA;
+    argumentSet = c.argumentsB;
+    otherArgumentSet = c.argumentsA;
+  }
+
+  document.getElementById("sideSituation").innerText = c.text;
+  document.getElementById("sideText").innerText = "Your position: " + currentSide;
+  document.getElementById("sideScreen").classList.remove("hidden");
+}
+
+function showArguments() {
+  document.getElementById("sideScreen").classList.add("hidden");
+  const c = cases[currentCase];
+  const container = document.getElementById("argumentButtons");
+  container.innerHTML = "";
+
+  document.getElementById("argumentSituation").innerText = c.text;
+  document.getElementById("argumentSide").innerText = "Your position: " + currentSide;
+
+  argumentSet.forEach((arg, index) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerText = arg.text;
+    btn.onclick = () => chooseArgument(index);
+    container.appendChild(btn);
+  });
+
+  document.getElementById("argumentScreen").classList.remove("hidden");
+}
+
+function chooseArgument(index) {
+  document.getElementById("argumentScreen").classList.add("hidden");
+
+  const arg = argumentSet[index];
+  chosenArgument = arg.text;
+
+  const rand = Math.floor(Math.random() * otherArgumentSet.length);
+  otherArgument = otherArgumentSet[rand].text;
+
+  let qualityFeedback = "";
+
+  if (arg.points === 2) {
+    qualityFeedback = "Strong reasoning. You used social impact, fairness, or rules.";
+  } else if (arg.points === 1) {
+    qualityFeedback = "Reasonable argument, but it could be stronger if you explain impact on society.";
+  } else {
+    qualityFeedback = "Weak reasoning. Avoid personal feelings only. Think about fairness, rules, or consequences.";
+  }
+
+  document.getElementById("feedbackText").innerText =
+    arg.feedback + "\n\n" + qualityFeedback;
+
+  document.getElementById("feedbackScreen").classList.remove("hidden");
+}
+
+function showOtherSide() {
+  document.getElementById("feedbackScreen").classList.add("hidden");
+
+  const c = cases[currentCase];
+  const now = new Date();
+  const dateTime = now.toLocaleString();
+
+  const chosenObj = argumentSet.find(a => a.text === chosenArgument);
+
+  let improvementText = "";
+
+  if (chosenObj.points === 2) {
+    improvementText = "You used strong social reasoning. To improve further, explain long-term consequences or possible counterarguments.";
+  } else if (chosenObj.points === 1) {
+    improvementText = "This was reasonable, but it could be stronger if you clearly connect it to fairness, rights, or public impact.";
+  } else {
+    improvementText = "This argument relied mostly on opinion. Try using rules, social consequences, fairness, or shared agreements.";
+  }
+
+  document.getElementById("caseDoneText").innerText =
+    "Completed: " + c.title + 
+    "\n\nFeedback:\n" + improvementText;
+
+  document.getElementById("dateTimeText").innerText =
+    "Date & Time: " + dateTime;
+
+  const btn1 = document.getElementById("strongBtn1");
+  const btn2 = document.getElementById("strongBtn2");
+
+  btn1.innerText = "Argument A:\n" + chosenArgument;
+  btn2.innerText = "Argument B:\n" + otherArgument;
+
+  btn1.onclick = () => selectStrongest(btn1, btn2);
+  btn2.onclick = () => selectStrongest(btn2, btn1);
+
+  document.getElementById("reflectionText").value = "";
+
+  document.getElementById("reflectionScreen").classList.remove("hidden");
+}
+	
+	
+	
+	
+	
+	function selectStrongest(selectedBtn, otherBtn) {
+
+  const btn1 = document.getElementById("strongBtn1");
+  const btn2 = document.getElementById("strongBtn2");
+
+  // Reset styles
+  btn1.style.background = "";
+  btn2.style.background = "";
+
+  // Highlight selected
+  selectedBtn.style.background = "#c8f7c5";
+
+  // Make it clearly visible in screenshot
+  selectedBtn.innerText = "✓ STRONGEST:\n" + selectedBtn.innerText.replace("✓ STRONGEST:\n", "");
+
+  // Ensure the other button doesn't accidentally show the label
+  otherBtn.innerText = otherBtn.innerText.replace("✓ STRONGEST:\n", "");
+}
+	
+	
+	function nextCase() {
+
+  document.getElementById("reflectionScreen").classList.add("hidden");
+
+  currentCase++;
+
+  if (currentCase < cases.length) {
+    showCase();
+  } else {
+    document.getElementById("resultScreen").classList.remove("hidden");
+    document.getElementById("finalComment").innerText =
+      "All cases completed. Thank you for reflecting carefully.";
+  }
+}
+	
+	
+	
+
+function restart() {
+  currentCase = 0;
+  
+  document.getElementById("resultScreen").classList.add("hidden");
+  document.getElementById("startScreen").classList.remove("hidden");
+}
+</script>
 
- <li><a href="geography/ch33newwords/">Chapter 33 New Words Quiz</a></li> 
-    
-<li><a href="geography/ch33listenandlearn/">Chapter 33 Listen and Learn</a></li>     
-
- <li><a href="geography/ch34newwords/">Chapter 34 New Words Quiz</a></li> 
-
-  <li><a href="geography/ch34listenandlearn/">Chapter 34 Listen and Learn</a></li>     
-
- <li><a href="geography/ch35newwords/">Chapter 35 New Words Quiz</a></li> 
-
- <li><a href="geography/ch35listenandlearn/">Chapter 35 Listen and Learn</a></li> 
-
-<li><a href="geography/ch36newwords/">Chapter 36 New Words Quiz</a></li> 
-
-    <li><a href="geography/ch36listenandlearn/">Chapter 36 Listen and Learn</a></li> 
-
-<li><a href="geography/ch37newwords/">Chapter 37 New Words Quiz</a></li>   
-
-    <li><a href="geography/ch37listenandlearn/">Chapter 37 Listen and Learn</a></li> 
-
-<li><a href="geography/ch38newwords/">Chapter 38 New Words Quiz</a></li>   
-
-    <li><a href="geography/ch38listenandlearn/">Chapter 38 Listen and Learn</a></li> 
-
-<li><a href="geography/ch39newwords/">Chapter 39 New Words Quiz</a></li>   
-
-     <li><a href="geography/ch39listenandlearn/">Chapter 39 Listen and Learn</a></li> 
-
-    <li><a href="geography/ch40newwords/">Chapter 40 New Words Quiz</a></li>   
-
-    <li><a href="geography/ch40listenandlearn/">Chapter 40 Listen and Learn</a></li> 
-    
-<li><a href="civics/2609v4/">True and False Demo 5</a></li>         
-
-    <li><a href="civics/0210v1/">True and False Demo 6</a></li>      
-
-      
-    
-  </ul>    
-  </ul>
-
-  <h2>🏛 Civics</h2>
-  <ul>
-
-
- <li><a href="civics/smartreviewcivics/">Smart Review 1</a></li>  
-    
-    <li><a href="civics/newerboardgame/">General 30 Seconds 1.0</a></li>  
-
-    <li><a href="civics/30secondswarmup/">30 Seconds Warm Up</a></li>  
-    
-<li><a href="civics/newboardgame/">30 Seconds Board Game</a></li> 
-
-    <li><a href="civics/thinkingtool5/">Reasoning Tool</a></li> 
-    
-       <li><a href="civics/ch1newwords/">Chapter 1 New Words Quiz</a></li>  
-
-  <li><a href="civics/ch1listenandlearn/">Chapter 1 Listen and Learn</a></li>     
-    
- <li><a href="civics/ch2newwords/">Chapter 2 New Words Quiz</a></li>  
-
-  <li><a href="civics/ch2listenandlearn/">Chapter 2 Listen and Learn</a></li>     
-
-    <li><a href="civics/ch3newwords/">Chapter 3 New Words Quiz</a></li>      
-
- <li><a href="civics/ch3listenandlearn/">Chapter 3 Listen and Learn</a></li>     
-
- <li><a href="civics/ch4newwords/">Chapter 4 New Words Quiz</a></li> 
-
-<li><a href="civics/ch4listenandlearn/">Chapter 4 Listen and Learn</a></li>     
-
- <li><a href="civics/ch5newwords/">Chapter 5 New Words Quiz</a></li> 
-
-<li><a href="civics/ch5listenandlearn/">Chapter 5 Listen and Learn</a></li>    
-
-<li><a href="civics/ch6newwords/">Chapter 6 New Words Quiz</a></li>     
-
-<li><a href="civics/ch6listenandlearn/">Chapter 6 Listen and Learn</a></li>        
-    
-    <li><a href="civics/ch12alternate/">Chapter 12 New Words Quiz</a></li>   
-
-     <li><a href="civics/ch13listening/">Chapter 13 New Words Quiz</a></li>
-    
-    <li><a href="civics/borrowingsim/">Borrowing Cost Simulator</a></li>  
-
-   <li><a href="civics/ch14listening/">Chapter 14 New Words Quiz</a></li> 
-
-    <li><a href="civics/ch14listenandlearn/">Chapter 14 Listen and Learn</a></li>     
-
-     <li><a href="civics/ch15newwords/">Chapter 15 New Words Quiz</a></li>     
-
-  <li><a href="civics/ch15listenandlearn/">Chapter 15 Listen and Learn</a></li> 
-
- <li><a href="civics/ch16newwords/">Chapter 16 New Words Quiz</a></li>     
-
- <li><a href="civics/ch16listenandlearn/">Chapter 16 Listen and Learn</a></li> 
-
-  <li><a href="civics/ch17newwords/">Chapter 17 New Words Quiz</a></li>  
-
-<li><a href="civics/ch17listenandlearn/">Chapter 17 Listen and Learn</a></li> 
-
-    <li><a href="civics/ch18newwords/">Chapter 18 New Words Quiz</a></li>  
-
-    <li><a href="civics/ch18listenandlearn/">Chapter 18 Listen and Learn</a></li>     
-
- <li><a href="civics/ch19newwords/">Chapter 19 New Words Quiz</a></li>  
-
-  <li><a href="civics/ch19listenandlearn/">Chapter 19 Listen and Learn</a></li>     
-
-<li><a href="civics/ch20newwords/">Chapter 20 New Words Quiz</a></li>     
-
-     <li><a href="civics/ch20listenandlearn/">Chapter 20 Listen and Learn</a></li>     
-
-    <li><a href="civics/ch21newwords/">Chapter 21 New Words Quiz</a></li>    
-
- <li><a href="civics/ch21listenandlearn/">Chapter 21 Listen and Learn</a></li>     
-
-    <li><a href="civics/ch22newwords/">Chapter 22 New Words Quiz</a></li>    
-
-    <li><a href="civics/ch22listenandlearn/">Chapter 22 Listen and Learn</a></li> 
-
-    <li><a href="civics/ch23newwords/">Chapter 23 New Words Quiz</a></li>    
-
-    <li><a href="civics/ch23listenandlearn/">Chapter 23 Listen and Learn</a></li>     
-
-    <li><a href="civics/ch24newwords/">Chapter 24 New Words Quiz</a></li>    
-
- <li><a href="civics/ch24listenandlearn/">Chapter 24 Listen and Learn</a></li>         
- 
- <li><a href="civics/ch25newwords/">Chapter 25 New Words Quiz</a></li>    
-
- <li><a href="civics/ch25listenandlearn/">Chapter 25 Listen and Learn</a></li>     
-
- <li><a href="civics/ch26newwords/">Chapter 26 New Words Quiz</a></li>    
-
- <li><a href="civics/ch26listenandlearn/">Chapter 26 Listen and Learn</a></li>     
-    
-<li><a href="civics/testfile13/">VWX</a></li>
-
-<li><a href="civics/srsver1/">SRS Ver 1.2 Ch 40</a></li>     
-
-<li><a href="civics/treasuretrove4/">Treasure Trove 4.1</a></li>     
-
-<li><a href="civics/treasuretrove3/">3 Minute Challenge Ver 1</a></li>  
-
-<li><a href="civics/3minutechallengever1/">3 Minute Challenge Ver 4</a></li> 
-
-    <li><a href="civics/3minutechallengever2/">3 Minute Challenge Ver 5</a></li> 
-
-    <li><a href="civics/3minutechallengever3/">3 Minute Challenge Ver 6</a></li>     
-
-    <li><a href="civics/3minutechallengever4/">3 Minute Challenge Ver 7</a></li>     
-
-     <li><a href="civics/3minutechallengever5/">3 Minute Challenge Ver 8.3</a></li> 
- 
-    <li><a href="civics/reasoning/">Reasoning Game</a></li> 
-
-     <li><a href="civics/reasoning2/">Reasoning Game 9</a></li>     
-
-     <li><a href="geography/kanjisrs/">k7</a></li>       
-  </ul>
 </body>
 </html>
