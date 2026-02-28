@@ -42,3 +42,13 @@ textarea {
   width: 100%;
   padding: 8px;
 }
+.centerHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.appTitle {
+  margin-top: 5px;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
