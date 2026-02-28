@@ -117,15 +117,51 @@ function showArguments() {
 }
 
 function chooseArgument(arg, otherSet) {
-  chosenArgument = arg.text;
+  chosenArgument = arg;
+
   const rand = Math.floor(Math.random() * otherSet.length);
-  otherArgument = otherSet[rand].text;
+  otherArgument = otherSet[rand];
 
   document.getElementById("argumentScreen").classList.add("hidden");
   document.getElementById("feedbackScreen").classList.remove("hidden");
 
-  document.getElementById("feedbackText").innerText = arg.feedback;
+  generateFeedback(arg);
 }
+
+function generateFeedback(arg) {
+  const typeMap = {
+    social: "fairness, shared impact, or rights",
+    practical: "real-world consequences or efficiency",
+    rule: "laws, agreements, or formal structure",
+    developmental: "growth, responsibility, or learning",
+    emotional: "personal feelings or reactions"
+  };
+
+  let strengthText = "";
+  let improvementText = "";
+
+  if (arg.strength === "strong") {
+    strengthText = "You selected a STRONG " + arg.type + " argument.";
+    improvementText = "This is effective reasoning in civic debate.";
+  } 
+  else if (arg.strength === "moderate") {
+    strengthText = "You selected a MODERATE " + arg.type + " argument.";
+    improvementText = "It could be stronger if you connect it more clearly to public impact.";
+  } 
+  else {
+    strengthText = "You selected a WEAK " + arg.type + " argument.";
+    improvementText = "Try using fairness, consequences, or shared rules instead of personal opinion.";
+  }
+
+  const explanation =
+    "This type of reasoning focuses on " + typeMap[arg.type] + ".";
+
+  document.getElementById("feedbackText").innerText =
+    strengthText + "\n\n" +
+    explanation + "\n\n" +
+    improvementText;
+}
+
 
 function showReflection() {
   document.getElementById("feedbackScreen").classList.add("hidden");
@@ -140,14 +176,16 @@ function showReflection() {
     "\nCase: " + currentCase.title +
     "\nPosition: " +
     (currentSide === "A" ? currentCase.sideA : currentCase.sideB) +
-    "\nChosen Argument:\n" + chosenArgument +
+    "\nChosen Argument:\n" + chosenArgument.text +
+"\nType: " + chosenArgument.type +
+"\nStrength: " + chosenArgument.strength +
     "\nDate & Time: " + now;
 
   const btn1 = document.getElementById("strongBtn1");
   const btn2 = document.getElementById("strongBtn2");
 
-  btn1.innerText = chosenArgument;
-  btn2.innerText = otherArgument;
+  btn1.innerText = chosenArgument.text;
+  btn2.innerText = otherArgument.text;
 
   btn1.onclick = () => selectStrongest(btn1);
   btn2.onclick = () => selectStrongest(btn2);
