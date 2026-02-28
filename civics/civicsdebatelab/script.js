@@ -93,6 +93,11 @@ function assignSide() {
 document.getElementById("caseText").innerHTML =
   "<strong>Situation:</strong><br><br>" + currentCase.text +
   "<br><br><strong>Your Position:</strong><br><br>" + sideText;
+
+document.getElementById("continueToArguments").onclick = () => {
+  document.getElementById("caseScreen").classList.add("hidden");
+  showArguments();
+};  
 }
 
 function showArguments() {
