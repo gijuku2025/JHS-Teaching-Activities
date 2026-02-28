@@ -81,7 +81,7 @@
 <div id="feedbackScreen" class="hidden">
   <h2>Judge</h2>
   <p id="feedbackText"></p>
-  <p class="score" id="scoreText"></p>
+ 
   <button onclick="showOtherSide()">See Both Arguments</button>
 </div>
 
@@ -95,7 +95,7 @@
 
   <p id="caseDoneText"></p>
   <p id="dateTimeText"></p>
-  <p class="score" id="caseScoreText"></p>
+  
 
   <h3>Which argument is the strongest?</h3>
   <button class="choice" id="strongBtn1"></button>
@@ -112,7 +112,7 @@
 	
  <div id="resultScreen" class="hidden">
   <h2>Your Result</h2>
-  <p id="finalScore"></p>
+  
   <p id="finalComment"></p>
   <button onclick="restart()">Play Again</button>
 </div>
@@ -192,14 +192,14 @@ const cases = [
 ];
 
 let currentCase = 0;
-let score = 0;
+
 let currentSide = "";
 let otherSide = "";
 let chosenArgument = "";
 let otherArgument = "";
 let argumentSet = [];
 let otherArgumentSet = [];
-let caseScore = 0;
+
 	
 
 function startGame() {
@@ -261,19 +261,26 @@ function showArguments() {
 
 function chooseArgument(index) {
   document.getElementById("argumentScreen").classList.add("hidden");
+
   const arg = argumentSet[index];
   chosenArgument = arg.text;
- score += arg.points;
- caseScore = arg.points;
-	
-	
-	
 
   const rand = Math.floor(Math.random() * otherArgumentSet.length);
   otherArgument = otherArgumentSet[rand].text;
 
-  document.getElementById("feedbackText").innerText = arg.feedback;
-  document.getElementById("scoreText").innerText = "+" + arg.points + " points";
+  let qualityFeedback = "";
+
+  if (arg.points === 2) {
+    qualityFeedback = "Strong reasoning. You used social impact, fairness, or rules.";
+  } else if (arg.points === 1) {
+    qualityFeedback = "Reasonable argument, but it could be stronger if you explain impact on society.";
+  } else {
+    qualityFeedback = "Weak reasoning. Avoid personal feelings only. Think about fairness, rules, or consequences.";
+  }
+
+  document.getElementById("feedbackText").innerText =
+    arg.feedback + "\n\n" + qualityFeedback;
+
   document.getElementById("feedbackScreen").classList.remove("hidden");
 }
 
@@ -281,76 +288,87 @@ function showOtherSide() {
   document.getElementById("feedbackScreen").classList.add("hidden");
 
   const c = cases[currentCase];
-
   const now = new Date();
   const dateTime = now.toLocaleString();
 
+  const chosenObj = argumentSet.find(a => a.text === chosenArgument);
+
+  let improvementText = "";
+
+  if (chosenObj.points === 2) {
+    improvementText = "You used strong social reasoning. To improve further, explain long-term consequences or possible counterarguments.";
+  } else if (chosenObj.points === 1) {
+    improvementText = "This was reasonable, but it could be stronger if you clearly connect it to fairness, rights, or public impact.";
+  } else {
+    improvementText = "This argument relied mostly on opinion. Try using rules, social consequences, fairness, or shared agreements.";
+  }
+
   document.getElementById("caseDoneText").innerText =
-    "Completed: " + c.title;
+    "Completed: " + c.title + 
+    "\n\nFeedback:\n" + improvementText;
 
   document.getElementById("dateTimeText").innerText =
     "Date & Time: " + dateTime;
 
-  document.getElementById("caseScoreText").innerText =
-    "Score for this case: " + caseScore + " / 2";
-
   const btn1 = document.getElementById("strongBtn1");
   const btn2 = document.getElementById("strongBtn2");
 
-  btn1.innerText = "Your side: " + chosenArgument;
-  btn2.innerText = "Other side: " + otherArgument;
+  btn1.innerText = "Argument A:\n" + chosenArgument;
+  btn2.innerText = "Argument B:\n" + otherArgument;
 
-  btn1.onclick = () => selectStrongest("your");
-  btn2.onclick = () => selectStrongest("other");
+  btn1.onclick = () => selectStrongest(btn1, btn2);
+  btn2.onclick = () => selectStrongest(btn2, btn1);
 
   document.getElementById("reflectionText").value = "";
 
   document.getElementById("reflectionScreen").classList.remove("hidden");
 }
+	
+	
+	
+	
+	
+	function selectStrongest(selectedBtn, otherBtn) {
 
+  const btn1 = document.getElementById("strongBtn1");
+  const btn2 = document.getElementById("strongBtn2");
 
-	function selectStrongest(side) {
-  if (side === "your") {
-    alert("You chose: Your argument");
-  } else {
-    alert("You chose: Other side's argument");
-  }
+  // Reset styles
+  btn1.style.background = "";
+  btn2.style.background = "";
+
+  // Highlight selected
+  selectedBtn.style.background = "#c8f7c5";
+
+  // Make it clearly visible in screenshot
+  selectedBtn.innerText = "✓ STRONGEST:\n" + selectedBtn.innerText.replace("✓ STRONGEST:\n", "");
+
+  // Ensure the other button doesn't accidentally show the label
+  otherBtn.innerText = otherBtn.innerText.replace("✓ STRONGEST:\n", "");
 }
 	
 	
 	function nextCase() {
+
   document.getElementById("reflectionScreen").classList.add("hidden");
+
   currentCase++;
 
   if (currentCase < cases.length) {
     showCase();
   } else {
-    showResult();
+    document.getElementById("resultScreen").classList.remove("hidden");
+    document.getElementById("finalComment").innerText =
+      "All cases completed. Thank you for reflecting carefully.";
   }
 }
 	
 	
 	
-	function showResult() {
-  document.getElementById("finalScore").innerText =
-    "Total Score: " + score + " / " + (cases.length * 2);
-
-  let comment = "";
-  if (score >= 5) {
-    comment = "Excellent. You used strong social arguments.";
-  } else if (score >= 3) {
-    comment = "Good. Try to use fairness and society more.";
-  } else {
-    comment = "Try again. Avoid opinion-only arguments.";
-  }
-
-  document.getElementById("finalComment").innerText = comment;
-  document.getElementById("resultScreen").classList.remove("hidden");
-}
 
 function restart() {
   currentCase = 0;
-  score = 0;
+  
   document.getElementById("resultScreen").classList.add("hidden");
   document.getElementById("startScreen").classList.remove("hidden");
 }
