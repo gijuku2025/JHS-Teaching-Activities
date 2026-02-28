@@ -11,10 +11,66 @@
           "sideA": "The student should be allowed to play loud music in the park.",
           "sideB": "The student should NOT be allowed to play loud music in the park.",
           "argumentsA": [
-            { "text": "The park is a public space for many activities, not only quiet rest.", "feedback": "Strong social reasoning." }
+            { "text": "The park is a public space for many activities, not only quiet rest.", "feedback": "Good. You used public space purpose." },
+            { "text": "People who want quiet can move to another area of the park.", "feedback": "Good. You used choice and flexibility." },
+            { "text": "There is no rule against playing music in the park.", "feedback": "Good. You used rule and agreement." },
+            { "text": "Music can make the park lively and enjoyable for many visitors.", "feedback": "Okay. You used social happiness." },
+            { "text": "Some people like listening to music while relaxing.", "feedback": "Okay. You used happiness." },
+            { "text": "It’s fun to play loud music.", "feedback": "Weak. Only personal happiness." }
           ],
           "argumentsB": [
-            { "text": "The park is shared, so one person’s music should not disturb many.", "feedback": "Strong fairness reasoning." }
+            { "text": "The park is a shared space, so one person’s music should not disturb many others.", "feedback": "Good. You used society over individual." },
+            { "text": "People use parks to rest and enjoy nature, and loud music prevents this.", "feedback": "Good. You used purpose of the park." },
+            { "text": "Noise spreads far and affects people who did not choose to hear it.", "feedback": "Good. You used lack of consent." },
+            { "text": "Rules are needed in public spaces to protect everyone’s comfort.", "feedback": "Good. You used agreement and order." },
+            { "text": "Many people go to parks to escape city noise.", "feedback": "Okay. You used environment and happiness." },
+            { "text": "Loud music is annoying.", "feedback": "Weak. Only emotion." }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Club Room",
+          "text": "Two school clubs want the same classroom after school. Only one club can use it.",
+          "sideA": "The school should give the room to the bigger club.",
+          "sideB": "The school should make the clubs share the room.",
+          "argumentsA": [
+            { "text": "More students can use the room if the bigger club gets it.", "feedback": "Good. You used efficiency." },
+            { "text": "The bigger club needs more space to practice safely and properly.", "feedback": "Good. You used need and safety." },
+            { "text": "Using the room for the bigger club makes the best use of school resources.", "feedback": "Good. You used resource management." },
+            { "text": "If the room is always shared, practice time will be too short for both clubs.", "feedback": "Okay. You used practical consequences." },
+            { "text": "The school should choose the option that helps the most students.", "feedback": "Okay. You used society-first logic." },
+            { "text": "Big clubs are more important.", "feedback": "Weak. Value judgment only." }
+          ],
+          "argumentsB": [
+            { "text": "Both clubs are school activities and should be treated equally.", "feedback": "Good. You used fairness and equality." },
+            { "text": "Sharing teaches cooperation and respect between students.", "feedback": "Good. You used social learning." },
+            { "text": "No club should have special power just because it is bigger.", "feedback": "Good. You used anti-discrimination logic." },
+            { "text": "If one club always wins, the smaller club may disappear.", "feedback": "Okay. You used protection of minority groups." },
+            { "text": "The school should make rules that are fair for all clubs.", "feedback": "Okay. You used rule-based reasoning." },
+            { "text": "It feels unfair.", "feedback": "Weak. Emotion only." }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Curfew",
+          "text": "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
+          "sideA": "The city should NOT have a curfew for 16-year-olds.",
+          "sideB": "The city SHOULD have a curfew for 16-year-olds.",
+          "argumentsA": [
+            { "text": "Most 16-year-olds follow the law, so a curfew punishes many for the actions of a few.", "feedback": "Good. You used fairness." },
+            { "text": "Young people may need to travel for jobs, clubs, or family reasons.", "feedback": "Good. You used real-life needs." },
+            { "text": "Freedom helps adolescents learn responsibility and independence.", "feedback": "Good. You used civic development." },
+            { "text": "Police time should be used for serious crime, not checking teenagers’ ages.", "feedback": "Good. You used efficiency." },
+            { "text": "A curfew does not solve the real causes of crime.", "feedback": "Okay. You used policy effectiveness." },
+            { "text": "Staying out late is fun.", "feedback": "Weak. Only personal pleasure." }
+          ],
+          "argumentsB": [
+            { "text": "A curfew can reduce the risk of young people becoming victims of crime at night.", "feedback": "Good. You used protection and safety." },
+            { "text": "Late at night, it is harder for police to protect minors.", "feedback": "Good. You used limits of public services." },
+            { "text": "Clear rules help parents and police work together to protect adolescents.", "feedback": "Good. You used cooperation and agreement." },
+            { "text": "Fewer young people on the streets at night can reduce noise and trouble.", "feedback": "Okay. You used public order." },
+            { "text": "Society has a duty to protect minors more than adults.", "feedback": "Okay. You used special protection." },
+            { "text": "People feel worried when teens are outside late at night.", "feedback": "Weak. Stereotype." }
           ]
         }
       ]
