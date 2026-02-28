@@ -156,10 +156,11 @@ document.getElementById("continueToArguments").onclick = () => {
 }
 
 function showArguments() {
-if (openGloss) {
-  openGloss.classList.remove("open");
-  openGloss = null;
-}
+
+  if (openGloss) {
+    openGloss.classList.remove("open");
+    openGloss = null;
+  }
 
   document.getElementById("caseScreen").classList.add("hidden");
   document.getElementById("argumentScreen").classList.remove("hidden");
@@ -183,20 +184,9 @@ if (openGloss) {
     btn.onclick = () => chooseArgument(arg, otherSet);
     container.appendChild(btn);
   });
-}
 
-activateGlosses();
-
-function chooseArgument(arg, otherSet) {
-  chosenArgument = arg;
-
-  const rand = Math.floor(Math.random() * otherSet.length);
-  otherArgument = otherSet[rand];
-
-  document.getElementById("argumentScreen").classList.add("hidden");
-  document.getElementById("feedbackScreen").classList.remove("hidden");
-
-  generateFeedback(arg);
+  // 🔥 THIS MUST BE INSIDE THE FUNCTION
+  activateGlosses();
 }
 
 function generateFeedback(arg) {
