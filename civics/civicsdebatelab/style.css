@@ -1,9 +1,10 @@
 body {
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   background: #f4f6f9;
+  margin: 0;
+  padding: 60px 0;
   display: flex;
   justify-content: center;
-  padding-top: 60px;
 }
 
 #app {
@@ -12,6 +13,7 @@ body {
   padding: 40px;
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  max-height: none;
 }
 
 .hidden {
@@ -138,3 +140,9 @@ textarea {
   text-align: center;
   margin-bottom: 20px;
 }
+
+#argumentScreen h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
