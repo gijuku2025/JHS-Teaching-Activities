@@ -168,6 +168,7 @@ function generateFeedback(arg) {
 
 
 function showReflection() {
+  window.scrollTo(0, 0);  
   document.getElementById("feedbackScreen").classList.add("hidden");
   document.getElementById("reflectionScreen").classList.remove("hidden");
 
