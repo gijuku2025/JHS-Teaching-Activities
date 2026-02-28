@@ -1,0 +1,178 @@
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 40px 0;
+}
+
+#app {
+  background: white;
+  width: 760px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.hidden {
+  display: none;
+}
+
+.box {
+  background: #f1f5fb;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+button {
+  padding: 12px 18px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background: #1e3a8a;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+}
+.centerHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.appTitle {
+  margin-top: 5px;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 120px));
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.chapter-grid button {
+  height: 80px;
+  font-size: 24px;
+  font-weight: bold;
+  width: auto; /* prevents stretching */
+}
+
+.centerHeader h1 {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.appTitle {
+  font-size: 18px;
+  color: #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#caseList button {
+  background: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 0;
+  border-radius: 0;
+}
+
+#caseList button:hover {
+  background: rgba(30, 58, 138, 0.05);
+  transform: none;
+}
+
+#summaryInfo {
+  white-space: pre-line;
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+#caseList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+#caseList button {
+  background: none;
+  border: none;
+  color: #1e3a8a;
+  font-size: 18px;
+  text-align: left;
+  padding: 6px 0;
+  width: auto;
+}
+
+#caseList button:hover {
+  background: rgba(30,58,138,0.08);
+  transform: none;
+}
+
+#caseTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#argumentScreen h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#continueToArguments {
+  display: block;
+  margin: 30px auto 0 auto;
+  font-size: 18px;
+  padding: 12px 24px;
+}
+
+
+#resultTitle {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.gloss {
+  border-bottom: 2px dotted #1e3a8a;
+  cursor: pointer;
+}
+
+.gloss.open {
+  background: #eef3ff;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border-bottom: none;
+}
+
+.gloss.open::after {
+  content: attr(data-ja);
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+}
