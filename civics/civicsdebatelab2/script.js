@@ -58,13 +58,13 @@ function goToChapters() {
 
 function openCase(c) {
   currentCase = c;
+
   document.getElementById("caseSelectScreen").classList.add("hidden");
   document.getElementById("caseScreen").classList.remove("hidden");
 
-document.getElementById("caseTitle").innerText = c.title;
-document.getElementById("caseText").innerText = c.text;
+  document.getElementById("caseTitle").innerText = c.title;
 
-assignSide(); // automatically assign
+  assignSide(); // Automatically assigns AND applies gloss
 }
 
 
