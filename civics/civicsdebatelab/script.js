@@ -174,6 +174,8 @@ function generateFeedback(arg) {
 
 
 function showReflection() {
+  document.getElementById("app").scrollTop = 0;
+    
   window.scrollTo(0, 0);  
   document.getElementById("feedbackScreen").classList.add("hidden");
   document.getElementById("reflectionScreen").classList.remove("hidden");
@@ -182,7 +184,7 @@ function showReflection() {
 
   document.getElementById("summaryInfo").innerText =
     "Student: " + nickname +
-    "\nApp: Civics Debate Lab" +
+   
     "\nChapter: " + currentChapter.title +
     "\nCase: " + currentCase.title +
     "\nPosition: " +
