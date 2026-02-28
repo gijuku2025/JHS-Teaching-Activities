@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Civics Debate Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Chapter Select -->
+  <div id="chapterScreen">
+    <h1 id="welcomeText"></h1>
+    <h2>Civics Debate Lab</h2>
+    <div id="chapterList"></div>
+  </div>
+
+  <!-- Case Select -->
+  <div id="caseSelectScreen" class="hidden">
+    <h2 id="chapterTitle"></h2>
+    <div id="caseList"></div>
+    <button onclick="goToChapters()">Back to Chapters</button>
+  </div>
+
+  <!-- Case Screen -->
+  <div id="caseScreen" class="hidden">
+    <h2 id="caseTitle"></h2>
+    <div class="box" id="caseText"></div>
+    <button onclick="assignSide()">Get My Position</button>
+  </div>
+
+  <!-- Side Screen -->
+  <div id="sideScreen" class="hidden">
+    <h2>Your Position</h2>
+    <div class="box" id="sideText"></div>
+    <button onclick="showArguments()">Choose Argument</button>
+  </div>
+
+  <!-- Argument Screen -->
+  <div id="argumentScreen" class="hidden">
+    <h2>Choose Your Argument</h2>
+    <div class="box" id="argumentSide"></div>
+    <div id="argumentButtons"></div>
+  </div>
+
+  <!-- Feedback Screen -->
+  <div id="feedbackScreen" class="hidden">
+    <h2>Feedback</h2>
+    <p id="feedbackText"></p>
+    <button onclick="showReflection()">Continue</button>
+  </div>
+
+  <!-- Reflection Screen -->
+  <div id="reflectionScreen" class="hidden">
+    <h2>Case Complete</h2>
+
+    <p id="summaryInfo"></p>
+
+    <h3>Which argument is strongest?</h3>
+    <button class="choice" id="strongBtn1"></button>
+    <button class="choice" id="strongBtn2"></button>
+
+    <h3>Why?</h3>
+    <textarea id="reflectionText" rows="4"></textarea>
+
+    <p><b>Please screenshot this screen.</b></p>
+
+    <button onclick="returnToCases()">Return to Case List</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
