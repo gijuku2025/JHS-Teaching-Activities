@@ -26,7 +26,7 @@ function loadChapters() {
 
   data.chapters.forEach(ch => {
     const btn = document.createElement("button");
-    btn.innerText = "Chapter " + ch.id + ": " + ch.title;
+    btn.innerText = ch.id; // Only number
     btn.onclick = () => openChapter(ch);
     list.appendChild(btn);
   });
