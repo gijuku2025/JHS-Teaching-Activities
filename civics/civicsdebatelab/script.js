@@ -101,7 +101,8 @@ document.getElementById("continueToArguments").onclick = () => {
 }
 
 function showArguments() {
-  document.getElementById("sideScreen").classList.add("hidden");
+
+  document.getElementById("caseScreen").classList.add("hidden");
   document.getElementById("argumentScreen").classList.remove("hidden");
 
   document.getElementById("argumentSide").innerText =
