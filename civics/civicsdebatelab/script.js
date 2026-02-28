@@ -44,7 +44,7 @@ function openChapter(ch) {
 
   ch.cases.forEach(c => {
     const btn = document.createElement("button");
-    btn.innerText = c.title;
+    btn.innerText = "Case " + c.id + ": " + c.title;
     btn.onclick = () => openCase(c);
     caseList.appendChild(btn);
   });
