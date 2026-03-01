@@ -189,6 +189,21 @@ function showArguments() {
   activateGlosses();
 }
 
+function chooseArgument(arg, otherSet) {
+  chosenArgument = arg;
+
+  const rand = Math.floor(Math.random() * otherSet.length);
+  otherArgument = otherSet[rand];
+
+  document.getElementById("argumentScreen").classList.add("hidden");
+  document.getElementById("feedbackScreen").classList.remove("hidden");
+
+  generateFeedback(arg);
+}
+
+
+
+
 function generateFeedback(arg) {
   const typeMap = {
     social: "fairness, shared impact, or rights",
