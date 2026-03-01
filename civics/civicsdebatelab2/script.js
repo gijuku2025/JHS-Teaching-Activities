@@ -177,18 +177,51 @@ function showArguments() {
   const container = document.getElementById("argumentButtons");
   container.innerHTML = "";
 
+  // 🔹 Disable Next button when screen loads
+  const confirmBtn = document.getElementById("confirmArgument");
+  confirmBtn.disabled = true;
+
+  let selectedArg = null;
+
   set.forEach(arg => {
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerHTML = applyGloss(arg.text);
-    btn.onclick = () => chooseArgument(arg, otherSet);
+
+    btn.onclick = () => {
+
+      // Remove highlight from all argument buttons
+      document.querySelectorAll("#argumentButtons .choice")
+        .forEach(b => b.style.background = "");
+
+      // Highlight selected button
+      btn.style.background = "#dbeafe";
+
+      selectedArg = arg;
+
+      // Enable Next button
+      confirmBtn.disabled = false;
+    };
+
     container.appendChild(btn);
   });
 
-  // 🔥 THIS MUST BE INSIDE THE FUNCTION
+  confirmBtn.onclick = () => {
+    if (!selectedArg) return;
+
+    chosenArgument = selectedArg;
+
+    const rand = Math.floor(Math.random() * otherSet.length);
+    otherArgument = otherSet[rand];
+
+    document.getElementById("argumentScreen").classList.add("hidden");
+    document.getElementById("feedbackScreen").classList.remove("hidden");
+
+    generateFeedback(chosenArgument);
+  };
+
   activateGlosses();
 }
-
 function chooseArgument(arg, otherSet) {
   chosenArgument = arg;
 
