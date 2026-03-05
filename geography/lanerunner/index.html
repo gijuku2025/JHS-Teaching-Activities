@@ -69,9 +69,9 @@ question.answers.forEach(text=>{
 
 fruits.push({
 x: Math.random()*canvas.width,
-y: canvas.height + 100,
+y: canvas.height + 40,
 vx: (Math.random()*4)-2,
-vy: -(10 + Math.random()*6),
+vy: -(16 + Math.random()*6),
 radius: 60,
 text:text,
 sliced:false
@@ -93,7 +93,7 @@ if(f.sliced) return
 
 f.x += f.vx
 f.y += f.vy
-f.vy += .4
+f.vy += .25
 
 ctx.beginPath()
 ctx.fillStyle = "#3498db"
