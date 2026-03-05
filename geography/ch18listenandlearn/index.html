@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geography Ch 18 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "Geography Ch 18 Listen and Learn";
+
+const sentences = [
+          { en: "Tropical countries with seasonal winds have a Monsoon Climate.", jp: "季節風がある熱帯の国の気候はモンスーン気候である。", enAudio: "audio/01_tropical_countries_with_season_en.mp3", jpAudio: "audio/01_tropical_countries_with_season_jp.mp3" },
+  { en: "Seasonal winds give Southeast Asian countries a lot of rain.", jp: "季節風は東南アジアの国にたくさんの雨を与える。", enAudio: "audio/02_seasonal_winds_give_southeast__en.mp3", jpAudio: "audio/02_seasonal_winds_give_southeast__jp.mp3" },
+  { en: "They grow a lot of rice, and some areas can grow two crops a year.", jp: "それらの国では多くの米を作り、地域によっては一年に二つの作物を育てることができる。", enAudio: "audio/03_they_grow_a_lot_of_rice_and_so_en.mp3", jpAudio: "audio/03_they_grow_a_lot_of_rice_and_so_jp.mp3" },
+  { en: "Modern farms use machines instead of animals and grow more rice.", jp: "近代的な農場は動物の代わりに機械を使い、より多くの米を作る。", enAudio: "audio/04_modern_farms_use_machines_inst_en.mp3", jpAudio: "audio/04_modern_farms_use_machines_inst_jp.mp3" },
+  { en: "Irrigation and new breeds also help to increase harvests.", jp: "灌漑と新しい品種も収穫を増やすのに役立つ。", enAudio: "audio/05_irrigation_and_new_breeds_also_en.mp3", jpAudio: "audio/05_irrigation_and_new_breeds_also_jp.mp3" },
+  { en: "Malaysia and Indonesia were colonies of European countries.", jp: "マレーシアとインドネシアはヨーロッパの国の植民地だった。", enAudio: "audio/06_malaysia_and_indonesia_were_co_en.mp3", jpAudio: "audio/06_malaysia_and_indonesia_were_co_jp.mp3" },
+  { en: "Europeans made rubber and coffee plantations and grew cash crops.", jp: "ヨーロッパ人はゴム農園とコーヒー農園を作り、換金作物を育てた。", enAudio: "audio/07_europeans_made_rubber_and_coff_en.mp3", jpAudio: "audio/07_europeans_made_rubber_and_coff_jp.mp3" },
+  { en: "After 1960 these countries made oil palm plantations for palm oil.", jp: "1960年以降、これらの国はパーム油のために油ヤシ農園を作った。", enAudio: "audio/08_after_1960_these_countries_mad_en.mp3", jpAudio: "audio/08_after_1960_these_countries_mad_jp.mp3" },
+  { en: "We can use palm oil to make cooking oil, soap, and margarine.", jp: "パーム油は料理用油、石けん、マーガリンを作るために使うことができる。", enAudio: "audio/09_we_can_use_palm_oil_to_make_co_en.mp3", jpAudio: "audio/09_we_can_use_palm_oil_to_make_co_jp.mp3" },
+  { en: "Countries with mangrove coasts made shrimp farms.", jp: "マングローブ海岸がある国はエビの養殖場を作った。", enAudio: "audio/10_countries_with_mangrove_coasts_en.mp3", jpAudio: "audio/10_countries_with_mangrove_coasts_jp.mp3" },
+  { en: "The Philippines has many banana plantations.", jp: "フィリピンには多くのバナナ農園がある。", enAudio: "audio/11_the_philippines_has_many_banan_en.mp3", jpAudio: "audio/11_the_philippines_has_many_banan_jp.mp3" },
+  { en: "They can earn money by exporting these products.", jp: "これらの製品を輸出することでお金を稼ぐことができる。", enAudio: "audio/12_they_can_earn_money_by_exporti_en.mp3", jpAudio: "audio/12_they_can_earn_money_by_exporti_jp.mp3" },
+  { en: "But when plantation land increases, forest land decreases.", jp: "しかし農園の土地が増えると森林の土地は減る。", enAudio: "audio/13_but_when_plantation_land_incre_en.mp3", jpAudio: "audio/13_but_when_plantation_land_incre_jp.mp3" },
+  { en: "Machines took many farmers’ jobs, so they went to work in the cities.", jp: "機械は多くの農民の仕事を奪ったので、彼らは都市へ働きに行った。", enAudio: "audio/14_machines_took_many_farmers_job_en.mp3", jpAudio: "audio/14_machines_took_many_farmers_job_jp.mp3" },
+  { en: "The number of cars increased so there was traffic congestion.", jp: "自動車の数が増えたので交通渋滞が起こった。", enAudio: "audio/15_the_number_of_cars_increased_s_en.mp3", jpAudio: "audio/15_the_number_of_cars_increased_s_jp.mp3" },
+];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
