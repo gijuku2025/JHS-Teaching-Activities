@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lane Runner Demo</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#111;
+color:white;
+overflow:hidden;
+touch-action:none;
+}
+
+#game{
+position:relative;
+width:100vw;
+height:100vh;
+}
+
+#question{
+position:absolute;
+top:20px;
+width:100%;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+}
+
+#lanes{
+position:absolute;
+bottom:0;
+width:100%;
+height:80%;
+display:flex;
+}
+
+.lane{
+flex:1;
+border-left:2px solid #333;
+border-right:2px solid #333;
+display:flex;
+align-items:flex-start;
+justify-content:center;
+position:relative;
+}
+
+.answer{
+position:absolute;
+top:-80px;
+background:#3498db;
+padding:20px;
+border-radius:12px;
+font-size:22px;
+min-width:120px;
+text-align:center;
+}
+
+#player{
+position:absolute;
+bottom:40px;
+width:90px;
+height:90px;
+background:yellow;
+border-radius:50%;
+left:50%;
+transform:translateX(-50%);
+transition:left .15s;
+}
+
+#score{
+position:absolute;
+top:70px;
+width:100%;
+text-align:center;
+font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<div id="question">Which wind brings rain to India?</div>
+<div id="score">Score: 0</div>
+
+<div id="lanes">
+<div class="lane" data-lane="0"></div>
+<div class="lane" data-lane="1"></div>
+<div class="lane" data-lane="2"></div>
+</div>
+
+<div id="player"></div>
+
+</div>
+
+<script>
+
+const lanes = document.querySelectorAll(".lane")
+const player = document.getElementById("player")
+const scoreText = document.getElementById("score")
+
+let playerLane = 1
+let score = 0
+let speed = 2
+
+let answers = [
+{ text:"Trade Winds", correct:false },
+{ text:"Monsoon", correct:true },
+{ text:"Polar Winds", correct:false }
+]
+
+function setPlayerLane(){
+player.style.left = (playerLane * 33.33 + 16.66) + "%"
+}
+
+setPlayerLane()
+
+function spawnAnswers(){
+
+lanes.forEach(lane => lane.innerHTML="")
+
+answers.forEach((ans,i)=>{
+
+const div = document.createElement("div")
+div.className="answer"
+div.textContent = ans.text
+div.dataset.correct = ans.correct
+div.style.top = "-80px"
+
+lanes[i].appendChild(div)
+
+})
+
+}
+
+spawnAnswers()
+
+function update(){
+
+document.querySelectorAll(".answer").forEach(ans=>{
+
+let top = parseFloat(ans.style.top)
+top += speed
+
+ans.style.top = top + "px"
+
+if(top > window.innerHeight - 150){
+
+const laneIndex = [...lanes].indexOf(ans.parentElement)
+
+if(laneIndex === playerLane){
+
+if(ans.dataset.correct === "true"){
+score++
+speed += .2
+}else{
+score = Math.max(0,score-1)
+}
+
+scoreText.textContent = "Score: " + score
+spawnAnswers()
+}
+
+if(top > window.innerHeight){
+spawnAnswers()
+}
+
+}
+
+})
+
+requestAnimationFrame(update)
+
+}
+
+update()
+
+let startX = 0
+
+document.addEventListener("touchstart", e=>{
+startX = e.touches[0].clientX
+})
+
+document.addEventListener("touchend", e=>{
+
+let dx = e.changedTouches[0].clientX - startX
+
+if(Math.abs(dx) > 40){
+
+if(dx > 0 && playerLane < 2){
+playerLane++
+}
+
+if(dx < 0 && playerLane > 0){
+playerLane--
+}
+
+setPlayerLane()
+
+}
+
+})
+
+</script>
+
+</body>
+</html>
