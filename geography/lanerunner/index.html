@@ -1,138 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Lane Runner Demo</title>
+<title>Fruit Ninja Quiz Demo</title>
 
 <style>
 body{
 margin:0;
-font-family:Arial, sans-serif;
 background:#111;
 color:white;
+font-family:Arial;
 overflow:hidden;
 touch-action:none;
 }
 
-#game{
-position:relative;
-width:100vw;
-height:100vh;
-}
-
-#question{
+#ui{
 position:absolute;
-top:20px;
+top:10px;
 width:100%;
 text-align:center;
 font-size:28px;
-font-weight:bold;
-}
-
-#lanes{
-position:absolute;
-bottom:0;
-width:100%;
-height:80%;
-display:flex;
-}
-
-.lane{
-flex:1;
-border-left:2px solid #333;
-border-right:2px solid #333;
-display:flex;
-align-items:flex-start;
-justify-content:center;
-position:relative;
-}
-
-.answer{
-position:absolute;
-top:-80px;
-background:#3498db;
-padding:20px;
-border-radius:12px;
-font-size:22px;
-min-width:120px;
-text-align:center;
-}
-
-#player{
-position:absolute;
-bottom:40px;
-width:90px;
-height:90px;
-background:yellow;
-border-radius:50%;
-left:50%;
-transform:translateX(-50%);
-transition:left .15s;
+z-index:10;
 }
 
 #score{
-position:absolute;
-top:70px;
-width:100%;
-text-align:center;
 font-size:22px;
+margin-top:6px;
+}
+
+canvas{
+display:block;
 }
 </style>
 </head>
 
 <body>
 
-<div id="game">
-
-<div id="question">Which wind brings rain to India?</div>
+<div id="ui">
+<div id="question">Which planet is called the Red Planet?</div>
 <div id="score">Score: 0</div>
-
-<div id="lanes">
-<div class="lane" data-lane="0"></div>
-<div class="lane" data-lane="1"></div>
-<div class="lane" data-lane="2"></div>
 </div>
 
-<div id="player"></div>
-
-</div>
+<canvas id="game"></canvas>
 
 <script>
 
-const lanes = document.querySelectorAll(".lane")
-const player = document.getElementById("player")
-const scoreText = document.getElementById("score")
+const canvas = document.getElementById("game")
+const ctx = canvas.getContext("2d")
 
-let playerLane = 1
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+
 let score = 0
-let speed = 2
 
-let answers = [
-{ text:"Trade Winds", correct:false },
-{ text:"Monsoon", correct:true },
-{ text:"Polar Winds", correct:false }
-]
-
-function setPlayerLane(){
-player.style.left = (playerLane * 33.33 + 16.66) + "%"
+const question = {
+answers:["Mars","Earth","Venus","Jupiter"],
+correct:"Mars"
 }
 
-setPlayerLane()
+let fruits = []
 
 function spawnAnswers(){
 
-lanes.forEach(lane => lane.innerHTML="")
+fruits = []
 
-answers.forEach((ans,i)=>{
+question.answers.forEach(text=>{
 
-const div = document.createElement("div")
-div.className="answer"
-div.textContent = ans.text
-div.dataset.correct = ans.correct
-div.style.top = "-80px"
-
-lanes[i].appendChild(div)
+fruits.push({
+x: Math.random()*canvas.width,
+y: canvas.height + 100,
+vx: (Math.random()*4)-2,
+vy: -(10 + Math.random()*6),
+radius: 60,
+text:text,
+sliced:false
+})
 
 })
 
@@ -142,35 +85,25 @@ spawnAnswers()
 
 function update(){
 
-document.querySelectorAll(".answer").forEach(ans=>{
+ctx.clearRect(0,0,canvas.width,canvas.height)
 
-let top = parseFloat(ans.style.top)
-top += speed
+fruits.forEach(f=>{
 
-ans.style.top = top + "px"
+if(f.sliced) return
 
-if(top > window.innerHeight - 150){
+f.x += f.vx
+f.y += f.vy
+f.vy += .4
 
-const laneIndex = [...lanes].indexOf(ans.parentElement)
+ctx.beginPath()
+ctx.fillStyle = "#3498db"
+ctx.arc(f.x,f.y,f.radius,0,Math.PI*2)
+ctx.fill()
 
-if(laneIndex === playerLane){
-
-if(ans.dataset.correct === "true"){
-score++
-speed += .2
-}else{
-score = Math.max(0,score-1)
-}
-
-scoreText.textContent = "Score: " + score
-spawnAnswers()
-}
-
-if(top > window.innerHeight){
-spawnAnswers()
-}
-
-}
+ctx.fillStyle="white"
+ctx.font="20px Arial"
+ctx.textAlign="center"
+ctx.fillText(f.text,f.x,f.y+6)
 
 })
 
@@ -180,31 +113,54 @@ requestAnimationFrame(update)
 
 update()
 
-let startX = 0
+let swipePath = []
 
-document.addEventListener("touchstart", e=>{
-startX = e.touches[0].clientX
+canvas.addEventListener("touchstart",e=>{
+swipePath = []
 })
 
-document.addEventListener("touchend", e=>{
+canvas.addEventListener("touchmove",e=>{
 
-let dx = e.changedTouches[0].clientX - startX
+const t = e.touches[0]
+swipePath.push({x:t.clientX,y:t.clientY})
 
-if(Math.abs(dx) > 40){
+sliceCheck()
 
-if(dx > 0 && playerLane < 2){
-playerLane++
+})
+
+function sliceCheck(){
+
+if(swipePath.length < 2) return
+
+const p = swipePath[swipePath.length-1]
+
+fruits.forEach(f=>{
+
+if(f.sliced) return
+
+const dx = p.x - f.x
+const dy = p.y - f.y
+const dist = Math.sqrt(dx*dx+dy*dy)
+
+if(dist < f.radius){
+
+f.sliced = true
+
+if(f.text === question.correct){
+score++
+}else{
+score = Math.max(0,score-1)
 }
 
-if(dx < 0 && playerLane > 0){
-playerLane--
-}
+document.getElementById("score").textContent="Score: "+score
 
-setPlayerLane()
+setTimeout(spawnAnswers,800)
 
 }
 
 })
+
+}
 
 </script>
 
