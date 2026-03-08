@@ -219,12 +219,6 @@ function showArguments() {
 
     generateFeedback(chosenArgument);
 
-document.querySelectorAll("#argumentButtons button").forEach(btn => {
-  btn.classList.remove("selected");
-});
-
-button.classList.add("selected");
-
 
     
   };
