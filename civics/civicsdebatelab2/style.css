@@ -72,10 +72,10 @@ textarea {
 }
 
 .chapter-grid button {
-  height: 80px;
-  font-size: 24px;
+  height: 55px;
+  font-size: 18px;
   font-weight: bold;
-  width: auto; /* prevents stretching */
+  padding: 8px 16px;
 }
 
 .centerHeader h1 {
