@@ -218,6 +218,15 @@ function showArguments() {
     document.getElementById("feedbackScreen").classList.remove("hidden");
 
     generateFeedback(chosenArgument);
+
+document.querySelectorAll("#argumentButtons button").forEach(btn => {
+  btn.classList.remove("selected");
+});
+
+button.classList.add("selected");
+
+
+    
   };
 
   activateGlosses();
