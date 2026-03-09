@@ -7,18 +7,20 @@
 </head>
 <body>
 
+<body>
+
 <div id="app">
 
-  <!-- Chapter Select -->
- <div id="chapterScreen">
   <div class="centerHeader">
-  <button id="jpToggle" class="jpToggle">Japanese Help: OFF</button>
-  <h1 id="welcomeText"></h1>
-  <h2 class="appTitle">Civics Debate Lab</h2>
-</div>
-</div>
-  <div id="chapterList" class="chapter-grid"></div>
-</div>
+    <button id="jpToggle" class="jpToggle">Japanese Help: OFF</button>
+    <h1 id="welcomeText"></h1>
+    <h2 class="appTitle">Civics Debate Lab</h2>
+  </div>
+
+  <!-- Chapter Select -->
+  <div id="chapterScreen">
+    <div id="chapterList" class="chapter-grid"></div>
+  </div>
 
   <!-- Case Select -->
   <div id="caseSelectScreen" class="hidden">
@@ -31,34 +33,31 @@
   <div id="caseScreen" class="hidden">
     <h2 id="caseTitle"></h2>
     <div class="box" id="caseText"></div>
-<button id="continueToArguments">Choose Your Argument</button>
+    <button id="continueToArguments">Choose Your Argument</button>
   </div>
-
-  
 
   <!-- Argument Screen -->
   <div id="argumentScreen" class="hidden">
     <h2>Choose Your Argument</h2>
-<p class="instruction">Select the argument you will use.</p>
+    <p class="instruction">Select the argument you will use.</p>
     <div class="box sideBox" id="argumentSide"></div>
     <div id="argumentButtons" class="argument-list"></div>
-    <button id="confirmArgument" disabled>Next</button>    
+    <button id="confirmArgument" disabled>Next</button>
   </div>
 
   <!-- Feedback Screen -->
   <div id="feedbackScreen" class="hidden">
-    <h2>Feedback</h2>
     <p id="feedbackText"></p>
     <button onclick="showReflection()">Continue</button>
   </div>
 
   <!-- Reflection Screen -->
   <div id="reflectionScreen" class="hidden">
-   <h2 id="resultTitle">Civics Debate Lab</h2>
+    <h2 id="resultTitle">Civics Debate Lab</h2>
 
     <p id="summaryInfo"></p>
 
-   <h3>Which argument do you agree with?</h3>
+    <h3>Which argument do you agree with?</h3>
     <button class="choice" id="strongBtn1"></button>
     <button class="choice" id="strongBtn2"></button>
 
@@ -73,5 +72,5 @@
 </div>
 
 <script src="script.js"></script>
-</body>
-</html>
+
+</body></html>
