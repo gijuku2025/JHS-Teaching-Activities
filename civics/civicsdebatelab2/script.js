@@ -83,7 +83,7 @@ function openCase(c) {
 
 
 function applyGloss(text) {
-  if (!data.globalGlossary) return text;
+  if (!data.globalGlossary || !jpHelp) return text;
 
   let result = text;
 
