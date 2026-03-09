@@ -51,15 +51,14 @@ function openChapter(ch) {
   currentChapter = ch;
   document.getElementById("chapterScreen").classList.add("hidden");
   document.getElementById("caseSelectScreen").classList.remove("hidden");
-  document.getElementById("chapterTitle").innerText =
-    "Chapter " + ch.id + ": " + ch.title;
+  document.getElementById("chapterTitle").innerText = ch.title;
 
   const caseList = document.getElementById("caseList");
   caseList.innerHTML = "";
 
   ch.cases.forEach(c => {
     const btn = document.createElement("button");
-    btn.innerText = "Case " + c.id + ": " + c.title;
+    btn.innerText = c.title;
     btn.onclick = () => openCase(c);
     caseList.appendChild(btn);
   });
@@ -158,8 +157,8 @@ const glossedSituation = applyGloss(currentCase.text);
 const glossedSide = applyGloss(sideText);
 
 document.getElementById("caseText").innerHTML =
-  "<strong>Situation:</strong><br><br>" + glossedSituation +
-  "<br><br><strong>Your Position:</strong><br><br>" + glossedSide;
+  glossedSituation +
+"<br><br>" + glossedSide;
 
 activateGlosses();
 
