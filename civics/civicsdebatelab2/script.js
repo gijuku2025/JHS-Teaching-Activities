@@ -191,13 +191,9 @@ function showArguments() {
     btn.onclick = () => {
 
   document.querySelectorAll("#argumentButtons .choice")
-    .forEach(b => {
-      b.style.background = "";
-      b.style.color = "";
-    });
+    .forEach(b => b.classList.remove("selected"));
 
-  btn.style.background = "#1e3a8a";
-  btn.style.color = "white";
+  btn.classList.add("selected");
 
   selectedArg = arg;
 
