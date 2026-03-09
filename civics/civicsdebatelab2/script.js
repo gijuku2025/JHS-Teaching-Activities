@@ -164,9 +164,12 @@ function showArguments() {
 
   document.getElementById("caseScreen").classList.add("hidden");
   document.getElementById("argumentScreen").classList.remove("hidden");
+  window.scrollTo(0,0);	
+		
 
-  document.getElementById("argumentSide").innerText =
-    currentSide === "A" ? currentCase.sideA : currentCase.sideB;
+  document.getElementById("argumentSide").innerHTML =
+  "<strong>Your Position</strong><br><br>" +
+  (currentSide === "A" ? currentCase.sideA : currentCase.sideB);
 
   const set =
     currentSide === "A" ? currentCase.argumentsA : currentCase.argumentsB;
@@ -183,10 +186,12 @@ function showArguments() {
 
   let selectedArg = null;
 
-  set.forEach(arg => {
+  const shuffled = [...set].sort(() => Math.random() - 0.5);
+
+  shuffled.forEach(arg => {
     const btn = document.createElement("button");
-    btn.className = "choice";
-    btn.innerHTML = applyGloss(arg.text);
+btn.className = "choice argumentCard";
+btn.innerHTML = applyGloss(arg.text);
 
     btn.onclick = () => {
 
@@ -319,4 +324,5 @@ function selectStrongest(btn) {
 function returnToCases() {
   document.getElementById("reflectionScreen").classList.add("hidden");
   document.getElementById("caseSelectScreen").classList.remove("hidden");
+  window.scrollTo(0,0);
 }
