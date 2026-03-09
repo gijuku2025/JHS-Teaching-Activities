@@ -190,19 +190,19 @@ function showArguments() {
 
     btn.onclick = () => {
 
-      // Remove highlight from all argument buttons
-      document.querySelectorAll("#argumentButtons .choice")
-        .forEach(b => b.style.background = "");
+  document.querySelectorAll("#argumentButtons .choice")
+    .forEach(b => {
+      b.style.background = "";
+      b.style.color = "";
+    });
 
-      // Highlight selected button
-      btn.style.background = "#1e3a8a";
-      btn.style.color = "white";  
+  btn.style.background = "#1e3a8a";
+  btn.style.color = "white";
 
-      selectedArg = arg;
+  selectedArg = arg;
 
-      // Enable Next button
-      confirmBtn.disabled = false;
-    };
+  confirmBtn.disabled = false;
+};
 
     container.appendChild(btn);
   });
