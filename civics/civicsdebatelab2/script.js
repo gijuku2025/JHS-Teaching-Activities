@@ -7,6 +7,7 @@ let strongestChoice;
 let otherArgument;
 let openGloss = null;
 let jpHelp = false;
+let shuffledArguments = null;
 
 
 
@@ -17,38 +18,19 @@ document.getElementById("jpToggle").onclick = () => {
 
   jpHelp = !jpHelp;
 
-  document.getElementById("jpToggle").onclick = () => {
-
-  jpHelp = !jpHelp;
-
   document.getElementById("jpToggle").innerText =
     "Japanese Help: " + (jpHelp ? "ON" : "OFF");
 
   document.body.classList.toggle("jpEnabled", jpHelp);
 
-
-  // refresh the screen safely
+  // refresh situation text without reassigning side
   if (!document.getElementById("caseScreen").classList.contains("hidden")) {
     refreshSituationText();
   }
 
+  // refresh arguments if visible
   if (!document.getElementById("argumentScreen").classList.contains("hidden")) {
     showArguments();
-  }
-
-};
-
-  // 🔹 refresh current screen text
-  if (!document.getElementById("caseScreen").classList.contains("hidden")) {
-    assignSide();
-  }
-
-  if (!document.getElementById("argumentScreen").classList.contains("hidden")) {
-    showArguments();
-  }
-
-  if (!document.getElementById("feedbackScreen").classList.contains("hidden")) {
-    generateFeedback(chosenArgument);
   }
 
 };
@@ -106,6 +88,8 @@ document.getElementById("jpToggle").style.display = "none";
 
 function openCase(c) {
   currentCase = c;
+
+  shuffledArguments = null;
   
   document.getElementById("jpToggle").style.display = "block";
 
@@ -252,7 +236,11 @@ function showArguments() {
 
   let selectedArg = null;
 
-  const shuffled = [...set].sort(() => Math.random() - 0.5);
+  if (!shuffledArguments) {
+  shuffledArguments = [...set].sort(() => Math.random() - 0.5);
+}
+
+const shuffled = shuffledArguments;
 
   shuffled.forEach(arg => {
     const btn = document.createElement("button");
