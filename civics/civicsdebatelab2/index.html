@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,6 @@
 </head>
 <body>
 
-<body>
 
 <div id="app">
 
@@ -38,12 +38,30 @@
 
   <!-- Argument Screen -->
   <div id="argumentScreen" class="hidden">
-    <h2>Choose Your Argument</h2>
-    <p class="instruction">Select the argument you will use.</p>
-    <div class="box sideBox" id="argumentSide"></div>
-    <div id="argumentButtons" class="argument-list"></div>
-    <button id="confirmArgument" disabled>Next</button>
+
+  <h2>Choose Your Argument</h2>
+
+  <!-- Situation reminder -->
+  <div class="box" id="argumentSituation"></div>
+
+  <!-- Argument Guide -->
+  <div class="argumentGuide">
+    <strong>Argument Guide</strong><br>
+    ⚖ Social – Effects on other people<br>
+    📜 Rule – Laws or official rules<br>
+    🧠 Practical – What works best in real life<br>
+    ❤️ Emotional – People's feelings
   </div>
+
+  <p class="instruction">Select the argument you will use.</p>
+
+  <div class="box sideBox" id="argumentSide"></div>
+
+  <div id="argumentButtons" class="argument-list"></div>
+
+  <button id="confirmArgument" disabled>Next</button>
+
+</div>
 
   <!-- Feedback Screen -->
   <div id="feedbackScreen" class="hidden">
