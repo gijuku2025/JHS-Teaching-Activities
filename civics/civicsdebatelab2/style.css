@@ -265,6 +265,7 @@ button.argumentCard {
   background: #334155;
   font-size: 14px;
   padding: 8px 12px;
+  display: none;
 }
 
 body:not(.jpEnabled) .gloss {
