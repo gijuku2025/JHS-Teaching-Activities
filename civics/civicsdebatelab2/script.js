@@ -6,10 +6,24 @@ let chosenArgument;
 let strongestChoice;
 let otherArgument;
 let openGloss = null;
+let jpHelp = false;
+
+
 
 const nickname = localStorage.getItem("nickname") || "Student";
 
 document.addEventListener("DOMContentLoaded", () => {
+document.getElementById("jpToggle").onclick = () => {
+  jpHelp = !jpHelp;
+
+  document.getElementById("jpToggle").innerText =
+    "Japanese Help: " + (jpHelp ? "ON" : "OFF");
+
+  document.body.classList.toggle("jpEnabled", jpHelp);
+};
+
+
+
   document.getElementById("welcomeText").innerText =
     "Welcome, " + nickname;
 
@@ -92,6 +106,10 @@ function applyGloss(text) {
 }
 
 function activateGlosses() {
+
+  if (!jpHelp) return;
+
+  const glosses = document.querySelectorAll(".gloss");
   const glosses = document.querySelectorAll(".gloss");
 
   glosses.forEach(g => {
@@ -191,7 +209,17 @@ function showArguments() {
   shuffled.forEach(arg => {
     const btn = document.createElement("button");
 btn.className = "choice argumentCard";
-btn.innerHTML = applyGloss(arg.text);
+const icons = {
+  social: "⚖️",
+  practical: "📊",
+  rule: "🏛",
+  developmental: "🌱",
+  emotional: "💬"
+};
+
+btn.innerHTML =
+  `<span class="argIcon">${icons[arg.type] || ""}</span> ` +
+  applyGloss(arg.text);
 
     btn.onclick = () => {
 
