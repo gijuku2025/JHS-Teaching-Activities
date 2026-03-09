@@ -195,7 +195,8 @@ function showArguments() {
         .forEach(b => b.style.background = "");
 
       // Highlight selected button
-      btn.style.background = "#dbeafe";
+      btn.style.background = "#1e3a8a";
+      btn.style.color = "white";  
 
       selectedArg = arg;
 
