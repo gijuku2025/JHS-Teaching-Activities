@@ -183,8 +183,9 @@ textarea {
 }
 
 #argumentButtons button.selected {
-  background: #1e3a8a;
+  background: #16a34a;
   color: white;
+  transform: none;
 }
 
 .choice.selected {
