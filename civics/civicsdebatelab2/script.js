@@ -384,16 +384,21 @@ document.getElementById("app").scrollTop = 0;
 
   btn1.innerText = chosenArgument.text;
   btn2.innerText = otherArgument.text;
+		
+  btn1.className = "choice argumentCard";
+  btn2.className = "choice argumentCard";	
 
   btn1.onclick = () => selectStrongest(btn1);
   btn2.onclick = () => selectStrongest(btn2);
 }
 
 function selectStrongest(btn) {
-  document.getElementById("strongBtn1").style.background = "";
-  document.getElementById("strongBtn2").style.background = "";
 
-  btn.style.background = "#c8f7c5";
+  document.getElementById("strongBtn1").classList.remove("selected");
+  document.getElementById("strongBtn2").classList.remove("selected");
+
+  btn.classList.add("selected");
+
   strongestChoice = btn.innerText;
 }
 
