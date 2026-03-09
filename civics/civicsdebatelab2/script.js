@@ -110,24 +110,20 @@ function activateGlosses() {
   if (!jpHelp) return;
 
   const glosses = document.querySelectorAll(".gloss");
-  const glosses = document.querySelectorAll(".gloss");
 
   glosses.forEach(g => {
     g.addEventListener("click", function () {
 
-      // If clicking same open gloss → close it
       if (openGloss === this) {
         this.classList.remove("open");
         openGloss = null;
         return;
       }
 
-      // Close previously open gloss
       if (openGloss) {
         openGloss.classList.remove("open");
       }
 
-      // Open new one
       this.classList.add("open");
       openGloss = this;
     });
