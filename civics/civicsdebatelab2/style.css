@@ -206,7 +206,7 @@ textarea {
 }
 
 /* Argument card styling */
-.argumentCard {
+button.argumentCard {
   background: #f8fafc;
   border: 2px solid #e2e8f0;
   padding: 16px;
@@ -214,6 +214,7 @@ textarea {
   font-size: 17px;
   line-height: 1.4;
   transition: 0.2s ease;
+  color: #111;
 }
 
 /* Hover effect */
