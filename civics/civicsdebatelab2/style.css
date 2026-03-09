@@ -186,3 +186,9 @@ textarea {
   background: #1e3a8a;
   color: white;
 }
+
+.choice.selected {
+  background: #16a34a;   /* green */
+  color: white;
+  transform: none;
+}
