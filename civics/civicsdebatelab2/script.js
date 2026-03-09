@@ -14,12 +14,43 @@ const nickname = localStorage.getItem("nickname") || "Student";
 
 document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("jpToggle").onclick = () => {
+
+  jpHelp = !jpHelp;
+
+  document.getElementById("jpToggle").onclick = () => {
+
   jpHelp = !jpHelp;
 
   document.getElementById("jpToggle").innerText =
     "Japanese Help: " + (jpHelp ? "ON" : "OFF");
 
   document.body.classList.toggle("jpEnabled", jpHelp);
+
+
+  // refresh the screen safely
+  if (!document.getElementById("caseScreen").classList.contains("hidden")) {
+    refreshSituationText();
+  }
+
+  if (!document.getElementById("argumentScreen").classList.contains("hidden")) {
+    showArguments();
+  }
+
+};
+
+  // 🔹 refresh current screen text
+  if (!document.getElementById("caseScreen").classList.contains("hidden")) {
+    assignSide();
+  }
+
+  if (!document.getElementById("argumentScreen").classList.contains("hidden")) {
+    showArguments();
+  }
+
+  if (!document.getElementById("feedbackScreen").classList.contains("hidden")) {
+    generateFeedback(chosenArgument);
+  }
+
 };
 
 
@@ -65,12 +96,19 @@ function openChapter(ch) {
 }
 
 function goToChapters() {
+
+document.getElementById("jpToggle").style.display = "none";
+
+
   document.getElementById("caseSelectScreen").classList.add("hidden");
   document.getElementById("chapterScreen").classList.remove("hidden");
 }
 
 function openCase(c) {
   currentCase = c;
+  
+  document.getElementById("jpToggle").style.display = "block";
+
 
   document.getElementById("caseSelectScreen").classList.add("hidden");
   document.getElementById("caseScreen").classList.remove("hidden");
@@ -168,6 +206,21 @@ document.getElementById("continueToArguments").onclick = () => {
 };  
 }
 
+function refreshSituationText() {
+
+  const sideText =
+    currentSide === "A" ? currentCase.sideA : currentCase.sideB;
+
+  const glossedSituation = applyGloss(currentCase.text);
+  const glossedSide = applyGloss(sideText);
+
+  document.getElementById("caseText").innerHTML =
+    glossedSituation + "<br><br>" + glossedSide;
+
+  activateGlosses();
+}		
+		
+		
 function showArguments() {
 
   if (openGloss) {
@@ -182,7 +235,7 @@ function showArguments() {
 
   document.getElementById("argumentSide").innerHTML =
   "<strong>Your Position</strong><br><br>" +
-  (currentSide === "A" ? currentCase.sideA : currentCase.sideB);
+  applyGloss(currentSide === "A" ? currentCase.sideA : currentCase.sideB);
 
   const set =
     currentSide === "A" ? currentCase.argumentsA : currentCase.argumentsB;
