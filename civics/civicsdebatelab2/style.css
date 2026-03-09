@@ -272,3 +272,21 @@ body:not(.jpEnabled) .gloss {
   border-bottom: none;
   cursor: default;
 }
+
+.argumentGuide{
+background:#f3f3f3;
+padding:10px;
+margin-bottom:15px;
+border-radius:6px;
+font-size:14px;
+}
+
+.argHeader{
+font-weight:bold;
+margin-bottom:6px;
+font-size:14px;
+}
+
+.argText{
+font-size:15px;
+}
