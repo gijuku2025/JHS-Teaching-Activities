@@ -216,7 +216,12 @@ function showArguments() {
   document.getElementById("argumentScreen").classList.remove("hidden");
   window.scrollTo(0,0);	
 		
+const situationText = applyGloss(currentCase.text);
 
+document.getElementById("argumentSituation").innerHTML =
+  situationText;
+		
+		
   document.getElementById("argumentSide").innerHTML =
   "<strong>Your Position</strong><br><br>" +
   applyGloss(currentSide === "A" ? currentCase.sideA : currentCase.sideB);
@@ -246,16 +251,28 @@ const shuffled = shuffledArguments;
     const btn = document.createElement("button");
 btn.className = "choice argumentCard";
 const icons = {
-  social: "⚖️",
-  practical: "📊",
-  rule: "🏛",
-  developmental: "🌱",
-  emotional: "💬"
+  social: "⚖",
+  rule: "📜",
+  practical: "🧠",
+  emotional: "❤️",
+  developmental: "🌱"
+};
+
+const labels = {
+  social: "Social",
+  rule: "Rule",
+  practical: "Practical",
+  emotional: "Emotional",
+  developmental: "Developmental"
 };
 
 btn.innerHTML =
-  `<span class="argIcon">${icons[arg.type] || ""}</span> ` +
-  applyGloss(arg.text);
+  `<div class="argHeader">
+     ${icons[arg.type] || ""} ${labels[arg.type] || ""}
+   </div>
+   <div class="argText">
+     ${applyGloss(arg.text)}
+   </div>`;
 
     btn.onclick = () => {
 
