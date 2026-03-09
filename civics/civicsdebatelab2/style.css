@@ -231,7 +231,13 @@ button.argumentCard {
 }
 
 .argumentCard {
-  word-break: break-word;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 17px;
+  line-height: 1.4;
+  color: #1f2937;
 }
 
 .toggleBtn {
@@ -248,4 +254,18 @@ button.argumentCard {
 .argIcon {
   font-size: 20px;
   margin-right: 8px;
+}
+
+.jpToggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #334155;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+body:not(.jpEnabled) .gloss {
+  border-bottom: none;
+  cursor: default;
 }
