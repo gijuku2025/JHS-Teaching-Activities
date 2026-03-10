@@ -367,6 +367,8 @@ function generateFeedback(arg) {
 
 
 function showReflection() {
+		
+document.getElementById("jpToggle").style.display = "none";	
   
 if (openGloss) {
   openGloss.classList.remove("open");
@@ -416,6 +418,9 @@ function selectStrongest(btn) {
 }
 
 function returnToCases() {
+		
+document.getElementById("jpToggle").style.display = "block";		
+		
   document.getElementById("reflectionScreen").classList.add("hidden");
   document.getElementById("caseSelectScreen").classList.remove("hidden");
   window.scrollTo(0,0);
