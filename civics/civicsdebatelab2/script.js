@@ -133,23 +133,24 @@ function activateGlosses() {
   const glosses = document.querySelectorAll(".gloss");
 
   glosses.forEach(g => {
-    g.addEventListener("click", function () {
+    g.addEventListener("click", function (e) {
 
-      if (openGloss === this) {
-        this.classList.remove("open");
-        openGloss = null;
-        return;
-      }
+  // ⭐ Prevent the argument card from receiving the click
+  e.stopPropagation();
 
-      if (openGloss) {
-        openGloss.classList.remove("open");
-      }
+  if (openGloss === this) {
+    this.classList.remove("open");
+    openGloss = null;
+    return;
+  }
 
-      this.classList.add("open");
-      openGloss = this;
-    });
-  });
-}
+  if (openGloss) {
+    openGloss.classList.remove("open");
+  }
+
+  this.classList.add("open");
+  openGloss = this;
+});
 
 function assignSide() {
   const history = JSON.parse(localStorage.getItem("caseHistory")) || {};
