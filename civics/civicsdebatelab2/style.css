@@ -283,11 +283,13 @@ body:not(.jpEnabled) .gloss {
 }
 
 .argumentGuide{
-background:#f3f3f3;
-padding:10px;
-margin-bottom:15px;
-border-radius:6px;
-font-size:14px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  padding: 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .argHeader{
