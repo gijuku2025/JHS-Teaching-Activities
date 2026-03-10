@@ -151,7 +151,11 @@ function activateGlosses() {
   this.classList.add("open");
   openGloss = this;
 });
+  });
+}
 
+
+	  
 function assignSide() {
   const history = JSON.parse(localStorage.getItem("caseHistory")) || {};
   const key = "chapter" + currentChapter.id + "_case" + currentCase.id;
