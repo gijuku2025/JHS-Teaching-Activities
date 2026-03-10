@@ -178,17 +178,28 @@ function assignSide() {
 
   localStorage.setItem("caseHistory", JSON.stringify(history));
 
-  const sideText =
-    currentSide === "A" ? currentCase.sideA : currentCase.sideB;
-
   document.getElementById("caseScreen").classList.remove("hidden");
 
 const glossedSituation = applyGloss(currentCase.text);
-const glossedSide = applyGloss(sideText);
 
-document.getElementById("caseText").innerHTML =
-  glossedSituation +
-"<br><br>" + glossedSide;
+document.getElementById("caseText").innerHTML = glossedSituation;
+
+document.getElementById("sideA").innerHTML =
+  "<div class='sideTitle'>Side A</div>" +
+  applyGloss(currentCase.sideA);
+
+document.getElementById("sideB").innerHTML =
+  "<div class='sideTitle'>Side B</div>" +
+  applyGloss(currentCase.sideB);
+
+document.getElementById("sideA").classList.remove("yours");
+document.getElementById("sideB").classList.remove("yours");
+
+if(currentSide === "A"){
+  document.getElementById("sideA").classList.add("yours");
+}else{
+  document.getElementById("sideB").classList.add("yours");
+}
 
 activateGlosses();
 
@@ -200,14 +211,17 @@ document.getElementById("continueToArguments").onclick = () => {
 
 function refreshSituationText() {
 
-  const sideText =
-    currentSide === "A" ? currentCase.sideA : currentCase.sideB;
-
   const glossedSituation = applyGloss(currentCase.text);
-  const glossedSide = applyGloss(sideText);
 
-  document.getElementById("caseText").innerHTML =
-    glossedSituation + "<br><br>" + glossedSide;
+document.getElementById("caseText").innerHTML = glossedSituation;
+
+document.getElementById("sideA").innerHTML =
+  "<div class='sideTitle'>Side A</div>" +
+  applyGloss(currentCase.sideA);
+
+document.getElementById("sideB").innerHTML =
+  "<div class='sideTitle'>Side B</div>" +
+  applyGloss(currentCase.sideB);
 
   activateGlosses();
 }		
