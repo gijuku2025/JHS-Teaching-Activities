@@ -292,6 +292,27 @@ body:not(.jpEnabled) .gloss {
   line-height: 1.5;
 }
 
+.argGuideTitle{
+  font-weight:600;
+  margin-bottom:12px;
+  font-size:16px;
+}
+
+.argGuideGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;
+}
+
+.argGuideItem{
+  background:#f1f5fb;
+  border:1px solid #e2e8f0;
+  padding:10px;
+  border-radius:10px;
+  font-size:14px;
+  line-height:1.35;
+}
+
 .argHeader{
 font-weight:bold;
 margin-bottom:6px;
