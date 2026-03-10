@@ -58,6 +58,12 @@ button:hover {
   text-align: left;
 }
 
+
+.chapter-grid button {
+  width: 120px;
+}
+
+
 textarea {
   width: 100%;
   padding: 8px;
@@ -82,12 +88,15 @@ textarea {
   margin-top: 30px;
 }
 
-.chapter-grid button {
-  height: 55px;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 8px 16px;
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
 }
+
+
 
 .centerHeader h1 {
   font-size: 28px;
