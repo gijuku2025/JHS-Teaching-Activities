@@ -290,3 +290,29 @@ font-size:14px;
 .argText{
 font-size:15px;
 }
+
+.gloss{
+position:relative;
+cursor:pointer;
+border-bottom:2px dotted #888;
+}
+
+.gloss::after{
+content:attr(data-ja);
+position:absolute;
+left:0;
+bottom:125%;
+background:white;
+border:1px solid #ccc;
+padding:6px 8px;
+border-radius:6px;
+font-size:14px;
+white-space:nowrap;
+display:none;
+z-index:999;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+.gloss.open::after{
+display:block;
+}
