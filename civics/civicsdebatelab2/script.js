@@ -359,10 +359,12 @@ function generateFeedback(arg) {
   const explanation =
     "This type of reasoning focuses on " + typeMap[arg.type] + ".";
 
-  document.getElementById("feedbackText").innerText =
-    strengthText + "\n\n" +
-    explanation + "\n\n" +
-    improvementText;
+  document.getElementById("feedbackText").innerHTML =
+  applyGloss(strengthText) + "<br><br>" +
+  applyGloss(explanation) + "<br><br>" +
+  applyGloss(improvementText);
+
+activateGlosses();
 }
 
 
