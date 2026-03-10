@@ -62,6 +62,8 @@ function loadChapters() {
 
 function openChapter(ch) {
   currentChapter = ch;
+
+  document.getElementById("welcomeText").style.display = "none";
   document.getElementById("chapterScreen").classList.add("hidden");
   document.getElementById("caseSelectScreen").classList.remove("hidden");
   document.getElementById("chapterTitle").innerText = ch.title;
@@ -80,6 +82,7 @@ function openChapter(ch) {
 function goToChapters() {
 
 document.getElementById("jpToggle").style.display = "none";
+document.getElementById("welcomeText").style.display = "block";
 
 
   document.getElementById("caseSelectScreen").classList.add("hidden");
