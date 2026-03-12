@@ -53,101 +53,189 @@
   "agreement": "合意",
   "conflict": "対立",
 
-"shared": "共有された",
-"consequences": "結果・影響",
-"efficiency": "効率",
-"structure": "仕組み・制度",
-"growth": "成長",
-"learning": "学び",
-"feelings": "感情",
-"reactions": "反応",
-"public impact": "社会への影響",
-"real-world": "現実社会の",
-"effective": "効果的な",
-"debate": "討論",
-"reasoning": "論理・考え方",
-"strong": "強い（説得力のある）",
-"moderate": "中程度の",
-"weak": "弱い（説得力が弱い）",
-"development": "発達"    
+  "shared": "共有された",
+  "consequences": "結果・影響",
+  "efficiency": "効率",
+  "structure": "仕組み・制度",
+  "growth": "成長",
+  "learning": "学び",
+  "feelings": "感情",
+  "reactions": "反応",
+  "public impact": "社会への影響",
+  "real-world": "現実社会の",
+  "effective": "効果的な",
+  "debate": "討論",
+  "reasoning": "論理・考え方",
+  "strong": "強い（説得力のある）",
+  "moderate": "中程度の",
+  "weak": "弱い（説得力が弱い）",
+  "development": "発達",
+
+  "playground": "遊び場",
+  "parking lot": "駐車場",
+  "resident": "住民",
+  "delivery": "配達",
+  "bike lane": "自転車専用レーン",
+  "transportation": "交通手段",
+  "congestion": "交通渋滞",
+  "pollution": "汚染",
+  "emergency": "緊急",
+  "festival": "祭り",
+  "peaceful": "静かな",
+  "lively": "にぎやかな"
 },
 
+"chapters": [
+{
+"id": 1,
+"title": "Public Space",
+"cases": [
 
-  "chapters": [
-    {
-      "id": 1,
-      "title": "Public Space",
-      "cases": [
-        {
-          "id": 1,
-          "title": "Music in the Park",
-          "text": "A student wants to play loud music in a public park. Other people want quiet.",
-          "sideA": "The student should be allowed to play loud music in the park.",
-          "sideB": "The student should NOT be allowed to play loud music in the park.",
-          "argumentsA": [
-            { "text": "The park is a public space for many activities, not only quiet rest.", "type": "social", "strength": "strong" },
-            { "text": "People who want quiet can move to another area of the park.", "type": "practical", "strength": "strong" },
-            { "text": "There is no rule against playing music in the park.", "type": "rule", "strength": "strong" },
-            { "text": "Music can make the park lively and enjoyable for many visitors.", "type": "social", "strength": "moderate" },
-            { "text": "Some people like listening to music while relaxing.", "type": "emotional", "strength": "moderate" },
-            { "text": "It’s fun to play loud music.", "type": "emotional", "strength": "weak" }
-          ],
-          "argumentsB": [
-            { "text": "The park is a shared space, so one person’s music should not disturb many others.", "type": "social", "strength": "strong" },
-            { "text": "People use parks to rest and enjoy nature, and loud music prevents this.", "type": "social", "strength": "strong" },
-            { "text": "Noise spreads far and affects people who did not choose to hear it.", "type": "social", "strength": "strong" },
-            { "text": "Rules are needed in public spaces to protect everyone’s comfort.", "type": "rule", "strength": "strong" },
-            { "text": "Many people go to parks to escape city noise.", "type": "practical", "strength": "moderate" },
-            { "text": "Loud music is annoying.", "type": "emotional", "strength": "weak" }
-          ]
-        },
-        {
-          "id": 2,
-          "title": "Club Room",
-          "text": "Two school clubs want the same classroom after school. Only one club can use it.",
-          "sideA": "The school should give the room to the bigger club.",
-          "sideB": "The school should make the clubs share the room.",
-          "argumentsA": [
-            { "text": "More students can use the room if the bigger club gets it.", "type": "practical", "strength": "strong" },
-            { "text": "The bigger club needs more space to practice safely and properly.", "type": "practical", "strength": "strong" },
-            { "text": "Using the room for the bigger club makes the best use of school resources.", "type": "practical", "strength": "strong" },
-            { "text": "If the room is always shared, practice time will be too short for both clubs.", "type": "practical", "strength": "moderate" },
-            { "text": "The school should choose the option that helps the most students.", "type": "social", "strength": "moderate" },
-            { "text": "Big clubs are more important.", "type": "emotional", "strength": "weak" }
-          ],
-          "argumentsB": [
-            { "text": "Both clubs are school activities and should be treated equally.", "type": "social", "strength": "strong" },
-            { "text": "Sharing teaches cooperation and respect between students.", "type": "developmental", "strength": "strong" },
-            { "text": "No club should have special power just because it is bigger.", "type": "social", "strength": "strong" },
-            { "text": "If one club always wins, the smaller club may disappear.", "type": "social", "strength": "moderate" },
-            { "text": "The school should make rules that are fair for all clubs.", "type": "rule", "strength": "moderate" },
-            { "text": "It feels unfair.", "type": "emotional", "strength": "weak" }
-          ]
-        },
-        {
-          "id": 3,
-          "title": "Curfew",
-          "text": "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
-          "sideA": "The city should NOT have a curfew for 16-year-olds.",
-          "sideB": "The city SHOULD have a curfew for 16-year-olds.",
-          "argumentsA": [
-            { "text": "Most 16-year-olds follow the law, so a curfew punishes many for the actions of a few.", "type": "social", "strength": "strong" },
-            { "text": "Young people may need to travel for jobs, clubs, or family reasons.", "type": "practical", "strength": "strong" },
-            { "text": "Freedom helps adolescents learn responsibility and independence.", "type": "developmental", "strength": "strong" },
-            { "text": "Police time should be used for serious crime, not checking teenagers’ ages.", "type": "practical", "strength": "strong" },
-            { "text": "A curfew does not solve the real causes of crime.", "type": "practical", "strength": "moderate" },
-            { "text": "Staying out late is fun.", "type": "emotional", "strength": "weak" }
-          ],
-          "argumentsB": [
-            { "text": "A curfew can reduce the risk of young people becoming victims of crime at night.", "type": "practical", "strength": "strong" },
-            { "text": "Late at night, it is harder for police to protect minors.", "type": "practical", "strength": "strong" },
-            { "text": "Clear rules help parents and police work together to protect adolescents.", "type": "rule", "strength": "strong" },
-            { "text": "Fewer young people on the streets at night can reduce noise and trouble.", "type": "practical", "strength": "moderate" },
-            { "text": "Society has a duty to protect minors more than adults.", "type": "social", "strength": "moderate" },
-            { "text": "People feel worried when teens are outside late at night.", "type": "emotional", "strength": "weak" }
-          ]
-        }
-      ]
-    }
-  ]
+{
+"id": 1,
+"title": "Music in the Park",
+"text": "A student wants to play loud music in a public park. Other people want quiet.",
+"sideA": "The student should be allowed to play loud music in the park.",
+"sideB": "The student should NOT be allowed to play loud music in the park.",
+"argumentsA": [
+{ "text": "The park is a public space for many activities, not only quiet rest.", "type": "social", "strength": "strong" },
+{ "text": "People who want quiet can move to another area of the park.", "type": "practical", "strength": "strong" },
+{ "text": "There is no rule against playing music in the park.", "type": "rule", "strength": "strong" },
+{ "text": "Music can make the park lively and enjoyable for many visitors.", "type": "social", "strength": "moderate" },
+{ "text": "Some people like listening to music while relaxing.", "type": "emotional", "strength": "moderate" },
+{ "text": "It’s fun to play loud music.", "type": "emotional", "strength": "weak" }
+],
+"argumentsB": [
+{ "text": "The park is a shared space, so one person’s music should not disturb many others.", "type": "social", "strength": "strong" },
+{ "text": "People use parks to rest and enjoy nature, and loud music prevents this.", "type": "social", "strength": "strong" },
+{ "text": "Noise spreads far and affects people who did not choose to hear it.", "type": "social", "strength": "strong" },
+{ "text": "Rules are needed in public spaces to protect everyone’s comfort.", "type": "rule", "strength": "strong" },
+{ "text": "Many people go to parks to escape city noise.", "type": "practical", "strength": "moderate" },
+{ "text": "Loud music is annoying.", "type": "emotional", "strength": "weak" }
+]
+},
+
+{
+"id": 2,
+"title": "Club Room",
+"text": "Two school clubs want the same classroom after school. Only one club can use it.",
+"sideA": "The school should give the room to the bigger club.",
+"sideB": "The school should make the clubs share the room.",
+"argumentsA": [
+{ "text": "More students can use the room if the bigger club gets it.", "type": "practical", "strength": "strong" },
+{ "text": "The bigger club needs more space to practice safely and properly.", "type": "practical", "strength": "strong" },
+{ "text": "Using the room for the bigger club makes the best use of school resources.", "type": "practical", "strength": "strong" },
+{ "text": "If the room is always shared, practice time will be too short for both clubs.", "type": "practical", "strength": "moderate" },
+{ "text": "The school should choose the option that helps the most students.", "type": "social", "strength": "moderate" },
+{ "text": "Big clubs are more important.", "type": "emotional", "strength": "weak" }
+],
+"argumentsB": [
+{ "text": "Both clubs are school activities and should be treated equally.", "type": "social", "strength": "strong" },
+{ "text": "Sharing teaches cooperation and respect between students.", "type": "developmental", "strength": "strong" },
+{ "text": "No club should have special power just because it is bigger.", "type": "social", "strength": "strong" },
+{ "text": "If one club always wins, the smaller club may disappear.", "type": "social", "strength": "moderate" },
+{ "text": "The school should make rules that are fair for all clubs.", "type": "rule", "strength": "moderate" },
+{ "text": "It feels unfair.", "type": "emotional", "strength": "weak" }
+]
+},
+
+{
+"id": 3,
+"title": "Curfew",
+"text": "A city wants a 9 p.m. curfew for 16-year-olds. Some people agree. Some people disagree.",
+"sideA": "The city should NOT have a curfew for 16-year-olds.",
+"sideB": "The city SHOULD have a curfew for 16-year-olds.",
+"argumentsA": [
+{ "text": "Most 16-year-olds follow the law, so a curfew punishes many for the actions of a few.", "type": "social", "strength": "strong" },
+{ "text": "Young people may need to travel for jobs, clubs, or family reasons.", "type": "practical", "strength": "strong" },
+{ "text": "Freedom helps adolescents learn responsibility and independence.", "type": "developmental", "strength": "strong" },
+{ "text": "Police time should be used for serious crime, not checking teenagers’ ages.", "type": "practical", "strength": "strong" },
+{ "text": "A curfew does not solve the real causes of crime.", "type": "practical", "strength": "moderate" },
+{ "text": "Staying out late is fun.", "type": "emotional", "strength": "weak" }
+],
+"argumentsB": [
+{ "text": "A curfew can reduce the risk of young people becoming victims of crime at night.", "type": "practical", "strength": "strong" },
+{ "text": "Late at night, it is harder for police to protect minors.", "type": "practical", "strength": "strong" },
+{ "text": "Clear rules help parents and police work together to protect adolescents.", "type": "rule", "strength": "strong" },
+{ "text": "Fewer young people on the streets at night can reduce noise and trouble.", "type": "practical", "strength": "moderate" },
+{ "text": "Society has a duty to protect minors more than adults.", "type": "social", "strength": "moderate" },
+{ "text": "People feel worried when teens are outside late at night.", "type": "emotional", "strength": "weak" }
+]
+},
+
+{
+"id": 4,
+"title": "Playground or Parking Lot",
+"text": "An empty public space in a neighborhood can become a playground or a parking lot. The community must decide.",
+"sideA": "The space should become a playground.",
+"sideB": "The space should become a parking lot.",
+"argumentsA": [
+{ "text": "Children need safe public places to play and exercise.", "type": "social", "strength": "strong" },
+{ "text": "A playground helps families enjoy the neighborhood together.", "type": "social", "strength": "strong" },
+{ "text": "Playing outside helps children develop social skills and healthy habits.", "type": "developmental", "strength": "strong" },
+{ "text": "A playground can improve the quality of life in the community.", "type": "social", "strength": "moderate" },
+{ "text": "A playground can help neighbors meet and build community relationships.", "type": "social", "strength": "moderate" },
+{ "text": "Playgrounds are fun.", "type": "emotional", "strength": "weak" }
+],
+"argumentsB": [
+{ "text": "Many residents need parking spaces for their cars.", "type": "practical", "strength": "strong" },
+{ "text": "More parking can reduce traffic problems in the neighborhood.", "type": "practical", "strength": "strong" },
+{ "text": "Visitors and delivery vehicles also need places to park.", "type": "social", "strength": "strong" },
+{ "text": "Families can visit playgrounds in nearby parks.", "type": "practical", "strength": "moderate" },
+{ "text": "Cities must plan public space carefully for transportation needs.", "type": "rule", "strength": "moderate" },
+{ "text": "Parking lots are convenient.", "type": "emotional", "strength": "weak" }
+]
+},
+
+{
+"id": 5,
+"title": "Bike Lanes",
+"text": "A city plans to remove some car lanes to build bike lanes on a busy road.",
+"sideA": "The city should build bike lanes.",
+"sideB": "The city should keep the car lanes.",
+"argumentsA": [
+{ "text": "Bike lanes make cycling safer for people.", "type": "practical", "strength": "strong" },
+{ "text": "Bike lanes encourage people to use bicycles instead of cars.", "type": "social", "strength": "strong" },
+{ "text": "More cycling can reduce traffic and pollution.", "type": "practical", "strength": "strong" },
+{ "text": "Cities should support many types of transportation.", "type": "social", "strength": "moderate" },
+{ "text": "Bike lanes can encourage healthy exercise.", "type": "practical", "strength": "moderate" },
+{ "text": "Riding bikes is fun.", "type": "emotional", "strength": "weak" }
+],
+"argumentsB": [
+{ "text": "Many people depend on cars for work and daily life.", "type": "practical", "strength": "strong" },
+{ "text": "Removing car lanes may cause more traffic congestion.", "type": "practical", "strength": "strong" },
+{ "text": "Emergency vehicles need clear roads to travel quickly.", "type": "social", "strength": "strong" },
+{ "text": "Some cities do not have enough cyclists to justify bike lanes.", "type": "practical", "strength": "moderate" },
+{ "text": "Road space should serve the largest number of users.", "type": "rule", "strength": "moderate" },
+{ "text": "Driving is more comfortable.", "type": "emotional", "strength": "weak" }
+]
+},
+
+{
+"id": 6,
+"title": "Festival in the Park",
+"text": "A large festival is planned in a quiet neighborhood park.",
+"sideA": "The festival should be allowed in the park.",
+"sideB": "The festival should NOT be allowed in the park.",
+"argumentsA": [
+{ "text": "Festivals bring people together and build community spirit.", "type": "social", "strength": "strong" },
+{ "text": "Local businesses may benefit from visitors.", "type": "social", "strength": "strong" },
+{ "text": "Public parks are meant for community activities.", "type": "rule", "strength": "strong" },
+{ "text": "Events can make neighborhoods more lively.", "type": "social", "strength": "moderate" },
+{ "text": "The festival may only happen once a year.", "type": "practical", "strength": "moderate" },
+{ "text": "Festivals are exciting.", "type": "emotional", "strength": "weak" }
+],
+"argumentsB": [
+{ "text": "Residents have a right to quiet and peaceful neighborhoods.", "type": "social", "strength": "strong" },
+{ "text": "Large events can create noise, trash, and traffic problems.", "type": "practical", "strength": "strong" },
+{ "text": "Visitors may disturb people who live nearby.", "type": "social", "strength": "strong" },
+{ "text": "Cities should protect residential areas from large disturbances.", "type": "rule", "strength": "moderate" },
+{ "text": "Parks in busy areas may be better places for festivals.", "type": "practical", "strength": "moderate" },
+{ "text": "Festivals are annoying.", "type": "emotional", "strength": "weak" }
+]
+}
+
+]
+}
+]
 }
