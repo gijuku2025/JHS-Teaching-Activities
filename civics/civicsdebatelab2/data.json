@@ -82,7 +82,42 @@
   "emergency": "緊急",
   "festival": "祭り",
   "peaceful": "静かな",
-  "lively": "にぎやかな"
+  "lively": "にぎやかな",
+
+"allowed": "許可された",
+"escape": "逃れる",
+"nature": "自然",
+"relax": "くつろぐ",
+"space": "空間",
+
+"practice safely": "安全に練習する",
+"properly": "適切に",
+"disappear": "消える",
+
+"follow the law": "法律を守る",
+"cause": "原因",
+"reduce": "減らす",
+"risk": "危険",
+"protect": "守る",
+"clear": "明確な",
+
+"empty": "空の",
+"neighborhood": "近所",
+"quality of life": "生活の質",
+"habit": "習慣",
+"relationship": "関係",
+
+"cycling": "自転車に乗ること",
+"bicycle": "自転車",
+"depend on": "頼る",
+"remove": "取り除く",
+"support": "支える",
+
+"business": "ビジネス・商店",
+"benefit": "利益・恩恵",
+"trash": "ごみ",
+"residential": "住宅の",
+"disturbance": "騒ぎ・迷惑"    
 },
 
 "chapters": [
