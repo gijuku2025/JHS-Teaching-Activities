@@ -1,52 +1,58 @@
 [
   {
-    "word": "政",
-    "meaning": ["Government", "politics"],
-    "reading": ["セイ", "まつりごと"]
+    "kanji": "政",
+    "meaning": ["government", "politics"],
+    "onyomi": ["セイ"],
+    "kunyomi": ["まつりごと"]
   },
   {
-    "word": "治",
-    "meaning": ["Govern", "rule", "cure"],
-    "reading": ["ジ", "チ", "おさめる", "なおる"]
+    "kanji": "治",
+    "meaning": ["govern", "rule", "cure"],
+    "onyomi": ["ジ", "チ"],
+    "kunyomi": ["おさめる", "なおる"]
   },
   {
-    "word": "経",
-    "meaning": ["Manage", "pass through", "economy"],
-    "reading": ["ケイ", "キョウ", "へる"]
+    "kanji": "経",
+    "meaning": ["manage", "pass through", "economy"],
+    "onyomi": ["ケイ", "キョウ"],
+    "kunyomi": ["へる"]
   },
   {
-    "word": "済",
-    "meaning": ["Settle", "finish", "economy"],
-    "reading": ["サイ", "セイ", "すむ"]
+    "kanji": "済",
+    "meaning": ["settle", "finish", "economy"],
+    "onyomi": ["サイ", "セイ"],
+    "kunyomi": ["すむ"]
   },
   {
-    "word": "法",
-    "meaning": ["Law", "method"],
-    "reading": ["ホウ"]
+    "kanji": "法",
+    "meaning": ["law", "method"],
+    "onyomi": ["ホウ"]
   },
   {
-    "word": "律",
-    "meaning": ["Law", "regulation"],
-    "reading": ["リツ"]
+    "kanji": "律",
+    "meaning": ["law", "regulation"],
+    "onyomi": ["リツ"]
   },
   {
-    "word": "議",
-    "meaning": ["Discussion", "deliberation"],
-    "reading": ["ギ"]
+    "kanji": "議",
+    "meaning": ["discussion", "deliberation"],
+    "onyomi": ["ギ"]
   },
   {
-    "word": "員",
-    "meaning": ["Member"],
-    "reading": ["イン"]
+    "kanji": "員",
+    "meaning": ["member"],
+    "onyomi": ["イン"]
   },
   {
-    "word": "選",
-    "meaning": ["Choose", "elect"],
-    "reading": ["セン", "えらぶ"]
+    "kanji": "選",
+    "meaning": ["choose", "elect"],
+    "onyomi": ["セン"],
+    "kunyomi": ["えらぶ"]
   },
   {
-    "word": "挙",
-    "meaning": ["Raise", "election"],
-    "reading": ["キョ", "あげる"]
+    "kanji": "挙",
+    "meaning": ["raise", "election"],
+    "onyomi": ["キョ"],
+    "kunyomi": ["あげる"]
   }
 ]
