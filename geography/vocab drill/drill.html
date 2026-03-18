@@ -40,10 +40,6 @@
       font-size: 28px;
       color: #aaa;
     }
-    .preview {
-      font-size: 28px;
-      line-height: 1.8;
-    }
     footer {
       padding: 10px;
       text-align: center;
@@ -80,9 +76,10 @@ const params = new URLSearchParams(window.location.search);
 const fileName = params.get("file") || "partition.json";
 const dataPath = `data/${fileName}`;
 
-let phase = 0; // 0 preview, 1 EN->JP, 2 JP->EN
+// phases: 0 introduce, 1 EN->JP, 2 JP->EN
+let phase = 0;
 let index = 0;
-let showAnswer = false;
+let showAnswer = true; // introduce shows both by default
 
 const enEl = document.getElementById("en");
 const kanjiEl = document.getElementById("kanji");
@@ -97,17 +94,15 @@ function render() {
   kanjiEl.textContent = "";
   kanaEl.textContent = "";
 
-  // PREVIEW (each word on new line)
+  // INTRODUCE (show both automatically)
   if (phase === 0) {
-    enEl.className = "preview";
-    enEl.innerHTML = data.vocab.map(w => `${w.en}`).join("<br>");
-    kanjiEl.innerHTML = data.vocab.map(w => `${w.jp.kanji}`).join("<br>");
-    kanaEl.innerHTML = data.vocab.map(w => `(${w.jp.kana})`).join("<br>");
+    enEl.textContent = word.en;
+    kanjiEl.textContent = word.jp.kanji;
+    kanaEl.textContent = word.jp.kana;
   }
 
-  // EN → JP (teacher flow: show EN → reveal JP)
+  // EN → JP (reveal flow)
   else if (phase === 1) {
-    enEl.className = "en";
     enEl.textContent = word.en;
 
     if (showAnswer) {
@@ -116,7 +111,7 @@ function render() {
     }
   }
 
-  // JP → EN (teacher flow: show JP → reveal EN)
+  // JP → EN (reveal flow)
   else if (phase === 2) {
     kanjiEl.textContent = word.jp.kanji;
     kanaEl.textContent = word.jp.kana;
@@ -130,23 +125,28 @@ function render() {
 function next() {
   if (!data) return;
 
-  // move to next phase from preview
+  // INTRODUCE: just move through words
   if (phase === 0) {
-    phase = 1;
-    index = 0;
-    showAnswer = false;
+    index++;
+    if (index >= data.vocab.length) {
+      phase = 1;
+      index = 0;
+      showAnswer = false;
+    }
     render();
     return;
   }
 
-  // if answer not shown, show it first
+  // DRILL phases
+
+  // first press reveals answer
   if (!showAnswer) {
     showAnswer = true;
     render();
     return;
   }
 
-  // move to next word
+  // second press moves on
   showAnswer = false;
   index++;
 
@@ -154,7 +154,7 @@ function next() {
     index = 0;
     phase++;
     if (phase > 2) {
-      phase = 1; // loop drill phases only
+      phase = 1; // loop drill only
     }
   }
 
@@ -169,7 +169,7 @@ function toggleAnswer() {
 function start() {
   phase = 0;
   index = 0;
-  showAnswer = false;
+  showAnswer = true;
   render();
 }
 
