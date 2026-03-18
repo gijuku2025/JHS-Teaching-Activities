@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vocab Drill</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 10px;
+      font-size: 20px;
+      background: #222;
+    }
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+    .en {
+      font-size: 64px;
+      margin: 10px;
+    }
+    .kanji {
+      font-size: 56px;
+      margin: 5px;
+    }
+    .kana {
+      font-size: 28px;
+      color: #aaa;
+    }
+    footer {
+      padding: 10px;
+      text-align: center;
+      background: #222;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<header id="lessonTitle">Loading...</header>
+
+<div class="main">
+  <div id="en" class="en"></div>
+  <div id="kanji" class="kanji"></div>
+  <div id="kana" class="kana"></div>
+</div>
+
+<footer>
+  <button onclick="start()">Start</button>
+  <button onclick="next()">Next (Space)</button>
+  <button onclick="toggleAnswer()">Show (A)</button>
+  <button onclick="restart()">Restart (R)</button>
+</footer>
+
+<script>
+let data = null;
+
+// Get file from URL (?file=xxx.json)
+const params = new URLSearchParams(window.location.search);
+const fileName = params.get("file") || "partition.json";
+const dataPath = `data/${fileName}`;
+
+let phase = 0; // 0 preview, 1 introduce, 2 EN->JP, 3 JP->EN
+let index = 0;
+let showAnswer = true;
+
+const enEl = document.getElementById("en");
+const kanjiEl = document.getElementById("kanji");
+const kanaEl = document.getElementById("kana");
+
+function render() {
+  if (!data) return;
+
+  const word = data.vocab[index];
+
+  enEl.textContent = "";
+  kanjiEl.textContent = "";
+  kanaEl.textContent = "";
+
+  if (phase === 0) {
+    enEl.textContent = data.vocab.map(w => w.en).join("   ");
+    kanjiEl.textContent = data.vocab.map(w => w.jp.kanji).join("   ");
+  }
+  else if (phase === 1) {
+    enEl.textContent = word.en;
+    kanjiEl.textContent = word.jp.kanji;
+    kanaEl.textContent = word.jp.kana;
+  }
+  else if (phase === 2) {
+    enEl.textContent = word.en;
+    if (showAnswer) {
+      kanjiEl.textContent = word.jp.kanji;
+      kanaEl.textContent = word.jp.kana;
+    }
+  }
+  else if (phase === 3) {
+    kanjiEl.textContent = word.jp.kanji;
+    kanaEl.textContent = word.jp.kana;
+    if (showAnswer) {
+      enEl.textContent = word.en;
+    }
+  }
+}
+
+function next() {
+  if (!data) return;
+
+  if (phase === 0) {
+    phase = 1;
+    index = 0;
+  } else {
+    index++;
+    if (index >= data.vocab.length) {
+      phase++;
+      index = 0;
+      showAnswer = false;
+      if (phase > 3) {
+        phase = 1;
+      }
+    }
+  }
+  render();
+}
+
+function toggleAnswer() {
+  showAnswer = !showAnswer;
+  render();
+}
+
+function start() {
+  phase = 0;
+  index = 0;
+  showAnswer = true;
+  render();
+  setTimeout(() => {
+    next();
+  }, 2000); // preview duration
+}
+
+function restart() {
+  phase = 0;
+  index = 0;
+  showAnswer = true;
+  render();
+}
+
+// Keyboard controls
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space") next();
+  if (e.key.toLowerCase() === "a") toggleAnswer();
+  if (e.key.toLowerCase() === "r") restart();
+});
+
+// Load JSON
+fetch(dataPath)
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    document.getElementById("lessonTitle").textContent = data.lesson;
+    render();
+  })
+  .catch(err => {
+    document.getElementById("lessonTitle").textContent = "Error loading JSON";
+    console.error(err);
+  });
+
+</script>
+
+</body>
+</html>

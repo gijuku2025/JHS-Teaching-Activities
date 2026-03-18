@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocab Drill Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Select Lesson</h1>
+  <div class="menu" id="menu"></div>
+
+<script>
+// LIST YOUR LESSON FILES HERE
+const lessons = [
+  { name: "Partition of India", file: "partition.json" }
+];
+
+const menu = document.getElementById("menu");
+
+lessons.forEach(lesson => {
+  const btn = document.createElement("button");
+  btn.textContent = lesson.name;
+  btn.onclick = () => {
+    window.location.href = `drill.html?file=${lesson.file}`;
+  };
+  menu.appendChild(btn);
+});
+</script>
+</body>
+</html>
