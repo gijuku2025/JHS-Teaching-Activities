@@ -40,6 +40,10 @@
       font-size: 28px;
       color: #aaa;
     }
+    .preview {
+      font-size: 28px;
+      line-height: 1.8;
+    }
     footer {
       padding: 10px;
       text-align: center;
@@ -65,21 +69,20 @@
 <footer>
   <button onclick="start()">Start</button>
   <button onclick="next()">Next (Space)</button>
-  <button onclick="toggleAnswer()">Show (A)</button>
+  <button onclick="toggleAnswer()">Reveal (A)</button>
   <button onclick="restart()">Restart (R)</button>
 </footer>
 
 <script>
 let data = null;
 
-// Get file from URL (?file=xxx.json)
 const params = new URLSearchParams(window.location.search);
 const fileName = params.get("file") || "partition.json";
 const dataPath = `data/${fileName}`;
 
-let phase = 0; // 0 preview, 1 introduce, 2 EN->JP, 3 JP->EN
+let phase = 0; // 0 preview, 1 EN->JP, 2 JP->EN
 let index = 0;
-let showAnswer = true;
+let showAnswer = false;
 
 const enEl = document.getElementById("en");
 const kanjiEl = document.getElementById("kanji");
@@ -94,25 +97,30 @@ function render() {
   kanjiEl.textContent = "";
   kanaEl.textContent = "";
 
+  // PREVIEW (each word on new line)
   if (phase === 0) {
-    enEl.textContent = data.vocab.map(w => w.en).join("   ");
-    kanjiEl.textContent = data.vocab.map(w => w.jp.kanji).join("   ");
+    enEl.className = "preview";
+    enEl.innerHTML = data.vocab.map(w => `${w.en}`).join("<br>");
+    kanjiEl.innerHTML = data.vocab.map(w => `${w.jp.kanji}`).join("<br>");
+    kanaEl.innerHTML = data.vocab.map(w => `(${w.jp.kana})`).join("<br>");
   }
+
+  // EN → JP (teacher flow: show EN → reveal JP)
   else if (phase === 1) {
+    enEl.className = "en";
     enEl.textContent = word.en;
-    kanjiEl.textContent = word.jp.kanji;
-    kanaEl.textContent = word.jp.kana;
-  }
-  else if (phase === 2) {
-    enEl.textContent = word.en;
+
     if (showAnswer) {
       kanjiEl.textContent = word.jp.kanji;
       kanaEl.textContent = word.jp.kana;
     }
   }
-  else if (phase === 3) {
+
+  // JP → EN (teacher flow: show JP → reveal EN)
+  else if (phase === 2) {
     kanjiEl.textContent = word.jp.kanji;
     kanaEl.textContent = word.jp.kana;
+
     if (showAnswer) {
       enEl.textContent = word.en;
     }
@@ -122,48 +130,60 @@ function render() {
 function next() {
   if (!data) return;
 
+  // move to next phase from preview
   if (phase === 0) {
     phase = 1;
     index = 0;
-  } else {
-    index++;
-    if (index >= data.vocab.length) {
-      phase++;
-      index = 0;
-      showAnswer = false;
-      if (phase > 3) {
-        phase = 1;
-      }
+    showAnswer = false;
+    render();
+    return;
+  }
+
+  // if answer not shown, show it first
+  if (!showAnswer) {
+    showAnswer = true;
+    render();
+    return;
+  }
+
+  // move to next word
+  showAnswer = false;
+  index++;
+
+  if (index >= data.vocab.length) {
+    index = 0;
+    phase++;
+    if (phase > 2) {
+      phase = 1; // loop drill phases only
     }
   }
+
   render();
 }
 
 function toggleAnswer() {
-  showAnswer = !showAnswer;
+  showAnswer = true;
   render();
 }
 
 function start() {
   phase = 0;
   index = 0;
-  showAnswer = true;
+  showAnswer = false;
   render();
-  setTimeout(() => {
-    next();
-  }, 2000); // preview duration
 }
 
 function restart() {
-  phase = 0;
-  index = 0;
-  showAnswer = true;
-  render();
+  start();
 }
 
 // Keyboard controls
+
 document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") next();
+  if (e.code === "Space") {
+    e.preventDefault();
+    next();
+  }
   if (e.key.toLowerCase() === "a") toggleAnswer();
   if (e.key.toLowerCase() === "r") restart();
 });
