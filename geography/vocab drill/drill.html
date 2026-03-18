@@ -88,18 +88,48 @@ const kanaEl = document.getElementById("kana");
 function render() {
   if (!data) return;
 
-  const word = data.vocab[index];
-
   enEl.textContent = "";
   kanjiEl.textContent = "";
   kanaEl.textContent = "";
 
-  // INTRODUCE (show both automatically)
+  // END SCREEN
+  if (phase === 3) {
+    enEl.textContent = "End";
+    kanjiEl.textContent = "";
+    kanaEl.textContent = "";
+    return;
+  }
+  }
+
+  const word = data.vocab[index];
+
+  // INTRODUCE
   if (phase === 0) {
     enEl.textContent = word.en;
     kanjiEl.textContent = word.jp.kanji;
     kanaEl.textContent = word.jp.kana;
   }
+
+  // EN → JP
+  else if (phase === 1) {
+    enEl.textContent = word.en;
+
+    if (showAnswer) {
+      kanjiEl.textContent = word.jp.kanji;
+      kanaEl.textContent = word.jp.kana;
+    }
+  }
+
+  // JP → EN
+  else if (phase === 2) {
+    kanjiEl.textContent = word.jp.kanji;
+    kanaEl.textContent = word.jp.kana;
+
+    if (showAnswer) {
+      enEl.textContent = word.en;
+    }
+  }
+}
 
   // EN → JP (reveal flow)
   else if (phase === 1) {
@@ -153,48 +183,16 @@ function next() {
   if (index >= data.vocab.length) {
     index = 0;
     phase++;
+
+    // if finished JP->EN, show end message
     if (phase > 2) {
-      phase = 1; // loop drill only
+      phase = 3; // end phase
+      render();
+      return;
     }
   }
 
   render();
-}
-
-function toggleAnswer() {
-  showAnswer = true;
-  render();
-}
-
-function start() {
-  phase = 0;
-  index = 0;
-  showAnswer = true;
-  render();
-}
-
-function restart() {
-  start();
-}
-
-// Keyboard controls
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    e.preventDefault();
-    next();
-  }
-  if (e.key.toLowerCase() === "a") toggleAnswer();
-  if (e.key.toLowerCase() === "r") restart();
-});
-
-// Load JSON
-fetch(dataPath)
-  .then(res => res.json())
-  .then(json => {
-    data = json;
-    document.getElementById("lessonTitle").textContent = data.lesson;
-    render();
   })
   .catch(err => {
     document.getElementById("lessonTitle").textContent = "Error loading JSON";
