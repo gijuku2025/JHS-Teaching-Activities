@@ -1,0 +1,37 @@
+{
+  "lesson": "Sialkot Soccer Balls",
+  "vocab": [
+    {
+      "en": "sacred",
+      "jp": { "kanji": "神聖な", "kana": "しんせいな" }
+    },
+    {
+      "en": "job",
+      "jp": { "kanji": "仕事", "kana": "しごと" }
+    },
+    {
+      "en": "asked",
+      "jp": { "kanji": "頼んだ", "kana": "たのんだ" }
+    },
+    {
+      "en": "exports",
+      "jp": { "kanji": "輸出する", "kana": "ゆしゅつする" }
+    },
+    {
+      "en": "nearly",
+      "jp": { "kanji": "ほぼ", "kana": "ほぼ" }
+    },
+    {
+      "en": "world",
+      "jp": { "kanji": "世界", "kana": "せかい" }
+    },
+    {
+      "en": "leather",
+      "jp": { "kanji": "革", "kana": "かわ" }
+    },
+    {
+      "en": "believe",
+      "jp": { "kanji": "信じる", "kana": "しんじる" }
+    }
+  ]
+}
