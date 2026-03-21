@@ -1,0 +1,14 @@
+[
+  {
+    "question": "Where are many soccer balls made?",
+    "choices": ["India", "Pakistan", "China"],
+    "correct": 1,
+    "explanation": "Sialkot in Pakistan produces many soccer balls."
+  },
+  {
+    "question": "What do Hindus think about cows?",
+    "choices": ["Sacred", "Food", "Dangerous"],
+    "correct": 0,
+    "explanation": "Hindus believe cows are sacred."
+  }
+]

@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+#questionBox {
+  padding: 15px;
+  font-size: 20px;
+  background: white;
+}
+
+canvas {
+  background: #fff;
+  touch-action: none;
+}
+
+#ui {
+  padding: 10px;
+}
+
+#hearts {
+  font-size: 24px;
+}
+
+#feedback {
+  font-size: 18px;
+  margin-top: 5px;
+}
