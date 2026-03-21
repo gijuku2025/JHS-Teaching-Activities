@@ -1,24 +1,28 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 400;
-canvas.height = 400;
+canvas.width = 450;
+canvas.height = 450;
 
-const GRID = 5;
+const GRID = 9;
 const tileSize = canvas.width / GRID;
 
-// Maze (0 = path, 1 = wall)
+// MAZE (0 = path, 1 = wall)
 const maze = [
-  [0,0,0,0,0],
-  [1,1,0,1,0],
-  [0,0,0,1,0],
-  [0,1,1,1,0],
-  [0,0,0,0,0],
+  [0,0,0,1,0,0,0,0,0],
+  [1,1,0,1,0,1,1,1,0],
+  [0,0,0,0,0,0,0,1,0],
+  [0,1,1,1,1,1,0,1,0],
+  [0,0,0,0,0,1,0,0,0],
+  [0,1,1,1,0,1,1,1,0],
+  [0,0,0,1,0,0,0,0,0],
+  [0,1,0,0,0,1,1,1,0],
+  [0,0,0,1,0,0,0,0,0],
 ];
 
 let player = {
   x: 0,
-  y: 0,
+  y: 4,
   px: 0,
   py: 0,
   path: [],
@@ -47,13 +51,15 @@ function loadQuestion() {
   document.getElementById("questionBox").innerText = q.question;
 
   answers = [
-    { x: 4, y: 0, index: 0 },
-    { x: 4, y: 2, index: 1 },
-    { x: 4, y: 4, index: 2 }
+    { x: 8, y: 1, text: q.choices[0], index: 0 },
+    { x: 8, y: 4, text: q.choices[1], index: 1 },
+    { x: 8, y: 7, text: q.choices[2], index: 2 }
   ];
 
   player.x = 0;
-  player.y = 0;
+  player.y = 4;
+  player.px = player.x * tileSize;
+  player.py = player.y * tileSize;
   player.path = [];
   player.moving = false;
 
@@ -67,7 +73,7 @@ canvas.addEventListener("touchstart", e => {
   const mx = touch.clientX - rect.left;
   const my = touch.clientY - rect.top;
 
-  // Check answer tap
+  // TAP ANSWERS
   answers.forEach(a => {
     if (
       mx > a.x * tileSize &&
@@ -85,7 +91,7 @@ canvas.addEventListener("touchstart", e => {
     }
   });
 
-  // Attack enemies
+  // ATTACK ENEMIES
   enemies.forEach(e => {
     if (
       mx > e.x && mx < e.x + 20 &&
@@ -120,9 +126,7 @@ function findPath(sx, sy, ex, ey) {
 
     closed.push(current);
 
-    const dirs = [
-      [1,0],[-1,0],[0,1],[0,-1]
-    ];
+    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
 
     dirs.forEach(d => {
       let nx = current.x + d[0];
@@ -142,13 +146,7 @@ function findPath(sx, sy, ex, ey) {
 
       let existing = open.find(n => n.x === nx && n.y === ny);
       if (!existing || g < existing.g) {
-        open.push({
-          x: nx,
-          y: ny,
-          g,
-          f,
-          parent: current
-        });
+        open.push({ x: nx, y: ny, g, f, parent: current });
       }
     });
   }
@@ -156,7 +154,7 @@ function findPath(sx, sy, ex, ey) {
   return [];
 }
 
-// ENEMIES
+// ENEMY
 function spawnEnemy() {
   enemies.push({
     x: Math.random() * canvas.width,
@@ -167,7 +165,6 @@ function spawnEnemy() {
 
 // UPDATE
 function update() {
-  // MOVE ALONG PATH
   if (player.moving && player.path.length > 0) {
     let next = player.path[0];
 
@@ -192,7 +189,6 @@ function update() {
     }
   }
 
-  // ENEMIES MOVE
   enemies.forEach(e => {
     let dx = player.px - e.x;
     let dy = player.py - e.y;
@@ -221,9 +217,9 @@ function checkAnswer(index) {
   } else {
     document.getElementById("feedback").innerText = "Try again!";
     player.x = 0;
-    player.y = 0;
-    player.px = 0;
-    player.py = 0;
+    player.y = 4;
+    player.px = player.x * tileSize;
+    player.py = player.y * tileSize;
   }
 }
 
@@ -241,29 +237,33 @@ function updateHearts() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // DRAW MAZE (PRETTIER)
+  // MAZE
   for (let y = 0; y < GRID; y++) {
     for (let x = 0; x < GRID; x++) {
+
       if (maze[y][x] === 1) {
-        ctx.fillStyle = "#333";
-        roundRect(x * tileSize, y * tileSize, tileSize, tileSize, 10);
-        ctx.fill();
+        ctx.fillStyle = "#2c2c2c";
       } else {
         ctx.fillStyle = "#eaeaea";
-        roundRect(x * tileSize, y * tileSize, tileSize, tileSize, 10);
-        ctx.fill();
       }
+
+      roundRect(x * tileSize, y * tileSize, tileSize, tileSize, 12);
+      ctx.fill();
     }
   }
 
   // ANSWERS
-  ctx.fillStyle = "#4CAF50";
-  answers.forEach((a, i) => {
-    ctx.fillText(
-      ["A","B","C"][i],
-      a.x * tileSize + 30,
-      a.y * tileSize + 50
-    );
+  answers.forEach(a => {
+    const px = a.x * tileSize;
+    const py = a.y * tileSize;
+
+    ctx.fillStyle = "#C8E6C9";
+    roundRect(px, py, tileSize, tileSize, 10);
+    ctx.fill();
+
+    ctx.fillStyle = "#000";
+    ctx.font = "12px sans-serif";
+    wrapText(a.text, px + 5, py + 20, tileSize - 10, 14);
   });
 
   // PLAYER
@@ -277,6 +277,26 @@ function draw() {
   enemies.forEach(e => {
     ctx.fillRect(e.x, e.y, 20, 20);
   });
+}
+
+// TEXT WRAP
+function wrapText(text, x, y, maxWidth, lineHeight) {
+  const words = text.split(" ");
+  let line = "";
+
+  for (let n = 0; n < words.length; n++) {
+    let testLine = line + words[n] + " ";
+    let width = ctx.measureText(testLine).width;
+
+    if (width > maxWidth && n > 0) {
+      ctx.fillText(line, x, y);
+      line = words[n] + " ";
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x, y);
 }
 
 // ROUNDED RECT
