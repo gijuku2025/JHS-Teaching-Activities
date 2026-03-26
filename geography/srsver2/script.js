@@ -16,6 +16,8 @@ const MASTERY_INTERVAL = 30; // days
 const RARE_REVIEW_INTERVAL = 60; // days
 
 let sessionCount = 0;
+let testedCount = 0;
+
 let failedThisSession = new Set();
 let sessionStartTime = null;
 
@@ -35,6 +37,8 @@ let learningQueue = [];
 let reviewQueue = [];
 let current = null;
 let direction = null;
+
+
 
 /* ================= STORAGE ================= */
 
@@ -225,6 +229,7 @@ async function startStudy() {
   resetDailyCountIfNeeded();
   sessionStartTime = Date.now();
   sessionCount = 0;
+  testedCount = 0;
   failedThisSession = new Set();
   state.stats = { correct: 0, wrong: 0, new: 0, review: 0 };
   await loadVocab();
@@ -276,7 +281,7 @@ save();
   const remaining =
   previewQueue.length + learningQueue.length + reviewQueue.length + 1;
 
-  const currentNum = sessionCount + 1;
+ const currentNum = testedCount + 1;
 
   const maxTotal = Math.min(
     currentNum + remaining - 1,
@@ -472,6 +477,7 @@ function submitAnswer() {
   }
 
   sessionCount++;
+  testedCount++;				  
 
  if (result === "wrong") {
   state.stats.wrong++;
