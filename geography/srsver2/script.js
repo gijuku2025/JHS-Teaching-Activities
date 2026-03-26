@@ -700,18 +700,24 @@ function showFeedback(result) {
           </span>
         </div>
 
-        <!-- buttons -->
-        <div style="margin-top:15px;">
-          <button onclick="gradeAnswer('hard')">
-            Hard<br><span style="font-size:0.75em;">（むずかしかった）</span>
-          </button>
-          <button onclick="gradeAnswer('good')">
-            Good<br><span style="font-size:0.75em;">（だいたい覚えていた）</span>
-          </button>
-          <button onclick="gradeAnswer('easy')">
-            Easy<br><span style="font-size:0.75em;">（かんたんだった）</span>
-          </button>
-        </div>
+        <div class="grade-buttons">
+
+  <div class="grade-row">
+    <button class="hard" onclick="gradeAnswer('hard')">Hard</button>
+    <span class="grade-jp">（むずかしかった）</span>
+  </div>
+
+  <div class="grade-row">
+    <button class="good" onclick="gradeAnswer('good')">Good</button>
+    <span class="grade-jp">（だいたい覚えていた）</span>
+  </div>
+
+  <div class="grade-row">
+    <button class="easy" onclick="gradeAnswer('easy')">Easy</button>
+    <span class="grade-jp">（かんたんだった）</span>
+  </div>
+
+</div>
 
       </div>
     </div>
