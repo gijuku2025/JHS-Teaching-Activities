@@ -420,9 +420,11 @@ function submitLearningCheck() {
 }
 
   // ✅ ONE success → move to SRS
-  updateProgress("good");
-  sessionCount++;			 
-  nextQuestion();
+  // move item into learning queue instead of grading it
+learningQueue.splice(2, 0, current);
+
+sessionCount++;
+nextQuestion();
 }
 	  
 	  
