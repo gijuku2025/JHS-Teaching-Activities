@@ -30,7 +30,7 @@ todayNewCount: Number(localStorage.getItem(SUBJECT + "_todayNewCount") || 0),
 };
 
 let vocab = [];
-let newQueue = [];
+let previewQueue = []; 
 let learningQueue = [];
 let reviewQueue = [];
 let current = null;
@@ -60,6 +60,31 @@ function resetDailyCountIfNeeded() {
 }
 
 /* ================= UI ================= */
+
+function showLearningCheck() {
+  const prompt = direction === "en-jp" ? current.en : current.jp;
+
+  app.innerHTML = `
+    <div class="center">
+      <div class="card study-card">
+
+        <div class="word">${prompt}</div>
+        <p>Try typing the answer</p>
+
+        <input id="answer" class="answer-input">
+
+        <button id="submitBtn" onclick="submitLearningCheck()">Check</button>
+
+      </div>
+    </div>
+  `;
+
+  setTimeout(() => {
+    const input = document.getElementById("answer");
+    if (input) input.focus();
+  }, 50);
+}
+
 
 function showNicknameScreen() {
   app.innerHTML = `
@@ -137,6 +162,29 @@ function toggleChapter(ch, el) {
   save();
 }
 
+function showPreviewCard() {
+  app.innerHTML = `
+    <div class="center">
+      <div class="card study-card">
+
+        <h3>Learn this word</h3>
+
+        <div class="word">${current.en}</div>
+        <div style="font-size:1.5em; margin:10px 0;">${current.jp}</div>
+        <div>${current.kana || ""}</div>
+
+        ${current.example ? `<div class="example">${current.example}</div>` : ""}
+
+        <button onclick="startLearningCheck()">I understand</button>
+
+      </div>
+    </div>
+  `;
+}
+
+
+
+
 /* ================= LOAD ================= */
 
 
@@ -185,17 +233,21 @@ async function startStudy() {
 }
 
 function buildQueues() {
-  newQueue = [];
+  previewQueue = [];
   learningQueue = [];
   reviewQueue = [];
   const now = Date.now();
+  let newToday = state.todayNewCount;
+
+
 
   for (let item of vocab) {
     let p = state.progress[item.id];
 
-    if (!p && state.todayNewCount < MAX_NEW_PER_DAY) {
-      newQueue.push(item);
-    } 
+    if (!p && newToday < MAX_NEW_PER_DAY) {
+  previewQueue.push(item);
+  newToday++;
+}
     else if (p && now >= p.nextReview) {
   if (p.status === "learning") {
     learningQueue.push(item);
@@ -208,16 +260,21 @@ function buildQueues() {
 
   }
 
-  shuffle(newQueue);
+ // ✅ lock in today's new count immediately
+state.todayNewCount = newToday;
+save();
+		
   shuffle(learningQueue);
   shuffle(reviewQueue);
+  shuffle(previewQueue);	
+		
 }
 
 
 
  function renderProgress() {
   const remaining =
-    newQueue.length + learningQueue.length + reviewQueue.length + 1;
+  previewQueue.length + learningQueue.length + reviewQueue.length + 1;
 
   const currentNum = sessionCount + 1;
 
@@ -250,11 +307,29 @@ function getChapterNumber(item) {
 
 function nextQuestion() {
   if (sessionCount >= MAX_ITEMS_PER_SESSION) return showResults();
-  if (!reviewQueue.length && !learningQueue.length && !newQueue.length) return showResults();
 
-  if (learningQueue.length) current = learningQueue.shift();
-  else if (reviewQueue.length) current = reviewQueue.shift();
-  else current = newQueue.shift();
+
+  if (
+  !previewQueue.length &&
+  !reviewQueue.length &&
+  !learningQueue.length
+) return showResults();
+
+// 🔹 NEW: Preview phase comes first
+if (previewQueue.length) {
+  current = previewQueue.shift();
+  return showPreviewCard();
+}
+
+if (learningQueue.length) {
+  // prevent immediate repeat of same item
+  if (learningQueue[0].id === current?.id && learningQueue.length > 1) {
+    learningQueue.push(learningQueue.shift());
+  }
+  current = learningQueue.shift();
+}
+else if (reviewQueue.length) current = reviewQueue.shift();
+else return showResults(); // nothing left
 
   direction = Math.random()<0.5?"en-jp":"jp-en";
 
@@ -299,12 +374,51 @@ setTimeout(() => {
 
 /* ================= CHECKING ================= */
 
-function normalizeJP(str) {
+function startLearningCheck() {
+  direction = Math.random() < 0.5 ? "en-jp" : "jp-en";
+  showLearningCheck();
+}
+								 
+  function normalizeJP(str) {
   return str.replace(/[\u30a1-\u30f6]/g, ch =>
     String.fromCharCode(ch.charCodeAt(0)-0x60)
   );
 }
 
+function submitLearningCheck() {
+  const input = document.getElementById("answer").value.trim();
+
+  let correct = false;
+
+  if (direction === "en-jp") {
+    const a = normalizeJP(input);
+    if (
+      a === normalizeJP(current.jp) ||
+      (current.kana && a === normalizeJP(current.kana))
+    ) {
+      correct = true;
+    }
+  } else {
+    const dist = levenshtein(
+      input.toLowerCase(),
+      current.en.toLowerCase()
+    );
+    if (dist <= 1) correct = true;
+  }
+
+  if (!correct) {
+    return showLearningCheck(); // retry until correct
+  }
+
+  // ✅ ONE success → move to SRS
+  updateProgress("good");
+  sessionCount++;			 
+  nextQuestion();
+}
+	  
+	  
+	  
+	  
 function levenshtein(a,b){
   const dp=Array.from({length:a.length+1},()=>Array(b.length+1).fill(0));
   for(let i=0;i<=a.length;i++)dp[i][0]=i;
@@ -412,7 +526,9 @@ function updateProgress(grade) {
     };
     state.progress[current.id]=p;
     state.stats.new++;
-    state.todayNewCount++;
+	state.todayNewCount++; 
+	  
+    
   } else {
     state.stats.review++;
   }
@@ -436,7 +552,7 @@ function updateProgress(grade) {
 
   if (!failedThisSession.has(current.id)) {
     failedThisSession.add(current.id);
-    learningQueue.push(current);
+    learningQueue.unshift(current);
   }
 
   save();
