@@ -407,8 +407,9 @@ function submitLearningCheck() {
   }
 
   if (!correct) {
-    return showLearningCheck(); // retry until correct
-  }
+  alert("Try again!");
+  return;
+}
 
   // ✅ ONE success → move to SRS
   updateProgress("good");
@@ -526,7 +527,7 @@ function updateProgress(grade) {
     };
     state.progress[current.id]=p;
     state.stats.new++;
-	state.todayNewCount++; 
+	
 	  
     
   } else {
