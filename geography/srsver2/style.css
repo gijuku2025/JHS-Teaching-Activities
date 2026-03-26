@@ -204,9 +204,10 @@ input:focus {
 .grade-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 300px;
-  margin: 0 auto;
+  justify-content: flex-start; /* align left */
+  gap: 12px;
+
+  width: 100%; /* full width of card */
 }
 
 .grade-row button {
