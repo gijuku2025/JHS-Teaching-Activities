@@ -380,9 +380,13 @@ function startLearningCheck() {
 }
 								 
   function normalizeJP(str) {
-  return str.replace(/[\u30a1-\u30f6]/g, ch =>
-    String.fromCharCode(ch.charCodeAt(0)-0x60)
-  );
+  return str
+    .normalize("NFKC") // fix full-width / half-width
+    .replace(/[\u30a1-\u30f6]/g, ch =>
+      String.fromCharCode(ch.charCodeAt(0) - 0x60)
+    ) // katakana → hiragana
+    .replace(/\s+/g, "") // remove spaces
+    .trim();
 }
 
 function submitLearningCheck() {
@@ -391,14 +395,18 @@ function submitLearningCheck() {
   let correct = false;
 
   if (direction === "en-jp") {
-    const a = normalizeJP(input);
-    if (
-      a === normalizeJP(current.jp) ||
-      (current.kana && a === normalizeJP(current.kana))
-    ) {
-      correct = true;
-    }
-  } else {
+  const inputNorm = normalizeJP(input);
+
+  const jpNorm = normalizeJP(current.jp);
+  const kanaNorm = current.kana ? normalizeJP(current.kana) : null;
+
+  if (
+    inputNorm === jpNorm ||
+    (kanaNorm && inputNorm === kanaNorm)
+  ) {
+    correct = true;
+  }
+} else {
     const dist = levenshtein(
       input.toLowerCase(),
       current.en.toLowerCase()
@@ -441,14 +449,18 @@ function submitAnswer() {
   let result = "wrong";
 
   if (direction === "en-jp") {
-    const a = normalizeJP(input);
-    if (
-      a === normalizeJP(current.jp) ||
-      (current.kana && a === normalizeJP(current.kana))
-    ) {
-      result = "correct";
-    }
-  } else {
+  const inputNorm = normalizeJP(input);
+
+  const jpNorm = normalizeJP(current.jp);
+  const kanaNorm = current.kana ? normalizeJP(current.kana) : null;
+
+  if (
+    inputNorm === jpNorm ||
+    (kanaNorm && inputNorm === kanaNorm)
+  ) {
+    result = "correct";
+  }
+} else {
     const dist = levenshtein(
       input.toLowerCase(),
       current.en.toLowerCase()
