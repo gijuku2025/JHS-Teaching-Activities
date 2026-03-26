@@ -179,7 +179,7 @@ function showPreviewCard() {
 
         ${current.example ? `<div class="example">${current.example}</div>` : ""}
 
-        <button onclick="startLearningCheck()">I understand</button>
+        <button style="margin-top:20px;" onclick="startLearningCheck()">I understand</button>
 
       </div>
     </div>
