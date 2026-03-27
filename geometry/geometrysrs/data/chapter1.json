@@ -1,0 +1,121 @@
+[
+  {
+    "id": "geometry1",
+    "en": "calculation",
+    "jp": "計算",
+    "kana": "けいさん",
+    "example": "We do a calculation."
+  },
+  {
+    "id": "geometry1",
+    "en": "shape",
+    "jp": "図形",
+    "kana": "ずけい",
+    "example": "This is a shape."
+  },
+  {
+    "id": "geometry1",
+    "en": "triangle",
+    "jp": "三角形",
+    "kana": "さんかくけい",
+    "example": "This is a triangle."
+  },
+  {
+    "id": "geometry1",
+    "en": "circle",
+    "jp": "円",
+    "kana": "えん",
+    "example": "This is a circle."
+  },
+  {
+    "id": "geometry1",
+    "en": "rectangle",
+    "jp": "長方形",
+    "kana": "ちょうほうけい",
+    "example": "This is a rectangle."
+  },
+  {
+    "id": "geometry1",
+    "en": "square",
+    "jp": "正方形",
+    "kana": "せいほうけい",
+    "example": "This is a square."
+  },
+  {
+    "id": "geometry1",
+    "en": "polygon",
+    "jp": "多角形",
+    "kana": "たかくけい",
+    "example": "A polygon has many sides."
+  },
+  {
+    "id": "geometry1",
+    "en": "sides",
+    "jp": "辺",
+    "kana": "へん",
+    "example": "A triangle has three sides."
+  },
+  {
+    "id": "geometry1",
+    "en": "corners",
+    "jp": "頂点",
+    "kana": "ちょうてん",
+    "example": "A triangle has three corners."
+  },
+  {
+    "id": "geometry1",
+    "en": "angles",
+    "jp": "角",
+    "kana": "かく",
+    "example": "This shape has three angles."
+  },
+  {
+    "id": "geometry1",
+    "en": "interior angles",
+    "jp": "内角",
+    "kana": "ないかく",
+    "example": "We study interior angles."
+  },
+  {
+    "id": "geometry1",
+    "en": "sum",
+    "jp": "和",
+    "kana": "わ",
+    "example": "Find the sum of the angles."
+  },
+  {
+    "id": "geometry1",
+    "en": "plus",
+    "jp": "足す",
+    "kana": "たす",
+    "example": "Two plus three is five."
+  },
+  {
+    "id": "geometry1",
+    "en": "minus",
+    "jp": "引く",
+    "kana": "ひく",
+    "example": "Five minus two is three."
+  },
+  {
+    "id": "geometry1",
+    "en": "divide",
+    "jp": "割る",
+    "kana": "わる",
+    "example": "Six divided by two is three."
+  },
+  {
+    "id": "geometry1",
+    "en": "times",
+    "jp": "かける",
+    "kana": "かける",
+    "example": "Two times three is six."
+  },
+  {
+    "id": "geometry1",
+    "en": "equals",
+    "jp": "等しい",
+    "kana": "ひとしい",
+    "example": "Two plus two equals four."
+  }
+]
