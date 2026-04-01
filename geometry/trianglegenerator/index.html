@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Triangle Generator</title>
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    background: #f5f5f5;
+  }
+  input {
+    width: 60px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  button {
+    padding: 8px 16px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-right: 5px;
+  }
+  svg {
+    margin-top: 20px;
+    background: white;
+    border: 1px solid #ccc;
+  }
+</style>
+</head>
+<body>
+
+<h2>Triangle Generator</h2>
+
+<input id="a" placeholder="Angle A">
+<input id="b" placeholder="Angle B">
+<input id="c" placeholder="Angle C"><br>
+
+<button onclick="drawTriangle()">Draw Triangle</button>
+<button onclick="downloadPNG()">Download PNG</button>
+
+<br>
+
+<svg id="canvas" width="400" height="400"></svg>
+
+<script>
+function drawTriangle() {
+  const A = parseFloat(document.getElementById("a").value);
+  const B = parseFloat(document.getElementById("b").value);
+  const C = parseFloat(document.getElementById("c").value);
+
+  if (A + B + C !== 180) {
+    alert("Angles must add to 180°");
+    return;
+  }
+
+  const radA = A * Math.PI / 180;
+  const radB = B * Math.PI / 180;
+  const radC = C * Math.PI / 180;
+
+  const base = 200;
+
+  const sideA = base * Math.sin(radA) / Math.sin(radC);
+  const sideB = base * Math.sin(radB) / Math.sin(radC);
+
+  const x1 = 100;
+  const y1 = 300;
+
+  const x2 = x1 + base;
+  const y2 = y1;
+
+  const x3 = x1 + sideB * Math.cos(radA);
+  const y3 = y1 - sideB * Math.sin(radA);
+
+  const svg = document.getElementById("canvas");
+  svg.innerHTML = `
+    <polygon points="
+      ${x1},${y1}
+      ${x2},${y2}
+      ${x3},${y3}
+    " 
+    fill="none" 
+    stroke="black" 
+    stroke-width="2"/>
+  `;
+}
+
+function downloadPNG() {
+  const svg = document.getElementById("canvas");
+  const serializer = new XMLSerializer();
+  const svgString = serializer.serializeToString(svg);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 400;
+  canvas.height = 400;
+
+  const ctx = canvas.getContext("2d");
+
+  const img = new Image();
+  const blob = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+
+  img.onload = function() {
+    ctx.fillStyle = "white"; // background
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
+
+    const png = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.download = "triangle.png";
+    link.href = png;
+    link.click();
+  };
+
+  img.src = url;
+}
+</script>
+
+</body>
+</html>
