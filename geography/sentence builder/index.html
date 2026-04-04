@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sentence Builder</title>
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+
+  img {
+    width: 300px;
+    margin-bottom: 20px;
+  }
+
+  .word-bank, .sentence {
+    border: 2px dashed #aaa;
+    padding: 15px;
+    min-height: 60px;
+    margin: 10px auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .word {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: grab;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Look and Make a Sentence</h2>
+
+<img src="https://via.placeholder.com/300" alt="picture">
+
+<div class="word-bank" id="wordBank"></div>
+
+<h3>Your Sentence</h3>
+<div class="sentence" id="sentence"></div>
+
+<button onclick="checkAnswer()">Check</button>
+
+<p id="result"></p>
+
+<script>
+const correctSentence = ["A", "boy", "is", "playing", "soccer"];
+let words = [...correctSentence].sort(() => Math.random() - 0.5);
+
+const wordBank = document.getElementById("wordBank");
+const sentence = document.getElementById("sentence");
+
+function createWord(word) {
+  const div = document.createElement("div");
+  div.className = "word";
+  div.innerText = word;
+  div.draggable = true;
+
+  div.addEventListener("dragstart", dragStart);
+  return div;
+}
+
+function loadWords() {
+  words.forEach(word => {
+    wordBank.appendChild(createWord(word));
+  });
+}
+
+function dragStart(e) {
+  e.dataTransfer.setData("text", e.target.innerText);
+  e.dataTransfer.setData("source", e.target.parentElement.id);
+}
+
+sentence.addEventListener("dragover", e => e.preventDefault());
+wordBank.addEventListener("dragover", e => e.preventDefault());
+
+sentence.addEventListener("drop", drop);
+wordBank.addEventListener("drop", drop);
+
+function drop(e) {
+  e.preventDefault();
+  const text = e.dataTransfer.getData("text");
+  const source = e.dataTransfer.getData("source");
+
+  const wordElements = document.querySelectorAll(".word");
+
+  wordElements.forEach(el => {
+    if (el.innerText === text && el.parentElement.id === source) {
+      e.target.appendChild(el);
+    }
+  });
+}
+
+function checkAnswer() {
+  const userSentence = Array.from(sentence.children).map(el => el.innerText);
+  const result = document.getElementById("result");
+
+  if (JSON.stringify(userSentence) === JSON.stringify(correctSentence)) {
+    result.innerText = "✅ Correct!";
+  } else {
+    result.innerText = "❌ Try again!";
+  }
+}
+
+loadWords();
+</script>
+
+</body>
+</html>
