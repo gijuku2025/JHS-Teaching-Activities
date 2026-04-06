@@ -3,6 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>JHS Teaching Activities</title>
+
+  <!-- PWA + Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="icons/geo-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Styles -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -33,6 +47,8 @@
     }
   </style>
 </head>
+
+  
 <body>
   <h1>JHS Teaching Activities</h1>
 
@@ -41,13 +57,11 @@
 
  
 
-<li><a href="geography/flashcardsapp/">Flash Cards 1.0</li>       
+<li><a href="geography/flashcardsapp/">Flash Cards 1.0</a></li>
 
-<li><a href="geography/wordsearch/">Word Search 1</li>       
+<li><a href="geography/wordsearch/">Word Search 1</a></li>    
 
-<li><a href="geography/sentence builder/">Sentence Builder</li>       
-    
-<li><a href="geography/srsver2/">Smart Review</li>   
+    <li><a href="geography/srsver2/">Smart Review</a></li> 
 
 <li><a href="geography/3minutechallengever7/">3 Minute Challenge</a></li> 
 
@@ -155,7 +169,7 @@
 
       
     
-  </ul>    
+    
   </ul>
 
   <h2>🏛 Civics</h2>
@@ -270,27 +284,23 @@
   </ul>
 
 <h2>📐 Geometry 1</h2>
-  <ul>
-
- <li><a href="geometry/trianglegenerator/">Triangle Generator</a></li>   
-    
-    <li><a href="geometry/geometrysrs/">Smart Review Geometry</a></li>   
-
-    <li><a href="geometry/30secondchallenge/">30 Seconds Warm Up</a></li>   
-    
-    <li><a href="geometry/geometry1/">Geometry 1 New Words</a></li>   
-
-
-    
- <ul>
+<ul>
+  <li><a href="geometry/trianglegenerator/">Triangle Generator</a></li>
+  <li><a href="geometry/geometrysrs/">Smart Review Geometry</a></li>
+  <li><a href="geometry/30secondchallenge/">30 Seconds Warm Up</a></li>
+  <li><a href="geometry/geometry1/">Geometry 1 New Words</a></li>
+</ul>
 
 <h2>📐 Geometry 2</h2>
-  <ul>
+<ul>
+</ul>
 
+<!-- Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js");
+}
+</script>
 
-
- <ul>
-    
-   
 </body>
 </html>
