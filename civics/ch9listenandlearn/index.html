@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Civics Ch 9 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "Civics Ch 9 Listen and Learn";
+
+const sentences = [
+  { en: "Most workers used to work for one company all their lives.", jp: "多くの労働者は、以前は一つの会社で一生働いていました。", enAudio: "audio/01_most_workers_used_to_work_for__en.mp3", jpAudio: "audio/01_most_workers_used_to_work_for__jp.mp3" },
+  { en: "This system is called life-time employment.", jp: "この制度は終身雇用と呼ばれます。", enAudio: "audio/02_this_system_is_called_lifetime_en.mp3", jpAudio: "audio/02_this_system_is_called_lifetime_jp.mp3" },
+  { en: "Younger workers had lower wages, and older workers had higher wages.", jp: "若い労働者は賃金が低く、年配の労働者は賃金が高いです。", enAudio: "audio/03_younger_workers_had_lower_wage_en.mp3", jpAudio: "audio/03_younger_workers_had_lower_wage_jp.mp3" },
+  { en: "Globalisation changed the way people work.", jp: "国際化は人々の働き方を変えました。", enAudio: "audio/04_globalisation_changed_the_way__en.mp3", jpAudio: "audio/04_globalisation_changed_the_way__jp.mp3" },
+  { en: "Companies now compete with companies around the world.", jp: "企業は世界中の企業と競争しています。", enAudio: "audio/05_companies_now_compete_with_com_en.mp3", jpAudio: "audio/05_companies_now_compete_with_com_jp.mp3" },
+  { en: "Some younger workers now have higher wages than older workers.", jp: "現在では、若い労働者のほうが年配の労働者より賃金が高い場合もあります。", enAudio: "audio/06_some_younger_workers_now_have__en.mp3", jpAudio: "audio/06_some_younger_workers_now_have__jp.mp3" },
+  { en: "Many companies employ non-permanent workers, such as part-time and contract workers.", jp: "多くの企業は、パートや契約社員などの非正規労働者を雇っています。", enAudio: "audio/07_many_companies_employ_nonperma_en.mp3", jpAudio: "audio/07_many_companies_employ_nonperma_jp.mp3" },
+  { en: "About 40% of workers in Japan are non-permanent employees.", jp: "日本の労働者の約40％は非正規雇用です。", enAudio: "audio/08_about_40_of_workers_in_japan_a_en.mp3", jpAudio: "audio/08_about_40_of_workers_in_japan_a_jp.mp3" },
+  { en: "This system makes it easier for companies to change the number of workers.", jp: "この仕組みは、企業が労働者数を調整しやすくします。", enAudio: "audio/09_this_system_makes_it_easier_fo_en.mp3", jpAudio: "audio/09_this_system_makes_it_easier_fo_jp.mp3" },
+  { en: "However, many workers must change jobs or find new work.", jp: "しかし、多くの労働者は転職したり新しい仕事を探したりしなければなりません。", enAudio: "audio/10_however_many_workers_must_chan_en.mp3", jpAudio: "audio/10_however_many_workers_must_chan_jp.mp3" },
+  { en: "Non-permanent workers usually have lower wages, even if they do the same work.", jp: "非正規労働者は、同じ仕事をしていても賃金が低いことが多いです。", enAudio: "audio/11_nonpermanent_workers_usually_h_en.mp3", jpAudio: "audio/11_nonpermanent_workers_usually_h_jp.mp3" },
+  { en: "This creates a wage gap.", jp: "これは賃金格差を生みます。", enAudio: "audio/12_this_creates_a_wage_gap_en.mp3", jpAudio: "audio/12_this_creates_a_wage_gap_jp.mp3" },
+  { en: "Women, older people, and disabled people have difficulty finding good jobs.", jp: "女性や高齢者、障がい者などは良い仕事を見つけるのが難しいです。", enAudio: "audio/13_women_older_people_and_disable_en.mp3", jpAudio: "audio/13_women_older_people_and_disable_jp.mp3" },
+  { en: "Japan needs more workers, so the number of overseas workers is increasing.", jp: "日本はより多くの労働者を必要としているため、海外からの労働者が増えています。", enAudio: "audio/14_japan_needs_more_workers_so_th_en.mp3", jpAudio: "audio/14_japan_needs_more_workers_so_th_jp.mp3" },
+  { en: "However, their working conditions are often poor.", jp: "しかし、彼らの労働条件はしばしば良くありません。", enAudio: "audio/15_however_their_working_conditio_en.mp3", jpAudio: "audio/15_however_their_working_conditio_jp.mp3" },
+  { en: "We should create a fair and happy society with good jobs for everyone.", jp: "私たちは、すべての人にとって良い仕事がある、公平で幸せな社会を作るべきです。", enAudio: "audio/16_we_should_create_a_fair_and_ha_en.mp3", jpAudio: "audio/16_we_should_create_a_fair_and_ha_jp.mp3" },];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
