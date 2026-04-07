@@ -114,6 +114,13 @@ async function init() {
 
 function renderChapterMenu() {
   const container = document.getElementById('chapter-buttons');
+  container.innerHTML = '';
+
+  if (!data.chapters || data.chapters.length === 0) {
+    container.innerHTML = '<p>No chapters found</p>';
+    return;
+  }
+
   data.chapters.forEach(ch => {
     const btn = document.createElement('button');
     btn.textContent = ch.title;
@@ -145,16 +152,27 @@ function startRound() {
   let wordCount, roundTime;
 
   if (currentRound === 1) {
-    wordCount = 4; gridSize = 10; roundTime = 60;
+    wordCount = 4; roundTime = 60;
   } else if (currentRound === 2) {
-    wordCount = 6; gridSize = 10; roundTime = 50;
+    wordCount = 6; roundTime = 50;
   } else {
-    wordCount = 8; gridSize = 12; roundTime = 45;
+    wordCount = 8; roundTime = 45;
   }
 
   const chosen = pickWords(selectedWordsPool, wordCount);
-  wordList = chosen.map(w => w.toUpperCase());
+
+  // ✅ SAFETY: fallback if something goes wrong
+  if (!chosen || chosen.length === 0) {
+    console.error("No words selected! Using fallback.");
+    wordList = shuffle(selectedWordsPool).slice(0, wordCount);
+  } else {
+    wordList = chosen.map(w => w.toUpperCase());
+  }
+
   saveSeenWords(wordList);
+
+  // ✅ NOW safe to calculate grid size
+  gridSize = Math.max(10, ...wordList.map(w => w.length));
 
   document.getElementById('title').textContent = `Round ${currentRound}`;
 
@@ -166,12 +184,20 @@ function startRound() {
 
   startTimer(roundTime);
 }
-
+	
 function pickWords(allWords, count) {
+  if (!allWords || allWords.length === 0) return [];
+
   const seen = JSON.parse(localStorage.getItem('seenWords') || '[]');
+
   const newWords = allWords.filter(w => !seen.includes(w));
-  const pool = newWords.length >= count ? newWords : allWords;
-  return shuffle(pool).slice(0, count);
+
+  let pool = newWords.length >= count ? newWords : allWords;
+
+  // remove duplicates just in case
+  pool = [...new Set(pool)];
+
+  return shuffle(pool).slice(0, Math.min(count, pool.length));
 }
 
 function saveSeenWords(words) {
@@ -390,4 +416,3 @@ init();
 
 </body>
 </html>
-
