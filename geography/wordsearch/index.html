@@ -86,7 +86,14 @@
 <body>
   <h1 id="title">Word Search</h1>
 
-  <div class="container">
+  <!-- ✅ CHAPTER MENU -->
+  <div id="menu" class="container">
+    <h2>Select a Chapter</h2>
+    <div id="chapter-list" class="word-list"></div>
+  </div>
+
+  <!-- ✅ GAME AREA (hidden at start) -->
+  <div id="game" class="container" style="display:none;">
     <div id="grid" class="grid"></div>
 
     <h2>Find these words:</h2>
@@ -101,18 +108,8 @@
   let isSelecting = false;
 
   async function init() {
-    const res = await fetch('./data/words.json');
-    const data = await res.json();
-
-    document.getElementById('title').textContent = data.title;
-    wordList = data.words.map(w => w.toUpperCase());
-
-    createEmptyGrid();
-    placeWords();
-    fillRandom();
-    renderGrid();
-    renderWordList();
-  }
+  showMenu();
+}
 
   function createEmptyGrid() {
     grid = Array.from({ length: gridSize }, () =>
@@ -292,7 +289,7 @@
   }
 
   function checkWin() {
-    const remaining = document.querySelectorAll('.word:not(.found-word)');
+    const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
     if (remaining.length === 0) {
       setTimeout(() => {
         alert("🎉 You found all words!");
@@ -300,6 +297,51 @@
     }
   }
 
+	  
+async function loadChapter(id) {
+  const res = await fetch(`./data/${id}.json`);
+  const data = await res.json();
+
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('game').style.display = 'flex';
+
+  document.getElementById('title').textContent = data.title;
+  wordList = data.words.map(w => w.toUpperCase());
+
+  createEmptyGrid();
+  placeWords();
+  fillRandom();
+  renderGrid();
+  renderWordList();
+}	  
+	  
+	  
+	  
+	  
+	  
+async function showMenu() {
+  const res = await fetch('./data/chapters.json');
+  const data = await res.json();
+
+  const listEl = document.getElementById('chapter-list');
+  listEl.innerHTML = '';
+
+  data.chapters.forEach(ch => {
+    const btn = document.createElement('div');
+    btn.className = 'word';
+    btn.textContent = ch.title;
+
+    btn.addEventListener('click', () => loadChapter(ch.id));
+
+    listEl.appendChild(btn);
+  });
+
+  document.getElementById('menu').style.display = 'flex';
+  document.getElementById('game').style.display = 'none';
+}
+	  
+	  
+	  
   function clearSelection() {
     document.querySelectorAll('.selected')
       .forEach(c => c.classList.remove('selected'));
