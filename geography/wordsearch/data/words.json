@@ -1,27 +1,46 @@
 {
-  "chapters": [
-    {
-      "id": "geometry1",
-      "title": "Geometry Basics",
-      "words": [
-        "CALCULATION",
-        "SHAPE",
-        "TRIANGLE",
-        "CIRCLE",
-        "RECTANGLE",
-        "SQUARE",
-        "POLYGON",
-        "SIDES",
-        "CORNERS",
-        "ANGLES",
-        "INTERIOR",
-        "SUM",
-        "PLUS",
-        "MINUS",
-        "DIVIDE",
-        "TIMES",
-        "EQUALS"
-      ]
-    }
+  "title": "Random Word Test Puzzle",
+  "words": [
+    "APPLE",
+    "ORANGE",
+    "BANANA",
+    "GRAPE",
+    "MANGO",
+    "PEACH",
+    "CHERRY",
+    "BERRY",
+    "MELON",
+
+    "ELEPHANT",
+    "TIGER",
+    "LION",
+    "GIRAFFE",
+    "ZEBRA",
+    "PANDA",
+    "DOLPHIN",
+
+    "COMPUTER",
+    "KEYBOARD",
+    "MOUSE",
+    "MONITOR",
+    "PRINTER",
+    "INTERNET",
+    "SOFTWARE",
+
+    "SCHOOL",
+    "TEACHER",
+    "STUDENT",
+    "NOTEBOOK",
+    "PENCIL",
+    "ERASER",
+    "CLASS",
+
+    "JAPAN",
+    "TOKYO",
+    "OSAKA",
+    "KYOTO",
+    "SUSHI",
+    "RAMEN",
+    "TEMPURA"
   ]
 }
