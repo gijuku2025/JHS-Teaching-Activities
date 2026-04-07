@@ -166,7 +166,7 @@ function startRound() {
     console.error("No words selected! Using fallback.");
     wordList = shuffle(selectedWordsPool).slice(0, wordCount);
   } else {
-    wordList = chosen.map(w => w.toUpperCase());
+   wordList = chosen;
   }
 
   saveSeenWords(wordList);
@@ -190,11 +190,13 @@ function pickWords(allWords, count) {
 
   const seen = JSON.parse(localStorage.getItem('seenWords') || '[]');
 
-  const newWords = allWords.filter(w => !seen.includes(w));
+  const upperAll = allWords.map(w => w.toUpperCase());
+  const upperSeen = seen.map(w => w.toUpperCase());
 
-  let pool = newWords.length >= count ? newWords : allWords;
+  const newWords = upperAll.filter(w => !upperSeen.includes(w));
 
-  // remove duplicates just in case
+  let pool = newWords.length >= count ? newWords : upperAll;
+
   pool = [...new Set(pool)];
 
   return shuffle(pool).slice(0, Math.min(count, pool.length));
@@ -202,7 +204,7 @@ function pickWords(allWords, count) {
 
 function saveSeenWords(words) {
   const seen = new Set(JSON.parse(localStorage.getItem('seenWords') || '[]'));
-  words.forEach(w => seen.add(w));
+  words.forEach(w => seen.add(w.toUpperCase()));
   localStorage.setItem('seenWords', JSON.stringify([...seen]));
 }
 
