@@ -371,15 +371,23 @@ async function loadChapter(id) {
   fullWordList = data.words.map(w => w.toUpperCase());
 
   if (mode === "practice") {
-    wordList = fullWordList;
-    gridSize = 10;
+  // 🎲 shuffle once
+  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
 
-    createEmptyGrid();
-    placeWords();
-    fillRandom();
-    renderGrid();
-    renderWordList();
-  } else {
+  // 🎯 pick random number between 5–7
+  let count = Math.floor(Math.random() * 3) + 5;
+
+  // ✂️ take subset
+  wordList = shuffled.slice(0, count);
+
+  gridSize = 10;
+
+  createEmptyGrid();
+  placeWords();
+  fillRandom();
+  renderGrid();
+  renderWordList();
+} else {
     startLevel(); // ONLY this runs in challenge
   }
 }	  
