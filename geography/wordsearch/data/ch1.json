@@ -16,6 +16,7 @@
     "MINUS",
     "DIVIDE",
     "TIMES",
-    "EQUALS"
+    "EQUALS",
+    "CALCULATION"
   ]
 }
