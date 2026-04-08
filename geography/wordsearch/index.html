@@ -128,15 +128,9 @@
 
   // ✅ ALL DIRECTIONS
   const directions = [
-    [0, 1],   // →
-    [1, 0],   // ↓
-    [1, 1],   // ↘
-    [-1, 1],  // ↗
-    [0, -1],  // ←
-    [-1, 0],  // ↑
-    [-1, -1], // ↖
-    [1, -1]   // ↙
-  ];
+  [0, 1], // → (left to right)
+  [1, 0]  // ↓ (top to bottom)
+];
 
   function placeWords() {
     wordList.forEach(word => {
@@ -269,44 +263,49 @@ cell.addEventListener('touchend', (e) => {
 
     // ✅ enforce straight line
     if (selectedCells.length >= 2) {
-      const [r0, c0] = getPos(selectedCells[0]);
-      const [r1, c1] = getPos(selectedCells[1]);
-      const [r, c] = getPos(el);
+  const [r0, c0] = getPos(selectedCells[0]);
+  const [r1, c1] = getPos(selectedCells[1]);
+  const [r, c] = getPos(el);
 
-      const dr = r1 - r0;
-      const dc = c1 - c0;
+  const dr = r1 - r0;
+  const dc = c1 - c0;
 
-      if ((r - r0) * dc !== (c - c0) * dr) return;
-    }
+  // ❌ block backwards movement
+  if (dr === 0 && c < c1) return; // horizontal backwards
+  if (dc === 0 && r < r1) return; // vertical upwards
+
+  // ❌ enforce straight line
+  if ((r - r0) * dc !== (c - c0) * dr) return;
+}
 
     selectedCells.push(el);
     el.classList.add('selected');
   }
 
   function endSelection() {
-    if (!isSelecting) return;
-    isSelecting = false;
+  if (!isSelecting) return;
+  isSelecting = false;
 
-    const word = selectedCells.map(c => c.textContent).join('');
-    const reversed = word.split('').reverse().join('');
+  const word = selectedCells.map(c => c.textContent).join('');
 
-    if (wordList.includes(word) || wordList.includes(reversed)) {
-      selectedCells.forEach(c => {
-        c.classList.remove('selected');
-        c.classList.add('found');
-      });
+  if (wordList.includes(word)) {
+    selectedCells.forEach(c => {
+      c.classList.remove('selected');
+      c.classList.add('found');
+    });
 
-      const matched = wordList.includes(word) ? word : reversed;
-      document.querySelector(`[data-word="${matched}"]`)
-        .classList.add('found-word');
+    const matched = word;
 
-      checkWin();
-    } else {
-      clearSelection();
-    }
+    document.querySelector(`[data-word="${matched}"]`)
+      .classList.add('found-word');
 
-    selectedCells = [];
+    checkWin();
+  } else {
+    clearSelection();
   }
+
+  selectedCells = [];
+}
 
   function checkWin() {
     const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
