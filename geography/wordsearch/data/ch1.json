@@ -1,4 +1,22 @@
 {
-  "title": "Fruits",
-  "words": ["APPLE", "ORANGE", "BANANA", "MANGO", "PEACH"]
+  "title": "1",
+  "words": [
+    "CALCULATION",
+    "SHAPE",
+    "TRIANGLE",
+    "CIRCLE",
+    "RECTANGLE",
+    "SQUARE",
+    "POLYGON",
+    "SIDES",
+    "CORNERS",
+    "ANGLES",
+    "INTERIOR",
+    "SUM",
+    "PLUS",
+    "MINUS",
+    "DIVIDE",
+    "TIMES",
+    "EQUALS"
+  ]
 }
