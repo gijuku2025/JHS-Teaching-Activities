@@ -381,7 +381,10 @@ async function loadChapter(id) {
   // ✂️ take subset
   wordList = shuffled.slice(0, count);
 
-  gridSize = 10;
+// ✅ AUTO-SCALE GRID
+let minGridSize = 10;
+let longestWord = Math.max(...wordList.map(w => w.length));
+gridSize = Math.max(minGridSize, longestWord + 2);
 
   createEmptyGrid();
   placeWords();
@@ -467,26 +470,37 @@ function startTimer() {
 }  
 	  
 	  
-	  
-	  
 function startLevel() {
   clearInterval(timerInterval);
 
-  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
+  let minGridSize;
 
   if (level === 1) {
-    gridSize = 8;
-    wordList = shuffled.slice(0, 5);
+    minGridSize = 8;
     timeLeft = 60;
   } else if (level === 2) {
-    gridSize = 10;
-    wordList = shuffled.slice(5, 12);
+    minGridSize = 10;
     timeLeft = 90;
   } else {
-    gridSize = 12;
-    wordList = shuffled.slice(12, 20);
+    minGridSize = 12;
     timeLeft = 120;
   }
+
+  // 🎲 shuffle
+  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
+
+  // 🎯 select words
+  if (level === 1) {
+    wordList = shuffled.slice(0, 5);
+  } else if (level === 2) {
+    wordList = shuffled.slice(0, 7);
+  } else {
+    wordList = shuffled.slice(0, 8);
+  }
+
+  // ✅ AUTO-SCALE GRID
+  let longestWord = Math.max(...wordList.map(w => w.length));
+  gridSize = Math.max(minGridSize, longestWord + 2);
 
   createEmptyGrid();
   placeWords();
@@ -496,7 +510,6 @@ function startLevel() {
 
   startTimer();
 }	  
-	  
 	  
 	  
 	  
