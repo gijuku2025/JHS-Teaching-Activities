@@ -381,16 +381,15 @@ async function loadChapter(id) {
   fullWordList = data.words.map(w => w.toUpperCase());
 
   if (mode === "practice") {
-  // 🎲 shuffle once
-  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
+  gridSize = 10;
 
-  // 🎯 pick random number between 5–7
+  // ✅ FILTER words that fit the grid
+  let validWords = fullWordList.filter(w => w.length <= gridSize);
+
+  let shuffled = [...validWords].sort(() => Math.random() - 0.5);
   let count = Math.floor(Math.random() * 3) + 5;
 
-  // ✂️ take subset
   wordList = shuffled.slice(0, count);
-
-  gridSize = 10;
 
   createEmptyGrid();
   placeWords();
@@ -481,20 +480,28 @@ function startTimer() {
 function startLevel() {
   clearInterval(timerInterval);
 
-  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
-
   if (level === 1) {
     gridSize = 8;
-    wordList = shuffled.slice(0, 5);
     timeLeft = 60;
   } else if (level === 2) {
     gridSize = 10;
-    wordList = shuffled.slice(5, 12);
     timeLeft = 90;
   } else {
     gridSize = 12;
-    wordList = shuffled.slice(12, 20);
     timeLeft = 120;
+  }
+
+  // ✅ FILTER words that fit current grid
+  let validWords = fullWordList.filter(w => w.length <= gridSize);
+
+  let shuffled = [...validWords].sort(() => Math.random() - 0.5);
+
+  if (level === 1) {
+    wordList = shuffled.slice(0, 5);
+  } else if (level === 2) {
+    wordList = shuffled.slice(0, 7);
+  } else {
+    wordList = shuffled.slice(0, 8);
   }
 
   createEmptyGrid();
