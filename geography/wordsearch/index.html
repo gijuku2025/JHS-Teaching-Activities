@@ -6,7 +6,8 @@
   <title>Word Search</title>
 
   <style>
-   body {
+  
+body {
   font-family: sans-serif;
   margin: 0;
   padding: 10px;
@@ -35,12 +36,10 @@
 
     .grid {
   display: grid;
-  grid-template-columns: repeat(10, min(8vw, 40px));
   justify-content: center;
   gap: 4px;
   margin: 0 auto;
-
-  touch-action: none; /* 🔥 prevents drag scrolling */
+  touch-action: none;
 }
 
     .cell {
@@ -93,16 +92,28 @@
 </head>
 
 <body>
-  <h1 id="title">Word Search</h1>
+ <h1 id="title">Word Search</h1>
 
-  <!-- ✅ CHAPTER MENU -->
-  <div id="menu" class="container">
-    <h2>Select a Chapter</h2>
-    <div id="chapter-list" class="word-list"></div>
+<!-- ✅ MODE SELECT -->
+<div id="mode-select" class="container">
+  <h2>Select Mode</h2>
+  <div class="word-list">
+    <div class="word" onclick="startPractice()">Practice Mode</div>
+    <div class="word" onclick="startChallenge()">Challenge Mode</div>
   </div>
+</div>
+
+<!-- ✅ CHAPTER MENU -->
+<div id="menu" class="container">
+  <h2>Select a Chapter</h2>
+  <div id="chapter-list" class="word-list"></div>
+</div>
 
   <!-- ✅ GAME AREA (hidden at start) -->
   <div id="game" class="container" style="display:none;">
+	  <!-- ⏱ TIMER (ADD THIS) -->
+  <h2 id="timer" style="display:none;">Time: 0</h2>
+  
     <div id="grid" class="grid"></div>
 
     <h2>Find these words:</h2>
@@ -110,14 +121,26 @@
   </div>
 
   <script>
-  const gridSize = 10;
-  let grid = [];
-  let wordList = [];
-  let selectedCells = [];
-  let isSelecting = false;
+  let gridSize = 10;
+let grid = [];
+let wordList = [];
+let selectedCells = [];
+let isSelecting = false;
+
+// 🎮 NEW GAME STATE
+let mode = "practice"; // or "challenge"
+let level = 1;
+let fullWordList = [];
+let score = 0;
+
+// ⏱ TIMER
+let timeLeft = 0;
+let timerInterval = null;
 
   async function init() {
-  showMenu();
+  document.getElementById('mode-select').style.display = 'flex';
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('game').style.display = 'none';
 }
 
   function createEmptyGrid() {
@@ -186,6 +209,7 @@
   function renderGrid() {
     const gridEl = document.getElementById('grid');
     gridEl.innerHTML = '';
+	gridEl.style.gridTemplateColumns = `repeat(${gridSize}, min(8vw, 40px))`; 
 
     grid.forEach((row, r) => {
       row.forEach((letter, c) => {
@@ -307,14 +331,33 @@ cell.addEventListener('touchend', (e) => {
   selectedCells = [];
 }
 
-  function checkWin() {
-    const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
-    if (remaining.length === 0) {
+ function checkWin() {
+  const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
+  if (remaining.length === 0) {
+
+    if (mode === "practice") {
+      setTimeout(() => alert("🎉 You found all words!"), 100);
+      return;
+    }
+
+    // challenge mode
+    score += wordList.length;
+
+    if (level < 3) {
+      level++;
       setTimeout(() => {
-        alert("🎉 You found all words!");
-      }, 100);
+        alert(`Level ${level - 1} complete!`);
+        startLevel();
+      }, 500);
+    } else {
+      clearInterval(timerInterval);
+      setTimeout(() => {
+        alert(`🎉 You Win! Score: ${score}`);
+        showModeMenu();
+      }, 300);
     }
   }
+}
 
 	  
 async function loadChapter(id) {
@@ -325,16 +368,49 @@ async function loadChapter(id) {
   document.getElementById('game').style.display = 'flex';
 
   document.getElementById('title').textContent = data.title;
-  wordList = data.words.map(w => w.toUpperCase());
+  fullWordList = data.words.map(w => w.toUpperCase());
 
-  createEmptyGrid();
-  placeWords();
-  fillRandom();
-  renderGrid();
-  renderWordList();
+  if (mode === "practice") {
+    wordList = fullWordList;
+    gridSize = 10;
+
+    createEmptyGrid();
+    placeWords();
+    fillRandom();
+    renderGrid();
+    renderWordList();
+  } else {
+    startLevel(); // ONLY this runs in challenge
+  }
+}	  
+function startPractice() {
+  mode = "practice";
+  document.getElementById('mode-select').style.display = 'none';
+  showMenu();
+}
+
+function startChallenge() {
+  mode = "challenge";
+  level = 1;
+  score = 0;
+  document.getElementById('mode-select').style.display = 'none';
+  showMenu();
 }	  
 	  
 	  
+function gameOver() {
+  alert(`Game Over\nScore: ${score}`);
+  showModeMenu();
+}	  
+	  
+	  
+function showModeMenu() {
+  clearInterval(timerInterval);
+
+  document.getElementById('mode-select').style.display = 'flex';
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('game').style.display = 'none';
+}	  
 	  
 	  
 	  
@@ -358,6 +434,60 @@ async function showMenu() {
   document.getElementById('menu').style.display = 'flex';
   document.getElementById('game').style.display = 'none';
 }
+	  
+	  
+function startTimer() {
+  const timerEl = document.getElementById('timer');
+
+  if (mode === "challenge") {
+    timerEl.style.display = 'block';
+    timerEl.textContent = "Time: " + timeLeft;
+
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = "Time: " + timeLeft;
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        gameOver();
+      }
+    }, 1000);
+  } else {
+    timerEl.style.display = 'none';
+  }
+}  
+	  
+	  
+	  
+	  
+function startLevel() {
+  clearInterval(timerInterval);
+
+  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
+
+  if (level === 1) {
+    gridSize = 8;
+    wordList = shuffled.slice(0, 5);
+    timeLeft = 60;
+  } else if (level === 2) {
+    gridSize = 10;
+    wordList = shuffled.slice(5, 12);
+    timeLeft = 90;
+  } else {
+    gridSize = 12;
+    wordList = shuffled.slice(12, 20);
+    timeLeft = 120;
+  }
+
+  createEmptyGrid();
+  placeWords();
+  fillRandom();
+  renderGrid();
+  renderWordList();
+
+  startTimer();
+}	  
+	  
 	  
 	  
 	  
