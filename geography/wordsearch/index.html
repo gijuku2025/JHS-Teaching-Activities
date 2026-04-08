@@ -74,7 +74,10 @@ body {
   overscroll-behavior: none;
 }
 	  
-	  
+.missed {
+  background: red;
+  color: white;
+}
 	  
     .word {
       padding: 6px;
@@ -122,11 +125,14 @@ body {
   </div>
 
   <script>
-  let gridSize = 10;
+let gridSize = 10;
 let grid = [];
 let wordList = [];
 let selectedCells = [];
 let isSelecting = false;
+let placedWords = []; // 🔥 track word positions	  
+	  
+	  
 
 // 🎮 NEW GAME STATE
 let mode = "practice"; // or "challenge"
@@ -157,7 +163,9 @@ let timerInterval = null;
 ];
 
   function placeWords() {
-    wordList.forEach(word => {
+   
+	  placedWords = []; // reset each round
+	  wordList.forEach(word => {
       let placed = false;
       let attempts = 0;
 
@@ -185,13 +193,20 @@ let timerInterval = null;
         }
 
         if (fits) {
-          for (let i = 0; i < word.length; i++) {
-            const r = row + dir[0] * i;
-            const c = col + dir[1] * i;
-            grid[r][c] = word[i];
-          }
-          placed = true;
-        }
+  let positions = [];
+
+  for (let i = 0; i < word.length; i++) {
+    const r = row + dir[0] * i;
+    const c = col + dir[1] * i;
+    grid[r][c] = word[i];
+    positions.push([r, c]);
+  }
+
+  // ✅ store word + positions
+  placedWords.push({ word, positions });
+
+  placed = true;
+}
       }
     });
   }
@@ -411,9 +426,45 @@ function startChallenge() {
 	  
 	  
 function gameOver() {
-  alert(`Game Over\nScore: ${score}`);
-  showModeMenu();
+  revealMissedWords();
+
+  setTimeout(() => {
+    alert(`Game Over\nScore: ${score}`);
+    showModeMenu();
+  }, 1000);
+}
+	  
+	  
+function revealMissedWords() {
+  // find words NOT found
+  const foundWords = Array.from(
+    document.querySelectorAll('.found-word')
+  ).map(el => el.dataset.word);
+
+  placedWords.forEach(entry => {
+    if (!foundWords.includes(entry.word)) {
+      // highlight grid cells
+      entry.positions.forEach(([r, c]) => {
+        const cell = document.querySelector(
+          `.cell[data-row="${r}"][data-col="${c}"]`
+        );
+        if (cell) {
+          cell.classList.add('missed');
+        }
+      });
+
+      // also mark word in list
+      const wordEl = document.querySelector(
+        `[data-word="${entry.word}"]`
+      );
+      if (wordEl) {
+        wordEl.style.background = 'red';
+        wordEl.style.color = 'white';
+      }
+    }
+  });
 }	  
+	  
 	  
 	  
 function showModeMenu() {
