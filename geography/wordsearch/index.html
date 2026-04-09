@@ -602,23 +602,27 @@ function startLevel() {
   if (mode === "challenge") {
 
     if (gameFinished) {
-      // game already finished → go to menu
-      showModeMenu();
-      return;
-    }
+  gameFinished = false;          // reset for next game
+  level = 1;                    // reset level
+  document.getElementById('next-btn').textContent = "Next Round";
+  showModeMenu();
+  return;
+}
 
     if (roundComplete) {
       if (level < 3) {
         level++;
         startLevel();
       } else {
-        // ✅ FINAL LEVEL COMPLETE
-        gameFinished = true;
+  // ✅ FINAL LEVEL COMPLETE
+  gameFinished = true;
 
-        // optional: change button text
-        document.getElementById('next-btn').textContent = "Back to Menu";
-        document.getElementById('next-btn').style.display = 'block';
-      }
+  const btn = document.getElementById('next-btn');
+  btn.textContent = "Return to Mode Select";
+  btn.style.display = 'block';
+
+  return; // 🔥 IMPORTANT: stop further logic
+}
     } else {
       // lost → retry same level
       startLevel();
