@@ -192,71 +192,59 @@ function isNearbyOccupied(r, c) {
 	  
 	  
   function placeWords() {
-   
-	  placedWords = []; // reset each round
-	  wordList.forEach(word => {
-      let placed = false;
-      let attempts = 0;
+  placedWords = [];
 
-      while (!placed && attempts < 200) {
-        attempts++;
+  let availableWords = [...wordList];
+  let finalWords = [];
 
-        const dir = directions[Math.floor(Math.random() * directions.length)];
-        const row = Math.floor(Math.random() * gridSize);
-        const col = Math.floor(Math.random() * gridSize);
+  while (availableWords.length > 0) {
+    let word = availableWords.shift();
 
-        let fits = true;
+    let placed = false;
+    let attempts = 0;
 
-        for (let i = 0; i < word.length; i++) {
-          const r = row + dir[0] * i;
-          const c = col + dir[1] * i;
+    while (!placed && attempts < 200) {
+      attempts++;
 
-         if (
-  r < 0 || r >= gridSize ||
-  c < 0 || c >= gridSize ||
-  (grid[r][c] && grid[r][c] !== word[i]) ||
-  isNearbyOccupied(r, c)
-) {
-  fits = false;
-  break;
-}
+      const dir = directions[Math.floor(Math.random() * directions.length)];
+      const row = Math.floor(Math.random() * gridSize);
+      const col = Math.floor(Math.random() * gridSize);
+
+      let fits = true;
+      let positions = [];
+
+      for (let i = 0; i < word.length; i++) {
+        const r = row + dir[0] * i;
+        const c = col + dir[1] * i;
+
+        if (
+          r < 0 || r >= gridSize ||
+          c < 0 || c >= gridSize ||
+          (grid[r][c] && grid[r][c] !== word[i]) ||
+          isNearbyOccupied(r, c)
+        ) {
+          fits = false;
+          break;
         }
 
-        if (fits) {
-  let positions = [];
-
-  for (let i = 0; i < word.length; i++) {
-    const r = row + dir[0] * i;
-    const c = col + dir[1] * i;
-    grid[r][c] = word[i];
-    positions.push([r, c]);
-  }
-
-  // ✅ store word + positions
-  placedWords.push({ word, positions });
-
-  placed = true;
-}
+        positions.push([r, c]);
       }
-    });
-  }
 
-	  
-  document.getElementById('next-btn').addEventListener('click', () => {
-  document.getElementById('next-btn').style.display = 'none';
+      if (fits) {
+        positions.forEach(([r, c], i) => {
+          grid[r][c] = word[i];
+        });
 
-  if (mode === "challenge") {
-    if (level < 3) {
-      level++;
-      startLevel();
-    } else {
-      showModeMenu();
+        placedWords.push({ word, positions });
+        finalWords.push(word);
+        placed = true;
+      }
     }
-  } else {
-    showMenu();
   }
-});  
-	  
+
+  // ✅ only keep words that were successfully placed
+  wordList = finalWords;
+}  
 	  
 	  
   function fillRandom() {
