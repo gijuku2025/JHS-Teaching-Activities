@@ -166,6 +166,31 @@ let timerInterval = null;
   [1, 0]  // ↓ (top to bottom)
 ];
 
+	  
+function isNearbyOccupied(r, c) {
+  for (let dr = -1; dr <= 1; dr++) {
+    for (let dc = -1; dc <= 1; dc++) {
+      const nr = r + dr;
+      const nc = c + dc;
+
+      if (
+        nr >= 0 && nr < gridSize &&
+        nc >= 0 && nc < gridSize &&
+        grid[nr][nc] !== ''
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
   function placeWords() {
    
 	  placedWords = []; // reset each round
@@ -186,14 +211,15 @@ let timerInterval = null;
           const r = row + dir[0] * i;
           const c = col + dir[1] * i;
 
-          if (
-            r < 0 || r >= gridSize ||
-            c < 0 || c >= gridSize ||
-            (grid[r][c] && grid[r][c] !== word[i])
-          ) {
-            fits = false;
-            break;
-          }
+         if (
+  r < 0 || r >= gridSize ||
+  c < 0 || c >= gridSize ||
+  (grid[r][c] && grid[r][c] !== word[i]) ||
+  isNearbyOccupied(r, c)
+) {
+  fits = false;
+  break;
+}
         }
 
         if (fits) {
