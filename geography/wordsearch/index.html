@@ -134,7 +134,8 @@ let grid = [];
 let wordList = [];
 let selectedCells = [];
 let isSelecting = false;
-let placedWords = []; // 🔥 track word positions	  
+let placedWords = []; // 🔥 track word positions	
+let roundComplete = false;
 	  
 	  
 
@@ -385,25 +386,14 @@ cell.addEventListener('touchend', (e) => {
 
  function checkWin() {
   const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
+  
   if (remaining.length === 0) {
+    roundComplete = true;
+    clearInterval(timerInterval);
 
-    if (mode === "practice") {
-  document.getElementById('next-btn').style.display = 'block';
-  return;
-}
-
-    // challenge mode
-    score += wordList.length;
-
-    if (level < 3) {
-  document.getElementById('next-btn').style.display = 'block';
-} else {
-  clearInterval(timerInterval);
-  document.getElementById('next-btn').style.display = 'block';
-}
+    document.getElementById('next-btn').style.display = 'block';
   }
 }
-
 	  
 async function loadChapter(id) {
   const res = await fetch(`./data/${id}.json`);
@@ -455,6 +445,7 @@ function startChallenge() {
 	  
 	  
 function gameOver() {
+  roundComplete = false;
   revealMissedWords();
 
   document.getElementById('next-btn').style.display = 'block';
@@ -548,7 +539,9 @@ function startTimer() {
 	  
 	  
 function startLevel() {
-  clearInterval(timerInterval);
+  
+	roundComplete = false;
+	clearInterval(timerInterval);
 
   let minGridSize;
 
@@ -599,6 +592,31 @@ function startLevel() {
     return [parseInt(cell.dataset.row), parseInt(cell.dataset.col)];
   }
 
+	  
+  document.getElementById('next-btn').addEventListener('click', () => {
+  document.getElementById('next-btn').style.display = 'none';
+
+  if (mode === "challenge") {
+    if (roundComplete) {
+      // player WON → go to next level
+      if (level < 3) {
+        level++;
+        startLevel();
+      } else {
+        showModeMenu();
+      }
+    } else {
+      // player LOST → retry same level
+      startLevel();
+    }
+  } else {
+    // practice mode → back to menu
+    showMenu();
+  }
+});  
+	  
+	  
+	  
   init();
 </script>
 </body>
