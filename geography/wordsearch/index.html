@@ -122,6 +122,10 @@ body {
 
     <h2>Find these words:</h2>
     <div id="word-list" class="word-list"></div>
+	<button id="next-btn" style="display:none; padding:10px 20px; font-size:16px;">
+  Next Round
+</button> 
+	  
   </div>
 
   <script>
@@ -211,6 +215,24 @@ let timerInterval = null;
     });
   }
 
+	  
+  document.getElementById('next-btn').addEventListener('click', () => {
+  document.getElementById('next-btn').style.display = 'none';
+
+  if (mode === "challenge") {
+    if (level < 3) {
+      level++;
+      startLevel();
+    } else {
+      showModeMenu();
+    }
+  } else {
+    showMenu();
+  }
+});  
+	  
+	  
+	  
   function fillRandom() {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     for (let r = 0; r < gridSize; r++) {
@@ -352,26 +374,19 @@ cell.addEventListener('touchend', (e) => {
   if (remaining.length === 0) {
 
     if (mode === "practice") {
-      setTimeout(() => alert("🎉 You found all words!"), 100);
-      return;
-    }
+  document.getElementById('next-btn').style.display = 'block';
+  return;
+}
 
     // challenge mode
     score += wordList.length;
 
     if (level < 3) {
-      level++;
-      setTimeout(() => {
-        alert(`Level ${level - 1} complete!`);
-        startLevel();
-      }, 500);
-    } else {
-      clearInterval(timerInterval);
-      setTimeout(() => {
-        alert(`🎉 You Win! Score: ${score}`);
-        showModeMenu();
-      }, 300);
-    }
+  document.getElementById('next-btn').style.display = 'block';
+} else {
+  clearInterval(timerInterval);
+  document.getElementById('next-btn').style.display = 'block';
+}
   }
 }
 
@@ -428,10 +443,7 @@ function startChallenge() {
 function gameOver() {
   revealMissedWords();
 
-  setTimeout(() => {
-    alert(`Game Over\nScore: ${score}`);
-    showModeMenu();
-  }, 1000);
+  document.getElementById('next-btn').style.display = 'block';
 }
 	  
 	  
