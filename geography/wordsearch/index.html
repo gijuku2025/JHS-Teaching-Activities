@@ -136,6 +136,7 @@ let selectedCells = [];
 let isSelecting = false;
 let placedWords = []; // 🔥 track word positions	
 let roundComplete = false;
+let gameFinished = false;  
 	  
 	  
 
@@ -439,6 +440,7 @@ function startChallenge() {
   mode = "challenge";
   level = 1;
   score = 0;
+  gameFinished = false;
   document.getElementById('mode-select').style.display = 'none';
   showMenu();
 }	  
@@ -540,6 +542,7 @@ function startTimer() {
 	  
 function startLevel() {
   
+	document.getElementById('next-btn').textContent = "Next Round";
 	roundComplete = false;
 	clearInterval(timerInterval);
 
@@ -597,24 +600,34 @@ function startLevel() {
   document.getElementById('next-btn').style.display = 'none';
 
   if (mode === "challenge") {
+
+    if (gameFinished) {
+      // game already finished → go to menu
+      showModeMenu();
+      return;
+    }
+
     if (roundComplete) {
-      // player WON → go to next level
       if (level < 3) {
         level++;
         startLevel();
       } else {
-        showModeMenu();
+        // ✅ FINAL LEVEL COMPLETE
+        gameFinished = true;
+
+        // optional: change button text
+        document.getElementById('next-btn').textContent = "Back to Menu";
+        document.getElementById('next-btn').style.display = 'block';
       }
     } else {
-      // player LOST → retry same level
+      // lost → retry same level
       startLevel();
     }
+
   } else {
-    // practice mode → back to menu
     showMenu();
   }
 });  
-	  
 	  
 	  
   init();
