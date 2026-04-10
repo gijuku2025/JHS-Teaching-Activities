@@ -64,12 +64,12 @@
     }
 
     .word-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 8px;
-      width: 100%;
-      max-width: 400px;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 6px;
+  width: 100%;
+  max-width: 400px;
+}
 
 	  html, body {
   overscroll-behavior: none;
@@ -95,6 +95,46 @@
       text-decoration: line-through;
       color: gray;
     }
+	  
+	#game-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ✅ Landscape mode layout */
+@media (orientation: landscape) {
+  #game-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  #grid {
+    flex: 0 0 auto;
+  }
+
+  #word-list {
+    max-width: 250px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}  
+	  
+@media (orientation: landscape) {
+  .cell {
+    width: min(6vw, 35px);
+    height: min(6vw, 35px);
+    font-size: min(3vw, 16px);
+  }
+}	  
+	  
+	  
+	  
+	  
+	  
+	  
   </style>
 </head>
 
@@ -110,13 +150,16 @@
   <!-- ✅ GAME AREA (hidden at start) -->
   <div id="game" class="container" style="display:none;">
 	<h2 id="timer">Time: 60</h2>  
-	  
-	  
-    <div id="grid" class="grid"></div>
 
+<div id="game-layout">
+  <div id="grid" class="grid"></div>
+
+  <div>
     <h2>Find these words:</h2>
     <div id="word-list" class="word-list"></div>
-	  
+  </div>
+</div>
+
 <button id="next-btn" style="display:none; padding:10px 20px; font-size:16px;">
   View Results
 </button>
