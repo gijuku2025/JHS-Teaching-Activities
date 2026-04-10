@@ -104,6 +104,9 @@
 
   <!-- ✅ GAME AREA (hidden at start) -->
   <div id="game" class="container" style="display:none;">
+	<h2 id="timer">Time: 60</h2>  
+	  
+	  
     <div id="grid" class="grid"></div>
 
     <h2>Find these words:</h2>
@@ -116,6 +119,9 @@
   let wordList = [];
   let selectedCells = [];
   let isSelecting = false;
+let timeLeft = 60;
+let timerInterval;
+	  
 
   async function init() {
   showMenu();
@@ -312,7 +318,8 @@ cell.addEventListener('touchend', (e) => {
     const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
     if (remaining.length === 0) {
       setTimeout(() => {
-        alert("🎉 You found all words!");
+        clearInterval(timerInterval);
+endGame(true);
       }, 100);
     }
   }
@@ -333,6 +340,10 @@ async function loadChapter(id) {
   fillRandom();
   renderGrid();
   renderWordList();
+const timeLimit = wordList.length <= 5 ? 60 : 90;
+startTimer(timeLimit);
+	
+	
 }	  
 	  
 	  
@@ -360,6 +371,39 @@ async function showMenu() {
   document.getElementById('game').style.display = 'none';
 }
 	  
+	  
+  function startTimer(seconds) {
+  timeLeft = seconds;
+  const timerEl = document.getElementById('timer');
+  timerEl.textContent = `Time: ${timeLeft}`;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = `Time: ${timeLeft}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      endGame(false);
+    }
+
+    if (timeLeft <= 10) {
+      timerEl.style.color = "red";
+    }
+  }, 1000);
+}  
+	  
+	
+	  
+	  
+	  
+ function endGame(won) {
+  isSelecting = false;
+
+  setTimeout(() => {
+    alert(won ? "🎉 You win!" : "⏰ Time's up!");
+    showMenu();
+  }, 100);
+}
 	  
 	  
   function clearSelection() {
