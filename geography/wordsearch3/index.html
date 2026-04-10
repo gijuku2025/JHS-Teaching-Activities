@@ -36,7 +36,7 @@
 
     .grid {
   display: grid;
-  grid-template-columns: repeat(10, min(8vw, 40px));
+  grid-template-columns: repeat(var(--grid-size), min(8vw, 40px));
   justify-content: center;
   gap: 4px;
   margin: 0 auto;
@@ -126,7 +126,7 @@
   </div>
 
   <script>
-  const gridSize = 10;
+  let gridSize = 10;
   let grid = [];
   let wordList = [];
   let selectedCells = [];
@@ -242,7 +242,8 @@ function hasSpacing(row, col, dir, word) {
 
   function renderGrid() {
     const gridEl = document.getElementById('grid');
-    gridEl.innerHTML = '';
+	gridEl.style.setProperty('--grid-size', gridSize);
+	gridEl.innerHTML = '';
 
     grid.forEach((row, r) => {
       row.forEach((letter, c) => {
@@ -417,6 +418,13 @@ wordList = availableWords.slice(0, 5);
 const newUsed = [...usedWords, ...wordList];
 localStorage.setItem(storageKey, JSON.stringify(newUsed));
 
+ 
+	const longestWord = Math.max(...wordList.map(w => w.length));
+
+// add padding so grid isn't too tight
+gridSize = Math.max(10, longestWord + 4);
+	
+	
   createEmptyGrid();
   placeWords();
   fillRandom();
