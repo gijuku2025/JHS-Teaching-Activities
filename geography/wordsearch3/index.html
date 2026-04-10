@@ -76,6 +76,11 @@
 }
 	  
 	  
+ .missed {
+  background: #ffcccc; /* light red */
+}
+	  
+	  
 	  
     .word {
       padding: 6px;
@@ -126,8 +131,10 @@
   let wordList = [];
   let selectedCells = [];
   let isSelecting = false;
-let timeLeft = 60;
-let timerInterval;
+  let placedWords = []; // stores word + positions
+  let timeLeft = 60;
+  let timerInterval;
+  let foundWords = [];
 	  
 
   async function init() {
@@ -175,13 +182,18 @@ let timerInterval;
         }
 
         if (fits) {
-          for (let i = 0; i < word.length; i++) {
-            const r = row + dir[0] * i;
-            const c = col + dir[1] * i;
-            grid[r][c] = word[i];
-          }
-          placed = true;
-        }
+  const positions = [];
+
+  for (let i = 0; i < word.length; i++) {
+    const r = row + dir[0] * i;
+    const c = col + dir[1] * i;
+    grid[r][c] = word[i];
+    positions.push([r, c]);
+  }
+
+  placedWords.push({ word, positions }); // ✅ store it
+  placed = true;
+}
       }
     });
   }
@@ -309,6 +321,8 @@ cell.addEventListener('touchend', (e) => {
     });
 
     const matched = word;
+	foundWords.push(matched); 
+	  
 
     document.querySelector(`[data-word="${matched}"]`)
       .classList.add('found-word');
@@ -442,10 +456,35 @@ async function showMenu() {
  function endGame(won) {
   isSelecting = false;
 
-  setTimeout(() => {
-    showNextButton();
-  }, 100);
+  if (!won) {
+    revealMissedWords(); // 👈 show missed words when time runs out
+  }
+
+  showNextButton(); // 👈 show results button instead of popup
 }
+	  
+function revealMissedWords() {
+	
+	document.querySelectorAll('#word-list .word').forEach(el => {
+  if (!foundWords.includes(el.dataset.word)) {
+    el.style.background = '#ffcccc';
+  }
+});
+	
+  placedWords.forEach(entry => {
+    if (!foundWords.includes(entry.word)) {
+      entry.positions.forEach(([r, c]) => {
+        const cell = document.querySelector(
+          `.cell[data-row="${r}"][data-col="${c}"]`
+        );
+        if (cell) {
+          cell.classList.add('missed');
+        }
+      });
+    }
+  });
+}	  
+	  
 	  
 function showNextButton() {
   const btn = document.getElementById('next-btn');
