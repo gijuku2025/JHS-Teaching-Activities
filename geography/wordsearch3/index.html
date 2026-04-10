@@ -558,6 +558,11 @@ function showResults() {
 
   document.getElementById('result-time').textContent = formatted;
 	
+	const name = localStorage.getItem("nickname") || "Player";
+
+document.getElementById('result-name').textContent =
+  `Well done, ${name}!`;
+	
   document.getElementById('result-score').textContent =
   `Score: ${score} (${foundWords.length} words + ${timeLeft}s)`;
 }	  
@@ -576,7 +581,7 @@ function showResults() {
   init();
 </script>
 	<div id="results" class="container" style="display:none;">
-  <h1>Well done!</h1>
+  <h1 id="result-name"></h1>
   <h2 id="result-time"></h2>
   <h2 id="result-score"></h2>	
 		
