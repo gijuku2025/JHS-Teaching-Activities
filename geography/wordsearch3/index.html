@@ -356,6 +356,10 @@ function shuffle(array) {
 	  
 	  
 async function loadChapter(id) {
+  
+  placedWords = [];
+  foundWords = [];
+	
   const res = await fetch(`./data/${id}.json`);
   const data = await res.json();
 
