@@ -135,7 +135,7 @@
   let timeLeft = 60;
   let timerInterval;
   let foundWords = [];
-	  
+  let score = 0;  
 
   async function init() {
   showMenu();
@@ -388,6 +388,11 @@ function shuffle(array) {
 	  
 	  
 async function loadChapter(id) {
+  
+placedWords = [];
+foundWords = [];
+score = 0;
+	
   const res = await fetch(`./data/${id}.json`);
   const data = await res.json();
 
@@ -495,11 +500,20 @@ async function showMenu() {
  function endGame(won) {
   isSelecting = false;
 
+  // ✅ calculate score
+  const wordsFound = foundWords.length;
+  const safeTime = Math.max(0, timeLeft);
+
+  score = (wordsFound * 20) + (safeTime * 3);
+
+  // optional perfect bonus
+  if (won) score += 50;
+
   if (!won) {
-    revealMissedWords(); // 👈 show missed words when time runs out
+    revealMissedWords();
   }
 
-  showNextButton(); // 👈 show results button instead of popup
+  showNextButton();
 }
 	  
 function revealMissedWords() {
@@ -543,6 +557,9 @@ function showResults() {
   const formatted = now.toLocaleString();
 
   document.getElementById('result-time').textContent = formatted;
+	
+  document.getElementById('result-score').textContent =
+  `Score: ${score} (${foundWords.length} words + ${timeLeft}s)`;
 }	  
 	  
 	  
@@ -561,6 +578,8 @@ function showResults() {
 	<div id="results" class="container" style="display:none;">
   <h1>Well done!</h1>
   <h2 id="result-time"></h2>
+  <h2 id="result-score"></h2>	
+		
   <button onclick="showMenu()">Back to Menu</button>
 </div>
 	
