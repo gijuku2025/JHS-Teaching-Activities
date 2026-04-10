@@ -116,7 +116,8 @@ body {
   <!-- ✅ GAME AREA (hidden at start) -->
   <div id="game" class="container" style="display:none;">
 	 <!-- ✅ RESULTS SCREEN -->
-<div id="results" class="container" style="display:none;">
+
+  <div id="results" class="container" style="display:none;">
   <h2>Results</h2>
   <h1 id="final-score">Score: 0</h1>
 
@@ -402,21 +403,21 @@ cell.addEventListener('touchend', (e) => {
   const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
   
   if (remaining.length === 0) {
-   if (remaining.length === 0) {
-  roundComplete = true;
-  clearInterval(timerInterval);
+    roundComplete = true;
+    clearInterval(timerInterval);
 
-  // ✅ CALCULATE SCORE (WIN)
-  if (!roundScored) {
-    const foundCount = wordList.length;
-    const wordScore = foundCount * 10;
-    const timeBonus = timeLeft * 2;
+    // ✅ CALCULATE SCORE (WIN)
+    if (!roundScored) {
+      const foundCount = wordList.length;
+      const wordScore = foundCount * 10;
+      const timeBonus = timeLeft * 2;
 
-    score += wordScore + timeBonus;
-    roundScored = true;
+      score += wordScore + timeBonus;
+      roundScored = true;
+    }
+
+    document.getElementById('next-btn').style.display = 'block';
   }
-
-  document.getElementById('next-btn').style.display = 'block';
 }
 	  
 async function loadChapter(id) {
@@ -650,27 +651,26 @@ function startLevel() {
   if (mode === "challenge") {
 
     if (gameFinished) {
-  showResults();
-  return;
-}
+      showResults();
+      return;
+    }
 
     if (roundComplete) {
       if (level < 3) {
         level++;
         startLevel();
       } else {
-  // ✅ FINAL LEVEL COMPLETE
-  gameFinished = true;
+        // ✅ FINAL LEVEL COMPLETE
+        gameFinished = true;
 
-  const btn = document.getElementById('next-btn');
-  btn.textContent = "View Results";
-  btn.style.display = 'block';
+        const btn = document.getElementById('next-btn');
+        btn.textContent = "View Results";
+        btn.style.display = 'block';
 
-  return;
-} // 🔥 IMPORTANT: stop further logic
-}
+        return;
+      }
     } else {
-      // lost → retry same level
+      // ❗ lost → retry same level
       startLevel();
     }
 
@@ -678,7 +678,6 @@ function startLevel() {
     showMenu();
   }
 });  
-	  
 	  
   init();
 </script>
