@@ -131,7 +131,30 @@
 }	  
 	  
 	  
-	  
+  #result-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+#result-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.result-word {
+  background: #eef;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+}  
 	  
 	  
 	  
@@ -179,6 +202,8 @@
   let timerInterval;
   let foundWords = [];
   let score = 0;  
+  let currentChapterTitle = "";  
+	  
 
   async function init() {
   showMenu();
@@ -443,6 +468,9 @@ score = 0;
   document.getElementById('game').style.display = 'flex';
 
   document.getElementById('title').textContent = data.title;
+  currentChapterTitle = data.title;
+	
+	
   const allWords = data.words.map(w => w.toUpperCase());
 
 // 🔹 load used words from localStorage
@@ -599,16 +627,43 @@ function showResults() {
   const now = new Date();
   const formatted = now.toLocaleString();
 
-  document.getElementById('result-time').textContent = formatted;
-	
-	const name = localStorage.getItem("nickname") || "Player";
+  const name = localStorage.getItem("nickname") || "Player";
 
-document.getElementById('result-name').textContent =
-  `Well done, ${name}!`;
-	
+  // ✅ Chapter
+  document.getElementById('result-chapter').textContent =
+    currentChapterTitle;
+
+  // ✅ Name
+  document.getElementById('result-name').textContent =
+    `Name: ${name}`;
+
+  // ✅ Time
+  document.getElementById('result-time').textContent =
+    `Date: ${formatted}`;
+
+  // ✅ Score
   document.getElementById('result-score').textContent =
-  `Score: ${score} (${foundWords.length} words + ${timeLeft}s)`;
-}	  
+    `Score: ${score}`;
+
+  // ✅ Words list
+  const wordsEl = document.getElementById('result-words');
+  wordsEl.innerHTML = "";
+
+  wordList.forEach(word => {
+    const div = document.createElement('div');
+    div.className = 'result-word';
+
+    // green if found, red if missed
+    if (foundWords.includes(word)) {
+      div.style.background = '#c8f7c5';
+    } else {
+      div.style.background = '#f7c5c5';
+    }
+
+    div.textContent = word;
+    wordsEl.appendChild(div);
+  });
+}
 	  
 	  
 	  
@@ -624,10 +679,21 @@ document.getElementById('result-name').textContent =
   init();
 </script>
 	<div id="results" class="container" style="display:none;">
-  <h1 id="result-name"></h1>
-  <h2 id="result-time"></h2>
-  <h2 id="result-score"></h2>	
-		
+  <div id="result-card">
+
+    <h1>Word Search</h1>
+    <h2 id="result-chapter"></h2>
+
+    <p id="result-name"></p>
+    <p id="result-time"></p>
+
+    <h3>Words Studied</h3>
+    <div id="result-words"></div>
+
+    <h2 id="result-score"></h2>
+
+  </div>
+
   <button onclick="showMenu()">Back to Menu</button>
 </div>
 	
