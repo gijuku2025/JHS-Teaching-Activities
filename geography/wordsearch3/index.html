@@ -350,8 +350,7 @@ async function loadChapter(id) {
 document.getElementById('next-btn').style.display = 'none';
 document.getElementById('results').style.display = 'none';
 	
-const timeLimit = wordList.length <= 5 ? 60 : 90;
-startTimer(timeLimit);
+startTimer(60);
 	
 	
 }	  
@@ -385,6 +384,8 @@ async function showMenu() {
 	  
 	  
   function startTimer(seconds) {
+  
+  clearInterval(timerInterval);
   timeLeft = seconds;
   const timerEl = document.getElementById('timer');
   timerEl.textContent = `Time: ${timeLeft}`;
