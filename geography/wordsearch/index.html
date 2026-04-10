@@ -378,6 +378,45 @@ document.getElementById('next-btn').addEventListener('click',()=>{
   }
 });
 
+function startPractice() {
+  mode = "practice";
+  document.getElementById('mode-select').style.display = 'none';
+  showMenu();
+}
+
+function startChallenge() {
+  mode = "challenge";
+  level = 1;
+  score = 0;
+  gameFinished = false;
+  roundScored = false;
+
+  document.getElementById('mode-select').style.display = 'none';
+  showMenu();
+}
+
+async function showMenu() {
+  const res = await fetch('./data/chapters.json');
+  const data = await res.json();
+
+  const listEl = document.getElementById('chapter-list');
+  listEl.innerHTML = '';
+
+  data.chapters.forEach(ch => {
+    const btn = document.createElement('div');
+    btn.className = 'word';
+    btn.textContent = ch.title;
+
+    btn.addEventListener('click', () => loadChapter(ch.id));
+
+    listEl.appendChild(btn);
+  });
+
+  document.getElementById('menu').style.display = 'flex';
+  document.getElementById('game').style.display = 'none';
+}
+
+  
 init();
 </script>
 
