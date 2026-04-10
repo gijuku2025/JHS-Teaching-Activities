@@ -1,0 +1,105 @@
+```css id="z1l2kc"
+/* 🔹 GLOBAL */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 10px;
+  touch-action: none; /* prevents scrolling while selecting */
+  user-select: none;
+  overflow: hidden;   /* prevents page scroll */
+}
+
+html, body {
+  overscroll-behavior: none;
+}
+
+/* 🔹 HEADINGS */
+h1 {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0 5px;
+}
+
+/* 🔹 LAYOUT */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 🔹 GRID */
+.grid {
+  display: grid;
+  justify-content: center;
+  gap: 4px;
+  margin: 0 auto;
+  touch-action: none;
+}
+
+.cell {
+  width: min(8vw, 40px);
+  height: min(8vw, 40px);
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: min(4vw, 18px);
+  border-radius: 4px;
+}
+
+/* 🔹 CELL STATES */
+.selected {
+  background: lightblue;
+}
+
+.found {
+  background: yellow;
+}
+
+.missed {
+  background: red;
+  color: white;
+}
+
+/* 🔹 WORD LIST */
+.word-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.word {
+  padding: 6px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+  font-weight: bold;
+}
+
+.found-word {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* 🔹 BUTTON */
+button {
+  border: none;
+  border-radius: 6px;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+```
