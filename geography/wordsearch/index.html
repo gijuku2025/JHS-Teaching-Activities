@@ -115,6 +115,17 @@ body {
 
   <!-- ✅ GAME AREA (hidden at start) -->
   <div id="game" class="container" style="display:none;">
+	 <!-- ✅ RESULTS SCREEN -->
+<div id="results" class="container" style="display:none;">
+  <h2>Results</h2>
+  <h1 id="final-score">Score: 0</h1>
+
+  <button onclick="showModeMenu()" style="padding:10px 20px; font-size:16px;">
+    Back to Mode Select
+  </button>
+</div>
+	  
+	  
 	  <!-- ⏱ TIMER (ADD THIS) -->
   <h2 id="timer" style="display:none;">Time: 0</h2>
   
@@ -145,6 +156,8 @@ let mode = "practice"; // or "challenge"
 let level = 1;
 let fullWordList = [];
 let score = 0;
+let roundScored = false;	  
+	  
 
 // ⏱ TIMER
 let timeLeft = 0;
@@ -389,11 +402,21 @@ cell.addEventListener('touchend', (e) => {
   const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
   
   if (remaining.length === 0) {
-    roundComplete = true;
-    clearInterval(timerInterval);
+   if (remaining.length === 0) {
+  roundComplete = true;
+  clearInterval(timerInterval);
 
-    document.getElementById('next-btn').style.display = 'block';
+  // ✅ CALCULATE SCORE (WIN)
+  if (!roundScored) {
+    const foundCount = wordList.length;
+    const wordScore = foundCount * 10;
+    const timeBonus = timeLeft * 2;
+
+    score += wordScore + timeBonus;
+    roundScored = true;
   }
+
+  document.getElementById('next-btn').style.display = 'block';
 }
 	  
 async function loadChapter(id) {
@@ -441,13 +464,34 @@ function startChallenge() {
   level = 1;
   score = 0;
   gameFinished = false;
+  roundScored = false; 
   document.getElementById('mode-select').style.display = 'none';
   showMenu();
 }	  
 	  
 	  
+function showResults() {
+  document.getElementById('game').style.display = 'none';
+  document.getElementById('results').style.display = 'flex';
+
+  document.getElementById('final-score').textContent = "Score: " + score;
+}	  
+	  
+	  
+	  
+	  
 function gameOver() {
   roundComplete = false;
+
+  // ✅ CALCULATE SCORE (LOSS)
+  if (!roundScored) {
+    const foundCount = document.querySelectorAll('.found-word').length;
+    const wordScore = foundCount * 10;
+
+    score += wordScore; // ❗ no time bonus
+    roundScored = true;
+  }
+
   revealMissedWords();
 
   document.getElementById('next-btn').style.display = 'block';
@@ -492,6 +536,8 @@ function showModeMenu() {
   document.getElementById('mode-select').style.display = 'flex';
   document.getElementById('menu').style.display = 'none';
   document.getElementById('game').style.display = 'none';
+  document.getElementById('results').style.display = 'none';
+	
 }	  
 	  
 	  
@@ -542,6 +588,8 @@ function startTimer() {
 	  
 function startLevel() {
   
+	roundScored = false;
+	
 	document.getElementById('next-btn').textContent = "Next Round";
 	roundComplete = false;
 	clearInterval(timerInterval);
@@ -602,10 +650,7 @@ function startLevel() {
   if (mode === "challenge") {
 
     if (gameFinished) {
-  gameFinished = false;          // reset for next game
-  level = 1;                    // reset level
-  document.getElementById('next-btn').textContent = "Next Round";
-  showModeMenu();
+  showResults();
   return;
 }
 
@@ -618,10 +663,11 @@ function startLevel() {
   gameFinished = true;
 
   const btn = document.getElementById('next-btn');
-  btn.textContent = "Return to Mode Select";
+  btn.textContent = "View Results";
   btn.style.display = 'block';
 
-  return; // 🔥 IMPORTANT: stop further logic
+  return;
+} // 🔥 IMPORTANT: stop further logic
 }
     } else {
       // lost → retry same level
