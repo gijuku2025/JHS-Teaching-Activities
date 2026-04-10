@@ -1,686 +1,309 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Word Search</title>
+  <meta charset="UTF-8">
+  <title>JHS Learning Activities</title>
 
-  <style>
+<meta name="apple-mobile-web-app-title" content="JHS Learning">  
   
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 10px;
-  touch-action: none; /* 🔥 KEY FIX */
-  user-select: none;
-  overflow: hidden;   /* 🔥 prevents page scroll */
-}
+  <!-- PWA + Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
 
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="icons/eng-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f9f9f9;
+    }
     h1 {
       text-align: center;
-      margin-bottom: 5px;
+      color: #333;
     }
-
     h2 {
-      text-align: center;
-      font-size: 16px;
-      margin: 10px 0 5px;
+      color: #444;
+      margin-top: 30px;
     }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+    ul {
+      list-style-type: none;
+      padding: 0;
     }
-
-    .grid {
-  display: grid;
-  justify-content: center;
-  gap: 4px;
-  margin: 0 auto;
-  touch-action: none;
-}
-
-    .cell {
-      width: min(8vw, 40px);
-      height: min(8vw, 40px);
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: min(4vw, 18px);
-      border-radius: 4px;
+    li {
+      margin: 10px 0;
     }
-
-    .selected {
-      background: lightblue;
+    a {
+      text-decoration: none;
+      color: #0066cc;
     }
-
-    .found {
-      background: yellow;
-    }
-
-    .word-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 8px;
-      width: 100%;
-      max-width: 400px;
-    }
-
-	  html, body {
-  overscroll-behavior: none;
-}
-	  
-.missed {
-  background: red;
-  color: white;
-}
-	  
-    .word {
-      padding: 6px;
-      text-align: center;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #fafafa;
-      font-weight: bold;
-    }
-
-    .found-word {
-      text-decoration: line-through;
-      color: gray;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 
+  
 <body>
- <h1 id="title">Word Search</h1>
+  <h1>JHS Teaching Activities</h1>
 
-<!-- ✅ MODE SELECT -->
-<div id="mode-select" class="container">
-  <h2>Select Mode</h2>
-  <div class="word-list">
-    <div class="word" onclick="startPractice()">Practice Mode</div>
-    <div class="word" onclick="startChallenge()">Challenge Mode</div>
-  </div>
-</div>
+  <h2>🌍 Geography</h2>
+  <ul>
 
-<!-- ✅ CHAPTER MENU -->
-<div id="menu" class="container">
-  <h2>Select a Chapter</h2>
-  <div id="chapter-list" class="word-list"></div>
-</div>
+ 
 
-  <!-- ✅ GAME AREA (hidden at start) -->
-  <div id="game" class="container" style="display:none;">
-	 <!-- ✅ RESULTS SCREEN -->
+<li><a href="geography/flashcardsapp/">Flash Cards 1.0</a></li>
 
-  <div id="results" class="container" style="display:none;">
-  <h2>Results</h2>
-  <h1 id="final-score">Score: 0</h1>
+<li><a href="geography/wordsearch/">Word Search 27</a></li>    
 
-  <button onclick="showModeMenu()" style="padding:10px 20px; font-size:16px;">
-    Back to Mode Select
-  </button>
-</div>
-	  
-	  
-	  <!-- ⏱ TIMER (ADD THIS) -->
-  <h2 id="timer" style="display:none;">Time: 0</h2>
+    <li><a href="geography/srsver2/">Smart Review</a></li> 
+
+<li><a href="geography/3minutechallengever7/">3 Minute Challenge</a></li> 
+
+   <li><a href="geography/ch1newwords/">Chapter 1 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch7listening/">Chapter 7 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch8listening/">Chapter 8 New Words Quiz</a></li>    
+
+    <li><a href="geography/ch8listenandlearn/">Chapter 8 Listen and Learn</a></li> 
+
+    <li><a href="geography/ch9newwords/">Chapter 9 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch9listenandlearn/">Chapter 9 Listen and Learn</a></li>   
+
+    <li><a href="geography/ch10newwords/">Chapter 10 New Words Quiz</a></li>     
+
+    <li><a href="geography/ch10listenandlearn/">Chapter 10 Listen and Learn</a></li>   
+    
+   <li><a href="geography/ch11newwords/">Chapter 11 New Words Quiz</a></li>         
+
+     <li><a href="geography/ch11listenandlearn/">Chapter 11 Listen and Learn</a></li> 
+
+<li><a href="geography/ch12newwords/">Chapter 12 New Words Quiz</a></li>             
+
+       <li><a href="geography/ch12listenandlearn/">Chapter 12 Listen and Learn</a></li> 
+
+<li><a href="geography/ch13newwords/">Chapter 13 New Words Quiz</a></li>    
+
+ <li><a href="geography/ch13listenandlearn/">Chapter 13 Listen and Learn</a></li> 
+
+<li><a href="geography/ch15newwords/">Chapter 15 New Words Quiz</a></li>        
+
+    <li><a href="geography/ch15listenandlearn/">Chapter 15 Listen and Learn</a></li> 
+
+<li><a href="geography/ch16newwords/">Chapter 16 New Words Quiz</a></li>   
+    
+<li><a href="geography/ch16listenandlearn/">Chapter 16 Listen and Learn</a></li> 
+
+<li><a href="geography/ch17newwords/">Chapter 17 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch17listenandlearn/">Chapter 17 Listen and Learn</a></li> 
+
+<li><a href="geography/ch18newwords/">Chapter 18 New Words Quiz</a></li>     
+
+   <li><a href="geography/ch18listenandlearn/">Chapter 18 Listen and Learn</a></li> 
+
+    <li><a href="geography/ch19newwords/">Chapter 19 New Words Quiz</a></li>     
+
+<li><a href="geography/ch19listenandlearn/">Chapter 19 Listen and Learn</a></li> 
+
+    
+    
+    <li><a href="geography/ch29mp3/">Chapter 29 New Words Quiz</a></li>
+    
+    <li><a href="geography/ch29freetradesim/">Chapter 29 Free Trade Simulation</a></li>
+
+    <li><a href="geography/ch30listening/">Chapter 30 New Words Quiz</a></li>  
+
+   <li><a href="geography/ch30listenandlearn/">Chapter 30 Listen and Learn</a></li>  
+
+   <li><a href="geography/ch31listening/">Chapter 31 New Words Quiz</a></li> 
+   
+    <li><a href="geography/ch31listenandlearn/">Chapter 31 Listen and Learn</a></li>  
+
+ <li><a href="geography/ch32newwords/">Chapter 32 New Words Quiz</a></li>     
   
-    <div id="grid" class="grid"></div>
+ <li><a href="geography/ch32listenandlearn/">Chapter 32 Listen and Learn</a></li>     
 
-    <h2>Find these words:</h2>
-    <div id="word-list" class="word-list"></div>
-	<button id="next-btn" style="display:none; padding:10px 20px; font-size:16px;">
-  Next Round
-</button> 
-	  
-  </div>
+ <li><a href="geography/ch33newwords/">Chapter 33 New Words Quiz</a></li> 
+    
+<li><a href="geography/ch33listenandlearn/">Chapter 33 Listen and Learn</a></li>     
 
-  <script>
-let gridSize = 10;
-let grid = [];
-let wordList = [];
-let selectedCells = [];
-let isSelecting = false;
-let placedWords = []; // 🔥 track word positions	
-let roundComplete = false;
-let gameFinished = false;  
-	  
-	  
+ <li><a href="geography/ch34newwords/">Chapter 34 New Words Quiz</a></li> 
 
-// 🎮 NEW GAME STATE
-let mode = "practice"; // or "challenge"
-let level = 1;
-let fullWordList = [];
-let score = 0;
-let roundScored = false;	  
-	  
+  <li><a href="geography/ch34listenandlearn/">Chapter 34 Listen and Learn</a></li>     
 
-// ⏱ TIMER
-let timeLeft = 0;
-let timerInterval = null;
+ <li><a href="geography/ch35newwords/">Chapter 35 New Words Quiz</a></li> 
 
-  async function init() {
-  document.getElementById('mode-select').style.display = 'flex';
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('game').style.display = 'none';
+ <li><a href="geography/ch35listenandlearn/">Chapter 35 Listen and Learn</a></li> 
+
+<li><a href="geography/ch36newwords/">Chapter 36 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch36listenandlearn/">Chapter 36 Listen and Learn</a></li> 
+
+<li><a href="geography/ch37newwords/">Chapter 37 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch37listenandlearn/">Chapter 37 Listen and Learn</a></li> 
+
+<li><a href="geography/ch38newwords/">Chapter 38 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch38listenandlearn/">Chapter 38 Listen and Learn</a></li> 
+
+<li><a href="geography/ch39newwords/">Chapter 39 New Words Quiz</a></li>   
+
+     <li><a href="geography/ch39listenandlearn/">Chapter 39 Listen and Learn</a></li> 
+
+    <li><a href="geography/ch40newwords/">Chapter 40 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch40listenandlearn/">Chapter 40 Listen and Learn</a></li> 
+    
+<li><a href="civics/2609v4/">True and False Demo 5</a></li>         
+
+    <li><a href="civics/0210v1/">True and False Demo 6</a></li>      
+
+      
+    
+    
+  </ul>
+
+  <h2>🏛 Civics</h2>
+  <ul>
+
+
+ <li><a href="civics/smartreviewcivics/">Smart Review</a></li>  
+    
+ <li><a href="civics/30secondswarmup/">30 Seconds Warm Up</a></li>  
+    
+<li><a href="civics/newboardgame/">30 Seconds Board Game</a></li> 
+
+   <li><a href="civics/ch1newwords/">Chapter 1 New Words Quiz</a></li>  
+
+  <li><a href="civics/ch1listenandlearn/">Chapter 1 Listen and Learn</a></li>     
+    
+ <li><a href="civics/ch2newwords/">Chapter 2 New Words Quiz</a></li>  
+
+  <li><a href="civics/ch2listenandlearn/">Chapter 2 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch3newwords/">Chapter 3 New Words Quiz</a></li>      
+
+ <li><a href="civics/ch3listenandlearn/">Chapter 3 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch4newwords/">Chapter 4 New Words Quiz</a></li> 
+
+<li><a href="civics/ch4listenandlearn/">Chapter 4 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch5newwords/">Chapter 5 New Words Quiz</a></li> 
+
+<li><a href="civics/ch5listenandlearn/">Chapter 5 Listen and Learn</a></li>    
+
+<li><a href="civics/ch6newwords/">Chapter 6 New Words Quiz</a></li>     
+
+<li><a href="civics/ch6listenandlearn/">Chapter 6 Listen and Learn</a></li>      
+
+<li><a href="civics/ch7newwords/">Chapter 7 New Words Quiz</a></li>     
+
+    <li><a href="civics/ch7listenandlearn/">Chapter 7 Listen and Learn</a></li>  
+
+<li><a href="civics/ch8newwords/">Chapter 8 New Words Quiz</a></li>     
+
+   <li><a href="civics/ch8listenandlearn/">Chapter 8 Listen and Learn</a></li>  
+    
+    
+<li><a href="civics/ch9newwords/">Chapter 9 New Words Quiz</a></li>       
+
+<li><a href="civics/ch9listenandlearn/">Chapter 9 Listen and Learn</a></li>
+    
+    
+    <li><a href="civics/ch12alternate/">Chapter 12 New Words Quiz</a></li>   
+
+     <li><a href="civics/ch13listening/">Chapter 13 New Words Quiz</a></li>
+    
+    <li><a href="civics/borrowingsim/">Borrowing Cost Simulator</a></li>  
+
+   <li><a href="civics/ch14listening/">Chapter 14 New Words Quiz</a></li> 
+
+    <li><a href="civics/ch14listenandlearn/">Chapter 14 Listen and Learn</a></li>     
+
+     <li><a href="civics/ch15newwords/">Chapter 15 New Words Quiz</a></li>     
+
+  <li><a href="civics/ch15listenandlearn/">Chapter 15 Listen and Learn</a></li> 
+
+ <li><a href="civics/ch16newwords/">Chapter 16 New Words Quiz</a></li>     
+
+ <li><a href="civics/ch16listenandlearn/">Chapter 16 Listen and Learn</a></li> 
+
+  <li><a href="civics/ch17newwords/">Chapter 17 New Words Quiz</a></li>  
+
+<li><a href="civics/ch17listenandlearn/">Chapter 17 Listen and Learn</a></li> 
+
+    <li><a href="civics/ch18newwords/">Chapter 18 New Words Quiz</a></li>  
+
+    <li><a href="civics/ch18listenandlearn/">Chapter 18 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch19newwords/">Chapter 19 New Words Quiz</a></li>  
+
+  <li><a href="civics/ch19listenandlearn/">Chapter 19 Listen and Learn</a></li>     
+
+<li><a href="civics/ch20newwords/">Chapter 20 New Words Quiz</a></li>     
+
+     <li><a href="civics/ch20listenandlearn/">Chapter 20 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch21newwords/">Chapter 21 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch21listenandlearn/">Chapter 21 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch22newwords/">Chapter 22 New Words Quiz</a></li>    
+
+    <li><a href="civics/ch22listenandlearn/">Chapter 22 Listen and Learn</a></li> 
+
+    <li><a href="civics/ch23newwords/">Chapter 23 New Words Quiz</a></li>    
+
+    <li><a href="civics/ch23listenandlearn/">Chapter 23 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch24newwords/">Chapter 24 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch24listenandlearn/">Chapter 24 Listen and Learn</a></li>         
+ 
+ <li><a href="civics/ch25newwords/">Chapter 25 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch25listenandlearn/">Chapter 25 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch26newwords/">Chapter 26 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch26listenandlearn/">Chapter 26 Listen and Learn</a></li>     
+    
+  <li><a href="geography/speechtest/">Speech Test 5</a></li>   
+
+<li><a href="geography/speakingpractice/">Speaking Practice Ver 4.7</a></li>   
+  </ul>
+
+<h2>📐 Geometry 1</h2>
+<ul>
+  <li><a href="geometry/trianglegenerator/">Triangle Generator</a></li>
+  <li><a href="geometry/geometrysrs/">Smart Review Geometry</a></li>
+  <li><a href="geometry/30secondchallenge/">30 Seconds Warm Up</a></li>
+  <li><a href="geometry/geometry1/">Geometry 1 New Words</a></li>
+</ul>
+
+<h2>📐 Geometry 2</h2>
+<ul>
+</ul>
+
+<!-- Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js");
 }
-
-  function createEmptyGrid() {
-    grid = Array.from({ length: gridSize }, () =>
-      Array.from({ length: gridSize }, () => '')
-    );
-  }
-
-  // ✅ ALL DIRECTIONS
-  const directions = [
-  [0, 1], // → (left to right)
-  [1, 0]  // ↓ (top to bottom)
-];
-
-	  
-function isNearbyOccupied(r, c) {
-  for (let dr = -1; dr <= 1; dr++) {
-    for (let dc = -1; dc <= 1; dc++) {
-      const nr = r + dr;
-      const nc = c + dc;
-
-      if (
-        nr >= 0 && nr < gridSize &&
-        nc >= 0 && nc < gridSize &&
-        grid[nr][nc] !== ''
-      ) {
-        return true;
-      }
-    }
-  }
-  return false;
-}  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-  function placeWords() {
-  placedWords = [];
-
-  let availableWords = [...wordList];
-  let finalWords = [];
-
-  while (availableWords.length > 0) {
-    let word = availableWords.shift();
-
-    let placed = false;
-    let attempts = 0;
-
-    while (!placed && attempts < 200) {
-      attempts++;
-
-      const dir = directions[Math.floor(Math.random() * directions.length)];
-      const row = Math.floor(Math.random() * gridSize);
-      const col = Math.floor(Math.random() * gridSize);
-
-      let fits = true;
-      let positions = [];
-
-      for (let i = 0; i < word.length; i++) {
-        const r = row + dir[0] * i;
-        const c = col + dir[1] * i;
-
-        if (
-          r < 0 || r >= gridSize ||
-          c < 0 || c >= gridSize ||
-          (grid[r][c] && grid[r][c] !== word[i]) ||
-          isNearbyOccupied(r, c)
-        ) {
-          fits = false;
-          break;
-        }
-
-        positions.push([r, c]);
-      }
-
-      if (fits) {
-        positions.forEach(([r, c], i) => {
-          grid[r][c] = word[i];
-        });
-
-        placedWords.push({ word, positions });
-        finalWords.push(word);
-        placed = true;
-      }
-    }
-  }
-
-  // ✅ only keep words that were successfully placed
-  wordList = finalWords;
-}  
-	  
-	  
-  function fillRandom() {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    for (let r = 0; r < gridSize; r++) {
-      for (let c = 0; c < gridSize; c++) {
-        if (!grid[r][c]) {
-          grid[r][c] = letters[Math.floor(Math.random() * letters.length)];
-        }
-      }
-    }
-  }
-
-  function renderGrid() {
-    const gridEl = document.getElementById('grid');
-    gridEl.innerHTML = '';
-	gridEl.style.gridTemplateColumns = `repeat(${gridSize}, min(8vw, 40px))`; 
-
-    grid.forEach((row, r) => {
-      row.forEach((letter, c) => {
-        const cell = document.createElement('div');
-        cell.className = 'cell';
-        cell.textContent = letter;
-        cell.dataset.row = r;
-        cell.dataset.col = c;
-
-        // TOUCH
-        cell.addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  startSelection(e);
-}, { passive: false });
-
-cell.addEventListener('touchmove', (e) => {
-  e.preventDefault();
-  moveSelection(e);
-}, { passive: false });
-
-cell.addEventListener('touchend', (e) => {
-  e.preventDefault();
-  endSelection(e);
-}, { passive: false });
-
-        // MOUSE
-        cell.addEventListener('mousedown', startSelection);
-        cell.addEventListener('mouseenter', moveSelection);
-        cell.addEventListener('mouseup', endSelection);
-
-        gridEl.appendChild(cell);
-      });
-    });
-
-    document.addEventListener('mouseup', endSelection);
-  }
-
-  function renderWordList() {
-    const listEl = document.getElementById('word-list');
-    listEl.innerHTML = '';
-
-    wordList.forEach(word => {
-      const div = document.createElement('div');
-      div.className = 'word';
-      div.textContent = word;
-      div.dataset.word = word;
-      listEl.appendChild(div);
-    });
-  }
-
-  function startSelection(e) {
-    isSelecting = true;
-    clearSelection();
-
-    const cell = e.target;
-    selectedCells = [cell];
-    cell.classList.add('selected');
-  }
-
-  function moveSelection(e) {
-    if (!isSelecting) return;
-
-    let el;
-
-    if (e.touches) {
-      const touch = e.touches[0];
-      el = document.elementFromPoint(touch.clientX, touch.clientY);
-    } else {
-      el = e.target;
-    }
-
-    if (!el || !el.classList.contains('cell')) return;
-
-    if (selectedCells.includes(el)) return;
-
-    // ✅ enforce straight line
-    if (selectedCells.length >= 2) {
-  const [r0, c0] = getPos(selectedCells[0]);
-  const [r1, c1] = getPos(selectedCells[1]);
-  const [r, c] = getPos(el);
-
-  const dr = r1 - r0;
-  const dc = c1 - c0;
-
-  // ❌ block backwards movement
-  if (dr === 0 && c < c1) return; // horizontal backwards
-  if (dc === 0 && r < r1) return; // vertical upwards
-
-  // ❌ enforce straight line
-  if ((r - r0) * dc !== (c - c0) * dr) return;
-}
-
-    selectedCells.push(el);
-    el.classList.add('selected');
-  }
-
-  function endSelection() {
-  if (!isSelecting) return;
-  isSelecting = false;
-
-  const word = selectedCells.map(c => c.textContent).join('');
-
-  if (wordList.includes(word)) {
-    selectedCells.forEach(c => {
-      c.classList.remove('selected');
-      c.classList.add('found');
-    });
-
-    const matched = word;
-
-    document.querySelector(`[data-word="${matched}"]`)
-      .classList.add('found-word');
-
-    checkWin();
-  } else {
-    clearSelection();
-  }
-
-  selectedCells = [];
-}
-
- function checkWin() {
-  const remaining = document.querySelectorAll('#word-list .word:not(.found-word)');
-  
-  if (remaining.length === 0) {
-    roundComplete = true;
-    clearInterval(timerInterval);
-
-    // ✅ CALCULATE SCORE (WIN)
-    if (!roundScored) {
-      const foundCount = wordList.length;
-      const wordScore = foundCount * 10;
-      const timeBonus = timeLeft * 2;
-
-      score += wordScore + timeBonus;
-      roundScored = true;
-    }
-
-    document.getElementById('next-btn').style.display = 'block';
-  }
-}
-	  
-async function loadChapter(id) {
-  const res = await fetch(`./data/${id}.json`);
-  const data = await res.json();
-
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('game').style.display = 'flex';
-
-  document.getElementById('title').textContent = data.title;
-  fullWordList = data.words.map(w => w.toUpperCase());
-
-  if (mode === "practice") {
-  // 🎲 shuffle once
-  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
-
-  // 🎯 pick random number between 5–7
-  let count = Math.floor(Math.random() * 3) + 5;
-
-  // ✂️ take subset
-  wordList = shuffled.slice(0, count);
-
-// ✅ AUTO-SCALE GRID
-let minGridSize = 10;
-let longestWord = Math.max(...wordList.map(w => w.length));
-gridSize = Math.max(minGridSize, longestWord + 2);
-
-  createEmptyGrid();
-  placeWords();
-  fillRandom();
-  renderGrid();
-  renderWordList();
-} else {
-    startLevel(); // ONLY this runs in challenge
-  }
-}	  
-function startPractice() {
-  mode = "practice";
-  document.getElementById('mode-select').style.display = 'none';
-  showMenu();
-}
-
-function startChallenge() {
-  mode = "challenge";
-  level = 1;
-  score = 0;
-  gameFinished = false;
-  roundScored = false; 
-  document.getElementById('mode-select').style.display = 'none';
-  showMenu();
-}	  
-	  
-	  
-function showResults() {
-  document.getElementById('game').style.display = 'none';
-  document.getElementById('results').style.display = 'flex';
-
-  document.getElementById('final-score').textContent = "Score: " + score;
-}	  
-	  
-	  
-	  
-	  
-function gameOver() {
-  roundComplete = false;
-
-  // ✅ CALCULATE SCORE (LOSS)
-  if (!roundScored) {
-    const foundCount = document.querySelectorAll('.found-word').length;
-    const wordScore = foundCount * 10;
-
-    score += wordScore; // ❗ no time bonus
-    roundScored = true;
-  }
-
-  revealMissedWords();
-
-  document.getElementById('next-btn').style.display = 'block';
-}
-	  
-	  
-function revealMissedWords() {
-  // find words NOT found
-  const foundWords = Array.from(
-    document.querySelectorAll('.found-word')
-  ).map(el => el.dataset.word);
-
-  placedWords.forEach(entry => {
-    if (!foundWords.includes(entry.word)) {
-      // highlight grid cells
-      entry.positions.forEach(([r, c]) => {
-        const cell = document.querySelector(
-          `.cell[data-row="${r}"][data-col="${c}"]`
-        );
-        if (cell) {
-          cell.classList.add('missed');
-        }
-      });
-
-      // also mark word in list
-      const wordEl = document.querySelector(
-        `[data-word="${entry.word}"]`
-      );
-      if (wordEl) {
-        wordEl.style.background = 'red';
-        wordEl.style.color = 'white';
-      }
-    }
-  });
-}	  
-	  
-	  
-	  
-function showModeMenu() {
-  clearInterval(timerInterval);
-
-  document.getElementById('mode-select').style.display = 'flex';
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('game').style.display = 'none';
-  document.getElementById('results').style.display = 'none';
-	
-}	  
-	  
-	  
-	  
-async function showMenu() {
-  const res = await fetch('./data/chapters.json');
-  const data = await res.json();
-
-  const listEl = document.getElementById('chapter-list');
-  listEl.innerHTML = '';
-
-  data.chapters.forEach(ch => {
-    const btn = document.createElement('div');
-    btn.className = 'word';
-    btn.textContent = ch.title;
-
-    btn.addEventListener('click', () => loadChapter(ch.id));
-
-    listEl.appendChild(btn);
-  });
-
-  document.getElementById('menu').style.display = 'flex';
-  document.getElementById('game').style.display = 'none';
-}
-	  
-	  
-function startTimer() {
-  const timerEl = document.getElementById('timer');
-
-  if (mode === "challenge") {
-    timerEl.style.display = 'block';
-    timerEl.textContent = "Time: " + timeLeft;
-
-    timerInterval = setInterval(() => {
-      timeLeft--;
-      timerEl.textContent = "Time: " + timeLeft;
-
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        gameOver();
-      }
-    }, 1000);
-  } else {
-    timerEl.style.display = 'none';
-  }
-}  
-	  
-	  
-function startLevel() {
-  
-	roundScored = false;
-	
-	document.getElementById('next-btn').textContent = "Next Round";
-	roundComplete = false;
-	clearInterval(timerInterval);
-
-  let minGridSize;
-
-  if (level === 1) {
-    minGridSize = 8;
-    timeLeft = 60;
-  } else if (level === 2) {
-    minGridSize = 10;
-    timeLeft = 90;
-  } else {
-    minGridSize = 12;
-    timeLeft = 120;
-  }
-
-  // 🎲 shuffle
-  let shuffled = [...fullWordList].sort(() => Math.random() - 0.5);
-
-  // 🎯 select words
-  if (level === 1) {
-    wordList = shuffled.slice(0, 5);
-  } else if (level === 2) {
-    wordList = shuffled.slice(0, 7);
-  } else {
-    wordList = shuffled.slice(0, 8);
-  }
-
-  // ✅ AUTO-SCALE GRID
-  let longestWord = Math.max(...wordList.map(w => w.length));
-  gridSize = Math.max(minGridSize, longestWord + 2);
-
-  createEmptyGrid();
-  placeWords();
-  fillRandom();
-  renderGrid();
-  renderWordList();
-
-  startTimer();
-}	  
-	  
-	  
-	  
-  function clearSelection() {
-    document.querySelectorAll('.selected')
-      .forEach(c => c.classList.remove('selected'));
-  }
-
-  function getPos(cell) {
-    return [parseInt(cell.dataset.row), parseInt(cell.dataset.col)];
-  }
-
-	  
-  document.getElementById('next-btn').addEventListener('click', () => {
-  document.getElementById('next-btn').style.display = 'none';
-
-  if (mode === "challenge") {
-
-    if (gameFinished) {
-      showResults();
-      return;
-    }
-
-    if (roundComplete) {
-      if (level < 3) {
-        level++;
-        startLevel();
-      } else {
-        // ✅ FINAL LEVEL COMPLETE
-        gameFinished = true;
-
-        const btn = document.getElementById('next-btn');
-        btn.textContent = "View Results";
-        btn.style.display = 'block';
-
-        return;
-      }
-    } else {
-      // ❗ lost → retry same level
-      startLevel();
-    }
-
-  } else {
-    showMenu();
-  }
-});  
-	  
-  init();
 </script>
+
 </body>
 </html>
