@@ -133,7 +133,7 @@ function renderGrid() {
   const gridEl = document.getElementById('grid');
   gridEl.innerHTML = '';
   gridEl.style.gridTemplateColumns = `repeat(${gridSize}, min(8vw, 40px))`;
-
+  
   grid.forEach((row, r) => {
     row.forEach((letter, c) => {
       const cell = document.createElement('div');
