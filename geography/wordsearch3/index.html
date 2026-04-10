@@ -111,6 +111,13 @@
 
     <h2>Find these words:</h2>
     <div id="word-list" class="word-list"></div>
+	  
+<button id="next-btn" style="display:none; padding:10px 20px; font-size:16px;">
+  View Results
+</button>
+	  
+	  
+	  
   </div>
 
   <script>
@@ -340,6 +347,9 @@ async function loadChapter(id) {
   fillRandom();
   renderGrid();
   renderWordList();
+document.getElementById('next-btn').style.display = 'none';
+document.getElementById('results').style.display = 'none';
+	
 const timeLimit = wordList.length <= 5 ? 60 : 90;
 startTimer(timeLimit);
 	
@@ -400,10 +410,30 @@ async function showMenu() {
   isSelecting = false;
 
   setTimeout(() => {
-    alert(won ? "🎉 You win!" : "⏰ Time's up!");
-    showMenu();
+    showNextButton();
   }, 100);
 }
+	  
+function showNextButton() {
+  const btn = document.getElementById('next-btn');
+  btn.style.display = 'block';
+
+  btn.onclick = () => {
+    showResults();
+  };
+}	  
+	  
+	 
+function showResults() {
+  document.getElementById('game').style.display = 'none';
+  document.getElementById('results').style.display = 'flex';
+
+  const now = new Date();
+  const formatted = now.toLocaleString();
+
+  document.getElementById('result-time').textContent = formatted;
+}	  
+	  
 	  
 	  
   function clearSelection() {
@@ -417,5 +447,12 @@ async function showMenu() {
 
   init();
 </script>
+	<div id="results" class="container" style="display:none;">
+  <h1>Well done!</h1>
+  <h2 id="result-time"></h2>
+  <button onclick="showMenu()">Back to Menu</button>
+</div>
+	
+	
 </body>
 </html>
