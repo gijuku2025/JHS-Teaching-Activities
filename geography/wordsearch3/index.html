@@ -207,6 +207,8 @@
   </div>
 
   <script>
+  
+  const SUBJECT = "geometry"; // 🔥 change per app: geometry / civics / geography 
   let gridSize = 10;
   let grid = [];
   let wordList = [];
@@ -489,7 +491,7 @@ score = 0;
   const allWords = data.words.map(w => w.toUpperCase());
 
 // 🔹 load used words from localStorage
-const storageKey = `usedWords_${id}`;
+const storageKey = `${SUBJECT}_usedWords_${id}`;
 let usedWords = JSON.parse(localStorage.getItem(storageKey)) || [];
 
 // 🔹 filter unused words
