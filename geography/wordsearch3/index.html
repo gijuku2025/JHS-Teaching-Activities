@@ -548,6 +548,8 @@ startTimer(60);
 	  
 	  
 async function showMenu() {
+  	
+  document.getElementById('title').style.display = 'block';
   const res = await fetch('./data/chapters.json');
   const data = await res.json();
 
@@ -650,6 +652,8 @@ function showNextButton() {
 	  
 	 
 function showResults() {
+  
+  document.getElementById('title').style.display = 'none';
   document.getElementById('game').style.display = 'none';
   document.getElementById('results').style.display = 'flex';
 
