@@ -1,0 +1,54 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Search</title>
+
+  <!-- ✅ External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+ <h1 id="title">Word Search</h1>
+
+<!-- ✅ CHAPTER MENU (now the starting screen) -->
+<div id="menu" class="container">
+  <h2>Select a Chapter</h2>
+  <div id="chapter-list" class="word-list"></div>
+</div>
+
+<!-- ✅ GAME AREA (hidden at start) -->
+<div id="game" class="container" style="display:none;">
+  
+  <!-- ⏱ TIMER -->
+  <h2 id="timer" style="display:none;">Time: 0</h2>
+  
+  <div id="grid" class="grid"></div>
+
+  <h2>Find these words:</h2>
+  <div id="word-list" class="word-list"></div>
+
+  <button id="next-btn" style="display:none; padding:10px 20px; font-size:16px;">
+    Next Round
+  </button> 
+  
+</div>
+
+<!-- ✅ RESULTS SCREEN -->
+<div id="results" class="container" style="display:none;">
+  <h2>Results</h2>
+  <h1 id="final-score">Score: 0</h1>
+
+  <button onclick="showModeMenu()" style="padding:10px 20px; font-size:16px;">
+    Back to Chapter Select
+  </button>
+</div>
+
+<!-- ✅ External JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
+```
