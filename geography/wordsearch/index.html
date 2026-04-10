@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Word Search</title>
 
 <style>
@@ -15,16 +15,8 @@ body {
   overflow: hidden;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-h2 {
-  text-align: center;
-  font-size: 16px;
-  margin: 10px 0 5px;
-}
+h1 { text-align: center; margin-bottom: 5px; }
+h2 { text-align: center; font-size: 16px; margin: 10px 0 5px; }
 
 .container {
   display: flex;
@@ -35,10 +27,7 @@ h2 {
 
 .grid {
   display: grid;
-  justify-content: center;
   gap: 4px;
-  margin: 0 auto;
-  touch-action: none;
 }
 
 .cell {
@@ -46,31 +35,22 @@ h2 {
   height: min(8vw, 40px);
   background: #f0f0f0;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   font-size: min(4vw, 18px);
   border-radius: 4px;
 }
 
-.selected {
-  background: lightblue;
-}
-
-.found {
-  background: yellow;
-}
-
-.missed {
-  background: red;
-  color: white;
-}
+.selected { background: lightblue; }
+.found { background: yellow; }
+.missed { background: red; color: white; }
 
 .word-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 8px;
-  width: 100%;
   max-width: 400px;
+  width: 100%;
 }
 
 .word {
@@ -86,10 +66,6 @@ h2 {
   text-decoration: line-through;
   color: gray;
 }
-
-html, body {
-  overscroll-behavior: none;
-}
 </style>
 </head>
 
@@ -97,236 +73,233 @@ html, body {
 
 <h1 id="title">Word Search</h1>
 
-<!-- MODE SELECT -->
+<!-- MODE -->
 <div id="mode-select" class="container">
   <h2>Select Mode</h2>
   <div class="word-list">
-    <div class="word" onclick="startPractice()">Practice Mode</div>
-    <div class="word" onclick="startChallenge()">Challenge Mode</div>
+    <div class="word" onclick="startPractice()">Practice</div>
+    <div class="word" onclick="startChallenge()">Challenge</div>
   </div>
 </div>
 
-<!-- CHAPTER MENU -->
-<div id="menu" class="container">
-  <h2>Select a Chapter</h2>
+<!-- MENU -->
+<div id="menu" class="container" style="display:none;">
+  <h2>Select Chapter</h2>
   <div id="chapter-list" class="word-list"></div>
 </div>
 
 <!-- GAME -->
 <div id="game" class="container" style="display:none;">
   <h2 id="timer" style="display:none;">Time: 0</h2>
-
   <div id="grid" class="grid"></div>
 
-  <h2>Find these words:</h2>
+  <h2>Find:</h2>
   <div id="word-list" class="word-list"></div>
 
-  <button id="next-btn" style="display:none; padding:10px 20px; font-size:16px;">
-    Next Round
-  </button>
+  <button id="next-btn" style="display:none;">Next</button>
 </div>
 
-<!-- ✅ RESULTS (FIXED POSITION) -->
+<!-- RESULTS -->
 <div id="results" class="container" style="display:none;">
   <h2>Results</h2>
   <h1 id="final-score">Score: 0</h1>
-
-  <button onclick="showModeMenu()" style="padding:10px 20px; font-size:16px;">
-    Back to Mode Select
-  </button>
+  <button onclick="showModeMenu()">Back</button>
 </div>
 
 <script>
-let gridSize = 10;
-let grid = [];
-let wordList = [];
-let selectedCells = [];
-let isSelecting = false;
-let placedWords = [];
-let roundComplete = false;
-let gameFinished = false;
+let gridSize, grid, wordList, placedWords;
+let selectedCells=[], isSelecting=false;
+let mode="practice", level=1, score=0, gameFinished=false;
+let fullWordList=[], roundComplete=false, roundScored=false;
+let timeLeft=0, timerInterval=null;
 
-let mode = "practice";
-let level = 1;
-let fullWordList = [];
-let score = 0;
-let roundScored = false;
-
-let timeLeft = 0;
-let timerInterval = null;
-
-async function init() {
-  document.getElementById('mode-select').style.display = 'flex';
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('game').style.display = 'none';
+function init(){
+  showModeMenu();
 }
 
-function createEmptyGrid() {
-  grid = Array.from({ length: gridSize }, () =>
-    Array.from({ length: gridSize }, () => '')
-  );
+function showModeMenu(){
+  clearInterval(timerInterval);
+  document.getElementById('mode-select').style.display='flex';
+  document.getElementById('menu').style.display='none';
+  document.getElementById('game').style.display='none';
+  document.getElementById('results').style.display='none';
 }
 
-const directions = [[0,1],[1,0]];
+function startPractice(){
+  mode="practice";
+  document.getElementById('mode-select').style.display='none';
+  showMenu();
+}
 
-function isNearbyOccupied(r,c){
-  for(let dr=-1;dr<=1;dr++){
-    for(let dc=-1;dc<=1;dc++){
-      const nr=r+dr,nc=c+dc;
-      if(nr>=0&&nr<gridSize&&nc>=0&&nc<gridSize&&grid[nr][nc]!==''){
-        return true;
-      }
-    }
+function startChallenge(){
+  mode="challenge";
+  level=1; score=0; gameFinished=false;
+  document.getElementById('mode-select').style.display='none';
+  showMenu();
+}
+
+async function showMenu(){
+  const res=await fetch('./data/chapters.json');
+  const data=await res.json();
+
+  const list=document.getElementById('chapter-list');
+  list.innerHTML='';
+
+  data.chapters.forEach(ch=>{
+    const div=document.createElement('div');
+    div.className='word';
+    div.textContent=ch.title;
+    div.onclick=()=>loadChapter(ch.id);
+    list.appendChild(div);
+  });
+
+  document.getElementById('menu').style.display='flex';
+}
+
+async function loadChapter(id){
+  const res=await fetch(`./data/${id}.json`);
+  const data=await res.json();
+
+  document.getElementById('menu').style.display='none';
+  document.getElementById('game').style.display='flex';
+
+  document.getElementById('title').textContent=data.title;
+  fullWordList=data.words.map(w=>w.toUpperCase());
+
+  if(mode==="practice"){
+    setupRound(5+Math.floor(Math.random()*3),10);
+  } else {
+    startLevel();
   }
-  return false;
+}
+
+function startLevel(){
+  roundScored=false;
+
+  if(level===1){ timeLeft=60; setupRound(5,8); }
+  else if(level===2){ timeLeft=90; setupRound(7,10); }
+  else { timeLeft=120; setupRound(8,12); }
+
+  startTimer();
+}
+
+function setupRound(count,minGrid){
+  roundComplete=false;
+  clearInterval(timerInterval);
+
+  wordList=[...fullWordList].sort(()=>Math.random()-0.5).slice(0,count);
+
+  let longest=Math.max(...wordList.map(w=>w.length));
+  gridSize=Math.max(minGrid,longest+2);
+
+  grid=Array.from({length:gridSize},()=>Array(gridSize).fill(''));
+  placedWords=[];
+
+  placeWords();
+  fillRandom();
+  renderGrid();
+  renderWords();
 }
 
 function placeWords(){
-  placedWords=[];
-  let availableWords=[...wordList];
-  let finalWords=[];
+  const dirs=[[0,1],[1,0]];
+  wordList=wordList.filter(word=>{
+    for(let tries=0;tries<200;tries++){
+      let dir=dirs[Math.floor(Math.random()*2)];
+      let r=Math.floor(Math.random()*gridSize);
+      let c=Math.floor(Math.random()*gridSize);
 
-  while(availableWords.length>0){
-    let word=availableWords.shift();
-    let placed=false;
-    let attempts=0;
-
-    while(!placed&&attempts<200){
-      attempts++;
-      const dir=directions[Math.floor(Math.random()*directions.length)];
-      const row=Math.floor(Math.random()*gridSize);
-      const col=Math.floor(Math.random()*gridSize);
-
-      let fits=true;
-      let positions=[];
+      let pos=[], fits=true;
 
       for(let i=0;i<word.length;i++){
-        const r=row+dir[0]*i;
-        const c=col+dir[1]*i;
-
-        if(r<0||r>=gridSize||c<0||c>=gridSize||(grid[r][c]&&grid[r][c]!==word[i])||isNearbyOccupied(r,c)){
-          fits=false;
-          break;
-        }
-        positions.push([r,c]);
+        let nr=r+dir[0]*i, nc=c+dir[1]*i;
+        if(nr>=gridSize||nc>=gridSize||grid[nr][nc]){fits=false;break;}
+        pos.push([nr,nc]);
       }
 
       if(fits){
-        positions.forEach(([r,c],i)=>grid[r][c]=word[i]);
-        placedWords.push({word,positions});
-        finalWords.push(word);
-        placed=true;
+        pos.forEach(([r,c],i)=>grid[r][c]=word[i]);
+        placedWords.push({word,positions:pos});
+        return true;
       }
     }
-  }
-  wordList=finalWords;
+    return false;
+  });
 }
 
 function fillRandom(){
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  for(let r=0;r<gridSize;r++){
-    for(let c=0;c<gridSize;c++){
-      if(!grid[r][c]){
-        grid[r][c]=letters[Math.floor(Math.random()*letters.length)];
-      }
-    }
-  }
+  grid.forEach((row,r)=>row.forEach((_,c)=>{
+    if(!grid[r][c]) grid[r][c]=letters[Math.floor(Math.random()*26)];
+  }));
 }
 
 function renderGrid(){
-  const gridEl=document.getElementById('grid');
-  gridEl.innerHTML='';
-  gridEl.style.gridTemplateColumns=`repeat(${gridSize}, min(8vw, 40px))`;
+  const el=document.getElementById('grid');
+  el.innerHTML='';
+  el.style.gridTemplateColumns=`repeat(${gridSize}, min(8vw,40px))`;
 
-  grid.forEach((row,r)=>{
-    row.forEach((letter,c)=>{
-      const cell=document.createElement('div');
-      cell.className='cell';
-      cell.textContent=letter;
-      cell.dataset.row=r;
-      cell.dataset.col=c;
+  grid.forEach((row,r)=>row.forEach((l,c)=>{
+    let cell=document.createElement('div');
+    cell.className='cell';
+    cell.textContent=l;
+    cell.dataset.row=r; cell.dataset.col=c;
 
-      cell.addEventListener('mousedown',startSelection);
-      cell.addEventListener('mouseenter',moveSelection);
-      cell.addEventListener('mouseup',endSelection);
+    cell.addEventListener('mousedown',startSel);
+    cell.addEventListener('mouseenter',moveSel);
+    cell.addEventListener('mouseup',endSel);
 
-      cell.addEventListener('touchstart',startSelection,{passive:false});
-      cell.addEventListener('touchmove',moveSelection,{passive:false});
-      cell.addEventListener('touchend',endSelection,{passive:false});
+    cell.addEventListener('touchstart',e=>{e.preventDefault();startSel(e);},{passive:false});
+    cell.addEventListener('touchmove',e=>{e.preventDefault();moveSel(e);},{passive:false});
+    cell.addEventListener('touchend',e=>{e.preventDefault();endSel(e);},{passive:false});
 
-      gridEl.appendChild(cell);
-    });
-  });
-
-  document.addEventListener('mouseup',endSelection);
+    el.appendChild(cell);
+  }));
 }
 
-function renderWordList(){
-  const listEl=document.getElementById('word-list');
-  listEl.innerHTML='';
-  wordList.forEach(word=>{
-    const div=document.createElement('div');
-    div.className='word';
-    div.textContent=word;
-    div.dataset.word=word;
-    listEl.appendChild(div);
+function renderWords(){
+  const el=document.getElementById('word-list');
+  el.innerHTML='';
+  wordList.forEach(w=>{
+    let d=document.createElement('div');
+    d.className='word';
+    d.textContent=w;
+    d.dataset.word=w;
+    el.appendChild(d);
   });
 }
 
-function startSelection(e){
+function startSel(e){
   isSelecting=true;
-  clearSelection();
-  const cell=e.target;
-  selectedCells=[cell];
-  cell.classList.add('selected');
+  selectedCells=[e.target];
+  e.target.classList.add('selected');
 }
 
-function moveSelection(e){
+function moveSel(e){
   if(!isSelecting) return;
-  const el=e.touches
-    ? document.elementFromPoint(e.touches[0].clientX,e.touches[0].clientY)
-    : e.target;
-
+  let el=e.touches?document.elementFromPoint(e.touches[0].clientX,e.touches[0].clientY):e.target;
   if(!el||!el.classList.contains('cell')||selectedCells.includes(el)) return;
-
-  if(selectedCells.length>=2){
-    const [r0,c0]=getPos(selectedCells[0]);
-    const [r1,c1]=getPos(selectedCells[1]);
-    const [r,c]=getPos(el);
-
-    const dr=r1-r0,dc=c1-c0;
-    if((dr===0&&c<c1)||(dc===0&&r<r1)) return;
-    if((r-r0)*dc!==(c-c0)*dr) return;
-  }
-
   selectedCells.push(el);
   el.classList.add('selected');
 }
 
-function endSelection(){
+function endSel(){
   if(!isSelecting) return;
   isSelecting=false;
 
-  const word=selectedCells.map(c=>c.textContent).join('');
-
+  let word=selectedCells.map(c=>c.textContent).join('');
   if(wordList.includes(word)){
-    selectedCells.forEach(c=>{
-      c.classList.remove('selected');
-      c.classList.add('found');
-    });
-
+    selectedCells.forEach(c=>c.classList.add('found'));
     document.querySelector(`[data-word="${word}"]`).classList.add('found-word');
     checkWin();
-  } else {
-    clearSelection();
   }
 
+  selectedCells.forEach(c=>c.classList.remove('selected'));
   selectedCells=[];
 }
 
 function checkWin(){
-  const remaining=document.querySelectorAll('#word-list .word:not(.found-word)');
-  if(remaining.length===0){
+  if(document.querySelectorAll('.found-word').length===wordList.length){
     roundComplete=true;
     clearInterval(timerInterval);
 
@@ -339,84 +312,49 @@ function checkWin(){
   }
 }
 
+function startTimer(){
+  if(mode!=="challenge") return;
+  const el=document.getElementById('timer');
+  el.style.display='block';
+
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    el.textContent="Time: "+timeLeft;
+    if(timeLeft<=0){
+      clearInterval(timerInterval);
+      revealMissed();
+      document.getElementById('next-btn').style.display='block';
+    }
+  },1000);
+}
+
+function revealMissed(){
+  placedWords.forEach(p=>{
+    if(!document.querySelector(`[data-word="${p.word}"]`).classList.contains('found-word')){
+      p.positions.forEach(([r,c])=>{
+        document.querySelector(`.cell[data-row="${r}"][data-col="${c}"]`).classList.add('missed');
+      });
+    }
+  });
+}
+
+document.getElementById('next-btn').onclick=()=>{
+  document.getElementById('next-btn').style.display='none';
+
+  if(mode==="challenge"){
+    if(roundComplete){
+      if(level<3){ level++; startLevel(); }
+      else{ gameFinished=true; showResults(); }
+    } else startLevel();
+  } else showMenu();
+};
+
 function showResults(){
   document.getElementById('game').style.display='none';
   document.getElementById('results').style.display='flex';
   document.getElementById('final-score').textContent="Score: "+score;
 }
 
-function showModeMenu(){
-  clearInterval(timerInterval);
-  document.getElementById('mode-select').style.display='flex';
-  document.getElementById('menu').style.display='none';
-  document.getElementById('game').style.display='none';
-  document.getElementById('results').style.display='none';
-}
-
-document.getElementById('next-btn').addEventListener('click',()=>{
-  document.getElementById('next-btn').style.display='none';
-
-  if(mode==="challenge"){
-    if(gameFinished){
-      showResults();
-      return;
-    }
-
-    if(roundComplete){
-      if(level<3){
-        level++;
-        startLevel();
-      } else {
-        gameFinished=true;
-        showResults(); // ✅ improved flow
-      }
-    } else {
-      startLevel();
-    }
-  } else {
-    showMenu();
-  }
-});
-
-function startPractice() {
-  mode = "practice";
-  document.getElementById('mode-select').style.display = 'none';
-  showMenu();
-}
-
-function startChallenge() {
-  mode = "challenge";
-  level = 1;
-  score = 0;
-  gameFinished = false;
-  roundScored = false;
-
-  document.getElementById('mode-select').style.display = 'none';
-  showMenu();
-}
-
-async function showMenu() {
-  const res = await fetch('./data/chapters.json');
-  const data = await res.json();
-
-  const listEl = document.getElementById('chapter-list');
-  listEl.innerHTML = '';
-
-  data.chapters.forEach(ch => {
-    const btn = document.createElement('div');
-    btn.className = 'word';
-    btn.textContent = ch.title;
-
-    btn.addEventListener('click', () => loadChapter(ch.id));
-
-    listEl.appendChild(btn);
-  });
-
-  document.getElementById('menu').style.display = 'flex';
-  document.getElementById('game').style.display = 'none';
-}
-
-  
 init();
 </script>
 
