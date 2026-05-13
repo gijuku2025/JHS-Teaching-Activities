@@ -1,3 +1,4 @@
+```json id="f1m92"
 [
   {
     "id": "geometry1",
@@ -117,5 +118,48 @@
     "jp": "等しい",
     "kana": "ひとしい",
     "example": "Two plus two equals four."
+  },
+  {
+    "id": "geometry1",
+    "en": "parallel",
+    "jp": "平行",
+    "kana": "へいこう",
+    "example": "These two lines are parallel."
+  },
+  {
+    "id": "geometry1",
+    "en": "parallelogram",
+    "jp": "平行四辺形",
+    "kana": "へいこうしへんけい",
+    "example": "This shape is a parallelogram."
+  },
+  {
+    "id": "geometry1",
+    "en": "area",
+    "jp": "面積",
+    "kana": "めんせき",
+    "example": "Find the area of the shape."
+  },
+  {
+    "id": "geometry1",
+    "en": "height",
+    "jp": "高さ",
+    "kana": "たかさ",
+    "example": "Measure the height."
+  },
+  {
+    "id": "geometry1",
+    "en": "base",
+    "jp": "底辺",
+    "kana": "ていへん",
+    "example": "Measure the base."
+  },
+  {
+    "id": "geometry1",
+    "en": "square centimeters",
+    "jp": "平方センチメートル",
+    "kana": "へいほうせんちめーとる",
+    "example": "The area is twenty square centimeters."
   }
 ]
+```
