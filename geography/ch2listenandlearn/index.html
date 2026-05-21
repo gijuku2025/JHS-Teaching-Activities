@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geography Ch 2 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "Geography Ch 2 Listen and Learn";
+
+const sentences = [
+  { en: "There are more than 190 countries in the world.", jp: "世界には190以上の国がある。", enAudio: "audio/01_there_are_more_than_190_countr_en.mp3", jpAudio: "audio/01_there_are_more_than_190_countr_jp.mp3" },
+  { en: "Some countries have very large land areas.", jp: "ある国々はとても広い陸面積を持っている。", enAudio: "audio/02_some_countries_have_very_large_en.mp3", jpAudio: "audio/02_some_countries_have_very_large_jp.mp3" },
+  { en: "Some countries have very large populations.", jp: "ある国々はとても多い人口を持っている。", enAudio: "audio/03_some_countries_have_very_large_en.mp3", jpAudio: "audio/03_some_countries_have_very_large_jp.mp3" },
+  { en: "Japan has a large population.", jp: "日本は多い人口を持っている。", enAudio: "audio/04_japan_has_a_large_population_en.mp3", jpAudio: "audio/04_japan_has_a_large_population_jp.mp3" },
+  { en: "China is number 1 in the world and India is number 2.", jp: "中国は世界1位で、インドは2位である。", enAudio: "audio/05_china_is_number_1_in_the_world_en.mp3", jpAudio: "audio/05_china_is_number_1_in_the_world_jp.mp3" },
+  { en: "There are 14 countries with populations of over 100 million people.", jp: "1億人以上の人口を持つ国は14か国ある。", enAudio: "audio/06_there_are_14_countries_with_po_en.mp3", jpAudio: "audio/06_there_are_14_countries_with_po_jp.mp3" },
+  { en: "Some countries have very small land areas.", jp: "ある国々はとても小さい陸面積を持っている。", enAudio: "audio/07_some_countries_have_very_small_en.mp3", jpAudio: "audio/07_some_countries_have_very_small_jp.mp3" },
+  { en: "These countries have high population densities.", jp: "これらの国々は高い人口密度を持っている。", enAudio: "audio/08_these_countries_have_high_popu_en.mp3", jpAudio: "audio/08_these_countries_have_high_popu_jp.mp3" },
+  { en: "Population density is population / land area.", jp: "人口密度は人口÷陸面積である。", enAudio: "audio/09_population_density_is_populati_en.mp3", jpAudio: "audio/09_population_density_is_populati_jp.mp3" },
+  { en: "Many large countries have low population densities.", jp: "多くの大きな国々は低い人口密度を持っている。", enAudio: "audio/10_many_large_countries_have_low__en.mp3", jpAudio: "audio/10_many_large_countries_have_low__jp.mp3" },
+  { en: "Countries have names.", jp: "国には名前がある。", enAudio: "audio/11_countries_have_names_en.mp3", jpAudio: "audio/11_countries_have_names_jp.mp3" },
+  { en: "Countries have national flags.", jp: "国には国旗がある。", enAudio: "audio/12_countries_have_national_flags_en.mp3", jpAudio: "audio/12_countries_have_national_flags_jp.mp3" },
+  { en: "The nickname of this flag is the Union Jack.", jp: "この旗のあだ名はユニオンジャックである。", enAudio: "audio/13_the_nickname_of_this_flag_is_t_en.mp3", jpAudio: "audio/13_the_nickname_of_this_flag_is_t_jp.mp3" },
+  { en: "These countries were all colonies of the United Kingdom.", jp: "これらの国々はすべてイギリスの植民地だった。", enAudio: "audio/14_these_countries_were_all_colon_en.mp3", jpAudio: "audio/14_these_countries_were_all_colon_jp.mp3" },
+  { en: "Countries have national borders.", jp: "国には国境がある。", enAudio: "audio/15_countries_have_national_border_en.mp3", jpAudio: "audio/15_countries_have_national_border_jp.mp3" },
+  { en: "Many national borders in Europe divide language areas.", jp: "ヨーロッパの多くの国境は言語区域を分けている。", enAudio: "audio/16_many_national_borders_in_europ_en.mp3", jpAudio: "audio/16_many_national_borders_in_europ_jp.mp3" },
+  { en: "Japan’s national border is the sea.", jp: "日本の国境は海である。", enAudio: "audio/17_japans_national_border_is_the__en.mp3", jpAudio: "audio/17_japans_national_border_is_the__jp.mp3" },
+  { en: "Mexico’s national border with the USA is a river, the Rio Grande.", jp: "メキシコとアメリカの国境は川、リオグランデである。", enAudio: "audio/18_mexicos_national_border_with_t_en.mp3", jpAudio: "audio/18_mexicos_national_border_with_t_jp.mp3" },
+];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
