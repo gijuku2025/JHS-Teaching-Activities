@@ -1,0 +1,137 @@
+```json
+[
+  {
+    "id": "probability_probability",
+    "en": "probability",
+    "jp": "確率",
+    "kana": "かくりつ",
+    "example": "Probability tells us how likely an event is."
+  },
+  {
+    "id": "probability_event",
+    "en": "event",
+    "jp": "出来事",
+    "kana": "できごと",
+    "example": "Probability tells us how likely an event is."
+  },
+  {
+    "id": "probability_likely",
+    "en": "likely",
+    "jp": "起こりやすい",
+    "kana": "おこりやすい",
+    "example": "A probability close to 1 is likely."
+  },
+  {
+    "id": "probability_unlikely",
+    "en": "unlikely",
+    "jp": "起こりにくい",
+    "kana": "おこりにくい",
+    "example": "A probability close to 0 is unlikely."
+  },
+  {
+    "id": "probability_experiment",
+    "en": "experiment",
+    "jp": "実験",
+    "kana": "じっけん",
+    "example": "We can learn about probability by doing experiments."
+  },
+  {
+    "id": "probability_frequency",
+    "en": "frequency",
+    "jp": "度数",
+    "kana": "どすう",
+    "example": "The number of times an event happens is called the frequency."
+  },
+  {
+    "id": "probability_trial",
+    "en": "trial",
+    "jp": "試行",
+    "kana": "しこう",
+    "example": "Experimental probability equals frequency divided by the number of trials."
+  },
+  {
+    "id": "probability_outcome",
+    "en": "outcome",
+    "jp": "結果",
+    "kana": "けっか",
+    "example": "A favourable outcome is an outcome we want."
+  },
+  {
+    "id": "probability_chance",
+    "en": "chance",
+    "jp": "可能性",
+    "kana": "かのうせい",
+    "example": "Every outcome has the same chance of happening."
+  },
+  {
+    "id": "probability_equally_likely",
+    "en": "equally likely",
+    "jp": "同様に起こりやすい",
+    "kana": "どうようにおこりやすい",
+    "example": "A coin has two equally likely outcomes: heads and tails."
+  },
+  {
+    "id": "probability_favourable_outcome",
+    "en": "favourable outcome",
+    "jp": "好ましい結果",
+    "kana": "このましいけっか",
+    "example": "A favourable outcome is an outcome we want."
+  },
+  {
+    "id": "probability_heads",
+    "en": "heads",
+    "jp": "表",
+    "kana": "おもて",
+    "example": "A coin has two equally likely outcomes: heads and tails."
+  },
+  {
+    "id": "probability_tails",
+    "en": "tails",
+    "jp": "裏",
+    "kana": "うら",
+    "example": "A coin has two equally likely outcomes: heads and tails."
+  },
+  {
+    "id": "probability_tree_diagram",
+    "en": "tree diagram",
+    "jp": "樹形図",
+    "kana": "じゅけいず",
+    "example": "A tree diagram shows all possible outcomes."
+  },
+  {
+    "id": "probability_branch",
+    "en": "branch",
+    "jp": "枝",
+    "kana": "えだ",
+    "example": "Each branch shows one possible result."
+  },
+  {
+    "id": "probability_sum",
+    "en": "sum",
+    "jp": "合計",
+    "kana": "ごうけい",
+    "example": "Some sums are more likely than others."
+  },
+  {
+    "id": "probability_pair",
+    "en": "pair",
+    "jp": "組",
+    "kana": "くみ",
+    "example": "We count each different pair only one time."
+  },
+  {
+    "id": "probability_formula",
+    "en": "formula",
+    "jp": "公式",
+    "kana": "こうしき",
+    "example": "Probability can be calculated with a simple formula."
+  },
+  {
+    "id": "probability_calculate",
+    "en": "calculate",
+    "jp": "計算する",
+    "kana": "けいさんする",
+    "example": "Then we can calculate probability."
+  }
+]
+```
