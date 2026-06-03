@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Second Year Geometry 1 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "Second Year Geometry 1 Listen and Learn";
+
+const sentences = [
+  { en: "Probability tells us how likely an event is.", jp: "確率は出来事がどれくらい起こりやすいかを表します。", enAudio: "audio/01_probability_tells_us_how_likel_en.mp3", jpAudio: "audio/01_probability_tells_us_how_likel_jp.mp3" },
+  { en: "A probability is a number between 0 and 1.", jp: "確率は0から1までの数です。", enAudio: "audio/02_a_probability_is_a_number_betw_en.mp3", jpAudio: "audio/02_a_probability_is_a_number_betw_jp.mp3" },
+  { en: "A probability close to 1 is likely.", jp: "1に近い確率は起こりやすいです。", enAudio: "audio/03_a_probability_close_to_1_is_li_en.mp3", jpAudio: "audio/03_a_probability_close_to_1_is_li_jp.mp3" },
+  { en: "A probability close to 0 is unlikely.", jp: "0に近い確率は起こりにくいです。", enAudio: "audio/04_a_probability_close_to_0_is_un_en.mp3", jpAudio: "audio/04_a_probability_close_to_0_is_un_jp.mp3" },
+  { en: "We can learn about probability by doing experiments.", jp: "私たちは実験によって確率を学ぶことができます。", enAudio: "audio/05_we_can_learn_about_probability_en.mp3", jpAudio: "audio/05_we_can_learn_about_probability_jp.mp3" },
+  { en: "The number of times an event happens is called the frequency.", jp: "起こった回数を度数といいます。", enAudio: "audio/06_the_number_of_times_an_event_h_en.mp3", jpAudio: "audio/06_the_number_of_times_an_event_h_jp.mp3" },
+  { en: "Experimental probability uses actual results.", jp: "実験の確率は実際の結果を使います。", enAudio: "audio/07_experimental_probability_uses__en.mp3", jpAudio: "audio/07_experimental_probability_uses__jp.mp3" },
+  { en: "Experimental probability equals frequency divided by the number of trials.", jp: "実験の確率＝度数÷試行回数です。", enAudio: "audio/08_experimental_probability_equal_en.mp3", jpAudio: "audio/08_experimental_probability_equal_jp.mp3" },
+  { en: "To calculate probability, outcomes must be equally likely.", jp: "確率を計算するために、結果は同様に起こりやすくなければなりません。", enAudio: "audio/09_to_calculate_probability_outco_en.mp3", jpAudio: "audio/09_to_calculate_probability_outco_jp.mp3" },
+  { en: "Every outcome has the same chance of happening.", jp: "すべての結果は同じ可能性を持ちます。", enAudio: "audio/10_every_outcome_has_the_same_cha_en.mp3", jpAudio: "audio/10_every_outcome_has_the_same_cha_jp.mp3" },
+  { en: "A coin has two equally likely outcomes: heads and tails.", jp: "コインには2つの同様に起こりやすい結果があります。表と裏です。", enAudio: "audio/11_a_coin_has_two_equally_likely__en.mp3", jpAudio: "audio/11_a_coin_has_two_equally_likely__jp.mp3" },
+  { en: "A die has six equally likely outcomes.", jp: "サイコロには6つの同様に起こりやすい結果があります。", enAudio: "audio/12_a_die_has_six_equally_likely_o_en.mp3", jpAudio: "audio/12_a_die_has_six_equally_likely_o_jp.mp3" },
+  { en: "Probability equals favourable outcomes divided by total outcomes.", jp: "確率＝好ましい結果÷全ての結果です。", enAudio: "audio/13_probability_equals_favourable__en.mp3", jpAudio: "audio/13_probability_equals_favourable__jp.mp3" },
+  { en: "A favourable outcome is an outcome we want.", jp: "好ましい結果とは、私たちが望む結果です。", enAudio: "audio/14_a_favourable_outcome_is_an_out_en.mp3", jpAudio: "audio/14_a_favourable_outcome_is_an_out_jp.mp3" },
+  { en: "A tree diagram shows all possible outcomes.", jp: "樹形図はすべての結果を示します。", enAudio: "audio/15_a_tree_diagram_shows_all_possi_en.mp3", jpAudio: "audio/15_a_tree_diagram_shows_all_possi_jp.mp3" },
+  { en: "Tree diagrams help us organise information.", jp: "樹形図は情報を整理するのに役立ちます。", enAudio: "audio/16_tree_diagrams_help_us_organise_en.mp3", jpAudio: "audio/16_tree_diagrams_help_us_organise_jp.mp3" },
+  { en: "Each branch shows one possible result.", jp: "それぞれの枝は1つの結果を示します。", enAudio: "audio/17_each_branch_shows_one_possible_en.mp3", jpAudio: "audio/17_each_branch_shows_one_possible_jp.mp3" },
+  { en: "A tree diagram helps us count outcomes carefully.", jp: "樹形図は結果を注意深く数えるのに役立ちます。", enAudio: "audio/18_a_tree_diagram_helps_us_count__en.mp3", jpAudio: "audio/18_a_tree_diagram_helps_us_count__jp.mp3" },
+  { en: "Tree diagrams are useful in probability.", jp: "樹形図は確率で役立ちます。", enAudio: "audio/19_tree_diagrams_are_useful_in_pr_en.mp3", jpAudio: "audio/19_tree_diagrams_are_useful_in_pr_jp.mp3" },
+  { en: "Probability can also be used when choosing objects.", jp: "確率は物を選ぶときにも使えます。", enAudio: "audio/20_probability_can_also_be_used_w_en.mp3", jpAudio: "audio/20_probability_can_also_be_used_w_jp.mp3" },
+];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
