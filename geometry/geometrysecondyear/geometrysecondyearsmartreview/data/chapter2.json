@@ -1,0 +1,107 @@
+[
+  {
+    "id": "geometry_angle",
+    "en": "angle",
+    "jp": "角",
+    "kana": "かく",
+    "example": "An angle is made by two lines."
+  },
+  {
+    "id": "geometry_line",
+    "en": "line",
+    "jp": "直線",
+    "kana": "ちょくせん",
+    "example": "An angle is made by two lines."
+  },
+  {
+    "id": "geometry_parallel_line",
+    "en": "parallel line",
+    "jp": "平行線",
+    "kana": "へいこうせん",
+    "example": "Parallel lines are lines that never meet."
+  },
+  {
+    "id": "geometry_vertical_angle",
+    "en": "vertical angle",
+    "jp": "対頂角",
+    "kana": "たいちょうかく",
+    "example": "Vertical angles are equal."
+  },
+  {
+    "id": "geometry_corresponding_angle",
+    "en": "corresponding angle",
+    "jp": "同位角",
+    "kana": "どういかく",
+    "example": "If two lines are parallel, corresponding angles are equal."
+  },
+  {
+    "id": "geometry_alternate_interior_angle",
+    "en": "alternate interior angle",
+    "jp": "錯角",
+    "kana": "さっかく",
+    "example": "If two lines are parallel, alternate interior angles are equal."
+  },
+  {
+    "id": "geometry_equal",
+    "en": "equal",
+    "jp": "等しい",
+    "kana": "ひとしい",
+    "example": "Vertical angles are equal."
+  },
+  {
+    "id": "geometry_intersect",
+    "en": "intersect",
+    "jp": "交わる",
+    "kana": "まじわる",
+    "example": "Sometimes two lines intersect."
+  },
+  {
+    "id": "geometry_transversal",
+    "en": "transversal",
+    "jp": "横切る直線",
+    "kana": "よこぎるちょくせん",
+    "example": "A transversal crosses two lines."
+  },
+  {
+    "id": "geometry_property",
+    "en": "property",
+    "jp": "性質",
+    "kana": "せいしつ",
+    "example": "This is an important property in geometry."
+  },
+  {
+    "id": "geometry_condition",
+    "en": "condition",
+    "jp": "条件",
+    "kana": "じょうけん",
+    "example": "These are called conditions for parallel lines."
+  },
+  {
+    "id": "geometry_diagram",
+    "en": "diagram",
+    "jp": "図",
+    "kana": "ず",
+    "example": "First, look at the diagram carefully."
+  },
+  {
+    "id": "geometry_find",
+    "en": "find",
+    "jp": "求める",
+    "kana": "もとめる",
+    "example": "We can use angle properties to find missing angles."
+  },
+  {
+    "id": "geometry_calculate",
+    "en": "calculate",
+    "jp": "計算する",
+    "kana": "けいさんする",
+    "example": "Finally, calculate the missing angle."
+  },
+  {
+    "id": "geometry_degree",
+    "en": "degree",
+    "jp": "度",
+    "kana": "ど",
+    "example": "Angles are measured in degrees."
+  }
+]
