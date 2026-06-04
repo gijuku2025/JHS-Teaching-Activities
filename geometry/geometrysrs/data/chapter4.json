@@ -1,0 +1,142 @@
+[
+  {
+    "id": "circles_circle",
+    "en": "circle",
+    "jp": "円",
+    "kana": "えん",
+    "example": "A circle is a set of points the same distance from the center."
+  },
+  {
+    "id": "circles_center",
+    "en": "center",
+    "jp": "中心",
+    "kana": "ちゅうしん",
+    "example": "The center is the middle point of a circle."
+  },
+  {
+    "id": "circles_radius",
+    "en": "radius",
+    "jp": "半径",
+    "kana": "はんけい",
+    "example": "A radius connects the center to a point on the circle."
+  },
+  {
+    "id": "circles_diameter",
+    "en": "diameter",
+    "jp": "直径",
+    "kana": "ちょっけい",
+    "example": "A diameter passes through the center of a circle."
+  },
+  {
+    "id": "circles_chord",
+    "en": "chord",
+    "jp": "弦",
+    "kana": "げん",
+    "example": "A chord connects two points on a circle."
+  },
+  {
+    "id": "circles_arc",
+    "en": "arc",
+    "jp": "弧",
+    "kana": "こ",
+    "example": "An arc is part of a circle."
+  },
+  {
+    "id": "circles_distance",
+    "en": "distance",
+    "jp": "距離",
+    "kana": "きょり",
+    "example": "Every point on a circle is the same distance from the center."
+  },
+  {
+    "id": "circles_point",
+    "en": "point",
+    "jp": "点",
+    "kana": "てん",
+    "example": "A circle is made of points."
+  },
+  {
+    "id": "circles_equal_chord",
+    "en": "equal chord",
+    "jp": "等しい弦",
+    "kana": "ひとしいげん",
+    "example": "Equal chords have the same length."
+  },
+  {
+    "id": "circles_length",
+    "en": "length",
+    "jp": "長さ",
+    "kana": "ながさ",
+    "example": "Different chords can have different lengths."
+  },
+  {
+    "id": "circles_symmetry",
+    "en": "symmetry",
+    "jp": "対称",
+    "kana": "たいしょう",
+    "example": "A circle has many lines of symmetry."
+  },
+  {
+    "id": "circles_line_of_symmetry",
+    "en": "line of symmetry",
+    "jp": "対称の軸",
+    "kana": "たいしょうのじく",
+    "example": "Any diameter can be a line of symmetry."
+  },
+  {
+    "id": "circles_reflection",
+    "en": "reflection",
+    "jp": "対称移動",
+    "kana": "たいしょういどう",
+    "example": "A circle looks the same after reflection."
+  },
+  {
+    "id": "circles_segment",
+    "en": "segment",
+    "jp": "線分",
+    "kana": "せんぶん",
+    "example": "A chord is a segment in a circle."
+  },
+  {
+    "id": "circles_property",
+    "en": "property",
+    "jp": "性質",
+    "kana": "せいしつ",
+    "example": "Equal chords are an important circle property."
+  },
+  {
+    "id": "circles_measurement",
+    "en": "measurement",
+    "jp": "測定",
+    "kana": "そくてい",
+    "example": "Radius and diameter are important measurements."
+  },
+  {
+    "id": "circles_mirror_image",
+    "en": "mirror image",
+    "jp": "鏡映像",
+    "kana": "きょうえいぞう",
+    "example": "A reflection creates a mirror image."
+  },
+  {
+    "id": "circles_perpendicular",
+    "en": "perpendicular",
+    "jp": "垂直",
+    "kana": "すいちょく",
+    "example": "The distance to a chord is measured along a perpendicular segment."
+  },
+  {
+    "id": "circles_right_angle",
+    "en": "right angle",
+    "jp": "直角",
+    "kana": "ちょっかく",
+    "example": "A perpendicular segment forms a right angle."
+  },
+  {
+    "id": "circles_geometry",
+    "en": "geometry",
+    "jp": "幾何",
+    "kana": "きか",
+    "example": "Geometry helps us understand circles."
+  }
+]
