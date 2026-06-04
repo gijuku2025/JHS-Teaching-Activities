@@ -1,0 +1,149 @@
+[
+  {
+    "id": "planefigures_point",
+    "en": "point",
+    "jp": "点",
+    "kana": "てん",
+    "example": "A point shows a position."
+  },
+  {
+    "id": "planefigures_line",
+    "en": "line",
+    "jp": "直線",
+    "kana": "ちょくせん",
+    "example": "A line extends forever in both directions."
+  },
+  {
+    "id": "planefigures_segment",
+    "en": "segment",
+    "jp": "線分",
+    "kana": "せんぶん",
+    "example": "A segment has two endpoints."
+  },
+  {
+    "id": "planefigures_endpoint",
+    "en": "endpoint",
+    "jp": "端点",
+    "kana": "たんてん",
+    "example": "A segment has two endpoints."
+  },
+  {
+    "id": "planefigures_distance",
+    "en": "distance",
+    "jp": "距離",
+    "kana": "きょり",
+    "example": "Distance is the length between two points."
+  },
+  {
+    "id": "planefigures_perpendicular_line",
+    "en": "perpendicular line",
+    "jp": "垂直な直線",
+    "kana": "すいちょくなちょくせん",
+    "example": "Perpendicular lines meet at a right angle."
+  },
+  {
+    "id": "planefigures_parallel_line",
+    "en": "parallel line",
+    "jp": "平行線",
+    "kana": "へいこうせん",
+    "example": "Parallel lines never meet."
+  },
+  {
+    "id": "planefigures_right_angle",
+    "en": "right angle",
+    "jp": "直角",
+    "kana": "ちょっかく",
+    "example": "Perpendicular lines form a right angle."
+  },
+  {
+    "id": "planefigures_translation",
+    "en": "translation",
+    "jp": "平行移動",
+    "kana": "へいこういどう",
+    "example": "A translation moves a figure without turning it."
+  },
+  {
+    "id": "planefigures_rotation",
+    "en": "rotation",
+    "jp": "回転移動",
+    "kana": "かいてんいどう",
+    "example": "A rotation turns a figure around a point."
+  },
+  {
+    "id": "planefigures_reflection",
+    "en": "reflection",
+    "jp": "対称移動",
+    "kana": "たいしょういどう",
+    "example": "A reflection creates a mirror image."
+  },
+  {
+    "id": "planefigures_symmetry",
+    "en": "symmetry",
+    "jp": "対称",
+    "kana": "たいしょう",
+    "example": "Many figures have symmetry."
+  },
+  {
+    "id": "planefigures_line_of_symmetry",
+    "en": "line of symmetry",
+    "jp": "対称の軸",
+    "kana": "たいしょうのじく",
+    "example": "A line of symmetry divides a figure into matching parts."
+  },
+  {
+    "id": "planefigures_figure",
+    "en": "figure",
+    "jp": "図形",
+    "kana": "ずけい",
+    "example": "A square is a geometric figure."
+  },
+  {
+    "id": "planefigures_shape",
+    "en": "shape",
+    "jp": "形",
+    "kana": "かたち",
+    "example": "Congruent figures have the same shape."
+  },
+  {
+    "id": "planefigures_pattern",
+    "en": "pattern",
+    "jp": "模様",
+    "kana": "もよう",
+    "example": "Patterns can be made using transformations."
+  },
+  {
+    "id": "planefigures_center",
+    "en": "center",
+    "jp": "中心",
+    "kana": "ちゅうしん",
+    "example": "A rotation happens around a center."
+  },
+  {
+    "id": "planefigures_angle",
+    "en": "angle",
+    "jp": "角",
+    "kana": "かく",
+    "example": "An angle is formed by two rays."
+  },
+  {
+    "id": "planefigures_congruent",
+    "en": "congruent",
+    "jp": "合同な",
+    "kana": "ごうどうな",
+    "example": "Congruent figures have the same size and shape."
+  },
+  {
+    "id": "planefigures_clockwise",
+    "en": "clockwise",
+    "jp": "時計回り",
+    "kana": "とけいまわり",
+    "example": "The figure rotates clockwise."
+  },
+  {
+    "id": "planefigures_counterclockwise",
+    "en": "counterclockwise",
+    "jp": "反時計回り",
+    "kana": "はんとけいまわり",
+    "example": "The figure rotates counterclockwise."
+  }
+]
