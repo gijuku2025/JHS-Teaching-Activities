@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>First Year Geometry 2 Listen and Learn</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 380px;
+  }
+  h1 { font-size: 20px; margin-bottom: 12px; color: #333; }
+  #gameTitle { font-size: 20px; color: #333; margin-bottom: 12px; }
+  input[type="text"] {
+    padding: 10px; width: 80%;
+    border: 1px solid #ccc; border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 12px; margin: 8px 0; width: 100%;
+    border: none; border-radius: 8px;
+    font-size: 16px; cursor: pointer;
+  }
+  .primary { background-color: #4CAF50; color: white; }
+  .play-btn { background-color: #1E90FF; color: white; }
+  .choice-btn {
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    padding: 14px;
+  }
+  .feedback { margin-top: 15px; font-weight: bold; font-size: 18px; }
+  .hidden { display: none; }
+  .progress-bar {
+    width: 100%; height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  #progressFill {
+    height: 100%; width: 0%;
+    background-color: #FFA500;
+    border-radius: 4px;
+  }
+  #endQuizTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="startScreen">
+  <h1>Enter nickname</h1>
+  <input type="text" id="nickname" placeholder="Your name">
+  <button class="primary" onclick="startQuiz()">Start</button>
+</div>
+
+<div class="container hidden" id="quizScreen">
+  <h1 id="gameTitle"></h1>
+  <div class="progress-bar"><div id="progressFill"></div></div>
+  <div id="questionCounter"></div>
+  <h1>Listen and choose:</h1>
+  <button class="play-btn" onclick="playSentence()">🔊 Play Sentence</button>
+  <div id="choices"></div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="container hidden" id="endScreen">
+  <h1>Quiz Finished!</h1>
+  <h2 id="endQuizTitle"></h2>
+  <p id="finalResult"></p>
+  <button class="primary" onclick="location.reload()">Play Again</button>
+</div>
+
+<script>
+const quizTitle = "First Year Geometry 2 Listen and Learn";
+
+const sentences = [
+  { en: "A point shows a position.", jp: "点は位置を表す。", enAudio: "audio/01_a_point_shows_a_position_en.mp3", jpAudio: "audio/01_a_point_shows_a_position_jp.mp3" },
+  { en: "A segment has two endpoints.", jp: "線分には2つの端点がある。", enAudio: "audio/02_a_segment_has_two_endpoints_en.mp3", jpAudio: "audio/02_a_segment_has_two_endpoints_jp.mp3" },
+  { en: "Distance is the length between two points.", jp: "距離は2点の間の長さである。", enAudio: "audio/03_distance_is_the_length_between_en.mp3", jpAudio: "audio/03_distance_is_the_length_between_jp.mp3" },
+  { en: "Perpendicular lines meet at a right angle.", jp: "垂直な直線は直角で交わる。", enAudio: "audio/04_perpendicular_lines_meet_at_a__en.mp3", jpAudio: "audio/04_perpendicular_lines_meet_at_a__jp.mp3" },
+  { en: "Parallel lines are lines that never meet.", jp: "平行線は決して交わらない直線である。", enAudio: "audio/05_parallel_lines_are_lines_that__en.mp3", jpAudio: "audio/05_parallel_lines_are_lines_that__jp.mp3" },
+  { en: "Parallel lines stay the same distance apart.", jp: "平行線は同じ距離を保つ。", enAudio: "audio/06_parallel_lines_stay_the_same_d_en.mp3", jpAudio: "audio/06_parallel_lines_stay_the_same_d_jp.mp3" },
+  { en: "A translation moves a figure from one position to another.", jp: "平行移動は図形を別の位置へ動かす。", enAudio: "audio/07_a_translation_moves_a_figure_f_en.mp3", jpAudio: "audio/07_a_translation_moves_a_figure_f_jp.mp3" },
+  { en: "Every point moves the same distance in a translation.", jp: "平行移動ではすべての点が同じ距離だけ動く。", enAudio: "audio/08_every_point_moves_the_same_dis_en.mp3", jpAudio: "audio/08_every_point_moves_the_same_dis_jp.mp3" },
+  { en: "A rotation turns a figure around a point.", jp: "回転移動は図形をある点のまわりで回転させる。", enAudio: "audio/09_a_rotation_turns_a_figure_arou_en.mp3", jpAudio: "audio/09_a_rotation_turns_a_figure_arou_jp.mp3" },
+  { en: "A reflection creates a mirror image.", jp: "対称移動は鏡映像を作る。", enAudio: "audio/10_a_reflection_creates_a_mirror__en.mp3", jpAudio: "audio/10_a_reflection_creates_a_mirror__jp.mp3" },
+  { en: "A line of symmetry divides a figure into two matching parts.", jp: "対称の軸は図形を2つの同じ部分に分ける。", enAudio: "audio/11_a_line_of_symmetry_divides_a_f_en.mp3", jpAudio: "audio/11_a_line_of_symmetry_divides_a_f_jp.mp3" },
+  { en: "A square has four lines of symmetry.", jp: "正方形には4本の対称の軸がある。", enAudio: "audio/12_a_square_has_four_lines_of_sym_en.mp3", jpAudio: "audio/12_a_square_has_four_lines_of_sym_jp.mp3" },
+  { en: "Congruent figures have the same size and shape.", jp: "合同な図形は同じ大きさと形をもつ。", enAudio: "audio/13_congruent_figures_have_the_sam_en.mp3", jpAudio: "audio/13_congruent_figures_have_the_sam_jp.mp3" },
+  { en: "Patterns can be made using translations rotations and reflections.", jp: "模様は平行移動・回転移動・対称移動で作ることができる。", enAudio: "audio/14_patterns_can_be_made_using_tra_en.mp3", jpAudio: "audio/14_patterns_can_be_made_using_tra_jp.mp3" },
+  { en: "Symmetry is common in nature art and architecture.", jp: "対称は自然や芸術や建築によく見られる。", enAudio: "audio/15_symmetry_is_common_in_nature_a_en.mp3", jpAudio: "audio/15_symmetry_is_common_in_nature_a_jp.mp3" },
+];
+
+let questions = [];
+let nickname = "";
+let currentQuestion = 0;
+let score = 0;
+let firstTry = true;
+let startTime;
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const endScreen = document.getElementById("endScreen");
+const gameTitleEl = document.getElementById("gameTitle");
+const choicesDiv = document.getElementById("choices");
+const feedbackDiv = document.getElementById("feedback");
+const finalResult = document.getElementById("finalResult");
+const questionCounterDiv = document.getElementById("questionCounter");
+const progressFill = document.getElementById("progressFill");
+const endQuizTitle = document.getElementById("endQuizTitle");
+
+/* ---- logic unchanged below ---- */
+
+function startQuiz() {
+  nickname = document.getElementById("nickname").value.trim() || "Player";
+  startTime = new Date();
+  gameTitleEl.textContent = quizTitle;
+
+  questions = [...sentences];
+  shuffle(questions);
+  questions = questions.slice(0, 10);
+
+  const startEn = Math.random() < 0.5;
+  questions = questions.map((q, i) => ({
+    ...q,
+    direction: (i % 2 === 0) ? (startEn ? "en" : "jp") : (startEn ? "jp" : "en")
+  }));
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  currentQuestion = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  feedbackDiv.textContent = "";
+  feedbackDiv.style.color = "#333";
+  firstTry = true;
+  choicesDiv.innerHTML = "";
+
+  const q = questions[currentQuestion];
+  const isEnToJp = q.direction === "en";
+
+  quizScreen.dataset.answer = isEnToJp ? q.jp : q.en;
+  quizScreen.dataset.audio = isEnToJp ? q.enAudio : q.jpAudio;
+
+  questionCounterDiv.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  progressFill.style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
+
+  let pool = sentences.map(s => isEnToJp ? s.jp : s.en);
+  shuffle(pool);
+
+  let options = pool.slice(0, 3);
+  if (!options.includes(quizScreen.dataset.answer)) {
+    options[Math.floor(Math.random() * 3)] = quizScreen.dataset.answer;
+  }
+
+  const colors = ["#FFA500", "#FF4C4C", "#4CAF50"];
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.className = "choice-btn";
+    btn.style.backgroundColor = colors[i % colors.length];
+    btn.onclick = () => checkAnswer(opt, btn);
+    choicesDiv.appendChild(btn);
+  });
+}
+
+function playSentence() {
+  new Audio(quizScreen.dataset.audio).play();
+}
+
+function checkAnswer(choice, btn) {
+  const correct = quizScreen.dataset.answer;
+  disableChoices();
+
+  if (choice === correct) {
+    feedbackDiv.textContent = "Correct!";
+    score += firstTry ? 2 : 1;
+  } else if (firstTry) {
+    feedbackDiv.style.color = "orange";
+    feedbackDiv.textContent = "Try again!";
+    firstTry = false;
+    enableChoices();
+    return;
+  } else {
+    feedbackDiv.style.color = "red";
+    feedbackDiv.textContent = `Wrong! Correct answer: ${correct}`;
+  }
+
+  if (currentQuestion === questions.length - 1) {
+    setTimeout(endQuiz, 1000);
+  } else {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next Question →";
+    nextBtn.style.backgroundColor = "#800080";
+    nextBtn.style.color = "#fff";
+    nextBtn.onclick = nextQuestion;
+    choicesDiv.appendChild(nextBtn);
+  }
+}
+
+function disableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = true);
+}
+function enableChoices() {
+  choicesDiv.querySelectorAll(".choice-btn").forEach(b => b.disabled = false);
+}
+function nextQuestion() {
+  currentQuestion++;
+  showQuestion();
+}
+
+function endQuiz() {
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  endQuizTitle.textContent = quizTitle;
+
+  const endTime = new Date();
+  const totalSeconds = Math.floor((endTime - startTime) / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  finalResult.innerHTML = `
+    ${nickname}'s score: ${score} / ${questions.length * 2}<br>
+    Time taken: ${minutes} min ${seconds} sec<br>
+    Finished on: ${endTime.toLocaleDateString()}<br>
+    Finished at: ${endTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+  `;
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+</script>
+</body>
+</html>
