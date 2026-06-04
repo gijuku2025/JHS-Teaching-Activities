@@ -1,0 +1,142 @@
+[
+  {
+    "id": "construction_construction",
+    "en": "construction",
+    "jp": "作図",
+    "kana": "さくず",
+    "example": "A construction uses a compass and a ruler."
+  },
+  {
+    "id": "construction_compass",
+    "en": "compass",
+    "jp": "コンパス",
+    "kana": "こんぱす",
+    "example": "A compass can draw circles and arcs."
+  },
+  {
+    "id": "construction_ruler",
+    "en": "ruler",
+    "jp": "定規",
+    "kana": "じょうぎ",
+    "example": "A ruler can draw straight lines."
+  },
+  {
+    "id": "construction_arc",
+    "en": "arc",
+    "jp": "弧",
+    "kana": "こ",
+    "example": "A compass can draw an arc."
+  },
+  {
+    "id": "construction_segment",
+    "en": "segment",
+    "jp": "線分",
+    "kana": "せんぶん",
+    "example": "We can copy a segment with a compass."
+  },
+  {
+    "id": "construction_length",
+    "en": "length",
+    "jp": "長さ",
+    "kana": "ながさ",
+    "example": "The copied segment has the same length."
+  },
+  {
+    "id": "construction_midpoint",
+    "en": "midpoint",
+    "jp": "中点",
+    "kana": "ちゅうてん",
+    "example": "A midpoint divides a segment into two equal parts."
+  },
+  {
+    "id": "construction_endpoint",
+    "en": "endpoint",
+    "jp": "端点",
+    "kana": "たんてん",
+    "example": "A segment has two endpoints."
+  },
+  {
+    "id": "construction_perpendicular_bisector",
+    "en": "perpendicular bisector",
+    "jp": "垂直二等分線",
+    "kana": "すいちょくにとうぶんせん",
+    "example": "A perpendicular bisector passes through the midpoint."
+  },
+  {
+    "id": "construction_angle_bisector",
+    "en": "angle bisector",
+    "jp": "角の二等分線",
+    "kana": "かくのにとうぶんせん",
+    "example": "An angle bisector divides an angle into two equal angles."
+  },
+  {
+    "id": "construction_distance",
+    "en": "distance",
+    "jp": "距離",
+    "kana": "きょり",
+    "example": "Points on the bisector are the same distance away."
+  },
+  {
+    "id": "construction_equal",
+    "en": "equal",
+    "jp": "等しい",
+    "kana": "ひとしい",
+    "example": "The two lengths are equal."
+  },
+  {
+    "id": "construction_property",
+    "en": "property",
+    "jp": "性質",
+    "kana": "せいしつ",
+    "example": "The bisector has an important property."
+  },
+  {
+    "id": "construction_vertex",
+    "en": "vertex",
+    "jp": "頂点",
+    "kana": "ちょうてん",
+    "example": "The angle bisector starts at the vertex."
+  },
+  {
+    "id": "construction_side",
+    "en": "side",
+    "jp": "辺",
+    "kana": "へん",
+    "example": "The point is the same distance from both sides."
+  },
+  {
+    "id": "construction_triangle",
+    "en": "triangle",
+    "jp": "三角形",
+    "kana": "さんかくけい",
+    "example": "We can construct a triangle using given lengths."
+  },
+  {
+    "id": "construction_intersection",
+    "en": "intersection",
+    "jp": "交点",
+    "kana": "こうてん",
+    "example": "Mark the intersection of the arcs."
+  },
+  {
+    "id": "construction_point",
+    "en": "point",
+    "jp": "点",
+    "kana": "てん",
+    "example": "A point can lie on a bisector."
+  },
+  {
+    "id": "construction_method",
+    "en": "method",
+    "jp": "方法",
+    "kana": "ほうほう",
+    "example": "Different problems need different methods."
+  },
+  {
+    "id": "construction_solution",
+    "en": "solution",
+    "jp": "解答",
+    "kana": "かいとう",
+    "example": "Construction helps us find a solution."
+  }
+]
