@@ -1,5 +1,5 @@
 const app = document.getElementById("app");
-const SUBJECT = "Geometry"; // change to "geometry" or "civics" in other copies
+const SUBJECT = "First Year Geometry"; // change to "geometry" or "civics" in other copies
 const SUBJECT_LABEL = SUBJECT.charAt(0).toUpperCase() + SUBJECT.slice(1);
 
 const CHAPTER_FILES = [
@@ -241,8 +241,18 @@ async function startStudy() {
   state.stats = { correct: 0, wrong: 0, new: 0, review: 0 };
   save();
   await loadVocab();
-  buildQueues();
-  nextQuestion();
+
+buildQueues();
+
+console.log("Preview:", previewQueue.length);
+console.log("Learning:", learningQueue.length);
+console.log("Review:", reviewQueue.length);
+
+if (!hasStudyItems()) {
+  forceReviewSession();
+}
+
+nextQuestion();
 }
 
 function buildQueues() {
@@ -284,6 +294,40 @@ save();
 }
 
 
+function hasStudyItems() {
+  return (
+    previewQueue.length > 0 ||
+    learningQueue.length > 0 ||
+    reviewQueue.length > 0
+  );
+}
+
+function forceReviewSession() {
+
+  const candidates = vocab
+    .filter(item => state.progress[item.id])
+    .sort((a, b) => {
+      const pa = state.progress[a.id];
+      const pb = state.progress[b.id];
+      return pa.nextReview - pb.nextReview;
+    });
+
+  reviewQueue = candidates.slice(
+  0,
+  Math.min(20, MAX_ITEMS_PER_SESSION)
+);
+
+  console.log("FORCED REVIEW ACTIVATED");
+}		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
  function renderProgress() {
   const remaining =
@@ -326,7 +370,19 @@ function nextQuestion() {
   !previewQueue.length &&
   !reviewQueue.length &&
   !learningQueue.length
-) return showResults();
+) {
+
+  // try emergency review before ending session
+  forceReviewSession();
+
+  if (
+    !previewQueue.length &&
+    !reviewQueue.length &&
+    !learningQueue.length
+  ) {
+    return showResults();
+  }
+}
 
 // 🔹 NEW: Preview phase comes first
 if (previewQueue.length) {
