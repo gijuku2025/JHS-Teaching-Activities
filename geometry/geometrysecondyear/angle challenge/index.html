@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angle Challenge</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- START SCREEN -->
+    <section id="start-screen">
+
+        <h1>📐 Angle Challenge</h1>
+
+        <div class="setup">
+
+            <label>Player 1 Name</label>
+            <input
+                type="text"
+                id="player1"
+                placeholder="Player 1"
+                maxlength="20"
+            >
+
+            <label>Player 2 Name</label>
+            <input
+                type="text"
+                id="player2"
+                placeholder="Player 2"
+                maxlength="20"
+            >
+
+            <label>Difficulty</label>
+
+            <select id="difficulty">
+                <option value="easy">Easy (10° intervals)</option>
+                <option value="medium">Medium (5° intervals)</option>
+                <option value="hard">Hard (1° intervals)</option>
+            </select>
+
+            <label>Rounds</label>
+
+            <select id="rounds">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+
+            <button id="startBtn">
+                Start Game
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- GAME SCREEN -->
+
+    <section id="game-screen" class="hidden">
+
+        <div id="scoreboard">
+
+            <div id="roundInfo">
+                Round 1 / 10
+            </div>
+
+            <div id="scores">
+                <span id="score1">
+                    Player 1: 0
+                </span>
+
+                <span id="score2">
+                    Player 2: 0
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="currentPlayer">
+                Player 1's Turn
+            </h2>
+
+            <p class="instruction">
+                Draw this angle
+            </p>
+
+            <div id="angleDisplay">
+                120°
+            </div>
+
+            <p class="instruction">
+                Is it...
+            </p>
+
+            <div class="radio-group">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="type"
+                        value="acute"
+                    >
+                    Acute
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="type"
+                        value="obtuse"
+                    >
+                    Obtuse
+                </label>
+
+            </div>
+
+            <button id="finishBtn">
+                Finished
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- MEASUREMENT SCREEN -->
+
+    <section id="measure-screen" class="hidden">
+
+        <div class="card">
+
+            <h2>
+                Measure Your Angle
+            </h2>
+
+            <p>Target Angle</p>
+
+            <div id="targetAngle">
+                120°
+            </div>
+
+            <p>Measured Angle</p>
+
+            <div class="measure-box">
+
+                <button id="minusBtn">
+                    −
+                </button>
+
+                <div id="measuredAngle">
+                    120°
+                </div>
+
+                <button id="plusBtn">
+                    +
+                </button>
+
+            </div>
+
+            <p id="differenceText">
+                Difference: 0°
+            </p>
+
+            <button id="rollBtn">
+                🎲 Roll Dice
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- RESULT SCREEN -->
+
+    <section id="result-screen" class="hidden">
+
+        <div class="card">
+
+            <h2>
+                Round Result
+            </h2>
+
+            <div id="diceDisplay">
+                🎲
+            </div>
+
+            <div id="resultText">
+
+            </div>
+
+            <button id="nextBtn">
+                Next Player
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- GAME OVER -->
+
+    <section id="gameover-screen" class="hidden">
+
+        <div class="card">
+
+            <h1>
+                🏆 Game Over
+            </h1>
+
+            <h2 id="winnerText">
+            </h2>
+
+            <p id="finalScores">
+            </p>
+
+            <button id="playAgainBtn">
+                Play Again
+            </button>
+
+            <button id="newGameBtn">
+                New Game
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
