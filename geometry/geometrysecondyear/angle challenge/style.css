@@ -1,0 +1,302 @@
+/* ===========================
+   ANGLE CHALLENGE
+   style.css
+=========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef3f8;
+    color: #222;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ===========================
+   Headings
+=========================== */
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1565c0;
+    font-size: 2.7rem;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1565c0;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    padding: 35px;
+    margin: auto;
+    max-width: 650px;
+}
+
+/* ===========================
+   Setup Screen
+=========================== */
+
+.setup {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+
+    padding: 35px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+input[type=text],
+select {
+    font-size: 1.1rem;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #c7d4e5;
+}
+
+input[type=text]:focus,
+select:focus {
+    outline: none;
+    border-color: #1565c0;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background: #1565c0;
+    color: white;
+    font-size: 1.15rem;
+    padding: 14px 22px;
+    transition: .2s;
+}
+
+button:hover {
+    background: #0d47a1;
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+/* ===========================
+   Scoreboard
+=========================== */
+
+#scoreboard {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+}
+
+#roundInfo {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+#scores {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* ===========================
+   Angle Display
+=========================== */
+
+.instruction {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 18px 0;
+}
+
+#angleDisplay,
+#targetAngle {
+    text-align: center;
+    font-size: 5rem;
+    color: #1565c0;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 25px 0;
+}
+
+.radio-group label {
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.radio-group input {
+    transform: scale(1.4);
+    margin-right: 8px;
+}
+
+/* ===========================
+   Measurement
+=========================== */
+
+.measure-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    margin: 25px 0;
+}
+
+#measuredAngle {
+    font-size: 4rem;
+    font-weight: bold;
+    width: 180px;
+    text-align: center;
+    color: #1565c0;
+}
+
+#plusBtn,
+#minusBtn {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#differenceText {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+/* ===========================
+   Dice
+=========================== */
+
+#diceDisplay {
+    font-size: 5rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* ===========================
+   Results
+=========================== */
+
+#resultText {
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+/* ===========================
+   Winner
+=========================== */
+
+#winnerText {
+    color: #2e7d32;
+    margin: 25px 0;
+}
+
+#finalScores {
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 2;
+    margin-bottom: 25px;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .card,
+    .setup {
+        padding: 25px;
+    }
+
+    #scores {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    #angleDisplay,
+    #targetAngle {
+        font-size: 3.5rem;
+    }
+
+    #measuredAngle {
+        font-size: 3rem;
+        width: 120px;
+    }
+
+    .measure-box {
+        gap: 15px;
+    }
+
+    #plusBtn,
+    #minusBtn {
+        width: 60px;
+        height: 60px;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    button {
+        width: 100%;
+    }
+}
