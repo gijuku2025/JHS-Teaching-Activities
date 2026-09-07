@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classroom Horse Race</title>
+<style>
+:root{--ink:#18251d;--gold:#f4c44e;--grass:#78b957;--grass2:#a8d66f;--dirt:#c58b4b;--dirt2:#e1b56e;--red:#c73c32;--panel:#fffaf0}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#17251d;color:var(--ink)}
+body{overflow-x:hidden}.app{min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:linear-gradient(90deg,#123d27,#1d6339,#123d27);color:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:4px solid var(--gold)}
+.title{font-size:clamp(20px,2.6vw,34px);font-weight:1000;letter-spacing:.4px}.subtitle{font-size:12px;opacity:.82;margin-top:2px}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.actions label{font-size:14px;font-weight:800}.actions select,.actions button{height:42px;border:0;border-radius:10px;padding:0 13px;font-weight:900;cursor:pointer}.actions select{background:#fff;color:#17351f}.actions button{background:var(--gold);color:#3d2a00}.actions button.secondary{background:#fff}.actions button.danger{background:#d94b40;color:#fff}
+.main{padding:12px;display:flex;flex-direction:column;gap:10px;max-width:1500px;width:100%;margin:auto}
+.raceShell{background:#5e9f4d;border:5px solid #d9b45c;border-radius:22px;padding:8px;box-shadow:0 8px 24px #0006}
+.race{position:relative;width:100%;aspect-ratio:16/8.4;min-height:500px;overflow:hidden;border-radius:16px;background:radial-gradient(ellipse at center,#b7e17c 0 22%,#8bc861 23% 58%,#6bae52 59% 100%)}
+.race:before{content:"";position:absolute;inset:5%;border-radius:50%;background:#78b957;box-shadow:0 0 0 5px #f2d08a,0 0 0 16px var(--red),0 0 0 21px #f7e7bd,0 0 0 70px var(--dirt),0 0 0 75px #fff7df;}
+.trackInner{position:absolute;left:17%;right:17%;top:25%;bottom:25%;border-radius:50%;background:repeating-linear-gradient(0deg,#7ec35b 0 5px,#83c860 5px 10px);box-shadow:inset 0 0 0 6px #e7d4a1,inset 0 0 0 12px var(--red);z-index:1}
+.grandstand{position:absolute;z-index:3;background:#f5f5f5;border:4px solid #356b87;border-radius:10px;overflow:hidden;box-shadow:0 3px 7px #0004}.grandstand:after{content:"";position:absolute;inset:20% 4%;background:repeating-linear-gradient(90deg,#d9433d 0 9px,#f1c84b 9px 18px,#2d78bb 18px 27px,#4f9e54 27px 36px);border-radius:5px}.grandstand.top{left:27%;right:27%;top:2%;height:12%}.grandstand.bottom{left:22%;right:22%;bottom:2%;height:10%}
+.banner{position:absolute;z-index:5;left:50%;transform:translateX(-50%);background:#fff;border:3px solid #183c27;border-radius:9px;padding:4px 14px;font-size:clamp(13px,1.5vw,21px);font-weight:1000;letter-spacing:1px}.banner.top{top:14%}.banner.bottom{bottom:12%}
+.gate{position:absolute;z-index:8;left:1.5%;top:37%;width:13%;height:26%;background:#f7f7f7;border:5px solid #234d32;border-radius:12px;box-shadow:0 5px 10px #0005;text-align:center;padding:5px}.gateTitle{font-size:clamp(18px,2vw,28px);font-weight:1000;color:#1f4e31}.gateLine{height:6px;margin:4px 0;background:repeating-linear-gradient(90deg,#222 0 14px,#fff 14px 28px);border-radius:2px}.gateSlots{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;align-items:center;height:60%;overflow:hidden}
+.finish{position:absolute;z-index:8;right:1.5%;top:36%;width:10%;height:28%;border:5px solid #fff;border-radius:13px;background:repeating-conic-gradient(#222 0 25%,#fff 0 50%) 50%/24px 24px;color:#fff;box-shadow:0 5px 10px #0005;display:flex;flex-direction:column;justify-content:center;align-items:center;text-shadow:0 2px 3px #000;font-weight:1000}.finish span{background:#bd332d;padding:3px 7px;border-radius:7px;font-size:clamp(14px,1.5vw,22px)}
+.space{position:absolute;z-index:6;width:8.8%;height:20%;border-radius:50%;background:linear-gradient(145deg,#f4cf8b,#d9a85f);border:4px solid #fff;box-shadow:0 3px 6px #0003;display:flex;align-items:flex-start;justify-content:center;padding-top:3px;font-size:clamp(17px,2.1vw,31px);font-weight:1000;color:#5a3418}.s1{left:20%;top:15%}.s2{left:31%;top:8%}.s3{left:43%;top:8%}.s4{left:55%;top:8%}.s5{left:67%;top:15%}.s6{right:8%;top:29%}.s7{right:7%;top:48%}.s8{right:13%;bottom:14%}.s9{right:26%;bottom:7%}.s10{right:39%;bottom:7%}.s11{left:40%;bottom:7%}.s12{left:27%;bottom:7%}.s13{left:14%;bottom:14%}.s14{left:7%;top:48%}.s15{left:7%;top:29%}.s16{left:14%;top:18%}
+.horse{position:absolute;z-index:20;width:115px;height:auto;max-height:95px;object-fit:contain;filter:drop-shadow(0 5px 3px #0007);pointer-events:none;transition:left .34s cubic-bezier(.2,.8,.25,1),top .34s cubic-bezier(.2,.8,.25,1);will-change:left,top}.horse.running{filter:drop-shadow(0 7px 4px #0008) saturate(1.08)}
+.tokenBadge{position:absolute;z-index:25;min-width:27px;height:27px;padding:0 5px;border-radius:50%;background:#fff;border:3px solid #1c241f;display:flex;align-items:center;justify-content:center;font-weight:1000;font-size:13px;box-shadow:0 2px 5px #0006;pointer-events:none;transform:translate(55px,-8px)}
+.controls{background:var(--panel);border-radius:16px;border:2px solid #d7c9a7;padding:8px;display:grid;grid-template-columns:repeat(6,minmax(130px,1fr));gap:7px;box-shadow:0 5px 14px #0004}.teamControl{display:grid;grid-template-columns:1fr auto auto;gap:5px;align-items:center;border:1px solid #d9ded9;border-radius:10px;padding:5px;background:#fff}.teamName{font-weight:1000;font-size:14px}.teamPos{display:block;color:#65736a;font-size:11px;margin-top:2px}.move{border:0;border-radius:8px;min-width:45px;height:38px;font-weight:1000;color:#fff;cursor:pointer}.move.one{background:#dc9430}.move.two{background:#2c9450}.move.back{background:#71807a}.move:disabled{opacity:.35;cursor:not-allowed}.controlsHeader{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:0 4px 3px}.controlsHeader strong{font-size:16px}.hint{font-size:12px;color:#65736a}
+.winner{position:absolute;z-index:40;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff9d6;border:5px solid var(--gold);border-radius:18px;padding:16px 26px;text-align:center;font-size:clamp(22px,3vw,42px);font-weight:1000;box-shadow:0 12px 30px #0008;display:none}.winner button{margin-top:10px;border:0;background:#234d32;color:#fff;border-radius:10px;padding:9px 15px;font-weight:900;cursor:pointer}
+@media(max-width:1050px){.controls{grid-template-columns:repeat(4,minmax(130px,1fr))}.horse{width:92px}}
+@media(max-width:720px){.race{min-height:390px}.controls{grid-template-columns:repeat(2,minmax(130px,1fr))}.horse{width:72px}.gate{width:17%}.finish{width:12%}.space{width:10%}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<header class="topbar">
+  <div><div class="title">🏇 CLASSROOM HORSE RACE</div><div class="subtitle">Correct = +2 spaces &nbsp; • &nbsp; Mistake = +1 space</div></div>
+  <div class="actions">
+    <label for="teamCount">Teams</label>
+    <select id="teamCount"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+    <button type="button" id="newRace">New race</button><button type="button" class="secondary" id="fullScreen">Full screen</button>
+  </div>
+</header>
+<main class="main">
+<section class="raceShell"><div class="race" id="race">
+  <div class="grandstand top"></div><div class="grandstand bottom"></div>
+  <div class="trackInner"></div>
+  <div class="banner top">🏟️ THE CLASSROOM DERBY</div><div class="banner bottom">16-SPACE FINAL</div>
+  <div class="gate"><div class="gateTitle">START</div><div class="gateLine"></div><div class="gateSlots" id="gateSlots"></div></div>
+  <div class="finish"><span>🏁 FINISH</span></div>
+  <div id="spaceLayer"></div>
+  <div id="horseLayer"></div>
+  <div class="winner" id="winner"><div id="winnerText"></div><button type="button" id="dismissWinner">Keep racing</button></div>
+</div></section>
+<section class="controls" id="controls">
+  <div class="controlsHeader"><strong>Teacher controls</strong><span class="hint">Tap +2 for a correct answer or +1 for a mistake. ↩ moves back one.</span></div>
+</section>
+</main>
+</div>
+<script>
+(() => {
+  const MAX=16, teamCountEl=document.getElementById('teamCount');
+  const race=document.getElementById('race'), horseLayer=document.getElementById('horseLayer'), gateSlots=document.getElementById('gateSlots');
+  const controls=document.getElementById('controls'), winner=document.getElementById('winner'), winnerText=document.getElementById('winnerText');
+  const dismiss=document.getElementById('dismissWinner');
+  const pos=[
+    [20,13],[31,7],[43,7],[55,7],[67,14],[82,28],[84,48],[79,69],
+    [66,82],[52,86],[39,86],[27,82],[14,70],[5,51],[6,31],[14,18]
+  ];
+  let teams=[];
+  let moving=new Set();
+
+  function reset(){
+    const n=Math.max(2,Math.min(12,Number(teamCountEl.value)||4));
+    teams=Array.from({length:n},(_,i)=>({id:i+1,space:0})); moving.clear(); winner.style.display='none';
+    renderSpaces(); renderGate(); renderControls(); renderHorses();
+  }
+  function renderSpaces(){
+    const layer=document.getElementById('spaceLayer'); layer.innerHTML='';
+    for(let i=1;i<=MAX;i++){const d=document.createElement('div'); d.className='space s'+i; d.textContent=i; layer.appendChild(d)}
+  }
+  function imgFor(id){const img=document.createElement('img'); img.className='horse'; img.src='assets/horses/horse'+id+'.png'; img.alt='Team '+id+' horse'; return img}
+  function renderGate(){
+    gateSlots.innerHTML='';
+    teams.forEach(t=>{const img=imgFor(t.id); img.style.position='relative'; img.style.width='52px'; img.style.height='38px'; img.style.objectFit='cover'; img.style.left='auto'; img.style.top='auto'; gateSlots.appendChild(img)})
+  }
+  function clusterOffset(team){
+    const same=teams.filter(t=>t.space===team.space && t.space>0).sort((a,b)=>a.id-b.id); const idx=same.findIndex(t=>t.id===team.id);
+    const patterns=[[0,0],[-3,-3],[3,3],[-3,3],[3,-3],[-6,0],[6,0],[-6,-4],[6,4],[-6,4],[6,-4],[0,6]];
+    return patterns[idx]||[0,0];
+  }
+  function point(team){
+    if(team.space===0) return {left:2.2,top:43};
+    const p=pos[team.space-1], o=clusterOffset(team);
+    return {left:p[0]+o[0],top:p[1]+o[1]};
+  }
+  function renderHorses(){
+    horseLayer.innerHTML='';
+    teams.forEach(t=>{
+      if(t.space===0) return;
+      const img=imgFor(t.id), p=point(t); img.dataset.team=t.id; img.style.left=p.left+'%'; img.style.top=p.top+'%'; horseLayer.appendChild(img);
+      const b=document.createElement('div'); b.className='tokenBadge'; b.textContent=t.id; b.style.left=(p.left+2.8)+'%'; b.style.top=(p.top+1)+'%'; b.dataset.badge=t.id; horseLayer.appendChild(b);
+    });
+  }
+  function renderControls(){
+    controls.querySelectorAll('.teamControl').forEach(x=>x.remove());
+    teams.forEach(t=>{
+      const row=document.createElement('div'); row.className='teamControl'; row.dataset.team=t.id;
+      const name=document.createElement('div'); name.innerHTML='<span class="teamName">Team '+t.id+'</span><span class="teamPos">'+(t.space===0?'START':t.space===MAX?'FINISH':'Space '+t.space)+'</span>';
+      const b1=document.createElement('button'); b1.type='button'; b1.className='move one'; b1.textContent='+1'; b1.title='Mistake: move one space'; b1.addEventListener('click',()=>move(t.id,1));
+      const b2=document.createElement('button'); b2.type='button'; b2.className='move two'; b2.textContent='+2'; b2.title='Correct: move two spaces'; b2.addEventListener('click',()=>move(t.id,2));
+      const back=document.createElement('button'); back.type='button'; back.className='move back'; back.textContent='↩'; back.title='Move back one space'; back.addEventListener('click',()=>move(t.id,-1));
+      row.append(name,b1,b2); row.appendChild(back); controls.appendChild(row);
+    });
+  }
+  async function move(id,amount){
+    if(moving.has(id)) return; const t=teams.find(x=>x.id===id); if(!t) return;
+    if(amount<0 && t.space===0) return; if(amount>0 && t.space===MAX) return;
+    moving.add(id);
+    const steps=Math.abs(amount), dir=amount>0?1:-1;
+    for(let s=0;s<steps;s++){
+      t.space=Math.max(0,Math.min(MAX,t.space+dir));
+      renderControls();
+      await animateHorses();
+      if(t.space===MAX){showWinner(t.id); break;}
+    }
+    moving.delete(id); renderControls();
+  }
+  function animateHorses(){
+    renderHorses();
+    return new Promise(resolve=>setTimeout(resolve,370));
+  }
+  function showWinner(id){winnerText.textContent='🏆 Team '+id+' reached the finish!'; winner.style.display='block'}
+  document.getElementById('newRace').addEventListener('click',reset);
+  teamCountEl.addEventListener('change',reset);
+  dismiss.addEventListener('click',()=>winner.style.display='none');
+  document.getElementById('fullScreen').addEventListener('click',async()=>{
+    try{if(!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen()}catch(e){}
+  });
+  reset();
+})();
+</script>
+</body>
+</html>
