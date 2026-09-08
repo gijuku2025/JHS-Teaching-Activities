@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classroom Derby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FBF3E3;
+    --cream-2: #F3E7CE;
+    --ink: #2B2118;
+    --wood: #6B4226;
+    --wood-dark: #4E3019;
+    --grass: #4C7A3D;
+    --grass-dark: #3A5E2E;
+    --dirt: #D9B77C;
+    --dirt-line: #C6A566;
+    --gold: #E3A72F;
+    --gold-light: #F6D889;
+    --red: #B3392C;
+    --shadow: rgba(43,33,24,0.25);
+    --radius-lg: 18px;
+    --radius-sm: 10px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(76,122,61,0.08), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(227,167,47,0.10), transparent 45%);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 48px 0;
+  }
+
+  h1, h2, .display{
+    font-family: 'Baloo 2', sans-serif;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  header{
+    background: linear-gradient(180deg, var(--grass) 0%, var(--grass-dark) 100%);
+    color: var(--cream);
+    padding: 22px 28px 26px;
+    border-bottom: 6px solid var(--wood-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-6px;
+    height: 10px;
+    background-image: repeating-linear-gradient(90deg, var(--cream) 0 22px, var(--ink) 22px 44px);
+    opacity: 0.9;
+  }
+
+  .header-row{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .title-block{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+  }
+
+  .title-block .flag{
+    font-size: 2.4rem;
+    transform: rotate(-8deg);
+  }
+
+  h1{
+    margin:0;
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+
+  header p.sub{
+    margin: 2px 0 0;
+    font-size: 0.92rem;
+    color: var(--cream-2);
+    font-weight: 500;
+  }
+
+  .header-actions{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  button{
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: transform 0.08s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  }
+  button:active{ transform: translateY(1px) scale(0.98); }
+  button:disabled{ cursor: not-allowed; opacity: 0.45; transform:none; }
+
+  .btn-ghost{
+    background: rgba(255,255,255,0.12);
+    color: var(--cream);
+    padding: 9px 14px;
+    font-size: 0.88rem;
+    border: 1.5px solid rgba(255,255,255,0.35);
+  }
+  .btn-ghost:hover:not(:disabled){ background: rgba(255,255,255,0.22); }
+
+  .btn-gold{
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    color: #4a3106;
+    padding: 9px 16px;
+    font-size: 0.88rem;
+    box-shadow: 0 2px 0 #a87c1c;
+  }
+  .btn-gold:hover{ filter: brightness(1.05); }
+
+  /* ---------- LEADERBOARD STRIP ---------- */
+
+  .leaderboard{
+    max-width: 1180px;
+    margin: 18px auto 0;
+    padding: 0 20px;
+  }
+
+  .leaderboard-inner{
+    background: var(--wood);
+    color: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    display:flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 0.92rem;
+    box-shadow: 0 3px 0 var(--wood-dark);
+  }
+  .leaderboard-inner .lbl{
+    font-family:'Baloo 2', sans-serif;
+    font-weight: 700;
+    color: var(--gold-light);
+    white-space: nowrap;
+  }
+  .leaderboard-inner .empty{ color: var(--cream-2); font-style: italic; }
+  .finisher{
+    background: rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-weight: 600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  /* ---------- SETUP PANEL ---------- */
+
+  .panel-wrap{
+    max-width: 1180px;
+    margin: 16px auto 0;
+    padding: 0 20px;
+  }
+
+  .setup-panel{
+    background: var(--cream-2);
+    border: 2px solid var(--dirt-line);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    display:none;
+  }
+  .setup-panel.open{ display:block; }
+
+  .setup-panel h2{
+    margin: 0 0 12px;
+    font-size: 1.2rem;
+    color: var(--wood-dark);
+  }
+
+  .add-team-row{
+    display:flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .add-team-row input[type=text]{
+    flex: 1 1 220px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--dirt-line);
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    background: white;
+  }
+  .add-team-row input[type=text]:focus{ outline: 2px solid var(--grass); border-color: var(--grass); }
+
+  .btn-add{
+    background: var(--grass);
+    color: white;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+  }
+  .btn-add:hover:not(:disabled){ background: var(--grass-dark); }
+
+  .team-chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    background: white;
+    border-radius: 24px;
+    padding: 5px 6px 5px 12px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    box-shadow: 0 1px 3px var(--shadow);
+  }
+  .chip .dot{
+    width: 12px; height:12px; border-radius:50%;
+    flex-shrink:0;
+  }
+  .chip button{
+    background: transparent;
+    color: #999;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .chip button:hover{ background: #f1e6e6; color: var(--red); }
+
+  .setup-hint{
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: #7a6d5c;
+  }
+
+  /* ---------- TRACK ---------- */
+
+  .track-wrap{
+    max-width: 1180px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+  }
+
+  .empty-state{
+    background: var(--cream-2);
+    border: 2px dashed var(--dirt-line);
+    border-radius: var(--radius-lg);
+    padding: 44px 24px;
+    text-align: center;
+    color: var(--wood-dark);
+  }
+  .empty-state .flag{ font-size: 2.6rem; display:block; margin-bottom: 10px;}
+  .empty-state h2{ margin: 0 0 8px; font-size: 1.3rem; }
+  .empty-state p{ margin: 0 0 16px; color: #7a6d5c; }
+
+  .board{
+    background: var(--grass);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    box-shadow: 0 6px 0 var(--grass-dark), 0 10px 24px var(--shadow);
+    overflow-x: auto;
+  }
+
+  .lane{
+    display:flex;
+    align-items: stretch;
+    gap: 0;
+    background: var(--grass);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    min-width: 900px;
+  }
+  .lane:last-child{ margin-bottom: 0; }
+
+  .nameplate{
+    flex: 0 0 168px;
+    background: linear-gradient(180deg, var(--wood) 0%, var(--wood-dark) 100%);
+    color: var(--cream);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 14px;
+    position: relative;
+    border-right: 4px solid var(--wood-dark);
+  }
+  .nameplate .horse-badge{
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5), 0 2px 3px rgba(0,0,0,0.3);
+  }
+  .nameplate .team-name{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    line-height: 1.15;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nameplate .pos-label{
+    font-size: 0.76rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .strip{
+    flex: 1 1 auto;
+    position: relative;
+    background:
+      repeating-linear-gradient(90deg, var(--dirt) 0, var(--dirt) calc(100%/17), var(--dirt-line) calc(100%/17), var(--dirt-line) calc(100%/17 + 1px));
+    background-size: calc(1700% / 17) 100%;
+    background-color: var(--dirt);
+    min-height: 62px;
+    overflow: hidden;
+  }
+
+  .gate-mark{
+    position:absolute;
+    left: 0; top:0; bottom:0;
+    width: calc(100%/17);
+    background: repeating-linear-gradient(180deg, var(--wood) 0 6px, var(--wood-dark) 6px 12px);
+    border-right: 2px solid var(--wood-dark);
+    display:flex; align-items:flex-end; justify-content:center;
+    z-index: 1;
+  }
+  .gate-mark span{
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--cream);
+    background: var(--wood-dark);
+    padding: 2px 4px;
+    border-radius: 4px 4px 0 0;
+    letter-spacing: 0.5px;
+  }
+
+  .finish-mark{
+    position:absolute;
+    right: 0; top:0; bottom:0;
+    width: calc(100%/17);
+    background-image: repeating-conic-gradient(#1c1c1c 0% 25%, #f4f4f4 0% 50%);
+    background-size: 12px 12px;
+    border-left: 2px solid var(--ink);
+    display:flex; align-items:flex-start; justify-content:center;
+    z-index: 1;
+  }
+  .finish-mark .flag-icon{
+    font-size: 1.1rem;
+    margin-top: 2px;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));
+  }
+
+  .tick{
+    position:absolute;
+    top:0; bottom:0;
+    width: 1px;
+    background: rgba(255,255,255,0.25);
+  }
+  .tick-num{
+    position:absolute;
+    bottom: 3px;
+    font-size: 0.6rem;
+    color: rgba(60,42,17,0.55);
+    font-weight: 600;
+    transform: translateX(-50%);
+  }
+
+  .horse-token{
+    position:absolute;
+    top: 50%;
+    width: 40px; height: 40px;
+    margin-top: -20px;
+    margin-left: calc((100%/17) / 2 - 20px);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.3rem;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.3);
+    border: 3px solid rgba(255,255,255,0.85);
+    transition: left 0.55s cubic-bezier(.34,1.56,.64,1);
+    z-index: 2;
+  }
+  .horse-token.bump{
+    animation: bump 0.55s ease;
+  }
+  @keyframes bump{
+    0%{ transform: translateY(0) scale(1); }
+    30%{ transform: translateY(-10px) scale(1.08); }
+    60%{ transform: translateY(2px) scale(0.98); }
+    100%{ transform: translateY(0) scale(1); }
+  }
+  .horse-token.finished{
+    box-shadow: 0 0 0 4px var(--gold-light), 0 3px 10px rgba(0,0,0,0.35);
+    animation: glow 1.6s ease-in-out infinite;
+  }
+  @keyframes glow{
+    0%,100%{ box-shadow: 0 0 0 4px var(--gold-light), 0 3px 10px rgba(0,0,0,0.35); }
+    50%{ box-shadow: 0 0 0 8px rgba(246,216,137,0.35), 0 3px 10px rgba(0,0,0,0.35); }
+  }
+  .rank-badge{
+    position:absolute;
+    top: -9px; right: -9px;
+    background: var(--gold);
+    color: #4a3106;
+    font-size: 0.62rem;
+    font-weight: 800;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    border: 1.5px solid white;
+  }
+
+  .controls{
+    flex: 0 0 200px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--grass-dark);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .btn-move{
+    flex: 1;
+    padding: 10px 6px;
+    font-size: 0.8rem;
+    text-align:center;
+    line-height: 1.25;
+    color: white;
+  }
+  .btn-correct{
+    background: linear-gradient(180deg, #6FAE58, #4C7A3D);
+    box-shadow: 0 2px 0 #345c28;
+  }
+  .btn-correct:hover:not(:disabled){ filter: brightness(1.08); }
+  .btn-miss{
+    background: linear-gradient(180deg, #D98A4F, #B3612B);
+    box-shadow: 0 2px 0 #7d431c;
+  }
+  .btn-miss:hover:not(:disabled){ filter: brightness(1.08); }
+
+  footer{
+    text-align:center;
+    font-size: 0.78rem;
+    color: #9a8c78;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 640px){
+    .header-row{ flex-direction: column; align-items: flex-start; }
+    h1{ font-size: 1.5rem; }
+    .nameplate{ flex-basis: 132px; padding: 8px 10px; }
+    .controls{ flex-basis: 150px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .horse-token, .horse-token.bump, .horse-token.finished{ animation:none; transition:none; }
+  }
+
+  /* ---------- COMPACT MODE (auto-enabled at 10-12 teams so everything fits without scrolling) ---------- */
+
+  body.compact header{ padding: 10px 24px 12px; }
+  body.compact h1{ font-size: 1.4rem; }
+  body.compact header p.sub{ font-size: 0.76rem; }
+  body.compact .title-block .flag{ font-size: 1.8rem; }
+  body.compact .btn-ghost, body.compact .btn-gold{ padding: 6px 12px; font-size: 0.78rem; }
+
+  body.compact .leaderboard{ margin-top: 8px; }
+  body.compact .leaderboard-inner{ padding: 5px 12px; font-size: 0.78rem; }
+  body.compact .finisher{ padding: 2px 8px; }
+
+  body.compact .track-wrap{ margin-top: 8px; }
+  body.compact .board{ padding: 8px; }
+  body.compact .lane{ margin-bottom: 4px; min-width: 760px; }
+
+  body.compact .nameplate{
+    flex-basis: 150px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+  }
+  body.compact .nameplate .horse-badge{
+    width: 22px; height: 22px;
+    font-size: 0.7rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  body.compact .nameplate .team-name{ font-size: 0.78rem; }
+  body.compact .nameplate .pos-label{ font-size: 0.6rem; margin-top: 0; white-space: nowrap; }
+
+  body.compact .strip{ min-height: 38px; }
+
+  body.compact .horse-token{
+    width: 28px; height: 28px;
+    margin-top: -14px;
+    margin-left: calc((100%/17) / 2 - 14px);
+    font-size: 0.95rem;
+    border-width: 2px;
+  }
+  body.compact .rank-badge{
+    width: 14px; height: 14px;
+    font-size: 0.5rem;
+    top: -6px; right: -6px;
+  }
+
+  body.compact .controls{ flex-basis: 150px; padding: 5px 8px; gap: 6px; }
+  body.compact .btn-move{ padding: 6px 4px; font-size: 0.68rem; line-height: 1.15; }
+
+  body.compact footer{ margin-top: 8px; font-size: 0.68rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="title-block">
+      <span class="flag">🏇</span>
+      <div>
+        <h1>Classroom Derby</h1>
+        <p class="sub">Answer right, gallop 2 spaces. Answer wrong, trot 1. First to 16 wins!</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost" id="toggleSetupBtn">Manage teams</button>
+      <button class="btn-ghost" id="undoBtn" disabled>↺ Undo last move</button>
+      <button class="btn-gold" id="resetBtn">New race</button>
+    </div>
+  </div>
+</header>
+
+<div class="leaderboard">
+  <div class="leaderboard-inner" id="leaderboard">
+    <span class="lbl">Finish order</span>
+    <span class="empty" id="leaderboardEmpty">No horses home yet</span>
+  </div>
+</div>
+
+<div class="panel-wrap">
+  <div class="setup-panel" id="setupPanel">
+    <h2>Teams (up to 12)</h2>
+    <form class="add-team-row" id="addTeamForm">
+      <input type="text" id="teamNameInput" placeholder="Team name, e.g. The Fast Foxes" maxlength="24">
+      <button type="submit" class="btn-add" id="addTeamBtn">Add team</button>
+    </form>
+    <div class="team-chips" id="teamChips"></div>
+    <p class="setup-hint" id="setupHint"></p>
+  </div>
+</div>
+
+<div class="track-wrap">
+  <div class="empty-state" id="emptyState">
+    <span class="flag">🐎</span>
+    <h2>No teams yet</h2>
+    <p>Add your first team to line them up at the start gate.</p>
+    <button class="btn-add" id="emptyAddBtn">Add a team</button>
+  </div>
+  <div class="board" id="board" style="display:none;"></div>
+</div>
+
+<footer>Positions save automatically in this browser &middot; Track runs from the start gate to space 16</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "classroomDerbyState_v1";
+  var MAX_TEAMS = 12;
+  var TRACK_LEN = 16;
+  var COMPACT_THRESHOLD = 10;
+
+  var PALETTE = [
+    "#E4572E","#2E86AB","#57A773","#8E5572",
+    "#F2B134","#5B5F97","#D46A82","#4C956C",
+    "#C1272D","#3A6EA5","#B08968","#6A4C93"
+  ];
+
+  var HORSE_EMOJIS = ["🐴","🐎","🦄"];
+
+  var state = {
+    teams: [],   // {id, name, color, pos, finishRank}
+    finishOrder: [], // team ids in order of finishing
+    nextId: 1
+  };
+
+  var undoStack = [];
+
+  function cloneState(){
+    return JSON.parse(JSON.stringify({teams: state.teams, finishOrder: state.finishOrder, nextId: state.nextId}));
+  }
+
+  function pushUndo(){
+    undoStack.push(cloneState());
+    if(undoStack.length > 50) undoStack.shift();
+    undoBtn.disabled = false;
+  }
+
+  function save(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({teams: state.teams, finishOrder: state.finishOrder, nextId: state.nextId}));
+    }catch(e){ /* storage unavailable, continue silently */ }
+  }
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        var parsed = JSON.parse(raw);
+        if(parsed && Array.isArray(parsed.teams)){
+          state.teams = parsed.teams;
+          state.finishOrder = parsed.finishOrder || [];
+          state.nextId = parsed.nextId || (state.teams.length + 1);
+        }
+      }
+    }catch(e){ /* ignore corrupted storage */ }
+  }
+
+  // ---------- DOM refs ----------
+  var setupPanel = document.getElementById("setupPanel");
+  var toggleSetupBtn = document.getElementById("toggleSetupBtn");
+  var addTeamForm = document.getElementById("addTeamForm");
+  var teamNameInput = document.getElementById("teamNameInput");
+  var addTeamBtn = document.getElementById("addTeamBtn");
+  var teamChips = document.getElementById("teamChips");
+  var setupHint = document.getElementById("setupHint");
+  var emptyState = document.getElementById("emptyState");
+  var emptyAddBtn = document.getElementById("emptyAddBtn");
+  var board = document.getElementById("board");
+  var undoBtn = document.getElementById("undoBtn");
+  var resetBtn = document.getElementById("resetBtn");
+  var leaderboard = document.getElementById("leaderboard");
+  var leaderboardEmpty = document.getElementById("leaderboardEmpty");
+
+  // ---------- Team management ----------
+
+  function addTeam(name){
+    if(state.teams.length >= MAX_TEAMS) return;
+    var trimmed = (name || "").trim();
+    if(!trimmed) trimmed = "Team " + (state.teams.length + 1);
+    var color = PALETTE[state.teams.length % PALETTE.length];
+    state.teams.push({
+      id: state.nextId++,
+      name: trimmed,
+      color: color,
+      pos: 0,
+      finishRank: null
+    });
+    save();
+    renderAll();
+  }
+
+  function removeTeam(id){
+    state.teams = state.teams.filter(function(t){ return t.id !== id; });
+    state.finishOrder = state.finishOrder.filter(function(tid){ return tid !== id; });
+    recomputeRanks();
+    save();
+    renderAll();
+  }
+
+  function recomputeRanks(){
+    state.teams.forEach(function(t){ t.finishRank = null; });
+    state.finishOrder.forEach(function(id, idx){
+      var t = state.teams.find(function(tt){ return tt.id === id; });
+      if(t) t.finishRank = idx + 1;
+    });
+  }
+
+  function moveTeam(id, amount){
+    var team = state.teams.find(function(t){ return t.id === id; });
+    if(!team || team.pos >= TRACK_LEN) return;
+    pushUndo();
+    team.pos = Math.min(TRACK_LEN, team.pos + amount);
+    if(team.pos === TRACK_LEN && state.finishOrder.indexOf(id) === -1){
+      state.finishOrder.push(id);
+      team.finishRank = state.finishOrder.length;
+    }
+    save();
+    renderAll(id);
+  }
+
+  function undo(){
+    if(undoStack.length === 0) return;
+    var prev = undoStack.pop();
+    state.teams = prev.teams;
+    state.finishOrder = prev.finishOrder;
+    state.nextId = prev.nextId;
+    undoBtn.disabled = undoStack.length === 0;
+    save();
+    renderAll();
+  }
+
+  function resetRace(){
+    if(state.teams.length && !confirm("Start a new race? All horses return to the start gate.")) return;
+    state.teams.forEach(function(t){ t.pos = 0; t.finishRank = null; });
+    state.finishOrder = [];
+    undoStack = [];
+    undoBtn.disabled = true;
+    save();
+    renderAll();
+  }
+
+  // ---------- Rendering ----------
+
+  function renderChips(){
+    teamChips.innerHTML = "";
+    state.teams.forEach(function(t){
+      var chip = document.createElement("div");
+      chip.className = "chip";
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      dot.style.background = t.color;
+      var label = document.createElement("span");
+      label.textContent = t.name;
+      var removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.setAttribute("aria-label", "Remove " + t.name);
+      removeBtn.textContent = "×";
+      removeBtn.onclick = function(){ removeTeam(t.id); };
+      chip.appendChild(dot);
+      chip.appendChild(label);
+      chip.appendChild(removeBtn);
+      teamChips.appendChild(chip);
+    });
+
+    if(state.teams.length >= MAX_TEAMS){
+      setupHint.textContent = "You've reached the 12 team limit.";
+      addTeamBtn.disabled = true;
+      teamNameInput.disabled = true;
+    } else {
+      setupHint.textContent = state.teams.length + " of " + MAX_TEAMS + " teams added.";
+      addTeamBtn.disabled = false;
+      teamNameInput.disabled = false;
+    }
+  }
+
+  function renderLeaderboard(){
+    if(state.finishOrder.length === 0){
+      leaderboardEmpty.style.display = "inline";
+      var oldFinishers = leaderboard.querySelectorAll(".finisher");
+      oldFinishers.forEach(function(el){ el.remove(); });
+      return;
+    }
+    leaderboardEmpty.style.display = "none";
+    var oldFinishers2 = leaderboard.querySelectorAll(".finisher");
+    oldFinishers2.forEach(function(el){ el.remove(); });
+
+    var medals = ["🥇","🥈","🥉"];
+    state.finishOrder.forEach(function(id, idx){
+      var t = state.teams.find(function(tt){ return tt.id === id; });
+      if(!t) return;
+      var el = document.createElement("span");
+      el.className = "finisher";
+      var medal = medals[idx] || ("#" + (idx+1));
+      el.innerHTML = "<span>" + medal + "</span><span>" + escapeHtml(t.name) + "</span>";
+      leaderboard.appendChild(el);
+    });
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderBoard(justMovedId){
+    if(state.teams.length === 0){
+      emptyState.style.display = "block";
+      board.style.display = "none";
+      return;
+    }
+    emptyState.style.display = "none";
+    board.style.display = "block";
+    board.innerHTML = "";
+
+    state.teams.forEach(function(t){
+      var lane = document.createElement("div");
+      lane.className = "lane";
+
+      // Nameplate
+      var nameplate = document.createElement("div");
+      nameplate.className = "nameplate";
+      var badge = document.createElement("div");
+      badge.className = "horse-badge";
+      badge.style.background = t.color;
+      badge.textContent = HORSE_EMOJIS[t.id % HORSE_EMOJIS.length];
+      var nameEl = document.createElement("div");
+      nameEl.className = "team-name";
+      nameEl.textContent = t.name;
+      var posEl = document.createElement("div");
+      posEl.className = "pos-label";
+      posEl.textContent = t.finishRank ? ("Finished #" + t.finishRank) : ("Space " + t.pos + " / " + TRACK_LEN);
+      nameplate.appendChild(badge);
+      nameplate.appendChild(nameEl);
+      nameplate.appendChild(posEl);
+
+      // Strip
+      var strip = document.createElement("div");
+      strip.className = "strip";
+
+      var gate = document.createElement("div");
+      gate.className = "gate-mark";
+      gate.innerHTML = "<span>START</span>";
+      strip.appendChild(gate);
+
+      var finish = document.createElement("div");
+      finish.className = "finish-mark";
+      finish.innerHTML = "<span class='flag-icon'>🏁</span>";
+      strip.appendChild(finish);
+
+      for(var n = 1; n <= TRACK_LEN; n++){
+        var tick = document.createElement("div");
+        tick.className = "tick";
+        tick.style.left = (n * (100/17)) + "%";
+        strip.appendChild(tick);
+        if(n % 2 === 0 && n !== TRACK_LEN){
+          var tnum = document.createElement("div");
+          tnum.className = "tick-num";
+          tnum.style.left = ((n + 0.5) * (100/17)) + "%";
+          tnum.textContent = n;
+          strip.appendChild(tnum);
+        }
+      }
+
+      var token = document.createElement("div");
+      token.className = "horse-token";
+      if(t.pos >= TRACK_LEN) token.className += " finished";
+      token.style.background = t.color;
+      token.style.left = (t.pos * (100/17)) + "%";
+      token.textContent = HORSE_EMOJIS[t.id % HORSE_EMOJIS.length];
+      if(t.id === justMovedId) token.className += " bump";
+      if(t.finishRank){
+        var rb = document.createElement("div");
+        rb.className = "rank-badge";
+        rb.textContent = t.finishRank;
+        token.appendChild(rb);
+      }
+      strip.appendChild(token);
+
+      // Controls
+      var controls = document.createElement("div");
+      controls.className = "controls";
+      var correctBtn = document.createElement("button");
+      correctBtn.className = "btn-move btn-correct";
+      correctBtn.innerHTML = "Correct<br>+2";
+      correctBtn.disabled = t.pos >= TRACK_LEN;
+      correctBtn.onclick = function(id){ return function(){ moveTeam(id, 2); }; }(t.id);
+      var missBtn = document.createElement("button");
+      missBtn.className = "btn-move btn-miss";
+      missBtn.innerHTML = "Mistake<br>+1";
+      missBtn.disabled = t.pos >= TRACK_LEN;
+      missBtn.onclick = function(id){ return function(){ moveTeam(id, 1); }; }(t.id);
+      controls.appendChild(correctBtn);
+      controls.appendChild(missBtn);
+
+      lane.appendChild(nameplate);
+      lane.appendChild(strip);
+      lane.appendChild(controls);
+      board.appendChild(lane);
+    });
+  }
+
+  function renderAll(justMovedId){
+    document.body.classList.toggle("compact", state.teams.length >= COMPACT_THRESHOLD);
+    renderChips();
+    renderBoard(justMovedId);
+    renderLeaderboard();
+  }
+
+  // ---------- Events ----------
+
+  toggleSetupBtn.addEventListener("click", function(){
+    setupPanel.classList.toggle("open");
+  });
+
+  addTeamForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(state.teams.length >= MAX_TEAMS) return;
+    addTeam(teamNameInput.value);
+    teamNameInput.value = "";
+    teamNameInput.focus();
+  });
+
+  emptyAddBtn.addEventListener("click", function(){
+    setupPanel.classList.add("open");
+    teamNameInput.focus();
+  });
+
+  undoBtn.addEventListener("click", undo);
+  resetBtn.addEventListener("click", resetRace);
+
+  // ---------- Init ----------
+  load();
+  if(state.teams.length === 0){
+    setupPanel.classList.add("open");
+  }
+  renderAll();
+
+})();
+</script>
+
+</body>
+</html>
