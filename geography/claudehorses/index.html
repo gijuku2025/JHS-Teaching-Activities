@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classroom Derby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FBF3E3;
+    --cream-2: #F3E7CE;
+    --ink: #2B2118;
+    --wood: #6B4226;
+    --wood-dark: #4E3019;
+    --grass: #4C7A3D;
+    --grass-dark: #3A5E2E;
+    --dirt: #C79A5B;
+    --dirt-dark: #B98A47;
+    --rail: #F6ECD8;
+    --gold: #E3A72F;
+    --gold-light: #F6D889;
+    --red: #B3392C;
+    --shadow: rgba(43,33,24,0.25);
+    --radius-lg: 18px;
+    --radius-sm: 10px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(76,122,61,0.08), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(227,167,47,0.10), transparent 45%);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 48px 0;
+  }
+
+  h1, h2, .display{ font-family: 'Baloo 2', sans-serif; }
+
+  /* ---------- HEADER ---------- */
+
+  header{
+    background: linear-gradient(180deg, var(--grass) 0%, var(--grass-dark) 100%);
+    color: var(--cream);
+    padding: 22px 28px 26px;
+    border-bottom: 6px solid var(--wood-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-6px; height: 10px;
+    background-image: repeating-linear-gradient(90deg, var(--cream) 0 22px, var(--ink) 22px 44px);
+    opacity: 0.9;
+  }
+  .header-row{
+    display:flex; align-items:center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap; position: relative; z-index: 1;
+  }
+  .title-block{ display:flex; align-items:center; gap: 14px; }
+  .title-block .flag{ font-size: 2.4rem; transform: rotate(-8deg); }
+  h1{ margin:0; font-size: 1.9rem; font-weight: 800; letter-spacing: 0.3px; }
+  header p.sub{ margin: 2px 0 0; font-size: 0.92rem; color: var(--cream-2); font-weight: 500; }
+  .header-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+  button{
+    font-family: 'Inter', sans-serif;
+    cursor: pointer; border: none; border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: transform 0.08s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  }
+  button:active{ transform: translateY(1px) scale(0.98); }
+  button:disabled{ cursor: not-allowed; opacity: 0.45; transform:none; }
+
+  .btn-ghost{
+    background: rgba(255,255,255,0.12); color: var(--cream);
+    padding: 9px 14px; font-size: 0.88rem; border: 1.5px solid rgba(255,255,255,0.35);
+  }
+  .btn-ghost:hover:not(:disabled){ background: rgba(255,255,255,0.22); }
+
+  .btn-gold{
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    color: #4a3106; padding: 9px 16px; font-size: 0.88rem; box-shadow: 0 2px 0 #a87c1c;
+  }
+  .btn-gold:hover{ filter: brightness(1.05); }
+
+  /* ---------- LEADERBOARD ---------- */
+
+  .leaderboard{ max-width: 1280px; margin: 18px auto 0; padding: 0 20px; }
+  .leaderboard-inner{
+    background: var(--wood); color: var(--cream); border-radius: var(--radius-sm);
+    padding: 10px 16px; display:flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 0.92rem; box-shadow: 0 3px 0 var(--wood-dark);
+  }
+  .leaderboard-inner .lbl{ font-family:'Baloo 2', sans-serif; font-weight: 700; color: var(--gold-light); white-space: nowrap; }
+  .leaderboard-inner .empty{ color: var(--cream-2); font-style: italic; }
+  .finisher{
+    background: rgba(255,255,255,0.14); border-radius: 20px; padding: 3px 10px;
+    font-weight: 700; display:flex; align-items:center; gap:6px;
+  }
+
+  /* ---------- SETUP PANEL ---------- */
+
+  .panel-wrap{ max-width: 1280px; margin: 16px auto 0; padding: 0 20px; }
+  .setup-panel{
+    background: var(--cream-2); border: 2px solid var(--dirt-dark);
+    border-radius: var(--radius-lg); padding: 18px 20px; display:none;
+  }
+  .setup-panel.open{ display:block; }
+  .setup-panel h2{ margin: 0 0 4px; font-size: 1.2rem; color: var(--wood-dark); }
+  .setup-panel .setup-desc{ margin: 0 0 14px; font-size: 0.85rem; color: #7a6d5c; }
+
+  .count-row{ display:flex; align-items:center; gap: 12px; flex-wrap: wrap; }
+  .stepper{ display:flex; align-items:center; gap: 0; border: 2px solid var(--dirt-dark); border-radius: var(--radius-sm); overflow:hidden; background:white; }
+  .stepper button{
+    width: 42px; height: 42px; background: var(--cream-2); color: var(--wood-dark);
+    font-size: 1.2rem; border-radius:0; font-weight:700;
+  }
+  .stepper button:hover:not(:disabled){ background: var(--dirt); }
+  .stepper input{
+    width: 64px; text-align:center; border:none; font-size: 1.2rem; font-weight:700;
+    font-family: 'Baloo 2', sans-serif; color: var(--ink); background:white;
+  }
+  .stepper input:focus{ outline:none; }
+  .btn-set{ background: var(--grass); color:white; padding: 12px 20px; font-size: 0.95rem; }
+  .btn-set:hover:not(:disabled){ background: var(--grass-dark); }
+  .count-note{ font-size: 0.85rem; color: #7a6d5c; }
+
+  /* ---------- TRACK ---------- */
+
+  .track-wrap{ max-width: 1280px; margin: 20px auto 0; padding: 0 20px; }
+
+  .empty-state{
+    background: var(--cream-2); border: 2px dashed var(--dirt-dark); border-radius: var(--radius-lg);
+    padding: 44px 24px; text-align: center; color: var(--wood-dark);
+  }
+  .empty-state .flag{ font-size: 2.6rem; display:block; margin-bottom: 10px;}
+  .empty-state h2{ margin: 0 0 8px; font-size: 1.3rem; }
+  .empty-state p{ margin: 0 0 16px; color: #7a6d5c; }
+
+  .board{
+    background: var(--grass);
+    background-image: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 55%);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    box-shadow: 0 6px 0 var(--grass-dark), 0 10px 24px var(--shadow);
+    display:none;
+  }
+  .board.show{ display:block; }
+
+  #trackSvg{ width: 100%; height: auto; display:block; }
+
+  .horse-token text{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @keyframes bump{
+    0%{ transform: scale(1); }
+    30%{ transform: scale(1.22); }
+    60%{ transform: scale(0.94); }
+    100%{ transform: scale(1); }
+  }
+  .bump-anim{ animation: bump 0.5s ease; transform-origin: 0 0; }
+
+  @keyframes glow{
+    0%,100%{ filter: drop-shadow(0 0 2px var(--gold-light)); }
+    50%{ filter: drop-shadow(0 0 10px var(--gold-light)); }
+  }
+  .finished-anim{ animation: glow 1.6s ease-in-out infinite; }
+
+  /* ---------- CONTROL DECK ---------- */
+
+  .control-deck{
+    margin-top: 16px;
+    background: var(--wood);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-shadow: 0 4px 0 var(--wood-dark);
+  }
+  .deck-title{
+    font-family:'Baloo 2', sans-serif; color: var(--gold-light); font-weight: 700;
+    font-size: 1.05rem; margin: 2px 4px 12px;
+  }
+  .deck-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .horse-card{
+    background: var(--wood-dark);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 6px;
+  }
+  .horse-card .badge{
+    width: 40px; height: 40px; border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    color: white; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.1rem;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5), 0 2px 3px rgba(0,0,0,0.35);
+    flex-shrink: 0;
+  }
+  .horse-card .pos-label{
+    font-size: 0.78rem; color: var(--gold-light); font-weight: 600;
+  }
+  .horse-card .btn-row{ display:flex; gap: 6px; width: 100%; }
+  .btn-move{ flex:1; padding: 9px 4px; font-size: 0.76rem; line-height:1.2; color:white; text-align:center; }
+  .btn-correct{ background: linear-gradient(180deg, #6FAE58, #4C7A3D); box-shadow: 0 2px 0 #345c28; }
+  .btn-correct:hover:not(:disabled){ filter: brightness(1.1); }
+  .btn-miss{ background: linear-gradient(180deg, #D98A4F, #B3612B); box-shadow: 0 2px 0 #7d431c; }
+  .btn-miss:hover:not(:disabled){ filter: brightness(1.1); }
+
+  footer{ text-align:center; font-size: 0.78rem; color: #9a8c78; margin-top: 28px; }
+
+  @media (max-width: 640px){
+    .header-row{ flex-direction: column; align-items: flex-start; }
+    h1{ font-size: 1.5rem; }
+    .deck-grid{ grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bump-anim, .finished-anim{ animation:none; }
+    .horse-token{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="title-block">
+      <span class="flag">🏇</span>
+      <div>
+        <h1>Classroom Derby</h1>
+        <p class="sub">Answer right, gallop 2 spaces. Answer wrong, trot 1. First to 16 wins!</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost" id="toggleSetupBtn">Race setup</button>
+      <button class="btn-ghost" id="undoBtn" disabled>↺ Undo last move</button>
+      <button class="btn-gold" id="resetBtn">New race</button>
+    </div>
+  </div>
+</header>
+
+<div class="leaderboard">
+  <div class="leaderboard-inner" id="leaderboard">
+    <span class="lbl">Finish order</span>
+    <span class="empty" id="leaderboardEmpty">No horses home yet</span>
+  </div>
+</div>
+
+<div class="panel-wrap">
+  <div class="setup-panel" id="setupPanel">
+    <h2>How many horses are racing?</h2>
+    <p class="setup-desc">Each horse is numbered so it's easy to spot on the big screen. Up to 12 can race at once.</p>
+    <div class="count-row">
+      <div class="stepper">
+        <button type="button" id="stepDown" aria-label="Fewer horses">&minus;</button>
+        <input type="number" id="horseCountInput" min="1" max="12" value="6" inputmode="numeric">
+        <button type="button" id="stepUp" aria-label="More horses">+</button>
+      </div>
+      <button class="btn-set" id="setCountBtn">Line them up</button>
+      <span class="count-note" id="countNote"></span>
+    </div>
+  </div>
+</div>
+
+<div class="track-wrap">
+  <div class="empty-state" id="emptyState">
+    <span class="flag">🐎</span>
+    <h2>No race set up yet</h2>
+    <p>Choose how many horses are racing to line them up at the gate.</p>
+    <button class="btn-set" id="emptyAddBtn">Choose horses</button>
+  </div>
+
+  <div class="board" id="board">
+    <svg id="trackSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+
+  <div class="control-deck" id="controlDeck" style="display:none;">
+    <div class="deck-title">Move a horse</div>
+    <div class="deck-grid" id="deckGrid"></div>
+  </div>
+</div>
+
+<footer>Positions save automatically in this browser &middot; One lap of the track equals 16 spaces</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var STORAGE_KEY = "classroomDerbyState_v2";
+  var MAX_HORSES = 12;
+  var TRACK_LEN = 16;
+  var FINISH_FRACTION = 0.90;
+
+  var PALETTE = [
+    "#E4572E","#2E86AB","#57A773","#8E5572",
+    "#F2B134","#5B5F97","#D46A82","#4C956C",
+    "#C1272D","#3A6EA5","#B08968","#6A4C93"
+  ];
+
+  function shade(hex, factor){
+    var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    r = Math.max(0, Math.min(255, Math.round(r*factor)));
+    g = Math.max(0, Math.min(255, Math.round(g*factor)));
+    b = Math.max(0, Math.min(255, Math.round(b*factor)));
+    return "#" + [r,g,b].map(function(v){ var s = v.toString(16); return s.length===1 ? "0"+s : s; }).join("");
+  }
+
+  function svgEl(tag, attrs){
+    var el = document.createElementNS(SVGNS, tag);
+    for(var k in attrs){ el.setAttribute(k, attrs[k]); }
+    return el;
+  }
+
+  var state = {
+    count: 0,
+    positions: [],   // index 0..count-1 => space 0-16
+    finishOrder: []  // horse indices in order of finishing
+  };
+
+  var undoStack = [];
+  var lanePathEls = [];   // cached <path> elements per horse, for getPointAtLength
+  var laneLengths = [];   // cached total lengths per horse
+  var geometry = null;
+
+  // ---------- persistence ----------
+
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        var parsed = JSON.parse(raw);
+        if(parsed && typeof parsed.count === "number"){
+          state.count = parsed.count;
+          state.positions = parsed.positions || [];
+          state.finishOrder = parsed.finishOrder || [];
+        }
+      }
+    }catch(e){}
+  }
+
+  function cloneState(){ return JSON.parse(JSON.stringify(state)); }
+
+  function pushUndo(){
+    undoStack.push(cloneState());
+    if(undoStack.length > 50) undoStack.shift();
+    undoBtn.disabled = false;
+  }
+
+  // ---------- DOM refs ----------
+
+  var setupPanel = document.getElementById("setupPanel");
+  var toggleSetupBtn = document.getElementById("toggleSetupBtn");
+  var horseCountInput = document.getElementById("horseCountInput");
+  var stepDown = document.getElementById("stepDown");
+  var stepUp = document.getElementById("stepUp");
+  var setCountBtn = document.getElementById("setCountBtn");
+  var countNote = document.getElementById("countNote");
+  var emptyState = document.getElementById("emptyState");
+  var emptyAddBtn = document.getElementById("emptyAddBtn");
+  var board = document.getElementById("board");
+  var svg = document.getElementById("trackSvg");
+  var controlDeck = document.getElementById("controlDeck");
+  var deckGrid = document.getElementById("deckGrid");
+  var undoBtn = document.getElementById("undoBtn");
+  var resetBtn = document.getElementById("resetBtn");
+  var leaderboard = document.getElementById("leaderboard");
+  var leaderboardEmpty = document.getElementById("leaderboardEmpty");
+
+  // ---------- geometry ----------
+
+  function computeGeometry(n){
+    var R0 = 100;         // innermost lane radius
+    var LW = 58;          // lane width (also drives horse size)
+    var halfL = 430;      // half length of each straight
+    var lanes = Math.max(n, 1);
+    var outerR = R0 + (lanes - 1) * LW;
+    var pad = LW * 1.6 + 40;
+    var cx = halfL + outerR + pad;
+    var cy = outerR + pad;
+    var vbW = cx * 2;
+    var vbH = cy * 2;
+    return { R0: R0, LW: LW, halfL: halfL, outerR: outerR, cx: cx, cy: cy, vbW: vbW, vbH: vbH, tokenR: LW * 0.42 };
+  }
+
+  function stadiumPath(r, cx, cy, halfL){
+    var top = cy - r, bot = cy + r, left = cx - halfL, right = cx + halfL;
+    return [
+      "M", left, bot,
+      "L", right, bot,
+      "A", r, r, 0, 0, 0, right, top,
+      "L", left, top,
+      "A", r, r, 0, 0, 0, left, bot,
+      "Z"
+    ].join(" ");
+  }
+
+  function makePath(d, attrs){
+    var p = document.createElementNS(SVGNS, "path");
+    p.setAttribute("d", d);
+    for(var k in attrs){ p.setAttribute(k, attrs[k]); }
+    return p;
+  }
+
+  function buildTrack(n){
+    geometry = computeGeometry(n);
+    var g = geometry;
+    svg.setAttribute("viewBox", "0 0 " + g.vbW + " " + g.vbH);
+    svg.innerHTML = "";
+    lanePathEls = [];
+    laneLengths = [];
+
+    var innerRail = g.R0 - g.LW / 2;
+    var outerRail = g.outerR + g.LW / 2;
+
+    // dirt surface (outer boundary)
+    svg.appendChild(makePath(stadiumPath(outerRail, g.cx, g.cy, g.halfL), {
+      fill: "var(--dirt)", stroke: "var(--rail)", "stroke-width": 6
+    }));
+    // grass infield (inner boundary) drawn on top to punch the ring out
+    svg.appendChild(makePath(stadiumPath(innerRail, g.cx, g.cy, g.halfL), {
+      fill: "var(--grass)", stroke: "var(--rail)", "stroke-width": 6
+    }));
+    // little infield flourish
+    var infield = document.createElementNS(SVGNS, "text");
+    infield.setAttribute("x", g.cx);
+    infield.setAttribute("y", g.cy);
+    infield.setAttribute("text-anchor", "middle");
+    infield.setAttribute("dominant-baseline", "central");
+    infield.setAttribute("font-size", Math.max(28, g.R0 * 0.5));
+    infield.textContent = "🏆";
+    infield.setAttribute("opacity", "0.35");
+    svg.appendChild(infield);
+
+    // lane divider lines (dashed) between adjacent lanes
+    for(var i = 0; i < n - 1; i++){
+      var r = g.R0 + (i + 0.5) * g.LW;
+      svg.appendChild(makePath(stadiumPath(r, g.cx, g.cy, g.halfL), {
+        fill: "none", stroke: "rgba(255,255,255,0.55)", "stroke-width": 3, "stroke-dasharray": "14 14"
+      }));
+    }
+
+    // hidden lane-center paths used purely for positioning horses
+    for(var i2 = 0; i2 < n; i2++){
+      var rC = g.R0 + i2 * g.LW;
+      var pEl = makePath(stadiumPath(rC, g.cx, g.cy, g.halfL), { fill: "none", stroke: "none" });
+      svg.appendChild(pEl);
+      lanePathEls.push(pEl);
+      laneLengths.push(pEl.getTotalLength());
+    }
+
+    // start line (always a clean vertical line at fraction 0)
+    var startX = g.cx - g.halfL;
+    var startLine = document.createElementNS(SVGNS, "line");
+    startLine.setAttribute("x1", startX); startLine.setAttribute("x2", startX);
+    startLine.setAttribute("y1", g.cy + innerRail); startLine.setAttribute("y2", g.cy + outerRail);
+    startLine.setAttribute("stroke", "var(--rail)");
+    startLine.setAttribute("stroke-width", 8);
+    startLine.setAttribute("stroke-dasharray", "10 8");
+    svg.appendChild(startLine);
+
+    var startLabel = document.createElementNS(SVGNS, "text");
+    startLabel.setAttribute("x", startX);
+    startLabel.setAttribute("y", g.cy + outerRail + 30);
+    startLabel.setAttribute("text-anchor", "middle");
+    startLabel.setAttribute("font-family", "'Baloo 2', sans-serif");
+    startLabel.setAttribute("font-weight", "700");
+    startLabel.setAttribute("font-size", "24");
+    startLabel.setAttribute("fill", "var(--cream)");
+    startLabel.textContent = "START";
+    svg.appendChild(startLabel);
+
+    // finish line: sample boundary paths at FINISH_FRACTION
+    var innerBoundaryPath = makePath(stadiumPath(innerRail, g.cx, g.cy, g.halfL), {});
+    var outerBoundaryPath = makePath(stadiumPath(outerRail, g.cx, g.cy, g.halfL), {});
+    svg.appendChild(innerBoundaryPath);
+    svg.appendChild(outerBoundaryPath);
+    var innerLen = innerBoundaryPath.getTotalLength();
+    var outerLen = outerBoundaryPath.getTotalLength();
+    var pIn = innerBoundaryPath.getPointAtLength(FINISH_FRACTION * innerLen);
+    var pOut = outerBoundaryPath.getPointAtLength(FINISH_FRACTION * outerLen);
+    innerBoundaryPath.remove();
+    outerBoundaryPath.remove();
+
+    var finishLine = document.createElementNS(SVGNS, "line");
+    finishLine.setAttribute("x1", pIn.x); finishLine.setAttribute("y1", pIn.y);
+    finishLine.setAttribute("x2", pOut.x); finishLine.setAttribute("y2", pOut.y);
+    finishLine.setAttribute("stroke", "url(#checker)");
+    finishLine.setAttribute("stroke-width", 10);
+    svg.insertBefore(makeCheckerDefs(), svg.firstChild);
+    svg.appendChild(finishLine);
+
+    var flagLabel = document.createElementNS(SVGNS, "text");
+    flagLabel.setAttribute("x", pOut.x);
+    flagLabel.setAttribute("y", pOut.y - 22);
+    flagLabel.setAttribute("text-anchor", "middle");
+    flagLabel.setAttribute("font-size", "34");
+    flagLabel.textContent = "🏁";
+    svg.appendChild(flagLabel);
+
+    // horse tokens (created last so they render on top)
+    n = state.count;
+    for(var i3 = 0; i3 < n; i3++){
+      svg.appendChild(makeHorseToken(i3));
+    }
+
+    positionAllHorses();
+  }
+
+  function makeCheckerDefs(){
+    var defs = document.createElementNS(SVGNS, "defs");
+    var pattern = document.createElementNS(SVGNS, "pattern");
+    pattern.setAttribute("id", "checker");
+    pattern.setAttribute("width", "16");
+    pattern.setAttribute("height", "16");
+    pattern.setAttribute("patternUnits", "userSpaceOnUse");
+    pattern.setAttribute("patternTransform", "rotate(45)");
+    var r1 = document.createElementNS(SVGNS, "rect");
+    r1.setAttribute("width", "16"); r1.setAttribute("height", "16"); r1.setAttribute("fill", "#f4f4f4");
+    var r2 = document.createElementNS(SVGNS, "rect");
+    r2.setAttribute("width", "8"); r2.setAttribute("height", "8"); r2.setAttribute("fill", "#1c1c1c");
+    var r3 = document.createElementNS(SVGNS, "rect");
+    r3.setAttribute("x", "8"); r3.setAttribute("y", "8"); r3.setAttribute("width", "8"); r3.setAttribute("height", "8"); r3.setAttribute("fill", "#1c1c1c");
+    pattern.appendChild(r1); pattern.appendChild(r2); pattern.appendChild(r3);
+    defs.appendChild(pattern);
+    return defs;
+  }
+
+  // Horse illustration is drawn in a fixed 140x90-ish local design space,
+  // facing right by default, then scaled to fit the current track size.
+  var HORSE_REF = 55; // reference divisor: bigger = smaller rendered horse
+
+  function makeHorseToken(idx){
+    var color = PALETTE[idx % PALETTE.length];
+    var dark = shade(color, 0.62);
+
+    var g = document.createElementNS(SVGNS, "g");
+    g.setAttribute("class", "horse-token");
+    g.setAttribute("id", "horse-" + idx);
+    g.style.transition = "transform 0.55s cubic-bezier(.34,1.56,.64,1)";
+
+    var inner = document.createElementNS(SVGNS, "g");
+    inner.setAttribute("class", "horse-inner");
+
+    // ---- body group: everything that should face/flip with travel direction
+    var body = document.createElementNS(SVGNS, "g");
+    body.setAttribute("class", "horse-body");
+    body.style.transform = "scale(" + (geometry.tokenR / HORSE_REF) + "," + (geometry.tokenR / HORSE_REF) + ")";
+
+    body.appendChild(svgEl("ellipse", { cx: 0, cy: 40, rx: 46, ry: 9, fill: "rgba(0,0,0,0.25)" }));
+
+    // legs
+    body.appendChild(svgEl("path", { d: "M -34 8 L -44 38", stroke: dark, "stroke-width": 10, "stroke-linecap": "round", fill: "none" }));
+    body.appendChild(svgEl("path", { d: "M -20 10 L -14 38", stroke: dark, "stroke-width": 10, "stroke-linecap": "round", fill: "none" }));
+    body.appendChild(svgEl("path", { d: "M 18 10 L 12 38", stroke: dark, "stroke-width": 10, "stroke-linecap": "round", fill: "none" }));
+    body.appendChild(svgEl("path", { d: "M 32 8 L 40 38", stroke: dark, "stroke-width": 10, "stroke-linecap": "round", fill: "none" }));
+
+    // tail
+    body.appendChild(svgEl("path", { d: "M -36 -6 Q -58 -18 -62 4 Q -54 18 -38 6 Q -46 0 -36 -6 Z", fill: dark }));
+
+    // torso
+    body.appendChild(svgEl("ellipse", { cx: -2, cy: -4, rx: 40, ry: 22, fill: color }));
+
+    // neck + head
+    body.appendChild(svgEl("path", { d: "M 18 -18 Q 36 -38 52 -40 Q 60 -32 56 -20 Q 44 -8 24 -6 Z", fill: color }));
+    // muzzle
+    body.appendChild(svgEl("path", { d: "M 50 -34 L 68 -29 L 52 -22 Z", fill: color }));
+    // ear
+    body.appendChild(svgEl("path", { d: "M 44 -38 L 48 -50 L 55 -39 Z", fill: dark }));
+    // mane
+    body.appendChild(svgEl("path", { d: "M 26 -28 L 31 -40 L 36 -30 Z", fill: dark }));
+    body.appendChild(svgEl("path", { d: "M 34 -32 L 40 -44 L 45 -33 Z", fill: dark }));
+    body.appendChild(svgEl("path", { d: "M 42 -35 L 47 -46 L 52 -35 Z", fill: dark }));
+    // eye
+    body.appendChild(svgEl("circle", { cx: 52, cy: -27, r: 2.4, fill: "#2B2118" }));
+
+    inner.appendChild(body);
+
+    // ---- plate group: number stays upright, never flips or rotates
+    var plate = document.createElementNS(SVGNS, "g");
+    plate.setAttribute("class", "horse-plate");
+    var plateScale = geometry.tokenR / HORSE_REF;
+    plate.style.transform = "scale(" + plateScale + "," + plateScale + ")";
+
+    plate.appendChild(svgEl("rect", { x: -20, y: -13, width: 40, height: 24, rx: 7, fill: "#FBF3E3", stroke: color, "stroke-width": 3 }));
+    var text = document.createElementNS(SVGNS, "text");
+    text.setAttribute("x", "0"); text.setAttribute("y", "0");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "central");
+    text.setAttribute("font-size", "17");
+    text.setAttribute("fill", "#2B2118");
+    text.textContent = String(idx + 1);
+    plate.appendChild(text);
+
+    inner.appendChild(plate);
+    g.appendChild(inner);
+    return g;
+  }
+
+  function positionHorse(idx, animate){
+    var pos = state.positions[idx] || 0;
+    var fraction = (pos / TRACK_LEN) * FINISH_FRACTION;
+    var len = laneLengths[idx];
+    var pt = lanePathEls[idx].getPointAtLength(fraction * len);
+    var el = document.getElementById("horse-" + idx);
+    if(!el) return;
+    el.style.transform = "translate(" + pt.x + "px," + pt.y + "px)";
+
+    // face the direction of travel: mirror horizontally rather than rotate,
+    // so the horse always stays upright and the number plate stays legible.
+    var deltaLen = Math.min(3, Math.max(1, len * 0.002));
+    var pt2 = lanePathEls[idx].getPointAtLength(Math.min(len, fraction * len + deltaLen));
+    var mirror = (pt2.x - pt.x) >= 0 ? 1 : -1;
+    var s = geometry.tokenR / HORSE_REF;
+    var bodyGroup = el.querySelector(".horse-body");
+    if(bodyGroup){ bodyGroup.style.transform = "scale(" + (s * mirror) + "," + s + ")"; }
+
+    var inner = el.querySelector(".horse-inner");
+    if(pos >= TRACK_LEN){ inner.classList.add("finished-anim"); }
+    else { inner.classList.remove("finished-anim"); }
+    if(animate){
+      inner.classList.remove("bump-anim");
+      void inner.offsetWidth; // restart animation
+      inner.classList.add("bump-anim");
+    }
+  }
+
+  function positionAllHorses(){
+    for(var i = 0; i < state.count; i++){ positionHorse(i, false); }
+  }
+
+  // ---------- race logic ----------
+
+  function setHorseCount(n){
+    n = Math.max(1, Math.min(MAX_HORSES, n));
+    var inProgress = state.positions.some(function(p){ return p > 0; });
+    if(inProgress && n !== state.count){
+      if(!confirm("Changing the number of horses starts a new race. Continue?")) return;
+    }
+    state.count = n;
+    state.positions = new Array(n).fill(0);
+    state.finishOrder = [];
+    undoStack = [];
+    undoBtn.disabled = true;
+    save();
+    renderAll();
+    setupPanel.classList.remove("open");
+  }
+
+  function moveHorse(idx, amount){
+    if(state.positions[idx] >= TRACK_LEN) return;
+    pushUndo();
+    state.positions[idx] = Math.min(TRACK_LEN, state.positions[idx] + amount);
+    if(state.positions[idx] === TRACK_LEN && state.finishOrder.indexOf(idx) === -1){
+      state.finishOrder.push(idx);
+    }
+    save();
+    positionHorse(idx, true);
+    renderDeck();
+    renderLeaderboard();
+  }
+
+  function undo(){
+    if(undoStack.length === 0) return;
+    var prev = undoStack.pop();
+    state.count = prev.count;
+    state.positions = prev.positions;
+    state.finishOrder = prev.finishOrder;
+    undoBtn.disabled = undoStack.length === 0;
+    save();
+    renderAll();
+  }
+
+  function resetRace(){
+    if(state.count && state.positions.some(function(p){ return p>0; })){
+      if(!confirm("Start a new race? All horses return to the start gate.")) return;
+    }
+    state.positions = new Array(state.count).fill(0);
+    state.finishOrder = [];
+    undoStack = [];
+    undoBtn.disabled = true;
+    save();
+    renderAll();
+  }
+
+  // ---------- rendering ----------
+
+  function renderDeck(){
+    if(state.count === 0){ controlDeck.style.display = "none"; return; }
+    controlDeck.style.display = "block";
+    deckGrid.innerHTML = "";
+    for(var i = 0; i < state.count; i++){
+      (function(idx){
+        var pos = state.positions[idx] || 0;
+        var finished = pos >= TRACK_LEN;
+        var rank = state.finishOrder.indexOf(idx);
+        var card = document.createElement("div");
+        card.className = "horse-card";
+
+        var badge = document.createElement("div");
+        badge.className = "badge";
+        badge.style.background = PALETTE[idx % PALETTE.length];
+        badge.textContent = idx + 1;
+
+        var label = document.createElement("div");
+        label.className = "pos-label";
+        label.textContent = finished ? ("Finished #" + (rank + 1)) : ("Space " + pos + " / " + TRACK_LEN);
+
+        var row = document.createElement("div");
+        row.className = "btn-row";
+
+        var correctBtn = document.createElement("button");
+        correctBtn.className = "btn-move btn-correct";
+        correctBtn.innerHTML = "Correct<br>+2";
+        correctBtn.disabled = finished;
+        correctBtn.onclick = function(){ moveHorse(idx, 2); };
+
+        var missBtn = document.createElement("button");
+        missBtn.className = "btn-move btn-miss";
+        missBtn.innerHTML = "Mistake<br>+1";
+        missBtn.disabled = finished;
+        missBtn.onclick = function(){ moveHorse(idx, 1); };
+
+        row.appendChild(correctBtn);
+        row.appendChild(missBtn);
+        card.appendChild(badge);
+        card.appendChild(label);
+        card.appendChild(row);
+        deckGrid.appendChild(card);
+      })(i);
+    }
+  }
+
+  function renderLeaderboard(){
+    var olds = leaderboard.querySelectorAll(".finisher");
+    olds.forEach(function(el){ el.remove(); });
+    if(state.finishOrder.length === 0){
+      leaderboardEmpty.style.display = "inline";
+      return;
+    }
+    leaderboardEmpty.style.display = "none";
+    var medals = ["🥇","🥈","🥉"];
+    state.finishOrder.forEach(function(idx, i){
+      var el = document.createElement("span");
+      el.className = "finisher";
+      var medal = medals[i] || ("#" + (i + 1));
+      el.innerHTML = "<span>" + medal + "</span><span>Horse #" + (idx + 1) + "</span>";
+      leaderboard.appendChild(el);
+    });
+  }
+
+  function renderAll(){
+    if(state.count === 0){
+      emptyState.style.display = "block";
+      board.classList.remove("show");
+      controlDeck.style.display = "none";
+    } else {
+      emptyState.style.display = "none";
+      board.classList.add("show");
+      buildTrack(state.count);
+      renderDeck();
+    }
+    renderLeaderboard();
+    countNote.textContent = state.count ? ("Currently racing: " + state.count + " horses.") : "";
+  }
+
+  // ---------- events ----------
+
+  toggleSetupBtn.addEventListener("click", function(){
+    horseCountInput.value = state.count || 6;
+    setupPanel.classList.toggle("open");
+  });
+  emptyAddBtn.addEventListener("click", function(){
+    setupPanel.classList.add("open");
+    horseCountInput.focus();
+  });
+  stepDown.addEventListener("click", function(){
+    horseCountInput.value = Math.max(1, (parseInt(horseCountInput.value,10) || 1) - 1);
+  });
+  stepUp.addEventListener("click", function(){
+    horseCountInput.value = Math.min(MAX_HORSES, (parseInt(horseCountInput.value,10) || 1) + 1);
+  });
+  setCountBtn.addEventListener("click", function(){
+    var n = parseInt(horseCountInput.value, 10);
+    if(isNaN(n)) n = 6;
+    setHorseCount(n);
+  });
+  undoBtn.addEventListener("click", undo);
+  resetBtn.addEventListener("click", resetRace);
+
+  // ---------- init ----------
+  load();
+  if(state.count === 0){ setupPanel.classList.add("open"); }
+  renderAll();
+
+})();
+</script>
+
+</body>
+</html>
