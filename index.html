@@ -1,426 +1,376 @@
-```javascript
-let players = [];
-let turnOrder = [];
-let currentTurnIndex = 0;
 
-let wordPool = {};
-let remainingWords = [];
-let usedWords = [];
-let previousRoundWords = [];
-let recentCombinations = [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JHS Learning Activities</title>
 
-let timer = null;
-let timeLeft = 30;
-let currentDiceRoll = 0;
+<meta name="apple-mobile-web-app-title" content="JHS Learning">  
+  
+  <!-- PWA + Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
 
-// DOM
-const startScreen = document.getElementById("start-screen");
-const setupForm = document.getElementById("setup-form");
-const playersContainer = document.getElementById("players-container");
-const addPlayerBtn = document.getElementById("add-player-btn");
-const chapterSelection = document.getElementById("chapter-selection");
-const gameScreen = document.getElementById("game-screen");
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json">
 
-const currentPlayerDisplay = document.getElementById("current-player");
-const diceResultMessage = document.getElementById("dice-result-message");
-const wordDisplayContainer = document.getElementById("word-display-container");
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="icons/eng-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-const rollDiceBtn = document.getElementById("roll-dice-btn");
-const startRoundBtn = document.getElementById("start-round-btn");
-const timerContainer = document.getElementById("timer-container");
-const timerDisplay = document.getElementById("time-left");
-
-const resultsDisplay = document.getElementById("results");
-const turnSummary = document.getElementById("turn-summary");
-const nextPlayerDisplay = document.getElementById("next-player");
-const nextRoundBtn = document.getElementById("next-round-btn");
-
-const winnerControls = document.getElementById("winner-controls");
-const blueWinsBtn = document.getElementById("blue-wins-btn");
-const redWinsBtn = document.getElementById("red-wins-btn");
-
-const winScreen = document.getElementById("win-screen");
-const winnerMessage = document.getElementById("winner-message");
-const restartGameBtn = document.getElementById("restart-game-btn");
-
-const MAX_WORDS_PER_ROUND = 5;
-const DICE_RESULTS = [0, 1];
-
-async function loadChapters() {
-  const res = await fetch("chapters.json");
-  wordPool = await res.json();
-
-  chapterSelection.innerHTML = "";
-
-  for (const chapter in wordPool) {
-    const box = document.createElement("div");
-    box.className = "chapter-box";
-
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.value = chapter;
-
-    const num = document.createElement("div");
-    num.textContent = chapter.replace("chapter", "");
-
-    box.appendChild(cb);
-    box.appendChild(num);
-
-    box.onclick = () => {
-      cb.checked = !cb.checked;
-      box.classList.toggle("selected", cb.checked);
-    };
-
-    chapterSelection.appendChild(box);
-  }
-}
-
-function addPlayerRow() {
-  const row = document.createElement("div");
-  row.className = "player-row";
-
-  const input = document.createElement("input");
-  input.placeholder = "Player name";
-
-  const select = document.createElement("select");
-  select.innerHTML = `
-    <option value="Blue">Blue Team</option>
-    <option value="Red">Red Team</option>
-  `;
-
-  row.append(input, select);
-  playersContainer.appendChild(row);
-}
-
-for (let i = 0; i < 4; i++) {
-  addPlayerRow();
-}
-
-addPlayerBtn.onclick = addPlayerRow;
-
-setupForm.onsubmit = e => {
-  e.preventDefault();
-
-  players = [];
-
-  document.querySelectorAll(".player-row").forEach(r => {
-    const name = r.querySelector("input").value.trim();
-    const team = r.querySelector("select").value;
-
-    if (name) {
-      players.push({ name, team });
+  <!-- Styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f9f9f9;
     }
-  });
-
-  const chapters = [
-    ...chapterSelection.querySelectorAll("input:checked")
-  ]
-    .map(cb => wordPool[cb.value])
-    .flat();
-
-  remainingWords = [...new Set(chapters)];
-  usedWords = [];
-  previousRoundWords = [];
-  recentCombinations = [];
-
-  buildTurnOrder();
-
-  currentTurnIndex = 0;
-
-  startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
-  winScreen.classList.add("hidden");
-
-  startTurn();
-};
-
-function buildTurnOrder() {
-  const blue = players.filter(p => p.team === "Blue");
-  const red = players.filter(p => p.team === "Red");
-
-  turnOrder = [];
-
-  const max = Math.max(blue.length, red.length);
-
-  for (let i = 0; i < max; i++) {
-    if (blue[i]) turnOrder.push(blue[i]);
-    if (red[i]) turnOrder.push(red[i]);
-  }
-}
-
-/* RANDOM WORD SELECTION */
-
-function selectWordsForRound() {
-  const allWords = [...new Set([...remainingWords, ...usedWords])];
-
-  if (allWords.length === 0) {
-    return [];
-  }
-
-  function shuffle(array) {
-    const shuffled = [...array];
-
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-
-      [shuffled[i], shuffled[j]] = [
-        shuffled[j],
-        shuffled[i]
-      ];
+    h1 {
+      text-align: center;
+      color: #333;
     }
-
-    return shuffled;
-  }
-
-  let bestSelection = null;
-  let bestScore = -Infinity;
-
-  for (let attempt = 0; attempt < 100; attempt++) {
-    const shuffled = shuffle(allWords);
-
-    const selection = shuffled.slice(
-      0,
-      Math.min(MAX_WORDS_PER_ROUND, allWords.length)
-    );
-
-    let score = 0;
-
-    // Strongly discourage words from the previous round
-    for (const word of selection) {
-      if (previousRoundWords.includes(word)) {
-        score -= 10;
-      }
+    h2 {
+      color: #444;
+      margin-top: 30px;
     }
-
-    // Discourage repeating recent combinations
-    const combinationKey = [...selection]
-      .sort()
-      .join("|");
-
-    if (recentCombinations.includes(combinationKey)) {
-      score -= 50;
+    ul {
+      list-style-type: none;
+      padding: 0;
     }
-
-    // Add a small random element so equally good
-    // combinations do not always get selected the same way.
-    score += Math.random() * 10;
-
-    if (score > bestScore) {
-      bestScore = score;
-      bestSelection = selection;
+    li {
+      margin: 10px 0;
     }
-  }
-
-  const selected =
-    bestSelection ||
-    shuffle(allWords).slice(
-      0,
-      Math.min(MAX_WORDS_PER_ROUND, allWords.length)
-    );
-
-  // Remember this combination
-  const combinationKey = [...selected]
-    .sort()
-    .join("|");
-
-  recentCombinations.push(combinationKey);
-
-  // Keep only the six most recent combinations
-  if (recentCombinations.length > 6) {
-    recentCombinations.shift();
-  }
-
-  // Remember the words from this round
-  previousRoundWords = [...selected];
-
-  return selected;
-}
-
-/* TURN */
-
-function startTurn() {
-  clearInterval(timer);
-
-  wordDisplayContainer.innerHTML = "";
-  resultsDisplay.classList.add("hidden");
-  timerContainer.classList.add("hidden");
-  winnerControls.classList.remove("hidden");
-
-  const p = turnOrder[currentTurnIndex];
-
-  currentPlayerDisplay.textContent =
-    `${p.team} Team – ${p.name}`;
-
-  diceResultMessage.textContent = "";
-
-  rollDiceBtn.style.display = "inline-block";
-  startRoundBtn.classList.add("hidden");
-}
-
-/* DICE */
-
-rollDiceBtn.onclick = () => {
-  currentDiceRoll =
-    DICE_RESULTS[
-      Math.floor(Math.random() * DICE_RESULTS.length)
-    ];
-
-  diceResultMessage.textContent =
-    `Dice Roll: ${currentDiceRoll}`;
-
-  rollDiceBtn.style.display = "none";
-  startRoundBtn.classList.remove("hidden");
-};
-
-/* START ROUND */
-
-startRoundBtn.onclick = () => {
-  startRoundBtn.classList.add("hidden");
-
-  timeLeft = 30;
-  timerDisplay.textContent = timeLeft;
-  timerContainer.classList.remove("hidden");
-
-  const selected = selectWordsForRound();
-
-  const rows = [];
-  wordDisplayContainer.innerHTML = "";
-
-  selected.forEach(word => {
-    const row = document.createElement("div");
-    row.className = "word-row";
-
-    const span = document.createElement("span");
-    span.textContent = word;
-
-    const btn = document.createElement("button");
-    btn.textContent = "Correct";
-
-    btn.onclick = () => {
-      btn.disabled = true;
-      row.dataset.correct = "true";
-    };
-
-    row.append(span, btn);
-    wordDisplayContainer.appendChild(row);
-
-    rows.push(row);
-  });
-
-  timer = setInterval(() => {
-    timeLeft--;
-
-    timerDisplay.textContent = timeLeft;
-
-    if (timeLeft <= 0) {
-      clearInterval(timer);
-
-      rows.forEach(r => {
-        r.querySelector("button").disabled = true;
-      });
-
-      endRound(rows);
+    a {
+      text-decoration: none;
+      color: #0066cc;
     }
-  }, 1000);
-};
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 
-/* END ROUND */
+  
+<body>
+  <h1>JHS Teaching Activities</h1>
 
-function endRound(rows) {
-  clearInterval(timer);
+  <h2>🌍 Geography</h2>
+  <ul>
 
-  timerContainer.classList.add("hidden");
+ <li><a href="civics/30seconds2026/">30 Seconds 2026 ver 2</a></li>
+    
+<li><a href="geography/flashcardsapp/">Flash Cards 1</a></li>
 
-  const correct = rows.filter(
-    r => r.dataset.correct === "true"
-  ).length;
+   <li><a href="geography/horse/">Derby</a></li>
 
-  const spaces = Math.max(
-    0,
-    correct - currentDiceRoll
-  );
+ <li><a href="geography/newhorse/">Derby 2</a></li>
+    
+ <li><a href="geography/classroomhorse/">Derby 4</a></li>
 
-  const player = turnOrder[currentTurnIndex];
+<li><a href="geography/classroomhorsever2/">Derby 5</a></li>
 
-  turnSummary.textContent =
-    `Correct: ${correct} | Dice: ${currentDiceRoll} | Move: ${spaces} spaces`;
+    <li><a href="geography/claudehorses/">Derby 6</a></li>
 
-  nextPlayerDisplay.textContent = "";
+    <li><a href="geography/morecompacthorses/">Derby 7</a></li>
+    
+<li><a href="geography/geographywordsearch/">Geography Word Search</a></li> 
 
-  currentTurnIndex =
-    (currentTurnIndex + 1) % turnOrder.length;
 
-  const next = turnOrder[currentTurnIndex];
+    <li><a href="geography/srsver2/">Smart Review</a></li> 
 
-  nextPlayerDisplay.textContent =
-    `Next: ${next.team} Team – ${next.name}`;
+<li><a href="geography/3minutechallengever7/">3 Minute Challenge</a></li> 
 
-  resultsDisplay.classList.remove("hidden");
+   <li><a href="geography/ch1newwords/">Chapter 1 New Words Quiz</a></li> 
+
+<li><a href="geography/ch1listenandlearn/">Chapter 1 Listen and Learn</a></li> 
+
+<li><a href="geography/ch2newwords/">Chapter 2 New Words Quiz</a></li>     
+
+<li><a href="geography/ch2listenandlearn/">Chapter 2 Listen and Learn</a></li>    
+
+<li><a href="geography/ch3newwords/">Chapter 3 New Words Quiz</a></li> 
+
+<li><a href="geography/ch3listenandlearn/">Chapter 3 Listen and Learn</a></li>    
+    
+    
+    <li><a href="geography/ch7listening/">Chapter 7 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch8listening/">Chapter 8 New Words Quiz</a></li>    
+
+    <li><a href="geography/ch8listenandlearn/">Chapter 8 Listen and Learn</a></li> 
+
+    <li><a href="geography/ch9newwords/">Chapter 9 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch9listenandlearn/">Chapter 9 Listen and Learn</a></li>   
+
+    <li><a href="geography/ch10newwords/">Chapter 10 New Words Quiz</a></li>     
+
+    <li><a href="geography/ch10listenandlearn/">Chapter 10 Listen and Learn</a></li>   
+    
+   <li><a href="geography/ch11newwords/">Chapter 11 New Words Quiz</a></li>         
+
+     <li><a href="geography/ch11listenandlearn/">Chapter 11 Listen and Learn</a></li> 
+
+<li><a href="geography/ch12newwords/">Chapter 12 New Words Quiz</a></li>             
+
+       <li><a href="geography/ch12listenandlearn/">Chapter 12 Listen and Learn</a></li> 
+
+<li><a href="geography/ch13newwords/">Chapter 13 New Words Quiz</a></li>    
+
+ <li><a href="geography/ch13listenandlearn/">Chapter 13 Listen and Learn</a></li> 
+
+<li><a href="geography/ch15newwords/">Chapter 15 New Words Quiz</a></li>        
+
+    <li><a href="geography/ch15listenandlearn/">Chapter 15 Listen and Learn</a></li> 
+
+<li><a href="geography/ch16newwords/">Chapter 16 New Words Quiz</a></li>   
+    
+<li><a href="geography/ch16listenandlearn/">Chapter 16 Listen and Learn</a></li> 
+
+<li><a href="geography/ch17newwords/">Chapter 17 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch17listenandlearn/">Chapter 17 Listen and Learn</a></li> 
+
+<li><a href="geography/ch18newwords/">Chapter 18 New Words Quiz</a></li>     
+
+   <li><a href="geography/ch18listenandlearn/">Chapter 18 Listen and Learn</a></li> 
+
+    <li><a href="geography/ch19newwords/">Chapter 19 New Words Quiz</a></li>     
+
+<li><a href="geography/ch19listenandlearn/">Chapter 19 Listen and Learn</a></li> 
+
+ <li><a href="geography/ch20newwords/">Chapter 20 New Words Quiz</a></li>     
+
+    <li><a href="geography/ch20listenandlearn/">Chapter 20 Listen and Learn</a></li> 
+
+ <li><a href="geography/ch21newwords/">Chapter 21 New Words Quiz</a></li>         
+
+<li><a href="geography/ch21listenandlearn/">Chapter 21 Listen and Learn</a></li>     
+    
+    <li><a href="geography/ch29mp3/">Chapter 29 New Words Quiz</a></li>
+    
+    <li><a href="geography/ch29freetradesim/">Chapter 29 Free Trade Simulation</a></li>
+
+    <li><a href="geography/ch30listening/">Chapter 30 New Words Quiz</a></li>  
+
+   <li><a href="geography/ch30listenandlearn/">Chapter 30 Listen and Learn</a></li>  
+
+   <li><a href="geography/ch31listening/">Chapter 31 New Words Quiz</a></li> 
+   
+    <li><a href="geography/ch31listenandlearn/">Chapter 31 Listen and Learn</a></li>  
+
+ <li><a href="geography/ch32newwords/">Chapter 32 New Words Quiz</a></li>     
+  
+ <li><a href="geography/ch32listenandlearn/">Chapter 32 Listen and Learn</a></li>     
+
+ <li><a href="geography/ch33newwords/">Chapter 33 New Words Quiz</a></li> 
+    
+<li><a href="geography/ch33listenandlearn/">Chapter 33 Listen and Learn</a></li>     
+
+ <li><a href="geography/ch34newwords/">Chapter 34 New Words Quiz</a></li> 
+
+  <li><a href="geography/ch34listenandlearn/">Chapter 34 Listen and Learn</a></li>     
+
+ <li><a href="geography/ch35newwords/">Chapter 35 New Words Quiz</a></li> 
+
+ <li><a href="geography/ch35listenandlearn/">Chapter 35 Listen and Learn</a></li> 
+
+<li><a href="geography/ch36newwords/">Chapter 36 New Words Quiz</a></li> 
+
+    <li><a href="geography/ch36listenandlearn/">Chapter 36 Listen and Learn</a></li> 
+
+<li><a href="geography/ch37newwords/">Chapter 37 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch37listenandlearn/">Chapter 37 Listen and Learn</a></li> 
+
+<li><a href="geography/ch38newwords/">Chapter 38 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch38listenandlearn/">Chapter 38 Listen and Learn</a></li> 
+
+<li><a href="geography/ch39newwords/">Chapter 39 New Words Quiz</a></li>   
+
+     <li><a href="geography/ch39listenandlearn/">Chapter 39 Listen and Learn</a></li> 
+
+    <li><a href="geography/ch40newwords/">Chapter 40 New Words Quiz</a></li>   
+
+    <li><a href="geography/ch40listenandlearn/">Chapter 40 Listen and Learn</a></li> 
+    
+<li><a href="civics/2609v4/">True and False Demo 5</a></li>         
+
+    <li><a href="civics/0210v1/">True and False Demo 6</a></li>      
+
+      <li><a href="geography/wordsearch3/">Word Search 26</a></li>       
+    
+    
+  </ul>
+
+  <h2>🏛 Civics</h2>
+  <ul>
+
+<li><a href="civics/cups/">Cups 2</a></li>  
+
+<li><a href="civics/newercups/">Newer Cups</a></li>    
+
+<li><a href="civics/newercupsgame/">Newer Cups 2</a></li>        
+    
+    <li><a href="civics/smartreviewcivics/">Smart Review</a></li>  
+    
+ <li><a href="civics/30secondswarmup/">30 Seconds Warm Up</a></li>  
+    
+<li><a href="civics/newboardgame/">30 Seconds Board Game</a></li> 
+
+   <li><a href="civics/ch1newwords/">Chapter 1 New Words Quiz</a></li>  
+
+  <li><a href="civics/ch1listenandlearn/">Chapter 1 Listen and Learn</a></li>     
+    
+ <li><a href="civics/ch2newwords/">Chapter 2 New Words Quiz</a></li>  
+
+  <li><a href="civics/ch2listenandlearn/">Chapter 2 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch3newwords/">Chapter 3 New Words Quiz</a></li>      
+
+ <li><a href="civics/ch3listenandlearn/">Chapter 3 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch4newwords/">Chapter 4 New Words Quiz</a></li> 
+
+<li><a href="civics/ch4listenandlearn/">Chapter 4 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch5newwords/">Chapter 5 New Words Quiz</a></li> 
+
+<li><a href="civics/ch5listenandlearn/">Chapter 5 Listen and Learn</a></li>    
+
+<li><a href="civics/ch6newwords/">Chapter 6 New Words Quiz</a></li>     
+
+<li><a href="civics/ch6listenandlearn/">Chapter 6 Listen and Learn</a></li>      
+
+<li><a href="civics/ch7newwords/">Chapter 7 New Words Quiz</a></li>     
+
+    <li><a href="civics/ch7listenandlearn/">Chapter 7 Listen and Learn</a></li>  
+
+<li><a href="civics/ch8newwords/">Chapter 8 New Words Quiz</a></li>     
+
+   <li><a href="civics/ch8listenandlearn/">Chapter 8 Listen and Learn</a></li>  
+    
+    
+<li><a href="civics/ch9newwords/">Chapter 9 New Words Quiz</a></li>       
+
+<li><a href="civics/ch9listenandlearn/">Chapter 9 Listen and Learn</a></li>
+
+<li><a href="civics/ch11newwords/">Chapter 10 New Words Quiz</a></li>  
+
+<li><a href="civics/ch10listenandlearn/">Chapter 10 Listen and Learn</a></li>
+
+<li><a href="civics/thisisch11newwords/">Chapter 11 New Words Quiz</a></li>  
+    
+<li><a href="civics/ch11listenandlearn/">Chapter 11 Listen and Learn</a></li>
+
+    
+    <li><a href="civics/ch12alternate/">Chapter 12 New Words Quiz</a></li>   
+
+     <li><a href="civics/ch13listening/">Chapter 13 New Words Quiz</a></li>
+    
+    <li><a href="civics/borrowingsim/">Borrowing Cost Simulator</a></li>  
+
+   <li><a href="civics/ch14listening/">Chapter 14 New Words Quiz</a></li> 
+
+    <li><a href="civics/ch14listenandlearn/">Chapter 14 Listen and Learn</a></li>     
+
+     <li><a href="civics/ch15newwords/">Chapter 15 New Words Quiz</a></li>     
+
+  <li><a href="civics/ch15listenandlearn/">Chapter 15 Listen and Learn</a></li> 
+
+ <li><a href="civics/ch16newwords/">Chapter 16 New Words Quiz</a></li>     
+
+ <li><a href="civics/ch16listenandlearn/">Chapter 16 Listen and Learn</a></li> 
+
+  <li><a href="civics/ch17newwords/">Chapter 17 New Words Quiz</a></li>  
+
+<li><a href="civics/ch17listenandlearn/">Chapter 17 Listen and Learn</a></li> 
+
+    <li><a href="civics/ch18newwords/">Chapter 18 New Words Quiz</a></li>  
+
+    <li><a href="civics/ch18listenandlearn/">Chapter 18 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch19newwords/">Chapter 19 New Words Quiz</a></li>  
+
+  <li><a href="civics/ch19listenandlearn/">Chapter 19 Listen and Learn</a></li>     
+
+<li><a href="civics/ch20newwords/">Chapter 20 New Words Quiz</a></li>     
+
+     <li><a href="civics/ch20listenandlearn/">Chapter 20 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch21newwords/">Chapter 21 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch21listenandlearn/">Chapter 21 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch22newwords/">Chapter 22 New Words Quiz</a></li>    
+
+    <li><a href="civics/ch22listenandlearn/">Chapter 22 Listen and Learn</a></li> 
+
+    <li><a href="civics/ch23newwords/">Chapter 23 New Words Quiz</a></li>    
+
+    <li><a href="civics/ch23listenandlearn/">Chapter 23 Listen and Learn</a></li>     
+
+    <li><a href="civics/ch24newwords/">Chapter 24 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch24listenandlearn/">Chapter 24 Listen and Learn</a></li>         
+ 
+ <li><a href="civics/ch25newwords/">Chapter 25 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch25listenandlearn/">Chapter 25 Listen and Learn</a></li>     
+
+ <li><a href="civics/ch26newwords/">Chapter 26 New Words Quiz</a></li>    
+
+ <li><a href="civics/ch26listenandlearn/">Chapter 26 Listen and Learn</a></li>     
+    
+  <li><a href="geography/speechtest/">Speech Test 5</a></li>   
+
+<li><a href="geography/speakingpractice/">Speaking Practice Ver 4.7</a></li>   
+  </ul>
+
+<h2>📐 Geometry 1</h2>
+<ul>
+  <li><a href="geometry/trianglegenerator/">Triangle Generator</a></li>
+  <li><a href="geometry/geometrywordsearch/">Geometry Word Search</a></li>
+  <li><a href="geometry/geometrysrs/">Smart Review Geometry</a></li>
+  <li><a href="geometry/30secondchallenge/">30 Seconds Warm Up</a></li>
+  <li><a href="geometry/geometry1/">Geometry 1 New Words</a></li>
+  <li><a href="geometry/geometryfirstyear/ch2newwords/">Geometry 2 New Words</a></li>
+  <li><a href="geometry/geometryfirstyear/ch2listenandlearn/">Geometry 2 Listen and Learn</a></li>   
+  <li><a href="geometry/geometryfirstyear/ch3newwords/">Geometry 3 New Words</a></li>  
+ <li><a href="geometry/geometryfirstyear/ch3listenandlearn/">Geometry 3 Listen and Learn</a></li>  
+ <li><a href="geometry/geometryfirstyear/ch4newwords/">Geometry 4 New Words</a></li>  
+<li><a href="geometry/geometryfirstyear/ch4listenandlearn/">Geometry 4 Listen and Learn</a></li>  
+
+  
+  
+</ul>
+
+<h2>📐 Geometry 2</h2>
+<ul>
+
+<li><a href="geometry/geometrysecondyear/geometrysecondyearsmartreview/">Smart Review</a></li>  
+
+<li><a href="geometry/geometrysecondyear/angle challenge/">Angle Challenge</a></li>  
+  
+  
+  <li><a href="geometry/geometrysecondyear/ch1newwords/">Geometry 1 New Words</a></li>
+
+  <li><a href="geometry/geometrysecondyear/ch1listenandlearn/">Geometry 1 Listen and Learn</a></li>
+
+ <li><a href="geometry/geometrysecondyear/ch2newwords/">Geometry 2 New Words</a></li>
+  
+<li><a href="geometry/geometrysecondyear/ch2listenandlearn/">Geometry 2 Listen and Learn</a></li> 
+  
+</ul>
+
+<!-- Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js");
 }
+</script>
 
-/* NEXT ROUND */
-
-nextRoundBtn.onclick = startTurn;
-
-/* WINNER BUTTONS */
-
-blueWinsBtn.onclick = () => {
-  declareWinner("Blue");
-};
-
-redWinsBtn.onclick = () => {
-  declareWinner("Red");
-};
-
-function declareWinner(team) {
-  clearInterval(timer);
-
-  resultsDisplay.classList.add("hidden");
-  wordDisplayContainer.innerHTML = "";
-  timerContainer.classList.add("hidden");
-
-  winnerMessage.textContent =
-    `${team} Team wins! 🎉`;
-
-  winScreen.classList.remove("hidden");
-}
-
-/* RESTART */
-
-restartGameBtn.onclick = () => {
-  clearInterval(timer);
-
-  players = [];
-  turnOrder = [];
-  currentTurnIndex = 0;
-
-  wordPool = {};
-  remainingWords = [];
-  usedWords = [];
-  previousRoundWords = [];
-  recentCombinations = [];
-
-  timeLeft = 30;
-  currentDiceRoll = 0;
-
-  timerDisplay.textContent = "30";
-  currentPlayerDisplay.textContent = "";
-  diceResultMessage.textContent = "";
-
-  wordDisplayContainer.innerHTML = "";
-
-  resultsDisplay.classList.add("hidden");
-  timerContainer.classList.add("hidden");
-  startRoundBtn.classList.add("hidden");
-  winScreen.classList.add("hidden");
-
-  rollDiceBtn.style.display = "inline-block";
-
-  startScreen.classList.remove("hidden");
-  gameScreen.classList.add("hidden");
-
-  loadChapters();
-};
-
-loadChapters();
-```
+</body>
+</html>
