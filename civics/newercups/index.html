@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentence Order — Cup Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- CHAPTER SELECT SCREEN -->
+<section id="screen-select" class="screen screen-select">
+  <div class="select-wrap">
+    <p class="eyebrow">Sentence Order</p>
+    <h1>Pick a chapter</h1>
+    <p class="select-sub">Students rebuild the sentence from its colored chunks. Choose a set to begin.</p>
+    <div id="chapter-grid" class="chapter-grid"></div>
+  </div>
+</section>
+
+<!-- GAME SCREEN -->
+<section id="screen-game" class="screen screen-game" hidden>
+
+  <header class="game-topbar">
+    <button id="btn-change-chapter" class="btn btn-ghost">← Chapters</button>
+    <div class="topbar-center">
+      <span id="chapter-label" class="chapter-label"></span>
+      <span id="progress-label" class="progress-label"></span>
+    </div>
+    <div class="topbar-spacer" aria-hidden="true"></div>
+  </header>
+
+  <main class="stage">
+    <div id="chunk-row" class="chunk-row"></div>
+
+    <div id="answer-row" class="chunk-row answer-row" hidden></div>
+  </main>
+
+  <footer class="controls">
+    <div class="control-group timer-group">
+      <div class="timer-display" id="timer-display">0:30</div>
+      <div class="timer-buttons">
+        <button class="btn btn-choice" data-duration="30" id="btn-30">30 sec</button>
+        <button class="btn btn-choice" data-duration="60" id="btn-60">1 min</button>
+      </div>
+      <div class="timer-actions">
+        <button class="btn btn-primary" id="btn-timer-start">Start</button>
+        <button class="btn btn-ghost" id="btn-timer-reset">Reset</button>
+      </div>
+    </div>
+
+    <div class="control-group main-actions">
+      <button class="btn btn-secondary" id="btn-show-answer">Show answer</button>
+      <button class="btn btn-primary btn-large" id="btn-next">Next sentence</button>
+    </div>
+  </footer>
+
+</section>
+
+<audio id="beep-sound" preload="auto"></audio>
+
+<script src="app.js"></script>
+</body>
+</html>
