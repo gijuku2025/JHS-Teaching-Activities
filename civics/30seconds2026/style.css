@@ -1,0 +1,189 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* PLAYER SETUP */
+
+#players-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.player-row {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 10px;
+}
+
+.player-row input,
+.player-row select {
+  padding: 8px;
+}
+
+/* GAME */
+
+#current-turn {
+  margin-bottom: 20px;
+}
+
+#dice-result-message {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#word-display-container {
+  margin: 20px 0;
+}
+
+.word-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.word-row button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.word-row button:disabled {
+  background-color: #ccc;
+  color: #666;
+  border: 1px solid #aaa;
+  cursor: not-allowed;
+}
+
+#timer-container {
+  text-align: center;
+}
+
+#timer-container h3 {
+  font-size: 24px;
+}
+
+#controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#controls button {
+  font-size: 18px;
+  padding: 14px 28px;
+  margin: 5px;
+}
+
+/* RESULTS */
+
+#results {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 2px solid #ddd;
+}
+
+#turn-summary {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#next-player {
+  font-size: 18px;
+}
+
+#winner-controls {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+#winner-controls button {
+  font-size: 18px;
+  padding: 14px 20px;
+  margin: 5px;
+}
+
+#blue-wins-btn {
+  background: #2b6cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#red-wins-btn {
+  background: #e63946;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+/* WIN SCREEN */
+
+#win-screen {
+  text-align: center;
+  margin-top: 30px;
+  padding: 30px 10px;
+  border-top: 2px solid #ddd;
+}
+
+#winner-message {
+  font-size: 32px;
+}
+
+#restart-game-btn {
+  font-size: 20px;
+  padding: 14px 30px;
+  margin-top: 15px;
+}
+
+/* CHAPTER GRID */
+
+#chapter-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.chapter-box {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 12px 0;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  background: #f9f9f9;
+  font-weight: bold;
+}
+
+.chapter-box input {
+  display: none;
+}
+
+.chapter-box.selected {
+  background: #2b6cff;
+  color: white;
+}
