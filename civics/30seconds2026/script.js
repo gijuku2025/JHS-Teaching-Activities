@@ -1,11 +1,8 @@
-```javascript
 let players = [];
 let turnOrder = [];
 let currentTurnIndex = 0;
 
 let wordPool = {};
-let remainingWords = [];
-let usedWords = [];
 let previousRoundWords = [];
 let recentCombinations = [];
 
@@ -13,7 +10,14 @@ let timer = null;
 let timeLeft = 30;
 let currentDiceRoll = 0;
 
-// DOM
+const MAX_WORDS_PER_ROUND = 5;
+const DICE_RESULTS = [0, 1];
+
+
+/* =========================
+   DOM
+========================= */
+
 const startScreen = document.getElementById("start-screen");
 const setupForm = document.getElementById("setup-form");
 const playersContainer = document.getElementById("players-container");
@@ -21,75 +25,70 @@ const addPlayerBtn = document.getElementById("add-player-btn");
 const chapterSelection = document.getElementById("chapter-selection");
 const gameScreen = document.getElementById("game-screen");
 
-const currentPlayerDisplay = document.getElementById("current-player");
-const diceResultMessage = document.getElementById("dice-result-message");
-const wordDisplayContainer = document.getElementById("word-display-container");
+const currentPlayerDisplay =
+  document.getElementById("current-player");
 
-const rollDiceBtn = document.getElementById("roll-dice-btn");
-const startRoundBtn = document.getElementById("start-round-btn");
-const timerContainer = document.getElementById("timer-container");
-const timerDisplay = document.getElementById("time-left");
+const diceResultMessage =
+  document.getElementById("dice-result-message");
 
-const resultsDisplay = document.getElementById("results");
-const turnSummary = document.getElementById("turn-summary");
-const nextPlayerDisplay = document.getElementById("next-player");
-const nextRoundBtn = document.getElementById("next-round-btn");
+const wordDisplayContainer =
+  document.getElementById("word-display-container");
 
-const winnerControls = document.getElementById("winner-controls");
-const blueWinsBtn = document.getElementById("blue-wins-btn");
-const redWinsBtn = document.getElementById("red-wins-btn");
+const rollDiceBtn =
+  document.getElementById("roll-dice-btn");
 
-const winScreen = document.getElementById("win-screen");
-const winnerMessage = document.getElementById("winner-message");
-const restartGameBtn = document.getElementById("restart-game-btn");
+const startRoundBtn =
+  document.getElementById("start-round-btn");
 
-const MAX_WORDS_PER_ROUND = 5;
-const DICE_RESULTS = [0, 1];
+const timerContainer =
+  document.getElementById("timer-container");
 
+const timerDisplay =
+  document.getElementById("time-left");
 
-/* =========================
-   CHAPTERS
-========================= */
+const resultsDisplay =
+  document.getElementById("results");
 
-async function loadChapters() {
-  const res = await fetch("chapters.json");
-  wordPool = await res.json();
+const turnSummary =
+  document.getElementById("turn-summary");
 
-  chapterSelection.innerHTML = "";
+const nextPlayerDisplay =
+  document.getElementById("next-player");
 
-  for (const chapter in wordPool) {
-    const box = document.createElement("div");
-    box.className = "chapter-box";
+const nextRoundBtn =
+  document.getElementById("next-round-btn");
 
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.value = chapter;
+const winnerControls =
+  document.getElementById("winner-controls");
 
-    const num = document.createElement("div");
-    num.textContent = chapter.replace("chapter", "");
+const blueWinsBtn =
+  document.getElementById("blue-wins-btn");
 
-    box.appendChild(cb);
-    box.appendChild(num);
+const redWinsBtn =
+  document.getElementById("red-wins-btn");
 
-    box.onclick = () => {
-      cb.checked = !cb.checked;
-      box.classList.toggle("selected", cb.checked);
-    };
+const winScreen =
+  document.getElementById("win-screen");
 
-    chapterSelection.appendChild(box);
-  }
-}
+const winnerMessage =
+  document.getElementById("winner-message");
+
+const restartGameBtn =
+  document.getElementById("restart-game-btn");
 
 
 /* =========================
-   PLAYERS
+   PLAYER SETUP
 ========================= */
 
 function addPlayerRow() {
+
   const row = document.createElement("div");
   row.className = "player-row";
 
   const input = document.createElement("input");
+
+  input.type = "text";
   input.placeholder = "Player name";
 
   const select = document.createElement("select");
@@ -99,11 +98,15 @@ function addPlayerRow() {
     <option value="Red">Red Team</option>
   `;
 
-  row.append(input, select);
+  row.appendChild(input);
+  row.appendChild(select);
+
   playersContainer.appendChild(row);
 }
 
-function createInitialPlayerRows() {
+
+function createPlayerRows() {
+
   playersContainer.innerHTML = "";
 
   for (let i = 0; i < 4; i++) {
@@ -111,53 +114,222 @@ function createInitialPlayerRows() {
   }
 }
 
-createInitialPlayerRows();
 
-addPlayerBtn.onclick = addPlayerRow;
+/* =========================
+   CHAPTERS
+========================= */
+
+async function loadChapters() {
+
+  try {
+
+    const response = await fetch("chapters.json");
+
+    if (!response.ok) {
+      throw new Error("Could not load chapters.json");
+    }
+
+    wordPool = await response.json();
+
+    chapterSelection.innerHTML = "";
+
+    Object.keys(wordPool).forEach(chapter => {
+
+      const box =
+        document.createElement("div");
+
+      box.className =
+        "chapter-box";
+
+
+      const checkbox =
+        document.createElement("input");
+
+      checkbox.type =
+        "checkbox";
+
+      checkbox.value =
+        chapter;
+
+
+      const number =
+        document.createElement("div");
+
+      number.textContent =
+        chapter.replace("chapter", "");
+
+
+      box.appendChild(checkbox);
+      box.appendChild(number);
+
+
+      box.addEventListener("click", event => {
+
+        if (event.target !== checkbox) {
+          checkbox.checked =
+            !checkbox.checked;
+        }
+
+        box.classList.toggle(
+          "selected",
+          checkbox.checked
+        );
+      });
+
+
+      chapterSelection.appendChild(box);
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    chapterSelection.innerHTML =
+      "<p>Could not load chapters.</p>";
+  }
+}
 
 
 /* =========================
    START GAME
 ========================= */
 
-setupForm.onsubmit = e => {
-  e.preventDefault();
+function startGame(event) {
+
+  event.preventDefault();
 
   players = [];
 
-  document.querySelectorAll(".player-row").forEach(r => {
-    const name = r.querySelector("input").value.trim();
-    const team = r.querySelector("select").value;
+
+  const rows =
+    playersContainer.querySelectorAll(
+      ".player-row"
+    );
+
+
+  rows.forEach(row => {
+
+    const input =
+      row.querySelector("input");
+
+    const select =
+      row.querySelector("select");
+
+
+    const name =
+      input.value.trim();
+
+    const team =
+      select.value;
+
 
     if (name) {
+
       players.push({
-        name,
-        team
+        name: name,
+        team: team
       });
+
     }
+
   });
 
-  const chapters = [
-    ...chapterSelection.querySelectorAll("input:checked")
-  ]
-    .map(cb => wordPool[cb.value])
-    .flat();
 
-  remainingWords = [...new Set(chapters)];
-  usedWords = [];
+  if (players.length < 2) {
+
+    alert(
+      "Please enter at least two players."
+    );
+
+    return;
+  }
+
+
+  const selectedChapterInputs =
+    chapterSelection.querySelectorAll(
+      "input:checked"
+    );
+
+
+  if (selectedChapterInputs.length === 0) {
+
+    alert(
+      "Please select at least one chapter."
+    );
+
+    return;
+  }
+
+
+  let selectedWords = [];
+
+
+  selectedChapterInputs.forEach(
+    checkbox => {
+
+      const chapterWords =
+        wordPool[checkbox.value];
+
+
+      if (Array.isArray(chapterWords)) {
+
+        selectedWords.push(
+          ...chapterWords
+        );
+
+      }
+
+    }
+  );
+
+
+  selectedWords =
+    [...new Set(selectedWords)];
+
+
+  if (selectedWords.length === 0) {
+
+    alert(
+      "The selected chapters contain no words."
+    );
+
+    return;
+  }
+
+
+  // Store the complete word pool.
+
+  wordPool.currentGameWords =
+    selectedWords;
+
+
   previousRoundWords = [];
+
   recentCombinations = [];
+
 
   buildTurnOrder();
 
+
   currentTurnIndex = 0;
 
-  startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
-  winScreen.classList.add("hidden");
+
+  startScreen.classList.add(
+    "hidden"
+  );
+
+  gameScreen.classList.remove(
+    "hidden"
+  );
+
+  winScreen.classList.add(
+    "hidden"
+  );
+
 
   startTurn();
-};
+}
 
 
 /* =========================
@@ -165,151 +337,262 @@ setupForm.onsubmit = e => {
 ========================= */
 
 function buildTurnOrder() {
-  const blue = players.filter(p => p.team === "Blue");
-  const red = players.filter(p => p.team === "Red");
+
+  const bluePlayers =
+    players.filter(
+      player =>
+        player.team === "Blue"
+    );
+
+
+  const redPlayers =
+    players.filter(
+      player =>
+        player.team === "Red"
+    );
+
 
   turnOrder = [];
 
-  const max = Math.max(blue.length, red.length);
 
-  for (let i = 0; i < max; i++) {
-    if (blue[i]) turnOrder.push(blue[i]);
-    if (red[i]) turnOrder.push(red[i]);
+  const longest =
+    Math.max(
+      bluePlayers.length,
+      redPlayers.length
+    );
+
+
+  for (
+    let i = 0;
+    i < longest;
+    i++
+  ) {
+
+    if (bluePlayers[i]) {
+      turnOrder.push(
+        bluePlayers[i]
+      );
+    }
+
+
+    if (redPlayers[i]) {
+      turnOrder.push(
+        redPlayers[i]
+      );
+    }
+
   }
 }
 
 
 /* =========================
-   RANDOM WORD SELECTION
+   SHUFFLE
+========================= */
+
+function shuffle(array) {
+
+  const result =
+    [...array];
+
+
+  for (
+    let i = result.length - 1;
+    i > 0;
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random() * (i + 1)
+      );
+
+
+    [
+      result[i],
+      result[j]
+    ] =
+    [
+      result[j],
+      result[i]
+    ];
+
+  }
+
+
+  return result;
+}
+
+
+/* =========================
+   SELECT WORDS
 ========================= */
 
 function selectWordsForRound() {
 
-  const allWords = [
-    ...new Set([
-      ...remainingWords,
-      ...usedWords
-    ])
-  ];
+  const allWords =
+    wordPool.currentGameWords || [];
+
 
   if (allWords.length === 0) {
     return [];
   }
 
 
-  function shuffle(array) {
+  const numberToSelect =
+    Math.min(
+      MAX_WORDS_PER_ROUND,
+      allWords.length
+    );
 
-    const shuffled = [...array];
 
-    for (let i = shuffled.length - 1; i > 0; i--) {
+  /*
+     IMPORTANT:
 
-      const j = Math.floor(
-        Math.random() * (i + 1)
+     If there are at least 5 words
+     that were NOT used in the previous
+     round, use those first.
+
+     This guarantees that consecutive
+     rounds do not contain the same
+     words when the chapter has 10 words.
+  */
+
+  let availableWords =
+    allWords.filter(
+      word =>
+        !previousRoundWords.includes(word)
+    );
+
+
+  /*
+     If there aren't enough unused words,
+     fill the remaining spaces from the
+     complete pool.
+  */
+
+  if (
+    availableWords.length <
+    numberToSelect
+  ) {
+
+    const extraWords =
+      shuffle(
+        allWords.filter(
+          word =>
+            !availableWords.includes(word)
+        )
       );
 
-      [shuffled[i], shuffled[j]] =
-        [shuffled[j], shuffled[i]];
-    }
 
-    return shuffled;
+    availableWords =
+      [
+        ...availableWords,
+        ...extraWords
+      ];
+
   }
 
 
-  let bestSelection = null;
-  let bestScore = -Infinity;
+  /*
+     Shuffle the available words so
+     the order changes every round.
+  */
 
-
-  for (let attempt = 0; attempt < 100; attempt++) {
-
-    const shuffled = shuffle(allWords);
-
-    const selection = shuffled.slice(
+  let selection =
+    shuffle(
+      availableWords
+    ).slice(
       0,
-      Math.min(
-        MAX_WORDS_PER_ROUND,
-        allWords.length
-      )
+      numberToSelect
     );
 
 
-    let score = 0;
+  /*
+     Try to avoid repeating an entire
+     five-word combination from the
+     recent rounds.
+  */
+
+  const makeKey =
+    words =>
+      [...words]
+        .sort()
+        .join("|");
 
 
-    // Avoid words from the immediately
-    // previous round.
+  const currentKey =
+    makeKey(selection);
 
-    for (const word of selection) {
 
-      if (previousRoundWords.includes(word)) {
-        score -= 10;
+  if (
+    recentCombinations.includes(
+      currentKey
+    )
+  ) {
+
+    for (
+      let attempt = 0;
+      attempt < 50;
+      attempt++
+    ) {
+
+      const alternative =
+        shuffle(
+          availableWords
+        ).slice(
+          0,
+          numberToSelect
+        );
+
+
+      const alternativeKey =
+        makeKey(alternative);
+
+
+      if (
+        !recentCombinations.includes(
+          alternativeKey
+        )
+      ) {
+
+        selection =
+          alternative;
+
+        break;
       }
+
     }
 
-
-    // Avoid repeating recent combinations.
-
-    const combinationKey = [...selection]
-      .sort()
-      .join("|");
-
-
-    if (recentCombinations.includes(combinationKey)) {
-      score -= 50;
-    }
-
-
-    // Add randomness between equally good choices.
-
-    score += Math.random() * 10;
-
-
-    if (score > bestScore) {
-
-      bestScore = score;
-      bestSelection = selection;
-    }
   }
 
 
-  const selected =
-    bestSelection ||
-    shuffle(allWords).slice(
-      0,
-      Math.min(
-        MAX_WORDS_PER_ROUND,
-        allWords.length
-      )
-    );
-
-
-  // Remember this combination.
-
-  const combinationKey =
-    [...selected]
-      .sort()
-      .join("|");
-
+  /*
+     Remember the combination.
+  */
 
   recentCombinations.push(
-    combinationKey
+    makeKey(selection)
   );
 
 
-  // Remember only the six most recent combinations.
+  if (
+    recentCombinations.length > 6
+  ) {
 
-  if (recentCombinations.length > 6) {
     recentCombinations.shift();
+
   }
 
 
-  // Remember this round's words.
+  /*
+     Remember this round's words.
+  */
 
-  previousRoundWords = [
-    ...selected
-  ];
+  previousRoundWords =
+    [...selection];
 
 
-  return selected;
+  return selection;
 }
 
 
@@ -321,28 +604,51 @@ function startTurn() {
 
   clearInterval(timer);
 
-  wordDisplayContainer.innerHTML = "";
 
-  resultsDisplay.classList.add("hidden");
-
-  timerContainer.classList.add("hidden");
-
-  winnerControls.classList.remove("hidden");
+  wordDisplayContainer.innerHTML =
+    "";
 
 
-  const p = turnOrder[currentTurnIndex];
+  resultsDisplay.classList.add(
+    "hidden"
+  );
+
+
+  timerContainer.classList.add(
+    "hidden"
+  );
+
+
+  winnerControls.classList.remove(
+    "hidden"
+  );
+
+
+  if (turnOrder.length === 0) {
+    return;
+  }
+
+
+  const player =
+    turnOrder[currentTurnIndex];
 
 
   currentPlayerDisplay.textContent =
-    `${p.team} Team – ${p.name}`;
+    `${player.team} Team – ${player.name}`;
 
 
-  diceResultMessage.textContent = "";
+  diceResultMessage.textContent =
+    "";
 
 
-  rollDiceBtn.style.display = "inline-block";
+  rollDiceBtn.style.display =
+    "inline-block";
 
-  startRoundBtn.classList.add("hidden");
+
+  startRoundBtn.classList.add(
+    "hidden"
+  );
+
 }
 
 
@@ -350,7 +656,7 @@ function startTurn() {
    DICE
 ========================= */
 
-rollDiceBtn.onclick = () => {
+function rollDice() {
 
   currentDiceRoll =
     DICE_RESULTS[
@@ -365,40 +671,51 @@ rollDiceBtn.onclick = () => {
     `Dice Roll: ${currentDiceRoll}`;
 
 
-  rollDiceBtn.style.display = "none";
+  rollDiceBtn.style.display =
+    "none";
 
-  startRoundBtn.classList.remove("hidden");
-};
+
+  startRoundBtn.classList.remove(
+    "hidden"
+  );
+}
 
 
 /* =========================
    START ROUND
 ========================= */
 
-startRoundBtn.onclick = () => {
+function startRound() {
 
-  startRoundBtn.classList.add("hidden");
+  startRoundBtn.classList.add(
+    "hidden"
+  );
 
 
   timeLeft = 30;
+
 
   timerDisplay.textContent =
     timeLeft;
 
 
-  timerContainer.classList.remove("hidden");
+  timerContainer.classList.remove(
+    "hidden"
+  );
 
 
-  const selected =
+  const selectedWords =
     selectWordsForRound();
 
 
   const rows = [];
 
-  wordDisplayContainer.innerHTML = "";
+
+  wordDisplayContainer.innerHTML =
+    "";
 
 
-  selected.forEach(word => {
+  selectedWords.forEach(word => {
 
     const row =
       document.createElement("div");
@@ -407,66 +724,90 @@ startRoundBtn.onclick = () => {
       "word-row";
 
 
-    const span =
+    const wordText =
       document.createElement("span");
 
-    span.textContent =
+    wordText.textContent =
       word;
 
 
-    const btn =
+    const correctButton =
       document.createElement("button");
 
-    btn.textContent =
+    correctButton.textContent =
       "Correct";
 
 
-    btn.onclick = () => {
+    correctButton.addEventListener(
+      "click",
+      () => {
 
-      btn.disabled = true;
+        correctButton.disabled =
+          true;
 
-      row.dataset.correct =
-        "true";
-    };
+        row.dataset.correct =
+          "true";
+
+      }
+    );
 
 
-    row.append(span, btn);
+    row.appendChild(
+      wordText
+    );
 
-    wordDisplayContainer.appendChild(row);
+    row.appendChild(
+      correctButton
+    );
+
+
+    wordDisplayContainer.appendChild(
+      row
+    );
+
 
     rows.push(row);
+
   });
 
 
-  timer = setInterval(() => {
+  timer =
+    setInterval(() => {
 
-    timeLeft--;
-
-    timerDisplay.textContent =
-      timeLeft;
+      timeLeft--;
 
 
-    if (timeLeft <= 0) {
-
-      clearInterval(timer);
-
-
-      rows.forEach(r => {
-
-        const button =
-          r.querySelector("button");
-
-        if (button) {
-          button.disabled = true;
-        }
-      });
+      timerDisplay.textContent =
+        timeLeft;
 
 
-      endRound(rows);
-    }
+      if (timeLeft <= 0) {
 
-  }, 1000);
-};
+        clearInterval(timer);
+
+
+        rows.forEach(row => {
+
+          const button =
+            row.querySelector(
+              "button"
+            );
+
+
+          if (button) {
+            button.disabled =
+              true;
+          }
+
+        });
+
+
+        endRound(rows);
+
+      }
+
+    }, 1000);
+}
 
 
 /* =========================
@@ -477,13 +818,16 @@ function endRound(rows) {
 
   clearInterval(timer);
 
-  timerContainer.classList.add("hidden");
+
+  timerContainer.classList.add(
+    "hidden"
+  );
 
 
   const correct =
     rows.filter(
-      r =>
-        r.dataset.correct ===
+      row =>
+        row.dataset.correct ===
         "true"
     ).length;
 
@@ -499,21 +843,19 @@ function endRound(rows) {
     `Correct: ${correct} | Dice: ${currentDiceRoll} | Move: ${spaces} spaces`;
 
 
-  nextPlayerDisplay.textContent =
-    "";
-
-
   currentTurnIndex =
-    (currentTurnIndex + 1) %
+    (
+      currentTurnIndex + 1
+    ) %
     turnOrder.length;
 
 
-  const next =
+  const nextPlayer =
     turnOrder[currentTurnIndex];
 
 
   nextPlayerDisplay.textContent =
-    `Next: ${next.team} Team – ${next.name}`;
+    `Next: ${nextPlayer.team} Team – ${nextPlayer.name}`;
 
 
   resultsDisplay.classList.remove(
@@ -526,34 +868,30 @@ function endRound(rows) {
    NEXT ROUND
 ========================= */
 
-nextRoundBtn.onclick =
-  startTurn;
+function nextRound() {
+
+  startTurn();
+
+}
 
 
 /* =========================
    WINNER
 ========================= */
 
-blueWinsBtn.onclick = () => {
-  declareWinner("Blue");
-};
-
-
-redWinsBtn.onclick = () => {
-  declareWinner("Red");
-};
-
-
 function declareWinner(team) {
 
   clearInterval(timer);
+
 
   resultsDisplay.classList.add(
     "hidden"
   );
 
+
   wordDisplayContainer.innerHTML =
     "";
+
 
   timerContainer.classList.add(
     "hidden"
@@ -571,10 +909,10 @@ function declareWinner(team) {
 
 
 /* =========================
-   RESTART GAME
+   RESTART
 ========================= */
 
-restartGameBtn.onclick = () => {
+function restartGame() {
 
   clearInterval(timer);
 
@@ -585,17 +923,11 @@ restartGameBtn.onclick = () => {
 
   currentTurnIndex = 0;
 
-
   wordPool = {};
-
-  remainingWords = [];
-
-  usedWords = [];
 
   previousRoundWords = [];
 
   recentCombinations = [];
-
 
   timeLeft = 30;
 
@@ -642,28 +974,92 @@ restartGameBtn.onclick = () => {
     "inline-block";
 
 
-  // Rebuild the four empty player rows.
+  /*
+     Recreate the player inputs.
+  */
 
-  createInitialPlayerRows();
+  createPlayerRows();
 
+
+  /*
+     Return to setup screen.
+  */
+
+  gameScreen.classList.add(
+    "hidden"
+  );
 
   startScreen.classList.remove(
     "hidden"
   );
 
 
-  gameScreen.classList.add(
-    "hidden"
-  );
-
+  /*
+     Reload chapters.
+  */
 
   loadChapters();
-};
+}
 
 
 /* =========================
-   INITIAL LOAD
+   BUTTON EVENTS
 ========================= */
 
+addPlayerBtn.addEventListener(
+  "click",
+  addPlayerRow
+);
+
+
+setupForm.addEventListener(
+  "submit",
+  startGame
+);
+
+
+rollDiceBtn.addEventListener(
+  "click",
+  rollDice
+);
+
+
+startRoundBtn.addEventListener(
+  "click",
+  startRound
+);
+
+
+nextRoundBtn.addEventListener(
+  "click",
+  nextRound
+);
+
+
+blueWinsBtn.addEventListener(
+  "click",
+  () =>
+    declareWinner("Blue")
+);
+
+
+redWinsBtn.addEventListener(
+  "click",
+  () =>
+    declareWinner("Red")
+);
+
+
+restartGameBtn.addEventListener(
+  "click",
+  restartGame
+);
+
+
+/* =========================
+   INITIAL SETUP
+========================= */
+
+createPlayerRows();
+
 loadChapters();
-```
