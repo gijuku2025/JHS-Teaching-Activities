@@ -1,0 +1,42 @@
+{
+"chapters": [
+{
+"id": "ch7",
+"name": "Chapter 7",
+"sentences": [
+{
+"chunks": ["Traditional Inuit", "lived in", "igloos", "and", "tents"],
+"answer": "Traditional Inuit lived in igloos and tents."
+},
+{
+"chunks": ["The Polar Zone", "is", "always cold"],
+"answer": "The Polar Zone is always cold."
+},
+{
+"chunks": ["Summer has", "no night", "and", "winter has", "no day"],
+"answer": "Summer has no night, and winter has no day."
+},
+{
+"chunks": ["Inuit people", "used", "the things", "in", "their environment"],
+"answer": "Inuit people used the things in their environment."
+},
+{
+"chunks": ["In Tundra Climates", "snow melts", "in summer"],
+"answer": "In Tundra Climates snow melts in summer."
+},
+{
+"chunks": ["Many modern Inuit", "now live", "in towns", "with", "electricity"],
+"answer": "Many modern Inuit now live in towns with electricity."
+},
+{
+"chunks": ["The sun is low", "in the sky", "so", "solar energy", "is weak"],
+"answer": "The sun is low in the sky, so solar energy is weak."
+},
+{
+"chunks": ["In Ice Cap climates", "snow", "never melts"],
+"answer": "In Ice Cap climates snow never melts."
+}
+]
+}
+]
+}
