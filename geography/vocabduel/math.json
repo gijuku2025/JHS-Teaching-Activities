@@ -1,0 +1,21 @@
+{
+  "subject": "Math",
+  "chapters": [
+    {
+      "id": "math-ch2",
+      "name": "Chapter 2",
+      "words": [
+        { "en": "translation", "jp": "平行移動" },
+        { "en": "rotation", "jp": "回転移動" },
+        { "en": "reflection", "jp": "対称移動" },
+        { "en": "symmetry", "jp": "対称" },
+        { "en": "congruent", "jp": "合同" },
+        { "en": "figure", "jp": "図形" },
+        { "en": "line of symmetry", "jp": "対称の軸" },
+        { "en": "mirror image", "jp": "鏡映像" },
+        { "en": "center of rotation", "jp": "回転の中心" },
+        { "en": "angle", "jp": "角" }
+      ]
+    }
+  ]
+}

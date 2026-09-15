@@ -1,0 +1,21 @@
+{
+  "subject": "Social Studies",
+  "chapters": [
+    {
+      "id": "ss-ch7",
+      "name": "Chapter 7",
+      "words": [
+        { "en": "Polar Zone", "jp": "寒帯" },
+        { "en": "Tundra Climate", "jp": "ツンドラ気候" },
+        { "en": "Ice Cap Climate", "jp": "氷雪気候" },
+        { "en": "Inuit", "jp": "イヌイット" },
+        { "en": "climate graph", "jp": "雨温図" },
+        { "en": "nomad", "jp": "移住生活者" },
+        { "en": "igloo", "jp": "イグルー" },
+        { "en": "seal", "jp": "アザラシ" },
+        { "en": "snowmobile", "jp": "スノーモービル" },
+        { "en": "electricity", "jp": "電気" }
+      ]
+    }
+  ]
+}
