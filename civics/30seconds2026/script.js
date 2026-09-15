@@ -1,4 +1,3 @@
-```javascript
 let players = [];
 let turnOrder = [];
 let currentTurnIndex = 0;
@@ -6,8 +5,6 @@ let currentTurnIndex = 0;
 let wordPool = {};
 let remainingWords = [];
 let usedWords = [];
-let previousRoundWords = [];
-let recentCombinations = [];
 
 let timer = null;
 let timeLeft = 30;
@@ -120,8 +117,6 @@ setupForm.onsubmit = e => {
 
   remainingWords = [...new Set(chapters)];
   usedWords = [];
-  previousRoundWords = [];
-  recentCombinations = [];
 
   buildTurnOrder();
 
@@ -148,96 +143,6 @@ function buildTurnOrder() {
   }
 }
 
-/* RANDOM WORD SELECTION */
-
-function selectWordsForRound() {
-  const allWords = [...new Set([...remainingWords, ...usedWords])];
-
-  if (allWords.length === 0) {
-    return [];
-  }
-
-  function shuffle(array) {
-    const shuffled = [...array];
-
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-
-      [shuffled[i], shuffled[j]] = [
-        shuffled[j],
-        shuffled[i]
-      ];
-    }
-
-    return shuffled;
-  }
-
-  let bestSelection = null;
-  let bestScore = -Infinity;
-
-  for (let attempt = 0; attempt < 100; attempt++) {
-    const shuffled = shuffle(allWords);
-
-    const selection = shuffled.slice(
-      0,
-      Math.min(MAX_WORDS_PER_ROUND, allWords.length)
-    );
-
-    let score = 0;
-
-    // Strongly discourage words from the previous round
-    for (const word of selection) {
-      if (previousRoundWords.includes(word)) {
-        score -= 10;
-      }
-    }
-
-    // Discourage repeating recent combinations
-    const combinationKey = [...selection]
-      .sort()
-      .join("|");
-
-    if (recentCombinations.includes(combinationKey)) {
-      score -= 50;
-    }
-
-    // Add a small random element so equally good
-    // combinations do not always get selected the same way.
-    score += Math.random() * 10;
-
-    if (score > bestScore) {
-      bestScore = score;
-      bestSelection = selection;
-    }
-  }
-
-  const selected =
-    bestSelection ||
-    shuffle(allWords).slice(
-      0,
-      Math.min(MAX_WORDS_PER_ROUND, allWords.length)
-    );
-
-  // Remember this combination
-  const combinationKey = [...selected]
-    .sort()
-    .join("|");
-
-  recentCombinations.push(combinationKey);
-
-  // Keep only the six most recent combinations
-  if (recentCombinations.length > 6) {
-    recentCombinations.shift();
-  }
-
-  // Remember the words from this round
-  previousRoundWords = [...selected];
-
-  return selected;
-}
-
-/* TURN */
-
 function startTurn() {
   clearInterval(timer);
 
@@ -248,31 +153,22 @@ function startTurn() {
 
   const p = turnOrder[currentTurnIndex];
 
-  currentPlayerDisplay.textContent =
-    `${p.team} Team – ${p.name}`;
-
+  currentPlayerDisplay.textContent = `${p.team} Team – ${p.name}`;
   diceResultMessage.textContent = "";
 
   rollDiceBtn.style.display = "inline-block";
   startRoundBtn.classList.add("hidden");
 }
 
-/* DICE */
-
 rollDiceBtn.onclick = () => {
   currentDiceRoll =
-    DICE_RESULTS[
-      Math.floor(Math.random() * DICE_RESULTS.length)
-    ];
+    DICE_RESULTS[Math.floor(Math.random() * DICE_RESULTS.length)];
 
-  diceResultMessage.textContent =
-    `Dice Roll: ${currentDiceRoll}`;
+  diceResultMessage.textContent = `Dice Roll: ${currentDiceRoll}`;
 
   rollDiceBtn.style.display = "none";
   startRoundBtn.classList.remove("hidden");
 };
-
-/* START ROUND */
 
 startRoundBtn.onclick = () => {
   startRoundBtn.classList.add("hidden");
@@ -281,7 +177,23 @@ startRoundBtn.onclick = () => {
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  const selected = selectWordsForRound();
+  const selected = [];
+
+  while (selected.length < MAX_WORDS_PER_ROUND) {
+    if (!remainingWords.length) {
+      remainingWords = [...usedWords];
+      usedWords = [];
+    }
+
+    const w = remainingWords.pop();
+
+    if (w !== undefined) {
+      usedWords.push(w);
+      selected.push(w);
+    } else {
+      break;
+    }
+  }
 
   const rows = [];
   wordDisplayContainer.innerHTML = "";
@@ -303,13 +215,11 @@ startRoundBtn.onclick = () => {
 
     row.append(span, btn);
     wordDisplayContainer.appendChild(row);
-
     rows.push(row);
   });
 
   timer = setInterval(() => {
     timeLeft--;
-
     timerDisplay.textContent = timeLeft;
 
     if (timeLeft <= 0) {
@@ -324,8 +234,6 @@ startRoundBtn.onclick = () => {
   }, 1000);
 };
 
-/* END ROUND */
-
 function endRound(rows) {
   clearInterval(timer);
 
@@ -335,10 +243,7 @@ function endRound(rows) {
     r => r.dataset.correct === "true"
   ).length;
 
-  const spaces = Math.max(
-    0,
-    correct - currentDiceRoll
-  );
+  const spaces = Math.max(0, correct - currentDiceRoll);
 
   const player = turnOrder[currentTurnIndex];
 
@@ -358,11 +263,7 @@ function endRound(rows) {
   resultsDisplay.classList.remove("hidden");
 }
 
-/* NEXT ROUND */
-
 nextRoundBtn.onclick = startTurn;
-
-/* WINNER BUTTONS */
 
 blueWinsBtn.onclick = () => {
   declareWinner("Blue");
@@ -379,13 +280,10 @@ function declareWinner(team) {
   wordDisplayContainer.innerHTML = "";
   timerContainer.classList.add("hidden");
 
-  winnerMessage.textContent =
-    `${team} Team wins! 🎉`;
+  winnerMessage.textContent = `${team} Team wins! 🎉`;
 
   winScreen.classList.remove("hidden");
 }
-
-/* RESTART */
 
 restartGameBtn.onclick = () => {
   clearInterval(timer);
@@ -397,8 +295,6 @@ restartGameBtn.onclick = () => {
   wordPool = {};
   remainingWords = [];
   usedWords = [];
-  previousRoundWords = [];
-  recentCombinations = [];
 
   timeLeft = 30;
   currentDiceRoll = 0;
@@ -423,4 +319,3 @@ restartGameBtn.onclick = () => {
 };
 
 loadChapters();
-```
