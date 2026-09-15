@@ -5,6 +5,8 @@ let currentTurnIndex = 0;
 let wordPool = {};
 let remainingWords = [];
 let usedWords = [];
+let previousRoundWords = [];
+let recentCombinations = [];
 
 let timer = null;
 let timeLeft = 30;
@@ -116,9 +118,11 @@ setupForm.onsubmit = e => {
     .flat();
 
   remainingWords = [...new Set(chapters)];
-  usedWords = [];
+usedWords = [];
+previousRoundWords = [];
+recentCombinations = [];
 
-  buildTurnOrder();
+buildTurnOrder();
 
   currentTurnIndex = 0;
 
@@ -170,6 +174,87 @@ rollDiceBtn.onclick = () => {
   startRoundBtn.classList.remove("hidden");
 };
 
+	
+	function selectWordsForRound() {
+  const allWords = [...new Set([...remainingWords, ...usedWords])];
+
+  if (allWords.length === 0) {
+    return [];
+  }
+
+  // Shuffle the words
+  function shuffle(array) {
+    const shuffled = [...array];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled;
+  }
+
+  // Try several random combinations and choose one
+  // that avoids the previous round and recent combinations.
+  let bestSelection = null;
+  let bestScore = -Infinity;
+
+  for (let attempt = 0; attempt < 100; attempt++) {
+    const shuffled = shuffle(allWords);
+    const selection = shuffled.slice(
+      0,
+      Math.min(MAX_WORDS_PER_ROUND, allWords.length)
+    );
+
+    let score = 0;
+
+    // Strongly discourage words from the previous round
+    for (const word of selection) {
+      if (previousRoundWords.includes(word)) {
+        score -= 10;
+      }
+    }
+
+    // Discourage repeating recent combinations
+    const combinationKey = [...selection].sort().join("|");
+
+    if (recentCombinations.includes(combinationKey)) {
+      score -= 50;
+    }
+
+    // Prefer combinations that have not appeared recently
+    score += Math.random() * 10;
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestSelection = selection;
+    }
+  }
+
+  const selected = bestSelection || shuffle(allWords).slice(
+    0,
+    Math.min(MAX_WORDS_PER_ROUND, allWords.length)
+  );
+
+  // Remember this combination
+  const combinationKey = [...selected].sort().join("|");
+
+  recentCombinations.push(combinationKey);
+
+  // Keep only the last 6 combinations in memory
+  if (recentCombinations.length > 6) {
+    recentCombinations.shift();
+  }
+
+  // Remember this round's words
+  previousRoundWords = [...selected];
+
+  return selected;
+}
+	
+	
+	
+	
 startRoundBtn.onclick = () => {
   startRoundBtn.classList.add("hidden");
 
@@ -177,23 +262,7 @@ startRoundBtn.onclick = () => {
   timerDisplay.textContent = timeLeft;
   timerContainer.classList.remove("hidden");
 
-  const selected = [];
-
-  while (selected.length < MAX_WORDS_PER_ROUND) {
-    if (!remainingWords.length) {
-      remainingWords = [...usedWords];
-      usedWords = [];
-    }
-
-    const w = remainingWords.pop();
-
-    if (w !== undefined) {
-      usedWords.push(w);
-      selected.push(w);
-    } else {
-      break;
-    }
-  }
+  const selected = selectWordsForRound();
 
   const rows = [];
   wordDisplayContainer.innerHTML = "";
