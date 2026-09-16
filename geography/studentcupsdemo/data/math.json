@@ -1,0 +1,33 @@
+{
+  "_note": "PLACEHOLDER DATA. Replace the chunks/answer in each sentence below with real math sentences for your class. Keep the chapter 'id' matching the social-studies.json chapter you want it paired with (e.g. ch15 pairs with ch15), and keep 8 sentences per chapter, each split into 5 chunks like the social studies file.",
+  "chapters": [
+    {
+      "id": "ch15",
+      "name": "Chapter 15",
+      "sentences": [
+        { "chunks": ["Replace chunk one", "replace chunk two", "replace chunk three", "replace chunk four", "."], "answer": "Replace chunk one replace chunk two replace chunk three replace chunk four." },
+        { "chunks": ["Math sentence two", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence two chunk two chunk three chunk four." },
+        { "chunks": ["Math sentence three", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence three chunk two chunk three chunk four." },
+        { "chunks": ["Math sentence four", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence four chunk two chunk three chunk four." },
+        { "chunks": ["Math sentence five", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence five chunk two chunk three chunk four." },
+        { "chunks": ["Math sentence six", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence six chunk two chunk three chunk four." },
+        { "chunks": ["Math sentence seven", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence seven chunk two chunk three chunk four." },
+        { "chunks": ["Math sentence eight", "chunk two", "chunk three", "chunk four", "."], "answer": "Math sentence eight chunk two chunk three chunk four." }
+      ]
+    },
+    {
+      "id": "ch16",
+      "name": "Chapter 16",
+      "sentences": [
+        { "chunks": ["Math ch16 sentence one", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence one chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence two", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence two chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence three", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence three chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence four", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence four chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence five", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence five chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence six", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence six chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence seven", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence seven chunk two chunk three chunk four." },
+        { "chunks": ["Math ch16 sentence eight", "chunk two", "chunk three", "chunk four", "."], "answer": "Math ch16 sentence eight chunk two chunk three chunk four." }
+      ]
+    }
+  ]
+}

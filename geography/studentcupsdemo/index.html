@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentence Order — Solo Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAME ENTRY -->
+<section id="screen-name" class="screen center-screen">
+  <div class="panel-box">
+    <p class="eyebrow">Solo Training</p>
+    <h1>What's your name?</h1>
+    <input id="name-input" type="text" placeholder="Type your name" maxlength="40" autocomplete="off" autofocus>
+    <button id="btn-name-continue" class="btn btn-primary btn-large btn-block">Continue</button>
+  </div>
+</section>
+
+<!-- CHAPTER SELECT -->
+<section id="screen-chapters" class="screen center-screen" hidden>
+  <div class="panel-box panel-box-wide">
+    <p class="eyebrow" id="chapters-greeting"></p>
+    <h1>Pick a chapter</h1>
+    <p class="select-sub">Your pool will mix 4 social studies sentences and 4 math sentences.</p>
+    <div id="chapter-grid" class="chapter-grid"></div>
+  </div>
+</section>
+
+<!-- PLAY SCREEN -->
+<section id="screen-play" class="screen" hidden>
+  <header class="play-topbar">
+    <span id="round-label" class="round-label"></span>
+    <span id="subject-tag" class="subject-tag"></span>
+  </header>
+
+  <main class="stage">
+    <div id="timer-display" class="timer-hero">1:00</div>
+    <div id="chunk-row" class="chunk-row"></div>
+    <div id="answer-row" class="chunk-row answer-row" hidden></div>
+  </main>
+
+  <footer class="controls">
+    <button id="btn-done" class="btn btn-primary btn-large btn-block">I'm done — check it!</button>
+    <div id="grade-buttons" class="grade-buttons" hidden>
+      <button id="btn-correct" class="btn btn-correct btn-large">✅ It matches</button>
+      <button id="btn-incorrect" class="btn btn-incorrect btn-large">❌ It doesn't match</button>
+    </div>
+  </footer>
+</section>
+
+<!-- RESULTS -->
+<section id="screen-results" class="screen center-screen" hidden>
+  <div class="panel-box panel-box-wide">
+    <p class="eyebrow">Training complete</p>
+    <h1 id="results-name"></h1>
+    <p class="results-date" id="results-date"></p>
+    <div class="score-badge" id="results-score"></div>
+    <div id="results-missed" class="results-missed"></div>
+    <div class="results-actions">
+      <button id="btn-train-again" class="btn btn-primary btn-large">Train again</button>
+      <button id="btn-new-student" class="btn btn-ghost btn-large">New student</button>
+    </div>
+  </div>
+</section>
+
+<!-- FULLSCREEN OVERLAY (round intro / ready-set-go / reset cups) -->
+<div id="overlay" class="overlay" hidden>
+  <div id="overlay-text" class="overlay-text"></div>
+  <div id="overlay-sub" class="overlay-sub"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
