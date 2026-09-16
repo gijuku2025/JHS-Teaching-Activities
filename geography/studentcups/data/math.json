@@ -1,78 +1,40 @@
 {
   "chapters": [
     {
-      "id": "!5",
-      "name": "Chapter 15",
+      "id": "ch2",
+      "name": "Chapter 2",
       "sentences": [
         {
-          "chunks": ["Buying and selling commodities", "with other countries", "is called", "trade", "."],
-          "answer": "Buying and selling commodities with other countries is called trade."
+          "chunks": ["A translation", "slides a figure", "in a straight direction"],
+          "answer": "A translation slides a figure in a straight direction."
         },
         {
-          "chunks": ["Countries", "trade", "because they produce", "different", "goods."],
-          "answer": "Countries trade because they produce different goods."
+          "chunks": ["A rotation", "turns a figure", "around a point"],
+          "answer": "A rotation turns a figure around a point."
         },
         {
-          "chunks": ["International specialization", "means", "countries produce", "the things", "they are good at."],
-          "answer": "International specialization means countries produce the things they are good at."
+          "chunks": ["A reflection", "flips a figure", "across a line"],
+          "answer": "A reflection flips a figure across a line."
         },
         {
-          "chunks": ["After the war", "Japan", "imported", "raw materials", "and exported manufactured goods."],
-          "answer": "After the war, Japan imported raw materials and exported manufactured goods."
+          "chunks": ["The size and shape", "of a figure", "do not change"],
+          "answer": "The size and shape of a figure do not change."
         },
         {
-          "chunks": ["A trade surplus", "means", "exports", "are higher than", "imports."],
-          "answer": "A trade surplus means exports are higher than imports."
+          "chunks": ["The new figure", "is congruent", "to the original figure"],
+          "answer": "The new figure is congruent to the original figure."
         },
         {
-          "chunks": ["Many companies", "moved", "their factories", "to developing", "countries."],
-          "answer": "Many companies moved their factories to developing countries."
+          "chunks": ["A line of symmetry", "divides a figure", "into two matching parts"],
+          "answer": "A line of symmetry divides a figure into two matching parts."
         },
         {
-          "chunks": ["The number", "of factories", "in Japan", "decreased", "."],
-          "answer": "The number of factories in Japan decreased."
+          "chunks": ["A square", "has four", "lines of symmetry"],
+          "answer": "A square has four lines of symmetry."
         },
         {
-          "chunks": ["Deindustrialization", "means", "factories move", "to other", "countries."],
-          "answer": "Deindustrialization means factories move to other countries."
-        }
-      ]
-    },
-    {
-      "id": "ch16",
-      "name": "Chapter 16",
-      "sentences": [
-        {
-          "chunks": ["Consumers", "pay", "consumption tax", "to retailers", "and producers."],
-          "answer": "Consumers pay consumption tax to retailers and producers."
-        },
-        {
-          "chunks": ["Consumption tax", "is", "an indirect", "tax", "."],
-          "answer": "Consumption tax is an indirect tax."
-        },
-        {
-          "chunks": ["People with low incomes", "pay", "a higher proportion", "of their income", "in consumption tax."],
-          "answer": "People with low incomes pay a higher proportion of their income in consumption tax."
-        },
-        {
-          "chunks": ["A regressive tax", "means", "people with low incomes", "pay a higher proportion", "of their income."],
-          "answer": "A regressive tax means people with low incomes pay a higher proportion of their income."
-        },
-        {
-          "chunks": ["People with high incomes", "pay", "a higher proportion", "of their income", "in income tax."],
-          "answer": "People with high incomes pay a higher proportion of their income in income tax."
-        },
-        {
-          "chunks": ["A progressive tax", "means", "people with high incomes", "pay a higher proportion", "of their income."],
-          "answer": "A progressive tax means people with high incomes pay a higher proportion of their income."
-        },
-        {
-          "chunks": ["Governments", "combine", "different kinds", "of taxes", "to make taxes fair."],
-          "answer": "Governments combine different kinds of taxes to make taxes fair."
-        },
-        {
-          "chunks": ["People with the same income", "should pay", "the same amount", "of tax", "."],
-          "answer": "People with the same income should pay the same amount of tax."
+          "chunks": ["Patterns can be made", "using translations", "rotations", "and reflections"],
+          "answer": "Patterns can be made using translations, rotations, and reflections."
         }
       ]
     }
