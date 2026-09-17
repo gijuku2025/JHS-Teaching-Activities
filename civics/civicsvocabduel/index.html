@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Vocab Duel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ SETUP SCREEN ============ -->
+  <section id="screen-setup" class="screen active">
+    <div class="setup-card">
+      <div class="brand">
+        <span class="brand-mark">対</span>
+        <h1>Vocab Duel</h1>
+      </div>
+      <p class="brand-sub">Social Studies edition &mdash; one tablet, two players, ten words each from a pool of two chapters.</p>
+
+      <div class="field-row">
+        <div class="field player-field p1">
+          <label for="p1-name">Player 1</label>
+          <input type="text" id="p1-name" maxlength="16" placeholder="Name" autocomplete="off">
+        </div>
+        <div class="field player-field p2">
+          <label for="p2-name">Player 2</label>
+          <input type="text" id="p2-name" maxlength="16" placeholder="Name" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Chapters</label>
+        <p class="field-hint">Select two chapters (20 words total) &mdash; 10 go to each player.</p>
+        <div id="chapter-list" class="chapter-list-plain">
+          <p class="loading-msg">Loading vocab list&hellip;</p>
+        </div>
+      </div>
+
+      <p id="setup-error" class="setup-error" hidden></p>
+
+      <button id="btn-start" class="btn btn-primary btn-block">Start game</button>
+    </div>
+  </section>
+
+  <!-- ============ ROUND INTRO / SWAP SCREEN ============ -->
+  <section id="screen-intro" class="screen">
+    <div class="intro-card">
+      <p class="intro-eyebrow" id="intro-eyebrow">Round 1</p>
+      <h2 id="intro-heading">Pass the tablet to&nbsp;<span id="intro-holder-name">Player</span></h2>
+
+      <div class="instruction-pair">
+        <div class="instruction reader">
+          <span class="role-label">Reads the word aloud</span>
+          <span class="role-name" id="intro-reader-name">—</span>
+          <span class="role-lang" id="intro-reader-lang">English</span>
+        </div>
+        <div class="instruction-arrow">→</div>
+        <div class="instruction answerer">
+          <span class="role-label">Says the answer</span>
+          <span class="role-name" id="intro-answerer-name">—</span>
+          <span class="role-lang" id="intro-answerer-lang">Japanese</span>
+        </div>
+      </div>
+
+      <p class="intro-note">The reader taps the tablet to score each answer. 30 seconds on the clock &mdash; go for as many as you can.</p>
+
+      <button id="btn-ready" class="btn btn-primary btn-block">We're ready</button>
+    </div>
+  </section>
+
+  <!-- ============ PLAY SCREEN ============ -->
+  <section id="screen-play" class="screen">
+    <div class="play-wrap">
+
+      <div class="play-top">
+        <div class="timer-bar-track">
+          <div class="timer-bar-fill" id="timer-fill"></div>
+        </div>
+        <div class="play-meta">
+          <span id="timer-seconds">30</span>s
+          <span class="play-meta-sep">&bull;</span>
+          word <span id="word-index">1</span>/<span id="word-total">10</span>
+        </div>
+      </div>
+
+      <p class="play-instruction">
+        <span id="play-reader-name">Player</span> reads the
+        <span id="play-reader-lang">English</span> word &mdash;
+        <span id="play-answerer-name">Player</span> answers in
+        <span id="play-answerer-lang">Japanese</span>.
+      </p>
+
+      <div class="word-card" id="word-card">
+        <span class="word-en" id="word-en">word</span>
+        <span class="word-divider" aria-hidden="true"></span>
+        <span class="word-jp" id="word-jp">単語</span>
+      </div>
+
+      <div class="judge-buttons">
+        <button id="btn-incorrect" class="judge-btn judge-incorrect" aria-label="Incorrect">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><line x1="16" y1="16" x2="48" y2="48"/><line x1="48" y1="16" x2="16" y2="48"/></svg>
+        </button>
+        <button id="btn-correct" class="judge-btn judge-correct" aria-label="Correct">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="20"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS SCREEN ============ -->
+  <section id="screen-results" class="screen">
+    <div class="results-wrap">
+      <h2 class="results-title">Results</h2>
+      <div class="results-grid" id="results-grid">
+        <!-- populated by JS: one card per player -->
+      </div>
+      <div class="results-actions">
+        <button id="btn-restart" class="btn btn-primary btn-block">Play again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
