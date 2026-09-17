@@ -2,19 +2,35 @@
   "subject": "Social Studies",
   "chapters": [
     {
-      "id": "ss-ch7",
-      "name": "Chapter 7",
+      "id": "ss-ch15",
+      "name": "Chapter 15",
       "words": [
-        { "en": "Polar Zone", "jp": "寒帯" },
-        { "en": "Tundra Climate", "jp": "ツンドラ気候" },
-        { "en": "Ice Cap Climate", "jp": "氷雪気候" },
-        { "en": "Inuit", "jp": "イヌイット" },
-        { "en": "climate graph", "jp": "雨温図" },
-        { "en": "nomad", "jp": "移住生活者" },
-        { "en": "igloo", "jp": "イグルー" },
-        { "en": "seal", "jp": "アザラシ" },
-        { "en": "snowmobile", "jp": "スノーモービル" },
-        { "en": "electricity", "jp": "電気" }
+        { "en": "trade", "jp": "貿易" },
+        { "en": "international specialization", "jp": "国際分業" },
+        { "en": "raw materials", "jp": "原料" },
+        { "en": "manufactured goods", "jp": "製造品" },
+        { "en": "exports", "jp": "輸出" },
+        { "en": "imports", "jp": "輸入" },
+        { "en": "trade surplus", "jp": "貿易黒字" },
+        { "en": "trade deficit", "jp": "貿易赤字" },
+        { "en": "deindustrialization", "jp": "産業の空洞化" },
+        { "en": "developing countries", "jp": "発展途上国" }
+      ]
+    },
+    {
+      "id": "ss-ch16",
+      "name": "Chapter 16",
+      "words": [
+        { "en": "consumer", "jp": "消費者" },
+        { "en": "consumption tax", "jp": "消費税" },
+        { "en": "income tax", "jp": "所得税" },
+        { "en": "indirect tax", "jp": "間接税" },
+        { "en": "regressive tax", "jp": "逆進課税" },
+        { "en": "progressive tax", "jp": "累進課税" },
+        { "en": "tax rate", "jp": "税率" },
+        { "en": "proportion", "jp": "割合" },
+        { "en": "inheritance tax", "jp": "相続税" },
+        { "en": "fair", "jp": "公平な" }
       ]
     }
   ]
