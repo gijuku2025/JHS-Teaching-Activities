@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Seconds — Classroom Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14171f;
+    --surface:#1e2330;
+    --surface-2:#262c3d;
+    --line:#343c52;
+    --gold:#e8b23d;
+    --gold-dim:#8a6a24;
+    --red:#e2434f;
+    --red-dim:#5c2229;
+    --blue:#3e8ed9;
+    --blue-dim:#1f3a54;
+    --text:#f2f0e9;
+    --text-dim:#9aa1b4;
+    --good:#4caf6e;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Work Sans',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .display{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- Top marquee ---------- */
+  header.marquee{
+    background:var(--surface);
+    border-bottom:3px solid var(--gold);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  header.marquee .title{
+    font-size:28px;
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--gold);
+    letter-spacing:0.03em;
+    white-space:nowrap;
+  }
+  header.marquee .title span{color:var(--text);}
+  .reset-link{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--text-dim);
+    padding:6px 12px;
+    border-radius:4px;
+    font-size:13px;
+    cursor:pointer;
+    font-family:'Work Sans',sans-serif;
+  }
+  .reset-link:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* ---------- Game board ---------- */
+  .board-wrap{
+    background:var(--surface);
+    padding:16px 20px 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .board-legend{
+    display:flex;
+    gap:22px;
+    margin-bottom:12px;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:15px;
+    letter-spacing:0.03em;
+  }
+  .board-legend .leg{display:flex;align-items:center;gap:7px;}
+  .board-legend .dot{width:13px;height:13px;border-radius:50%;}
+  .board-legend .dot.blue{background:var(--blue);}
+  .board-legend .dot.red{background:var(--red);}
+  .board-legend .pos{color:var(--text-dim);font-family:'Work Sans',sans-serif;font-size:13px;letter-spacing:0;}
+
+  .board-grid{
+    display:grid;
+    grid-template-columns:repeat(11, 1fr);
+    gap:6px;
+    max-width:760px;
+  }
+  .board-cell{
+    position:relative;
+    aspect-ratio:1/1;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:5px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:2px;
+  }
+  .board-cell.start{background:var(--blue-dim);border-color:var(--blue);}
+  .board-cell.finish{background:var(--gold-dim);border-color:var(--gold);}
+  .sq-label{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(9px,1.6vw,13px);
+    color:var(--text-dim);
+    letter-spacing:0.02em;
+  }
+  .board-cell.start .sq-label,
+  .board-cell.finish .sq-label{color:var(--text);}
+  .tokens{
+    position:absolute;
+    top:2px;left:0;right:0;
+    display:flex;
+    justify-content:center;
+    gap:2px;
+  }
+  .token{
+    width:60%;
+    max-width:22px;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:clamp(8px,1.4vw,11px);
+    font-weight:800;
+    color:#0e1016;
+    box-shadow:0 0 0 2px var(--surface-2);
+  }
+  .token.blue{background:var(--blue);}
+  .token.red{background:var(--red);}
+
+  /* ---------- Stage ---------- */
+  main{
+    flex:1;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:36px 16px 60px;
+  }
+  .stage{
+    width:100%;
+    max-width:640px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-top:5px solid var(--gold);
+    box-shadow:8px 8px 0 rgba(0,0,0,0.35);
+    padding:32px 30px 30px;
+  }
+  .stage.team-red{border-top-color:var(--red);}
+  .stage.team-blue{border-top-color:var(--blue);}
+
+  h1.stage-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:34px;
+    letter-spacing:0.02em;
+    margin:0 0 6px;
+    color:var(--text);
+  }
+  .stage-sub{
+    color:var(--text-dim);
+    margin:0 0 26px;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .team-tag{
+    display:inline-block;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:16px;
+    letter-spacing:0.06em;
+    padding:2px 10px;
+    border-radius:3px;
+  }
+  .team-tag.red{background:var(--red-dim);color:#ffb3ba;}
+  .team-tag.blue{background:var(--blue-dim);color:#a9d4ff;}
+
+  /* ---------- Form elements ---------- */
+  label.field-label{
+    display:block;
+    font-size:13px;
+    color:var(--text-dim);
+    margin-bottom:6px;
+  }
+  input[type=text]{
+    width:100%;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:11px 12px;
+    border-radius:4px;
+    font-size:16px;
+    font-family:'Work Sans',sans-serif;
+  }
+  input[type=text]:focus{outline:2px solid var(--gold);outline-offset:1px;}
+
+  .team-choice{display:flex;gap:10px;margin-top:10px;}
+  .team-choice button{
+    flex:1;
+    padding:11px;
+    border-radius:4px;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:18px;
+    letter-spacing:0.04em;
+    cursor:pointer;
+    border:2px solid var(--line);
+    background:var(--surface-2);
+    color:var(--text-dim);
+  }
+  .team-choice button.sel-red{border-color:var(--red);color:#ffb3ba;background:var(--red-dim);}
+  .team-choice button.sel-blue{border-color:var(--blue);color:#a9d4ff;background:var(--blue-dim);}
+
+  .btn{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:19px;
+    letter-spacing:0.03em;
+    padding:13px 22px;
+    border-radius:4px;
+    border:none;
+    cursor:pointer;
+    background:var(--gold);
+    color:#191305;
+    transition:transform .08s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn:active{transform:translateY(1px);}
+  .btn:disabled{background:var(--surface-2);color:var(--text-dim);cursor:not-allowed;transform:none;}
+  .btn.secondary{background:transparent;border:1px solid var(--line);color:var(--text);}
+  .btn.full{width:100%;}
+
+  .player-list{list-style:none;margin:18px 0;padding:0;display:flex;flex-direction:column;gap:8px;}
+  .player-row{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-left:4px solid var(--line);
+    padding:9px 12px;
+    border-radius:4px;
+  }
+  .player-row.red{border-left-color:var(--red);}
+  .player-row.blue{border-left-color:var(--blue);}
+  .player-row .pname{font-weight:600;}
+  .player-row .remove{
+    background:none;border:none;color:var(--text-dim);
+    cursor:pointer;font-size:18px;line-height:1;
+  }
+  .player-row .remove:hover{color:var(--red);}
+
+  .setup-note{
+    font-size:13px;color:var(--text-dim);margin-top:14px;line-height:1.5;
+  }
+  .setup-error{
+    background:var(--red-dim);color:#ffd3d6;border:1px solid var(--red);
+    padding:10px 12px;border-radius:4px;font-size:14px;margin-top:14px;
+  }
+
+  /* ---------- Turn intro ---------- */
+  .describer-box{
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:20px;
+    margin:18px 0 22px;
+    text-align:center;
+  }
+  .describer-box .role-label{font-size:13px;color:var(--text-dim);letter-spacing:.04em;}
+  .describer-box .role-name{font-family:'Bebas Neue',sans-serif;font-size:40px;margin:4px 0;}
+  .guessers-line{color:var(--text-dim);font-size:14px;}
+
+  .dice-area{display:flex;flex-direction:column;align-items:center;gap:16px;margin:10px 0 24px;}
+  .die{
+    width:88px;height:88px;
+    background:var(--surface-2);
+    border:2px solid var(--gold);
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:52px;
+    color:var(--gold);
+  }
+  .die.rolling{animation:shake .12s linear infinite;}
+  @keyframes shake{
+    0%{transform:rotate(0deg);} 25%{transform:rotate(6deg);}
+    50%{transform:rotate(0deg);} 75%{transform:rotate(-6deg);} 100%{transform:rotate(0deg);}
+  }
+
+  /* ---------- Round screen ---------- */
+  .timer-display{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:64px;
+    text-align:center;
+    color:var(--gold);
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .timer-display.low{color:var(--red);}
+  .timer-caption{text-align:center;color:var(--text-dim);font-size:13px;margin-bottom:22px;}
+
+  .word-list{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .word-row{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:14px 16px;
+  }
+  .word-row .w{font-size:19px;font-weight:600;}
+  .word-row.done{opacity:.55;}
+  .word-row.done .w{text-decoration:line-through;}
+  .mark-btn{
+    background:transparent;
+    border:2px solid var(--good);
+    color:var(--good);
+    font-family:'Work Sans',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding:8px 14px;
+    border-radius:4px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .mark-btn:hover{background:var(--good);color:#0e1016;}
+  .mark-btn:disabled{border-color:var(--line);color:var(--text-dim);background:none;cursor:not-allowed;}
+
+  /* ---------- Summary ---------- */
+  .summary-list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:8px;}
+  .summary-row{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:11px 14px;
+  }
+  .summary-row .w{font-size:16px;}
+  .tick{font-weight:800;font-size:16px;}
+  .tick.yes{color:var(--good);}
+  .tick.no{color:var(--text-dim);}
+
+  .score-line{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    background:var(--surface-2);
+    border:1px solid var(--gold);
+    border-radius:6px;
+    margin-bottom:26px;
+    overflow:hidden;
+  }
+  .score-stat{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:22px 12px;
+    border-right:1px solid var(--line);
+  }
+  .score-stat:last-child{border-right:none;}
+  .score-stat .stat-label{
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--text-dim);
+    text-transform:uppercase;
+  }
+  .score-stat .stat-value{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:38px;
+    color:var(--gold);
+    line-height:1;
+  }
+  .score-stat.move .stat-value{color:var(--good);}
+
+  /* ---------- Win ---------- */
+  .win-banner{
+    text-align:center;
+    padding:20px 0 10px;
+  }
+  .win-banner .display{font-size:56px;margin-bottom:6px;}
+
+  @media (max-width:520px){
+    .stage{padding:24px 18px 24px;}
+    h1.stage-title{font-size:28px;}
+    .timer-display{font-size:52px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Word list lives in words.js (kept next to this file) so you can edit
+     it without touching this HTML. See words.js for instructions. -->
+<script src="words.js"></script>
+
+<header class="marquee">
+  <div class="title">30 SECONDS <span>· Classroom Edition</span></div>
+  <button class="reset-link" onclick="confirmReset()">Reset game</button>
+</header>
+
+<div class="board-wrap" id="boardWrap" style="display:none;">
+  <div class="board-legend">
+    <div class="leg"><span class="dot blue"></span>Blue <span class="pos" id="bluePosLabel"></span></div>
+    <div class="leg"><span class="dot red"></span>Red <span class="pos" id="redPosLabel"></span></div>
+  </div>
+  <div class="board-grid" id="boardGrid"></div>
+</div>
+
+<main>
+  <div id="app"></div>
+</main>
+
+<script>
+/* =======================================================================
+   30 SECONDS — Classroom Edition
+   Vanilla JS, single file, no build step. Words load from ./words.json
+   ======================================================================= */
+
+const STORAGE_KEY = 'thirty-seconds-state-v1';
+const ROUND_SECONDS = 30;
+const TOTAL_SQUARES = 33;           // includes the START square and the FINISH square
+const FINISH_INDEX = TOTAL_SQUARES - 1; // 32 — last square, position 0 is START
+const BOARD_COLS = 11;               // 11 x 3 = 33, laid out as a snake path
+
+let state = null;
+let timerHandle = null;
+
+function freshState(){
+  return {
+    screen: 'setup',
+    players: [], // {id, name, team}
+    teams: {
+      blue: { members: [], turnIndex: 0, position: 0 },
+      red:  { members: [], turnIndex: 0, position: 0 }
+    },
+    currentTeam: 'blue',
+    currentDescriberId: null,
+    diceValue: null,
+    diceRolled: false,
+    roundWords: [],
+    roundResults: [],
+    timeLeft: ROUND_SECONDS,
+    roundActive: false,
+    wordQueue: [],
+    setupError: ''
+  };
+}
+
+function save(){
+  const toSave = Object.assign({}, state);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+}
+
+function load(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try{
+      const parsed = JSON.parse(raw);
+      parsed.roundActive = false; // never resume a live countdown after reload
+      return parsed;
+    }catch(e){ /* fall through */ }
+  }
+  return freshState();
+}
+
+/* ---------------- word bank ---------------- */
+let allWords = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function loadWordBank(){
+  try{
+    const data = window.WORD_BANK;
+    const chapters = (data && data.chapters) || {};
+    let words = [];
+    Object.keys(chapters).forEach(ch => {
+      (chapters[ch]||[]).forEach(w => words.push(w));
+    });
+    allWords = words.length ? words : fallbackWords();
+  }catch(e){
+    allWords = fallbackWords();
+    console.warn('Could not read words.js — using a small built-in fallback list. Make sure words.js is in the same folder as this file and is a valid JS file.', e);
+  }
+}
+
+function fallbackWords(){
+  return ['apple','bicycle','mountain','elephant','guitar','umbrella','volcano','pillow',
+          'sandwich','rainbow','telephone','penguin','castle','bubble','dinosaur','kitchen'];
+}
+
+function refillQueueIfNeeded(){
+  if(state.wordQueue.length < 5){
+    state.wordQueue = state.wordQueue.concat(shuffle(allWords));
+  }
+}
+
+function drawRoundWords(){
+  refillQueueIfNeeded();
+  const words = state.wordQueue.splice(0,5);
+  return words;
+}
+
+/* ---------------- setup screen ---------------- */
+
+function addPlayer(name, team){
+  name = name.trim();
+  if(!name) return;
+  if(state.players.length >= 5){
+    state.setupError = 'A group can have at most 5 players.';
+    render(); return;
+  }
+  state.players.push({ id: 'p'+Date.now()+Math.random().toString(16).slice(2), name, team });
+  state.setupError = '';
+  render();
+}
+
+function removePlayer(id){
+  state.players = state.players.filter(p => p.id !== id);
+  render();
+}
+
+function validateSetup(){
+  const blues = state.players.filter(p=>p.team==='blue');
+  const reds  = state.players.filter(p=>p.team==='red');
+  if(state.players.length < 4) return 'Add at least 4 players (2 red, 2 blue) to start.';
+  if(state.players.length > 5) return 'A group can have at most 5 players.';
+  if(blues.length < 2) return 'Blue team needs at least 2 players.';
+  if(reds.length < 2) return 'Red team needs at least 2 players.';
+  return '';
+}
+
+function startGame(){
+  const err = validateSetup();
+  if(err){ state.setupError = err; render(); return; }
+  state.teams.blue.members = state.players.filter(p=>p.team==='blue');
+  state.teams.red.members  = state.players.filter(p=>p.team==='red');
+  state.teams.blue.turnIndex = 0;
+  state.teams.red.turnIndex = 0;
+  state.teams.blue.position = 0;
+  state.teams.red.position = 0;
+  state.currentTeam = 'blue'; // blue always goes first
+  state.setupError = '';
+  goToTurnIntro();
+}
+
+/* ---------------- turn flow ---------------- */
+
+function currentTeamObj(){ return state.teams[state.currentTeam]; }
+
+function peekDescriber(){
+  const team = currentTeamObj();
+  return team.members[team.turnIndex % team.members.length];
+}
+
+function goToTurnIntro(){
+  state.screen = 'turnIntro';
+  state.diceValue = null;
+  state.diceRolled = false;
+  state.currentDescriberId = peekDescriber().id;
+  save(); render();
+}
+
+function rollDice(){
+  if(state.diceRolled) return;
+  const dieEl = document.getElementById('dieFace');
+  if(dieEl) dieEl.classList.add('rolling');
+  let ticks = 0;
+  const spin = setInterval(()=>{
+    if(dieEl) dieEl.textContent = Math.random()<0.5 ? '0' : '1';
+    ticks++;
+    if(ticks > 8){
+      clearInterval(spin);
+      state.diceValue = Math.random() < 0.5 ? 0 : 1;
+      state.diceRolled = true;
+      save(); render();
+    }
+  }, 80);
+}
+
+function startRound(){
+  state.roundWords = drawRoundWords();
+  state.roundResults = state.roundWords.map(w => ({ word: w, correct: false }));
+  state.timeLeft = ROUND_SECONDS;
+  state.roundActive = true;
+  state.screen = 'round';
+  save(); render();
+  runTimer();
+}
+
+function runTimer(){
+  clearInterval(timerHandle);
+  timerHandle = setInterval(()=>{
+    state.timeLeft -= 1;
+    if(state.timeLeft <= 0){
+      state.timeLeft = 0;
+      state.roundActive = false;
+      clearInterval(timerHandle);
+    }
+    renderRoundInPlace();
+    if(!state.roundActive){ save(); render(); }
+  }, 1000);
+}
+
+function markCorrect(index){
+  if(!state.roundActive) return;
+  state.roundResults[index].correct = true;
+  renderRoundInPlace();
+}
+
+function goToSummary(){
+  state.screen = 'summary';
+  save(); render();
+}
+
+function finishRound(){
+  const correctCount = state.roundResults.filter(r=>r.correct).length;
+  const movement = Math.max(0, correctCount - (state.diceValue||0));
+  const team = currentTeamObj();
+  team.position = Math.min(FINISH_INDEX, team.position + movement);
+  team.turnIndex = (team.turnIndex + 1) % team.members.length;
+
+  if(team.position >= FINISH_INDEX){
+    state.screen = 'win';
+    save(); render();
+    return;
+  }
+
+  state.currentTeam = state.currentTeam === 'blue' ? 'red' : 'blue';
+  goToTurnIntro();
+}
+
+function confirmReset(){
+  if(confirm('Reset the whole game? This clears players, scores and progress.')){
+    clearInterval(timerHandle);
+    state = freshState();
+    save(); render();
+  }
+}
+
+/* =======================================================================
+   RENDERING
+   ======================================================================= */
+
+const app = document.getElementById('app');
+const boardWrap = document.getElementById('boardWrap');
+
+function render(){
+  if(state.screen === 'setup'){ boardWrap.style.display = 'none'; }
+  else { boardWrap.style.display = 'block'; renderBoard(); }
+
+  if(state.screen === 'setup')      return renderSetup();
+  if(state.screen === 'turnIntro')  return renderTurnIntro();
+  if(state.screen === 'round')      return renderRound();
+  if(state.screen === 'summary')    return renderSummary();
+  if(state.screen === 'win')        return renderWin();
+}
+
+function renderBoard(){
+  const grid = document.getElementById('boardGrid');
+  const rows = Math.ceil(TOTAL_SQUARES / BOARD_COLS);
+  const bluePos = state.teams.blue.position;
+  const redPos = state.teams.red.position;
+  let html = '';
+
+  for(let r=0; r<rows; r++){
+    for(let c=0; c<BOARD_COLS; c++){
+      // Boustrophedon (snake) numbering: even rows run left-to-right, odd rows right-to-left
+      const squareIndex = (r % 2 === 0) ? (r*BOARD_COLS + c) : (r*BOARD_COLS + (BOARD_COLS-1-c));
+      if(squareIndex >= TOTAL_SQUARES){
+        html += `<div class="board-cell" style="visibility:hidden;"></div>`;
+        continue;
+      }
+      const isStart = squareIndex === 0;
+      const isFinish = squareIndex === FINISH_INDEX;
+      const label = isStart ? 'START' : isFinish ? 'FINISH' : squareIndex;
+      let tokens = '';
+      if(bluePos === squareIndex) tokens += `<span class="token blue">B</span>`;
+      if(redPos === squareIndex) tokens += `<span class="token red">R</span>`;
+      html += `
+        <div class="board-cell ${isStart?'start':''} ${isFinish?'finish':''}">
+          <span class="sq-label">${label}</span>
+          <div class="tokens">${tokens}</div>
+        </div>`;
+    }
+  }
+  grid.innerHTML = html;
+
+  const blueLabel = document.getElementById('bluePosLabel');
+  const redLabel = document.getElementById('redPosLabel');
+  if(blueLabel) blueLabel.textContent = `— square ${bluePos}`;
+  if(redLabel) redLabel.textContent = `— square ${redPos}`;
+}
+
+function renderSetup(){
+  const rows = state.players.map(p => `
+    <li class="player-row ${p.team}">
+      <span class="pname">${escapeHtml(p.name)}</span>
+      <span style="display:flex;align-items:center;gap:10px;">
+        <span class="team-tag ${p.team}">${p.team.toUpperCase()}</span>
+        <button class="remove" title="Remove" onclick="removePlayer('${p.id}')">&times;</button>
+      </span>
+    </li>`).join('');
+
+  app.innerHTML = `
+    <div class="stage">
+      <h1 class="stage-title">Set up your group</h1>
+      <p class="stage-sub">Four or five players. Blue team plays first — everyone taps in below and picks a side.</p>
+
+      <label class="field-label">Player name</label>
+      <input type="text" id="nameInput" placeholder="Type a name and press Enter" maxlength="24">
+      <div class="team-choice">
+        <button type="button" id="pickBlue" class="sel-blue" onclick="pickTeam('blue')">BLUE</button>
+        <button type="button" id="pickRed" onclick="pickTeam('red')">RED</button>
+      </div>
+      <button class="btn full" style="margin-top:14px;" onclick="submitPlayer()">Add player</button>
+
+      ${state.players.length ? `<ul class="player-list">${rows}</ul>` : ''}
+      ${state.setupError ? `<div class="setup-error">${escapeHtml(state.setupError)}</div>` : ''}
+
+      <p class="setup-note">Need 4 to start (2 red / 2 blue). Add a 5th to either team if your class has an odd number.</p>
+      <button class="btn full" style="margin-top:16px;" onclick="startGame()">Start game</button>
+    </div>
+  `;
+
+  const nameInput = document.getElementById('nameInput');
+  nameInput.addEventListener('keydown', e=>{ if(e.key==='Enter') submitPlayer(); });
+  nameInput.focus();
+  updateTeamPickButtons();
+}
+
+let pendingTeam = 'blue';
+function pickTeam(team){ pendingTeam = team; updateTeamPickButtons(); }
+function updateTeamPickButtons(){
+  const b = document.getElementById('pickBlue');
+  const r = document.getElementById('pickRed');
+  if(!b||!r) return;
+  b.className = pendingTeam==='blue' ? 'sel-blue' : '';
+  r.className = pendingTeam==='red' ? 'sel-red' : '';
+}
+function submitPlayer(){
+  const input = document.getElementById('nameInput');
+  addPlayer(input.value, pendingTeam);
+  if(document.getElementById('nameInput')){
+    document.getElementById('nameInput').value = '';
+    document.getElementById('nameInput').focus();
+  }
+}
+
+function renderTurnIntro(){
+  const team = currentTeamObj();
+  const describer = team.members.find(m=>m.id===state.currentDescriberId);
+  const guessers = team.members.filter(m=>m.id!==state.currentDescriberId).map(m=>m.name).join(' & ');
+  const color = state.currentTeam;
+
+  app.innerHTML = `
+    <div class="stage team-${color}">
+      <span class="team-tag ${color}">${color.toUpperCase()} TEAM'S TURN</span>
+      <h1 class="stage-title" style="margin-top:10px;">Get ready</h1>
+      <p class="stage-sub">One player describes, the other(s) guess. Pass the tablet to the describer now.</p>
+
+      <div class="describer-box">
+        <div class="role-label">DESCRIBER — holds the tablet</div>
+        <div class="role-name">${escapeHtml(describer.name)}</div>
+        <div class="guessers-line">Guessing: ${escapeHtml(guessers || '—')}</div>
+      </div>
+
+      <div class="dice-area">
+        <div class="die" id="dieFace">${state.diceRolled ? state.diceValue : '?'}</div>
+        ${state.diceRolled
+          ? `<p class="stage-sub" style="margin:0;">Dice rolled: <strong style="color:var(--gold)">${state.diceValue}</strong> — this many spaces will be subtracted from your correct words.</p>`
+          : `<button class="btn" onclick="rollDice()">Roll the dice</button>`}
+      </div>
+
+      <button class="btn full" ${state.diceRolled ? '' : 'disabled'} onclick="startRound()">Start 30-second round</button>
+    </div>
+  `;
+}
+
+function renderRound(){
+  app.innerHTML = `
+    <div class="stage team-${state.currentTeam}">
+      <div class="timer-display ${state.timeLeft<=10 ? 'low':''}" id="timerNum">${state.timeLeft}</div>
+      <p class="timer-caption" id="timerCaption">${state.roundActive ? "Describe the words — don't say the word itself!" : "Time's up — no more taps."}</p>
+
+      <ul class="word-list" id="wordList"></ul>
+
+      <button class="btn full" id="resultsBtn" ${state.roundActive ? 'disabled' : ''} onclick="goToSummary()">See results</button>
+    </div>
+  `;
+  renderWordList();
+}
+
+function renderWordList(){
+  const list = document.getElementById('wordList');
+  if(!list) return;
+  list.innerHTML = state.roundResults.map((r,i)=>`
+    <li class="word-row ${r.correct?'done':''}">
+      <span class="w">${escapeHtml(r.word)}</span>
+      <button class="mark-btn" ${(r.correct || !state.roundActive) ? 'disabled':''} onclick="markCorrect(${i})">${r.correct?'✓ Correct':'Mark correct'}</button>
+    </li>
+  `).join('');
+}
+
+// Cheap in-place updates each second so the countdown doesn't rebuild the whole stage
+function renderRoundInPlace(){
+  if(state.screen !== 'round') return;
+  const num = document.getElementById('timerNum');
+  const cap = document.getElementById('timerCaption');
+  const btn = document.getElementById('resultsBtn');
+  if(num){
+    num.textContent = state.timeLeft;
+    num.className = 'timer-display ' + (state.timeLeft<=10 ? 'low':'');
+  }
+  if(cap) cap.textContent = state.roundActive ? "Describe the words — don't say the word itself!" : "Time's up — no more taps.";
+  if(btn) btn.disabled = state.roundActive;
+  renderWordList();
+}
+
+function renderSummary(){
+  const correctCount = state.roundResults.filter(r=>r.correct).length;
+  const movement = Math.max(0, correctCount - (state.diceValue||0));
+  const rows = state.roundResults.map(r=>`
+    <li class="summary-row">
+      <span class="w">${escapeHtml(r.word)}</span>
+      <span class="tick ${r.correct?'yes':'no'}">${r.correct?'✓ Guessed':'✗ Missed'}</span>
+    </li>
+  `).join('');
+
+  app.innerHTML = `
+    <div class="stage team-${state.currentTeam}">
+      <span class="team-tag ${state.currentTeam}">${state.currentTeam.toUpperCase()} TEAM — ROUND RESULT</span>
+      <h1 class="stage-title" style="margin-top:10px;">Round results</h1>
+
+      <ul class="summary-list">${rows}</ul>
+
+      <div class="score-line">
+        <div class="score-stat">
+          <span class="stat-label">Words correct</span>
+          <span class="stat-value">${correctCount}</span>
+        </div>
+        <div class="score-stat">
+          <span class="stat-label">Dice roll</span>
+          <span class="stat-value">${state.diceValue}</span>
+        </div>
+        <div class="score-stat move">
+          <span class="stat-label">Move</span>
+          <span class="stat-value">${movement}</span>
+        </div>
+      </div>
+
+      <button class="btn full" onclick="finishRound()">Continue</button>
+    </div>
+  `;
+}
+
+function renderWin(){
+  const winner = state.teams.blue.position >= FINISH_INDEX ? 'blue' : 'red';
+  app.innerHTML = `
+    <div class="stage team-${winner}">
+      <div class="win-banner">
+        <div class="display" style="color:var(--${winner})">${winner.toUpperCase()} TEAM WINS!</div>
+        <p class="stage-sub">They reached the final space first. Great game!</p>
+      </div>
+      <button class="btn full" onclick="confirmReset()">Play again</button>
+    </div>
+  `;
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------------- boot ---------------- */
+(function init(){
+  state = load();
+  loadWordBank();
+  render();
+})();
+</script>
+</body>
+</html>
