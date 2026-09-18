@@ -655,7 +655,8 @@ const app = document.getElementById('app');
 const boardWrap = document.getElementById('boardWrap');
 
 function render(){
-  if(state.screen === 'setup'){ boardWrap.style.display = 'none'; }
+  const hideBoard = (state.screen === 'setup' || state.screen === 'round');
+  if(hideBoard){ boardWrap.style.display = 'none'; }
   else { boardWrap.style.display = 'block'; renderBoard(); }
 
   if(state.screen === 'setup')      return renderSetup();
