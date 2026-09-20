@@ -49,6 +49,7 @@ const state = {
   poolIndex: 0,
   roundScores: [0, 0, 0],
   totalScores: [0, 0, 0],
+  roundHistory: [],      // [{ round: 1, scores: [0,0,0] }, ...]
   selectedForCard: null,
   timeLeft: ROUND_SECONDS,
   timerId: null,
@@ -121,6 +122,7 @@ startGameBtn.addEventListener("click", () => {
   state.readerTurn = 0;
   state.roundNumber = 0;
   state.totalScores = [0, 0, 0];
+  state.roundHistory = [];
 
   buildPool(chapterA.value, chapterB.value);
   beginRoundSetup();
@@ -259,6 +261,7 @@ const endGameBtn = document.getElementById("end-game-btn");
 function endRound() {
   clearInterval(state.timerId);
   state.players.forEach((p, i) => { state.totalScores[i] += state.roundScores[i]; });
+  state.roundHistory.push({ round: state.roundNumber, scores: state.roundScores.slice() });
 
   roundEndTag.textContent = `Round ${state.roundNumber} complete`;
   roundEndScores.innerHTML = "";
@@ -286,12 +289,40 @@ const playAgainBtn = document.getElementById("play-again-btn");
 
 function showResults() {
   resultsScores.innerHTML = "";
+
+  state.roundHistory.forEach(entry => {
+    const block = document.createElement("div");
+    block.className = "round-block";
+
+    const heading = document.createElement("p");
+    heading.className = "eyebrow round-block-heading";
+    heading.textContent = `Round ${entry.round}`;
+    block.appendChild(heading);
+
+    state.players.forEach((p, i) => {
+      const row = document.createElement("div");
+      row.className = "score-row";
+      row.innerHTML = `<span class="name">${p.name}</span><span class="count">${entry.scores[i]}</span>`;
+      block.appendChild(row);
+    });
+
+    resultsScores.appendChild(block);
+  });
+
+  const totalBlock = document.createElement("div");
+  totalBlock.className = "round-block round-block-total";
+  const totalHeading = document.createElement("p");
+  totalHeading.className = "eyebrow round-block-heading";
+  totalHeading.textContent = "Total";
+  totalBlock.appendChild(totalHeading);
   state.players.forEach((p, i) => {
     const row = document.createElement("div");
     row.className = "score-row";
     row.innerHTML = `<span class="name">${p.name}</span><span class="count">${state.totalScores[i]}</span>`;
-    resultsScores.appendChild(row);
+    totalBlock.appendChild(row);
   });
+  resultsScores.appendChild(totalBlock);
+
   showScreen("results");
 }
 
