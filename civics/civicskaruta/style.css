@@ -358,7 +358,21 @@ button:focus-visible {
   flex: 1;
 }
 
-.results-total .count {
+.round-block {
+  margin-bottom: 1.4rem;
+}
+
+.round-block-heading {
+  margin-bottom: 0.2rem;
+}
+
+.round-block-total {
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+  border-top: 2px solid var(--indigo);
+}
+
+.round-block-total .count {
   font-size: 1.3rem;
 }
 
