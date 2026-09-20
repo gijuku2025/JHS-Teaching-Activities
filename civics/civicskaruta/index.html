@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Civics Karuta</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- SETUP -->
+  <section class="screen active" data-screen="setup">
+    <div class="panel">
+      <p class="eyebrow">Civics Karuta</p>
+      <h1>Set up the game</h1>
+      <p class="lede">Enter the three players' first names and pick the two chapters to draw sentences from.</p>
+
+      <div class="field">
+        <label for="player-0">Player 1 first name</label>
+        <input type="text" id="player-0" autocomplete="off" placeholder="e.g. Aoi">
+      </div>
+      <div class="field">
+        <label for="player-1">Player 2 first name</label>
+        <input type="text" id="player-1" autocomplete="off" placeholder="e.g. Haruto">
+      </div>
+      <div class="field">
+        <label for="player-2">Player 3 first name</label>
+        <input type="text" id="player-2" autocomplete="off" placeholder="e.g. Sakura">
+      </div>
+
+      <div class="field-group section-gap">
+        <div class="field">
+          <label for="chapter-a">Chapter A</label>
+          <select id="chapter-a"></select>
+        </div>
+        <div class="field">
+          <label for="chapter-b">Chapter B</label>
+          <select id="chapter-b"></select>
+        </div>
+      </div>
+      <p class="hint">The two chapters are pooled together and shuffled each round.</p>
+
+      <p class="error-text" id="setup-error"></p>
+
+      <button class="btn-primary section-gap" id="start-game-btn">Start game</button>
+    </div>
+  </section>
+
+  <!-- PASS TABLET -->
+  <section class="screen" data-screen="pass">
+    <div class="panel pass-screen">
+      <p class="round-tag" id="pass-round-tag">Round 1</p>
+      <h2>Pass the tablet to</h2>
+      <p class="who" id="pass-reader-name">—</p>
+      <button class="btn-primary" id="ready-btn">I'm ready to read</button>
+    </div>
+  </section>
+
+  <!-- READING -->
+  <section class="screen" data-screen="reading">
+    <div class="panel">
+      <div class="round-bar">
+        <span id="reading-round-tag">Round 1 · Aoi is reading</span>
+        <span class="timer" id="timer-display">1:00</span>
+      </div>
+
+      <div class="karuta-card">
+        <p class="card-part1" id="card-part1">—</p>
+        <hr class="card-divider">
+        <p class="card-part2" id="card-part2">—</p>
+      </div>
+
+      <p class="progress-note" id="progress-note">Card 1 of 16</p>
+
+      <p class="who-got-it">Who got the card?</p>
+      <div class="player-buttons" id="player-buttons"></div>
+
+      <button class="btn-primary" id="next-card-btn">Next card</button>
+    </div>
+  </section>
+
+  <!-- ROUND END -->
+  <section class="screen" data-screen="round-end">
+    <div class="panel">
+      <p class="eyebrow" id="round-end-tag">Round 1 complete</p>
+      <h2>Cards this round</h2>
+      <div id="round-end-scores"></div>
+
+      <div class="button-row">
+        <button class="btn-secondary" id="new-round-btn">Start next round</button>
+        <button class="btn-primary" id="end-game-btn">End game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="screen" data-screen="results">
+    <div class="panel">
+      <p class="eyebrow">Game over</p>
+      <h2>Final results</h2>
+      <div id="results-scores" class="results-total"></div>
+
+      <div class="center-note">
+        <button class="btn-quiet" id="play-again-btn">Set up a new game</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

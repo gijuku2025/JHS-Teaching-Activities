@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+
+:root {
+  --paper: #EDE6D3;
+  --paper-deep: #E1D8C0;
+  --ink: #2A241D;
+  --indigo: #274468;
+  --indigo-deep: #1B3050;
+  --vermillion: #BE402A;
+  --moss: #707A55;
+  --card: #FFFCF4;
+  --card-border: #C9BC9C;
+
+  --font-display: 'Shippori Mincho', serif;
+  --font-ui: 'Zen Maru Gothic', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(39, 68, 104, 0.05), transparent 45%),
+    radial-gradient(circle at 92% 88%, rgba(190, 64, 42, 0.05), transparent 45%);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  line-height: 1.5;
+}
+
+.app {
+  width: 100%;
+  max-width: 640px;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+  animation: settle 0.35s ease;
+}
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen.active { animation: none; }
+}
+
+/* ---------- shared bits ---------- */
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--indigo);
+  margin: 0 0 0.25rem;
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--indigo-deep);
+}
+
+h1 { font-size: 1.9rem; }
+h2 { font-size: 1.5rem; }
+
+p.lede {
+  margin: 0 0 1.75rem;
+  max-width: 40ch;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+button {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+button:active { transform: scale(0.97); }
+
+button:focus-visible {
+  outline: 3px solid var(--indigo);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--indigo);
+  color: var(--card);
+  font-size: 1.05rem;
+  padding: 0.85rem 1.6rem;
+  width: 100%;
+}
+
+.btn-primary:hover { background: var(--indigo-deep); }
+
+.btn-primary:disabled {
+  background: #B9B2A0;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--indigo);
+  border-color: var(--indigo);
+  padding: 0.8rem 1.4rem;
+}
+
+.btn-secondary:hover { background: rgba(39, 68, 104, 0.08); }
+
+.btn-quiet {
+  background: transparent;
+  color: var(--moss);
+  border: none;
+  text-decoration: underline;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- setup screen ---------- */
+
+.field {
+  margin-bottom: 1.1rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--moss);
+  margin-bottom: 0.3rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  background: #FFFEFB;
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 3px rgba(39, 68, 104, 0.12);
+}
+
+.field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.section-gap { margin-top: 1.6rem; }
+
+.hint {
+  font-size: 0.85rem;
+  color: var(--moss);
+  margin: 0.4rem 0 0;
+}
+
+.error-text {
+  color: var(--vermillion);
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  margin: 0.6rem 0 0;
+}
+
+/* ---------- pass-tablet screen ---------- */
+
+.pass-screen {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.pass-screen .who {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--vermillion);
+  margin: 0.4rem 0 1.6rem;
+  word-break: break-word;
+}
+
+.pass-screen .round-tag {
+  font-size: 0.95rem;
+  color: var(--moss);
+}
+
+/* ---------- reading screen ---------- */
+
+.round-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--moss);
+}
+
+.timer {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--indigo);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer.urgent {
+  color: var(--vermillion);
+}
+
+.karuta-card {
+  position: relative;
+  background: var(--card);
+  border: 2px solid var(--indigo);
+  border-radius: 14px;
+  padding: 2.4rem 1.8rem;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.3rem;
+  box-shadow: 4px 4px 0 rgba(39, 68, 104, 0.12);
+}
+
+.karuta-card::before,
+.karuta-card::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--vermillion);
+  opacity: 0.6;
+}
+
+.karuta-card::before { top: 12px; left: 12px; }
+.karuta-card::after { bottom: 12px; right: 12px; }
+
+.card-part1 {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.card-divider {
+  border: none;
+  border-top: 1px dashed var(--card-border);
+  margin: 0;
+}
+
+.card-part2 {
+  font-size: 1.15rem;
+  color: var(--indigo-deep);
+}
+
+.progress-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--moss);
+  margin: 0.9rem 0 1.6rem;
+}
+
+.who-got-it {
+  font-size: 0.95rem;
+  color: var(--moss);
+  margin: 0 0 0.6rem;
+}
+
+.player-buttons {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+}
+
+.player-buttons button {
+  flex: 1 1 auto;
+  min-width: 100px;
+  padding: 0.75rem 1rem;
+  background: #FFFEFB;
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+}
+
+.player-buttons button.selected {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: #FFFEFB;
+}
+
+.player-buttons button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.reader-note {
+  font-size: 0.8rem;
+  color: var(--moss);
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* ---------- round end & results ---------- */
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--paper-deep);
+  font-size: 1.05rem;
+}
+
+.score-row:last-of-type { border-bottom: none; }
+
+.score-row .name { color: var(--ink); }
+.score-row .count {
+  font-family: var(--font-display);
+  color: var(--indigo);
+  font-weight: 700;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+
+.button-row .btn-primary,
+.button-row .btn-secondary {
+  flex: 1;
+}
+
+.results-total .count {
+  font-size: 1.3rem;
+}
+
+.center-note {
+  text-align: center;
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 420px) {
+  .panel { padding: 1.4rem; }
+  .field-group { grid-template-columns: 1fr; }
+  .card-part1 { font-size: 1.4rem; }
+}

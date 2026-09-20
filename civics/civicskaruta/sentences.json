@@ -1,0 +1,32 @@
+{
+  "chapters": [
+    {
+      "id": "ch15",
+      "title": "Chapter 15: International Trade",
+      "sentences": [
+        { "part1": "Buying and selling commodities with other countries", "part2": "is called trade." },
+        { "part1": "Countries trade because", "part2": "they produce different goods." },
+        { "part1": "International specialization means", "part2": "countries produce the things they are good at." },
+        { "part1": "After the war, Japan imported raw materials", "part2": "and exported manufactured goods." },
+        { "part1": "A trade surplus means", "part2": "exports are higher than imports." },
+        { "part1": "Many companies moved their factories", "part2": "to developing countries." },
+        { "part1": "The number of factories in Japan", "part2": "decreased." },
+        { "part1": "Deindustrialization means", "part2": "factories move to other countries." }
+      ]
+    },
+    {
+      "id": "ch16",
+      "title": "Chapter 16: Taxes",
+      "sentences": [
+        { "part1": "Consumers pay consumption tax", "part2": "to retailers and producers." },
+        { "part1": "Consumption tax is", "part2": "an indirect tax." },
+        { "part1": "People with low incomes pay", "part2": "a higher proportion of their income in consumption tax." },
+        { "part1": "A regressive tax means people", "part2": "with low incomes pay a higher proportion of their income." },
+        { "part1": "People with high incomes", "part2": "pay a higher proportion of their income in income tax." },
+        { "part1": "A progressive tax means people", "part2": "with high incomes pay a higher proportion of their income." },
+        { "part1": "Governments combine different kinds of taxes", "part2": "to make taxes fair." },
+        { "part1": "People with the same income", "part2": "should pay the same amount of tax." }
+      ]
+    }
+  ]
+}
