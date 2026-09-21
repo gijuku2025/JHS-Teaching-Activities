@@ -533,63 +533,29 @@
     .horse-token, .horse-token.bump, .horse-token.finished{ animation:none; transition:none; }
   }
 
-  /* ---------- COMPACT MODE (auto-enabled at 10-12 teams so everything fits without scrolling) ---------- */
+  /* ---------- WINNER BANNER ---------- */
 
-  body.compact header{ padding: 10px 24px 12px; }
-  body.compact h1{ font-size: 1.4rem; }
-  body.compact header p.sub{ font-size: 0.76rem; }
-  body.compact .title-block .flag{ font-size: 1.8rem; }
-  body.compact .btn-ghost, body.compact .btn-gold{ padding: 6px 12px; font-size: 0.78rem; }
-
-  body.compact .leaderboard{ margin-top: 8px; }
-  body.compact .leaderboard-inner{ padding: 5px 12px; font-size: 0.78rem; }
-  body.compact .finisher{ padding: 2px 8px; }
-
-  body.compact .track-wrap{ margin-top: 8px; }
-  body.compact .board{ padding: 8px; }
-  body.compact .lane{ margin-bottom: 4px; min-width: 760px; }
-
-  body.compact .nameplate{
-    flex-basis: 150px;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 10px;
+  .winner-banner{
+    max-width: 1180px;
+    margin: 18px auto 0;
+    padding: 0 20px;
   }
-  body.compact .nameplate .horse-badge{
-    width: 22px; height: 22px;
-    font-size: 0.7rem;
-    margin-bottom: 0;
-    flex-shrink: 0;
+  .winner-banner-inner{
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    color: #4a3106;
+    border-radius: var(--radius-lg);
+    padding: 18px 24px;
+    text-align: center;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 0 #a87c1c, 0 8px 20px var(--shadow);
+    animation: winnerPop 0.5s cubic-bezier(.34,1.56,.64,1);
   }
-  body.compact .nameplate .team-name{ font-size: 0.78rem; }
-  body.compact .nameplate .pos-label{ font-size: 0.6rem; margin-top: 0; white-space: nowrap; }
-
-  body.compact .strip{ min-height: 38px; }
-
-  body.compact .horse-token{
-    width: 28px; height: 28px;
-    margin-top: -14px;
-    margin-left: calc((100%/9) / 2 - 14px);
-    font-size: 0.95rem;
-    border-width: 2px;
+  @keyframes winnerPop{
+    0%{ transform: scale(0.7); opacity: 0; }
+    100%{ transform: scale(1); opacity: 1; }
   }
-  body.compact .rank-badge{
-    width: 14px; height: 14px;
-    font-size: 0.5rem;
-    top: -6px; right: -6px;
-  }
-
-  body.compact .controls{ flex-basis: 150px; padding: 5px 8px; gap: 6px; }
-  body.compact .btn-move{ padding: 6px 4px; font-size: 0.68rem; line-height: 1.15; }
-
-  body.compact footer{ margin-top: 8px; font-size: 0.68rem; }
-
-  body.compact .timer-bar{ margin-top: 8px; }
-  body.compact .timer-bar-inner{ padding: 8px 16px; gap: 14px; }
-  body.compact .timer-display{ font-size: 1.8rem; }
-  body.compact .timer-status{ font-size: 0.68rem; }
-  body.compact .timer-actions .btn-ghost, body.compact .timer-actions .btn-gold{ padding: 5px 10px; font-size: 0.72rem; }
 </style>
 </head>
 <body>
@@ -610,6 +576,8 @@
     </div>
   </div>
 </header>
+
+<div class="winner-banner" id="winnerBanner" style="display:none;"></div>
 
 <div class="timer-bar">
   <div class="timer-bar-inner">
@@ -634,7 +602,7 @@
 
 <div class="panel-wrap">
   <div class="setup-panel" id="setupPanel">
-    <h2>Teams (up to 12)</h2>
+    <h2>Your two teams (or add a third)</h2>
     <form class="add-team-row" id="addTeamForm">
       <input type="text" id="teamNameInput" placeholder="Team name, e.g. The Fast Foxes" maxlength="24">
       <button type="submit" class="btn-add" id="addTeamBtn">Add team</button>
@@ -661,9 +629,8 @@
   "use strict";
 
   var STORAGE_KEY = "classroomDerbyState_v1";
-  var MAX_TEAMS = 12;
+  var MAX_TEAMS = 3;
   var TRACK_LEN = 8;
-  var COMPACT_THRESHOLD = 10;
   var TIMER_DURATION = 8 * 60; // 8 minutes, in seconds
 
   var PALETTE = [
@@ -727,17 +694,19 @@
   var resetBtn = document.getElementById("resetBtn");
   var leaderboard = document.getElementById("leaderboard");
   var leaderboardEmpty = document.getElementById("leaderboardEmpty");
+  var winnerBanner = document.getElementById("winnerBanner");
   var timerDisplay = document.getElementById("timerDisplay");
   var timerStatus = document.getElementById("timerStatus");
   var timerStartBtn = document.getElementById("timerStartBtn");
   var timerPauseBtn = document.getElementById("timerPauseBtn");
   var timerResetBtn = document.getElementById("timerResetBtn");
 
-  // ---------- Timer ----------
+  // ---------- Timer & race lock ----------
 
   var timerRemaining = TIMER_DURATION;
   var timerInterval = null;
   var timerRunning = false;
+  var raceLocked = false;
 
   function formatTime(totalSeconds){
     var s = Math.max(0, totalSeconds);
@@ -750,7 +719,9 @@
     timerDisplay.textContent = formatTime(timerRemaining);
     timerDisplay.classList.toggle("timer-warning", timerRemaining > 0 && timerRemaining <= 30);
     timerDisplay.classList.toggle("timer-done", timerRemaining <= 0);
-    if(timerRemaining <= 0){
+    if(raceLocked){
+      timerStatus.textContent = "Race over";
+    } else if(timerRemaining <= 0){
       timerStatus.textContent = "Time's up!";
     } else if(timerRunning){
       timerStatus.textContent = "";
@@ -767,9 +738,9 @@
       timerRemaining = 0;
       stopTimerInterval();
       timerRunning = false;
-      timerStartBtn.style.display = "inline-block";
-      timerStartBtn.textContent = "▶ Start";
-      timerPauseBtn.style.display = "none";
+      if(!raceLocked){
+        endRace(getLeadingTeams(), "timeout");
+      }
     }
     renderTimer();
   }
@@ -779,7 +750,7 @@
   }
 
   function startTimer(){
-    if(timerRunning || timerRemaining <= 0) return;
+    if(timerRunning || timerRemaining <= 0 || raceLocked) return;
     timerRunning = true;
     timerStartBtn.style.display = "none";
     timerPauseBtn.style.display = "inline-block";
@@ -802,14 +773,64 @@
     timerRunning = false;
     timerRemaining = TIMER_DURATION;
     timerStartBtn.style.display = "inline-block";
-    timerStartBtn.textContent = "▶ Start";
     timerPauseBtn.style.display = "none";
+    if(raceLocked){
+      timerStartBtn.textContent = "Race over";
+      timerStartBtn.disabled = true;
+    } else {
+      timerStartBtn.textContent = "▶ Start";
+      timerStartBtn.disabled = false;
+    }
     renderTimer();
   }
 
   timerStartBtn.addEventListener("click", startTimer);
   timerPauseBtn.addEventListener("click", pauseTimer);
   timerResetBtn.addEventListener("click", resetTimer);
+
+  // ---------- Winner / lock ----------
+
+  function getLeadingTeams(){
+    if(state.teams.length === 0) return [];
+    var maxPos = Math.max.apply(null, state.teams.map(function(t){ return t.pos; }));
+    return state.teams.filter(function(t){ return t.pos === maxPos; });
+  }
+
+  function showWinnerBanner(winners, reason){
+    if(!winners || winners.length === 0){ winnerBanner.style.display = "none"; return; }
+    var names = winners.map(function(t){ return escapeHtml(t.name); });
+    var text;
+    if(names.length === 1){
+      text = reason === "finish"
+        ? ("🏆 " + names[0] + " wins &mdash; first to the finish line!")
+        : ("🏆 " + names[0] + " wins &mdash; furthest along when time ran out!");
+    } else {
+      text = "🏆 It's a tie between " + names.join(" and ") + "!";
+    }
+    winnerBanner.innerHTML = "<div class='winner-banner-inner'>" + text + "</div>";
+    winnerBanner.style.display = "block";
+  }
+
+  function hideWinnerBanner(){
+    winnerBanner.style.display = "none";
+    winnerBanner.innerHTML = "";
+  }
+
+  function endRace(winners, reason){
+    if(raceLocked) return;
+    raceLocked = true;
+    stopTimerInterval();
+    timerRunning = false;
+    timerStartBtn.style.display = "inline-block";
+    timerStartBtn.textContent = "Race over";
+    timerStartBtn.disabled = true;
+    timerPauseBtn.style.display = "none";
+    undoBtn.disabled = true;
+    renderTimer();
+    showWinnerBanner(winners, reason);
+    renderBoard();
+  }
+
 
   // ---------- Team management ----------
 
@@ -846,16 +867,22 @@
   }
 
   function moveTeam(id, amount){
+    if(raceLocked) return;
     var team = state.teams.find(function(t){ return t.id === id; });
     if(!team || team.pos >= TRACK_LEN) return;
     pushUndo();
     team.pos = Math.min(TRACK_LEN, team.pos + amount);
+    var justFinished = false;
     if(team.pos === TRACK_LEN && state.finishOrder.indexOf(id) === -1){
       state.finishOrder.push(id);
       team.finishRank = state.finishOrder.length;
+      justFinished = state.finishOrder.length === 1;
     }
     save();
     renderAll(id);
+    if(justFinished){
+      endRace([team], "finish");
+    }
   }
 
   function undo(){
@@ -875,6 +902,8 @@
     state.finishOrder = [];
     undoStack = [];
     undoBtn.disabled = true;
+    raceLocked = false;
+    hideWinnerBanner();
     resetTimer();
     save();
     renderAll();
@@ -904,7 +933,7 @@
     });
 
     if(state.teams.length >= MAX_TEAMS){
-      setupHint.textContent = "You've reached the 12 team limit.";
+      setupHint.textContent = "You've reached the 3 team limit.";
       addTeamBtn.disabled = true;
       teamNameInput.disabled = true;
     } else {
@@ -1023,12 +1052,12 @@
       var correctBtn = document.createElement("button");
       correctBtn.className = "btn-move btn-correct";
       correctBtn.innerHTML = "Correct<br>+2";
-      correctBtn.disabled = t.pos >= TRACK_LEN;
+      correctBtn.disabled = t.pos >= TRACK_LEN || raceLocked;
       correctBtn.onclick = function(id){ return function(){ moveTeam(id, 2); }; }(t.id);
       var missBtn = document.createElement("button");
       missBtn.className = "btn-move btn-miss";
       missBtn.innerHTML = "Mistake<br>+1";
-      missBtn.disabled = t.pos >= TRACK_LEN;
+      missBtn.disabled = t.pos >= TRACK_LEN || raceLocked;
       missBtn.onclick = function(id){ return function(){ moveTeam(id, 1); }; }(t.id);
       controls.appendChild(correctBtn);
       controls.appendChild(missBtn);
@@ -1041,7 +1070,6 @@
   }
 
   function renderAll(justMovedId){
-    document.body.classList.toggle("compact", state.teams.length >= COMPACT_THRESHOLD);
     renderChips();
     renderBoard(justMovedId);
     renderLeaderboard();
