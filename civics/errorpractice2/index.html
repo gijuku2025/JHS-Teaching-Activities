@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error Focus Drill</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+  :root{
+    --wood-dark:#3b2a1d;
+    --wood-mid:#6b4a2f;
+    --wood-light:#8a6540;
+    --board:#1f3a2e;
+    --board-edge:#173026;
+    --chalk:#eee9dd;
+    --chalk-dim:#b9c4bb;
+    --chalk-yellow:#e8c468;
+    --chalk-red:#d9737a;
+    --chalk-teal:#7fb8a8;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    height:100%;
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255,255,255,0.03), transparent 40%),
+      linear-gradient(160deg, #2c2018, #241a13 60%, #1c140e);
+    color:var(--chalk);
+    font-family:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .frame{
+    width:100%;
+    max-width:760px;
+    padding:16px;
+    border-radius:10px;
+    background:linear-gradient(160deg, var(--wood-light), var(--wood-mid) 55%, var(--wood-dark));
+    box-shadow:0 30px 60px rgba(0,0,0,0.45), inset 0 0 0 2px rgba(0,0,0,0.25);
+  }
+
+  .board{
+    position:relative;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.035), transparent 35%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03), transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02), transparent 60%),
+      linear-gradient(160deg, var(--board), var(--board-edge));
+    border-radius:6px;
+    padding:28px 26px 22px;
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:inset 0 0 40px rgba(0,0,0,0.35);
+  }
+
+  h1{
+    font-family:'Kalam', cursive;
+    font-weight:700;
+    font-size:1.9rem;
+    margin:0 0 4px;
+    letter-spacing:0.3px;
+  }
+
+  .sub{
+    font-family:'Kalam', cursive;
+    color:var(--chalk-dim);
+    font-size:1rem;
+    margin:0 0 20px;
+  }
+
+  .timer-track{
+    height:6px;
+    width:100%;
+    background:rgba(255,255,255,0.08);
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:22px;
+    flex-shrink:0;
+  }
+  .timer-fill{
+    height:100%;
+    width:100%;
+    background:var(--chalk-teal);
+    transition:width 1s linear, background 0.4s linear;
+  }
+
+  .phase-label{
+    font-family:'Kalam', cursive;
+    color:var(--chalk-yellow);
+    font-size:1.05rem;
+    margin-bottom:10px;
+  }
+
+  .sentence-box{
+    background:rgba(0,0,0,0.18);
+    border:1px dashed rgba(238,233,221,0.35);
+    border-radius:6px;
+    padding:20px;
+    font-size:1.25rem;
+    line-height:1.7;
+    margin-bottom:16px;
+    word-wrap:break-word;
+  }
+
+  .chunk{
+    display:inline;
+    cursor:pointer;
+    border-bottom:2px dashed var(--chalk-red);
+    color:var(--chalk);
+    padding:0 2px;
+    border-radius:3px;
+    transition:background 0.15s;
+  }
+  .chunk:hover, .chunk:focus{
+    background:rgba(217,115,122,0.15);
+    outline:none;
+  }
+
+  .chunk-input{
+    font-family:inherit;
+    font-size:1.25rem;
+    background:transparent;
+    border:none;
+    border-bottom:2px solid var(--chalk-yellow);
+    color:var(--chalk);
+    padding:0 2px;
+    outline:none;
+    min-width:40px;
+    max-width:100%;
+  }
+
+  #mirror{
+    position:absolute;
+    visibility:hidden;
+    white-space:pre;
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:1.25rem;
+  }
+
+  .row{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+
+  button{
+    font-family:'Kalam', cursive;
+    font-size:1.05rem;
+    background:transparent;
+    color:var(--chalk);
+    border:2px solid var(--chalk-dim);
+    border-radius:6px;
+    padding:10px 20px;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s, transform 0.1s;
+  }
+  button:hover{ border-color:var(--chalk-yellow); background:rgba(232,196,104,0.08); }
+  button:active{ transform:scale(0.97); }
+  button.primary{ border-color:var(--chalk-teal); color:var(--chalk-teal); }
+  button.primary:hover{ background:rgba(127,184,168,0.12); }
+
+  .removed{ color:var(--chalk-red); text-decoration:line-through; opacity:0.85; }
+  .added{ color:var(--chalk-yellow); }
+
+  .feedback-tag{
+    display:inline-block;
+    font-family:'Kalam', cursive;
+    font-size:0.95rem;
+    padding:3px 10px;
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .tag-good{ background:rgba(127,184,168,0.18); color:var(--chalk-teal); }
+  .tag-bad{ background:rgba(217,115,122,0.18); color:var(--chalk-red); }
+
+  .explain{ color:var(--chalk-dim); font-size:0.98rem; line-height:1.5; margin-top:4px; }
+
+  .start-grid{ display:flex; gap:16px; margin-top:20px; flex-wrap:wrap; }
+  .pattern-card{
+    flex:1; min-width:180px;
+    border:2px solid rgba(238,233,221,0.3);
+    border-radius:8px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color 0.15s, background 0.15s;
+  }
+  .pattern-card:hover{ border-color:var(--chalk-yellow); background:rgba(232,196,104,0.06); }
+  .pattern-card h2{ font-family:'Kalam', cursive; margin:0 0 6px; font-size:1.4rem; }
+  .pattern-card p{ margin:0; color:var(--chalk-dim); font-size:0.9rem; }
+
+  .progress-dots{ display:flex; gap:8px; margin-bottom:18px; flex-shrink:0; }
+  .dot{ width:10px; height:10px; border-radius:50%; background:rgba(238,233,221,0.25); }
+  .dot.done{ background:var(--chalk-teal); }
+  .dot.current{ background:var(--chalk-yellow); }
+
+  .results-list{ list-style:none; padding:0; margin:0 0 18px; }
+  .results-list li{
+    display:flex; justify-content:space-between; gap:12px; padding:8px 0;
+    border-bottom:1px dashed rgba(238,233,221,0.2); font-size:0.95rem;
+  }
+
+  .error-msg{ color:var(--chalk-red); font-family:'Kalam', cursive; font-size:1.1rem; }
+
+  footer.hint{
+    margin-top:auto;
+    padding-top:16px;
+    font-size:0.8rem;
+    color:rgba(238,233,221,0.4);
+    font-family:'Kalam', cursive;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .timer-fill{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="board" id="board">Loading…</div>
+</div>
+<span id="mirror"></span>
+
+<script>
+/* ============================================================
+   Sentence data now lives in sentences.json (same folder).
+   Edit that file to change wording, patterns, or timers —
+   no need to touch this script.
+   ============================================================ */
+
+let ROUND_TIME = 60;
+let RETYPE_TIME = 20;
+let SENTENCES = null;
+
+const board = document.getElementById('board');
+const mirror = document.getElementById('mirror');
+
+let state = {
+  pattern: null,
+  index: 0,
+  phase: null,
+  timer: null,
+  timeLeft: 0,
+  results: [],
+  firstTryCorrect: false
+};
+
+function normalize(s){
+  return s.toLowerCase().replace(/[.,!?;:'"]/g,'').replace(/\s+/g,' ').trim();
+}
+
+function clearTimer(){
+  if (state.timer) clearInterval(state.timer);
+  state.timer = null;
+}
+
+function startTimer(seconds, onTick, onExpire){
+  clearTimer();
+  state.timeLeft = seconds;
+  onTick(state.timeLeft, seconds);
+  state.timer = setInterval(() => {
+    state.timeLeft--;
+    onTick(state.timeLeft, seconds);
+    if (state.timeLeft <= 0){
+      clearTimer();
+      onExpire();
+    }
+  }, 1000);
+}
+
+function timerColor(pct){
+  if (pct > 0.5) return getComputedStyle(document.documentElement).getPropertyValue('--chalk-teal');
+  if (pct > 0.2) return getComputedStyle(document.documentElement).getPropertyValue('--chalk-yellow');
+  return getComputedStyle(document.documentElement).getPropertyValue('--chalk-red');
+}
+
+function progressDots(){
+  const total = SENTENCES[state.pattern].length;
+  let html = '<div class="progress-dots">';
+  for (let k = 0; k < total; k++){
+    let cls = 'dot';
+    if (k < state.index) cls += ' done';
+    else if (k === state.index) cls += ' current';
+    html += `<div class="${cls}"></div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+function autosize(input){
+  mirror.textContent = input.value.length ? input.value : (input.placeholder || ' ');
+  input.style.width = (mirror.offsetWidth + 24) + 'px';
+}
+
+/* ---------------- Start screen ---------------- */
+
+function renderStart(){
+  clearTimer();
+  const names = Object.keys(SENTENCES);
+  let cards = '';
+  names.forEach(n => {
+    cards += `<div class="pattern-card" data-p="${n}">
+      <h2>Pattern ${n}</h2>
+      <p>${SENTENCES[n].length} sentences</p>
+    </div>`;
+  });
+  board.innerHTML = `
+    <h1>Error focus drill</h1>
+    <p class="sub">Tap the mistake. Fix it. Do it again — clean.</p>
+    <div class="start-grid">${cards}</div>
+    <footer class="hint">Tap the underlined part (${ROUND_TIME}s) → see the fix → retype it clean (${RETYPE_TIME}s).</footer>
+  `;
+  board.querySelectorAll('.pattern-card').forEach(el => {
+    el.onclick = () => beginPattern(el.dataset.p);
+  });
+}
+
+function beginPattern(p){
+  state.pattern = p;
+  state.index = 0;
+  state.results = [];
+  renderFix();
+}
+
+function currentItem(){
+  return SENTENCES[state.pattern][state.index];
+}
+
+/* ---------------- Phase 1: tap + type the fix ---------------- */
+
+function renderFix(){
+  state.phase = 'fix';
+  const item = currentItem();
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="timer-track"><div class="timer-fill" id="fill"></div></div>
+    <div class="phase-label">Tap the part that's wrong, then type the fix</div>
+    <div class="sentence-box" id="sentenceBox">
+      ${esc(item.prefix)} <span class="chunk" id="chunk" tabindex="0">${esc(item.wrongChunk)}</span>.
+    </div>
+    <div class="row" id="row"></div>
+  `;
+
+  const chunk = document.getElementById('chunk');
+  const activate = () => {
+    chunk.outerHTML = `<input type="text" id="chunkInput" class="chunk-input" placeholder="type the correction…" autocomplete="off">`;
+    const input = document.getElementById('chunkInput');
+    autosize(input);
+    input.focus();
+    input.addEventListener('input', () => autosize(input));
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter'){ e.preventDefault(); submitFix(); }
+    });
+    document.getElementById('row').innerHTML = `<button class="primary" id="submit">Check</button>`;
+    document.getElementById('submit').onclick = () => submitFix();
+  };
+  chunk.onclick = activate;
+  chunk.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); } });
+
+  startTimer(ROUND_TIME, (left, total) => {
+    const fill = document.getElementById('fill');
+    if (!fill) return;
+    const pct = left / total;
+    fill.style.width = (pct * 100) + '%';
+    fill.style.background = timerColor(pct);
+  }, () => submitFix(true));
+}
+
+function submitFix(timedOut){
+  clearTimer();
+  const item = currentItem();
+  const input = document.getElementById('chunkInput');
+  const userText = input ? input.value : '';
+  const correctNow = !timedOut && !!input && normalize(userText) === normalize(item.correctChunk);
+  state.firstTryCorrect = correctNow;
+  renderReveal(timedOut, correctNow, !!input);
+}
+
+/* ---------------- Phase 2: reveal ---------------- */
+
+function renderReveal(timedOut, correctNow, didTap){
+  state.phase = 'reveal';
+  const item = currentItem();
+  let tag;
+  if (timedOut) tag = '<span class="feedback-tag tag-bad">Time up</span>';
+  else if (!didTap) tag = '<span class="feedback-tag tag-bad">No answer</span>';
+  else if (correctNow) tag = '<span class="feedback-tag tag-good">Fixed it</span>';
+  else tag = '<span class="feedback-tag tag-bad">Not quite</span>';
+
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="phase-label">Here's the fix</div>
+    ${tag}
+    <div class="sentence-box">
+      ${esc(item.prefix)} <span class="removed">${esc(item.wrongChunk)}</span> <span class="added">${esc(item.correctChunk)}</span>.
+    </div>
+    <div class="explain">${esc(item.explain)}</div>
+    <div class="row">
+      <button class="primary" id="next">Now type it clean →</button>
+    </div>
+  `;
+  document.getElementById('next').onclick = renderRetype;
+}
+
+/* ---------------- Phase 3: retype clean ---------------- */
+
+function renderRetype(){
+  state.phase = 'retype';
+  const item = currentItem();
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="timer-track"><div class="timer-fill" id="fill"></div></div>
+    <div class="phase-label">Type that part again — clean this time</div>
+    <div class="sentence-box">
+      ${esc(item.prefix)} <input type="text" id="retypeInput" class="chunk-input" placeholder="type the correction…" autocomplete="off">.
+    </div>
+    <div class="row">
+      <button class="primary" id="submitRetype">Submit</button>
+    </div>
+  `;
+  const input = document.getElementById('retypeInput');
+  autosize(input);
+  input.focus();
+  input.addEventListener('input', () => autosize(input));
+  document.getElementById('submitRetype').onclick = submitRetype;
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter'){ e.preventDefault(); submitRetype(); }
+  });
+
+  startTimer(RETYPE_TIME, (left, total) => {
+    const fill = document.getElementById('fill');
+    if (!fill) return;
+    const pct = left / total;
+    fill.style.width = (pct * 100) + '%';
+    fill.style.background = timerColor(pct);
+  }, () => submitRetype(true));
+}
+
+function submitRetype(timedOut){
+  clearTimer();
+  const item = currentItem();
+  const input = document.getElementById('retypeInput');
+  const userText = input ? input.value : '';
+  const clean = !timedOut && normalize(userText) === normalize(item.correctChunk);
+
+  state.results.push({ firstTry: state.firstTryCorrect, clean });
+
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="phase-label">${clean ? "Clean." : (timedOut ? "Time up — moving on." : "Close — moving on.")}</div>
+    <div class="sentence-box">${esc(item.prefix)} <span class="added">${esc(item.correctChunk)}</span>.</div>
+  `;
+
+  setTimeout(() => {
+    state.index++;
+    if (state.index >= SENTENCES[state.pattern].length){
+      renderResults();
+    } else {
+      renderFix();
+    }
+  }, 900);
+}
+
+/* ---------------- Results ---------------- */
+
+function renderResults(){
+  clearTimer();
+  const total = state.results.length;
+  const firstTry = state.results.filter(r => r.firstTry).length;
+
+  let listHTML = '';
+  SENTENCES[state.pattern].forEach((item, k) => {
+    const r = state.results[k];
+    const mark = r.firstTry ? '✓ first try' : (r.clean ? '↻ fixed on retype' : '· needs review');
+    listHTML += `<li><span>${k+1}. ${esc(item.prefix)}…</span><span>${mark}</span></li>`;
+  });
+
+  board.innerHTML = `
+    <h1>Set complete</h1>
+    <p class="sub">Pattern ${state.pattern} · ${firstTry}/${total} caught on the first try</p>
+    <ul class="results-list">${listHTML}</ul>
+    <div class="row">
+      <button class="primary" id="again">Do it again</button>
+      <button id="other">Try the other pattern</button>
+      <button id="home">Start over</button>
+    </div>
+  `;
+  const otherPattern = Object.keys(SENTENCES).find(k => k !== state.pattern);
+  document.getElementById('again').onclick = () => beginPattern(state.pattern);
+  if (otherPattern) document.getElementById('other').onclick = () => beginPattern(otherPattern);
+  else document.getElementById('other').style.display = 'none';
+  document.getElementById('home').onclick = renderStart;
+}
+
+/* ---------------- Boot ---------------- */
+
+fetch('sentences.json')
+  .then(r => {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(data => {
+    ROUND_TIME = data.roundTime || ROUND_TIME;
+    RETYPE_TIME = data.retypeTime || RETYPE_TIME;
+    SENTENCES = data.patterns;
+    renderStart();
+  })
+  .catch(err => {
+    board.innerHTML = `
+      <h1>Error focus drill</h1>
+      <p class="error-msg">Couldn't load sentences.json (${esc(err.message)}).</p>
+      <p class="explain">Make sure sentences.json is in the same folder as this page, and that you're viewing it through a web server (like GitHub Pages) rather than opening the file directly — browsers block local file loading for security.</p>
+    `;
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "roundTime": 60,
+  "retypeTime": 20,
+  "patterns": {
+    "A": [
+      {
+        "prefix": "Consumers pay consumption tax",
+        "wrongChunk": "to the government",
+        "correctChunk": "to retailers and producers",
+        "explain": "Consumers pay the tax to the seller — retailers and producers — who then pass it on to the government. It never goes to the government directly."
+      },
+      {
+        "prefix": "Consumption tax is",
+        "wrongChunk": "a direct tax",
+        "correctChunk": "an indirect tax",
+        "explain": "It passes through a business before reaching the government, which makes it an indirect tax rather than a direct one."
+      },
+      {
+        "prefix": "People with low incomes pay",
+        "wrongChunk": "a lower proportion of their income in consumption tax",
+        "correctChunk": "a higher proportion of their income in consumption tax",
+        "explain": "The same fixed tax rate takes a bigger bite out of a smaller income, so the burden lands harder on lower incomes."
+      },
+      {
+        "prefix": "A regressive tax means people",
+        "wrongChunk": "with high incomes pay a higher proportion of their income",
+        "correctChunk": "with low incomes pay a higher proportion of their income",
+        "explain": "Regressive is the opposite of progressive — the relatively heavier burden falls on low incomes, not high ones."
+      }
+    ],
+    "B": [
+      {
+        "prefix": "People with high incomes",
+        "wrongChunk": "pay a lower proportion of their income in income tax",
+        "correctChunk": "pay a higher proportion of their income in income tax",
+        "explain": "Income tax rates rise as income rises, so higher earners pay a larger share of their income, not a smaller one."
+      },
+      {
+        "prefix": "A progressive tax means people",
+        "wrongChunk": "with low incomes pay a higher proportion of their income",
+        "correctChunk": "with high incomes pay a higher proportion of their income",
+        "explain": "Progressive tax rates rise with income, so it's higher incomes that pay the larger proportion."
+      },
+      {
+        "prefix": "Governments combine different kinds of taxes",
+        "wrongChunk": "to make taxes cheaper",
+        "correctChunk": "to make taxes fair",
+        "explain": "Mixing direct, indirect, progressive, and regressive taxes is meant to balance who bears the burden — fairness, not lowering the total collected."
+      },
+      {
+        "prefix": "People with the same income",
+        "wrongChunk": "should pay different amounts of tax",
+        "correctChunk": "should pay the same amount of tax",
+        "explain": "This is the principle of horizontal equity — people in the same financial position should be taxed equally."
+      }
+    ]
+  }
+}
