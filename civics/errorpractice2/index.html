@@ -109,18 +109,32 @@
     word-wrap:break-word;
   }
 
-  .chunk{
+  .tap-zone{
     display:inline;
     cursor:pointer;
-    border-bottom:2px dashed var(--chalk-red);
-    color:var(--chalk);
     padding:0 2px;
     border-radius:3px;
     transition:background 0.15s;
   }
-  .chunk:hover, .chunk:focus{
-    background:rgba(217,115,122,0.15);
+  .tap-zone:hover, .tap-zone:focus{
+    background:rgba(238,233,221,0.10);
     outline:none;
+  }
+  .tap-zone.wrong-guess{
+    animation:shake 0.35s;
+    background:rgba(217,115,122,0.18);
+  }
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-4px); }
+    75%{ transform:translateX(4px); }
+  }
+  .tap-hint{
+    font-family:'Kalam', cursive;
+    color:var(--chalk-dim);
+    font-size:0.95rem;
+    min-height:1.3em;
+    margin-bottom:6px;
   }
 
   .chunk-input{
@@ -340,15 +354,27 @@ function renderFix(){
   board.innerHTML = `
     ${progressDots()}
     <div class="timer-track"><div class="timer-fill" id="fill"></div></div>
-    <div class="phase-label">Tap the part that's wrong, then type the fix</div>
+    <div class="phase-label">Find the part that's wrong, then type the fix</div>
     <div class="sentence-box" id="sentenceBox">
-      ${esc(item.prefix)} <span class="chunk" id="chunk" tabindex="0">${esc(item.wrongChunk)}</span>.
+      <span class="tap-zone" id="prefixZone" data-zone="prefix" tabindex="0">${esc(item.prefix)}</span> <span class="tap-zone" id="chunk" data-zone="chunk" tabindex="0">${esc(item.wrongChunk)}</span>.
     </div>
+    <div class="tap-hint" id="tapHint"></div>
     <div class="row" id="row"></div>
   `;
 
   const chunk = document.getElementById('chunk');
+  const prefixZone = document.getElementById('prefixZone');
+  const hint = document.getElementById('tapHint');
+
+  const wrongGuess = (el) => {
+    hint.textContent = "Not there — try another part.";
+    el.classList.remove('wrong-guess');
+    void el.offsetWidth;
+    el.classList.add('wrong-guess');
+  };
+
   const activate = () => {
+    hint.textContent = '';
     chunk.outerHTML = `<input type="text" id="chunkInput" class="chunk-input" placeholder="type the correction…" autocomplete="off">`;
     const input = document.getElementById('chunkInput');
     autosize(input);
@@ -357,11 +383,15 @@ function renderFix(){
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter'){ e.preventDefault(); submitFix(); }
     });
+    prefixZone.onclick = null;
     document.getElementById('row').innerHTML = `<button class="primary" id="submit">Check</button>`;
     document.getElementById('submit').onclick = () => submitFix();
   };
+
   chunk.onclick = activate;
   chunk.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); } });
+  prefixZone.onclick = () => wrongGuess(prefixZone);
+  prefixZone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); wrongGuess(prefixZone); } });
 
   startTimer(ROUND_TIME, (left, total) => {
     const fill = document.getElementById('fill');
@@ -387,10 +417,25 @@ function submitFix(timedOut){
 function renderReveal(timedOut, correctNow, didTap){
   state.phase = 'reveal';
   const item = currentItem();
+
+  if (correctNow){
+    board.innerHTML = `
+      ${progressDots()}
+      <div class="phase-label">Nice</div>
+      <span class="feedback-tag tag-good">Fixed it — first try</span>
+      <div class="sentence-box">${esc(item.prefix)} <span class="added">${esc(item.correctChunk)}</span>.</div>
+      <div class="explain">${esc(item.explain)}</div>
+      <div class="row">
+        <button class="primary" id="next">Next →</button>
+      </div>
+    `;
+    document.getElementById('next').onclick = () => finishRound(true, true, 0);
+    return;
+  }
+
   let tag;
   if (timedOut) tag = '<span class="feedback-tag tag-bad">Time up</span>';
   else if (!didTap) tag = '<span class="feedback-tag tag-bad">No answer</span>';
-  else if (correctNow) tag = '<span class="feedback-tag tag-good">Fixed it</span>';
   else tag = '<span class="feedback-tag tag-bad">Not quite</span>';
 
   board.innerHTML = `
@@ -449,14 +494,17 @@ function submitRetype(timedOut){
   const userText = input ? input.value : '';
   const clean = !timedOut && normalize(userText) === normalize(item.correctChunk);
 
-  state.results.push({ firstTry: state.firstTryCorrect, clean });
-
   board.innerHTML = `
     ${progressDots()}
     <div class="phase-label">${clean ? "Clean." : (timedOut ? "Time up — moving on." : "Close — moving on.")}</div>
     <div class="sentence-box">${esc(item.prefix)} <span class="added">${esc(item.correctChunk)}</span>.</div>
   `;
 
+  finishRound(state.firstTryCorrect, clean, 900);
+}
+
+function finishRound(firstTry, clean, delay){
+  state.results.push({ firstTry, clean });
   setTimeout(() => {
     state.index++;
     if (state.index >= SENTENCES[state.pattern].length){
@@ -464,7 +512,7 @@ function submitRetype(timedOut){
     } else {
       renderFix();
     }
-  }, 900);
+  }, delay);
 }
 
 /* ---------------- Results ---------------- */
