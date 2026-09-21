@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error Focus Drill</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+  :root{
+    --wood-dark:#3b2a1d;
+    --wood-mid:#6b4a2f;
+    --wood-light:#8a6540;
+    --board:#1f3a2e;
+    --board-edge:#173026;
+    --chalk:#eee9dd;
+    --chalk-dim:#b9c4bb;
+    --chalk-yellow:#e8c468;
+    --chalk-red:#d9737a;
+    --chalk-teal:#7fb8a8;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    height:100%;
+    margin:0;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255,255,255,0.03), transparent 40%),
+      linear-gradient(160deg, #2c2018, #241a13 60%, #1c140e);
+    color:var(--chalk);
+    font-family:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .frame{
+    width:100%;
+    max-width:760px;
+    padding:16px;
+    border-radius:10px;
+    background:linear-gradient(160deg, var(--wood-light), var(--wood-mid) 55%, var(--wood-dark));
+    box-shadow:0 30px 60px rgba(0,0,0,0.45), inset 0 0 0 2px rgba(0,0,0,0.25);
+  }
+
+  .board{
+    position:relative;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.035), transparent 35%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03), transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02), transparent 60%),
+      linear-gradient(160deg, var(--board), var(--board-edge));
+    border-radius:6px;
+    padding:28px 26px 22px;
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:inset 0 0 40px rgba(0,0,0,0.35);
+  }
+
+  h1{
+    font-family:'Kalam', cursive;
+    font-weight:700;
+    font-size:1.9rem;
+    margin:0 0 4px;
+    letter-spacing:0.3px;
+  }
+
+  .sub{
+    font-family:'Kalam', cursive;
+    color:var(--chalk-dim);
+    font-size:1rem;
+    margin:0 0 20px;
+  }
+
+  /* timer */
+  .timer-track{
+    height:6px;
+    width:100%;
+    background:rgba(255,255,255,0.08);
+    border-radius:3px;
+    overflow:hidden;
+    margin-bottom:22px;
+  }
+  .timer-fill{
+    height:100%;
+    width:100%;
+    background:var(--chalk-teal);
+    transition:width 1s linear, background 0.4s linear;
+  }
+
+  .phase-label{
+    font-family:'Kalam', cursive;
+    color:var(--chalk-yellow);
+    font-size:1.05rem;
+    margin-bottom:10px;
+  }
+
+  .sentence-box{
+    background:rgba(0,0,0,0.18);
+    border:1px dashed rgba(238,233,221,0.35);
+    border-radius:6px;
+    padding:16px;
+    font-size:1.18rem;
+    line-height:1.6;
+    margin-bottom:16px;
+    min-height:70px;
+  }
+
+  textarea, input[type=text]{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:2px solid var(--chalk-dim);
+    color:var(--chalk);
+    font-family:inherit;
+    font-size:1.15rem;
+    padding:8px 2px;
+    resize:none;
+    outline:none;
+  }
+  textarea:focus, input[type=text]:focus{
+    border-bottom-color:var(--chalk-yellow);
+  }
+
+  .row{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+
+  button{
+    font-family:'Kalam', cursive;
+    font-size:1.05rem;
+    background:transparent;
+    color:var(--chalk);
+    border:2px solid var(--chalk-dim);
+    border-radius:6px;
+    padding:10px 20px;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s, transform 0.1s;
+  }
+  button:hover{ border-color:var(--chalk-yellow); background:rgba(232,196,104,0.08); }
+  button:active{ transform:scale(0.97); }
+  button.primary{ border-color:var(--chalk-teal); color:var(--chalk-teal); }
+  button.primary:hover{ background:rgba(127,184,168,0.12); }
+
+  .removed{ color:var(--chalk-red); text-decoration:line-through; opacity:0.85; }
+  .added{ color:var(--chalk-yellow); text-decoration:underline; }
+
+  .feedback-tag{
+    display:inline-block;
+    font-family:'Kalam', cursive;
+    font-size:0.95rem;
+    padding:3px 10px;
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .tag-good{ background:rgba(127,184,168,0.18); color:var(--chalk-teal); }
+  .tag-bad{ background:rgba(217,115,122,0.18); color:var(--chalk-red); }
+
+  .explain{ color:var(--chalk-dim); font-size:0.98rem; line-height:1.5; margin-top:4px; }
+
+  .start-grid{ display:flex; gap:16px; margin-top:20px; flex-wrap:wrap; }
+  .pattern-card{
+    flex:1; min-width:180px;
+    border:2px solid rgba(238,233,221,0.3);
+    border-radius:8px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color 0.15s, background 0.15s;
+  }
+  .pattern-card:hover{ border-color:var(--chalk-yellow); background:rgba(232,196,104,0.06); }
+  .pattern-card h2{ font-family:'Kalam', cursive; margin:0 0 6px; font-size:1.4rem; }
+  .pattern-card p{ margin:0; color:var(--chalk-dim); font-size:0.9rem; }
+
+  .progress-dots{ display:flex; gap:8px; margin-bottom:18px; }
+  .dot{ width:10px; height:10px; border-radius:50%; background:rgba(238,233,221,0.25); }
+  .dot.done{ background:var(--chalk-teal); }
+  .dot.current{ background:var(--chalk-yellow); }
+
+  .results-list{ list-style:none; padding:0; margin:0 0 18px; }
+  .results-list li{
+    display:flex; justify-content:space-between; padding:8px 0;
+    border-bottom:1px dashed rgba(238,233,221,0.2); font-size:0.98rem;
+  }
+
+  footer.hint{
+    margin-top:auto;
+    padding-top:16px;
+    font-size:0.8rem;
+    color:rgba(238,233,221,0.4);
+    font-family:'Kalam', cursive;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .timer-fill{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="board" id="board"></div>
+</div>
+
+<script>
+/* ============================================================
+   EDIT ME — sentence data, timers, and everything a teacher
+   would want to change without touching the logic below.
+   ============================================================ */
+
+const ROUND_TIME   = 60; // seconds for "Spot & Fix" phase
+const RETYPE_TIME  = 25; // seconds for "Retype" phase
+
+const SENTENCES = {
+  A: [
+    {
+      wrong:   "Consumers pay consumption tax to the government.",
+      correct: "Consumers pay consumption tax to businesses, who pass it on to the government.",
+      explain: "Consumption tax is collected by the seller at the point of purchase, then remitted to the government — the consumer never pays the government directly. This is what makes it an indirect tax."
+    },
+    {
+      wrong:   "Consumption tax is a direct tax.",
+      correct: "Consumption tax is an indirect tax.",
+      explain: "A direct tax is paid straight to the government by the person it's levied on (like income tax). Consumption tax passes through a business first, so it's indirect."
+    },
+    {
+      wrong:   "People with low incomes pay a lower proportion of their income in consumption tax.",
+      correct: "People with low incomes pay a higher proportion of their income in consumption tax.",
+      explain: "Everyone pays the same tax rate on a purchase, so that fixed amount is a bigger slice of a small income than a large one — that's why it hits lower incomes harder."
+    },
+    {
+      wrong:   "A regressive tax means people with high incomes pay a higher proportion of their income.",
+      correct: "A regressive tax means people with low incomes pay a higher proportion of their income.",
+      explain: "Regressive is the opposite of progressive: the relative burden falls harder on lower incomes, not higher ones."
+    }
+  ],
+  B: [
+    {
+      wrong:   "Income tax is an indirect tax.",
+      correct: "Income tax is a direct tax.",
+      explain: "Income tax is paid straight to the government by the earner — nothing passes through a business first — so it's classified as direct."
+    },
+    {
+      wrong:   "Income tax is a regressive tax.",
+      correct: "Income tax is a progressive tax.",
+      explain: "Income tax rates rise as income rises, so higher earners pay a larger proportion — that's the definition of progressive."
+    },
+    {
+      wrong:   "A progressive tax means everyone pays the same tax rate.",
+      correct: "A progressive tax means people with higher incomes pay a higher tax rate.",
+      explain: "A flat rate for everyone would be proportional, not progressive. Progressive tax rates increase as income increases."
+    },
+    {
+      wrong:   "People with high incomes pay a lower rate of income tax than people with low incomes.",
+      correct: "People with high incomes pay a higher rate of income tax than people with low incomes.",
+      explain: "Under a progressive system, tax brackets increase with income, so higher earners face higher marginal rates."
+    }
+  ]
+};
+
+/* ============================================================
+   App logic — shouldn't need to touch below this line.
+   ============================================================ */
+
+const board = document.getElementById('board');
+
+let state = {
+  pattern: null,
+  index: 0,
+  phase: null,     // 'fix' | 'reveal' | 'retype'
+  timer: null,
+  timeLeft: 0,
+  results: []       // { firstTry: bool }
+};
+
+function normalize(s){
+  return s.toLowerCase().replace(/[.,!?;:'"]/g,'').replace(/\s+/g,' ').trim();
+}
+
+function wordDiff(a, b){
+  const aw = a.replace(/\.$/,'').split(' ');
+  const bw = b.replace(/\.$/,'').split(' ');
+  let i = 0;
+  while (i < aw.length && i < bw.length && aw[i].toLowerCase() === bw[i].toLowerCase()) i++;
+  let j = 0;
+  while (j < aw.length - i && j < bw.length - i &&
+         aw[aw.length-1-j].toLowerCase() === bw[bw.length-1-j].toLowerCase()) j++;
+  return {
+    prefix: aw.slice(0, i),
+    removed: aw.slice(i, aw.length - j),
+    added: bw.slice(i, bw.length - j),
+    suffix: aw.slice(aw.length - j)
+  };
+}
+
+function renderDiffHTML(wrong, correct){
+  const d = wordDiff(wrong, correct);
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  let html = '';
+  if (d.prefix.length) html += esc(d.prefix.join(' ')) + ' ';
+  if (d.removed.length) html += `<span class="removed">${esc(d.removed.join(' '))}</span> `;
+  if (d.added.length) html += `<span class="added">${esc(d.added.join(' '))}</span> `;
+  if (d.suffix.length) html += esc(d.suffix.join(' '));
+  return html.trim() + '.';
+}
+
+function clearTimer(){
+  if (state.timer) clearInterval(state.timer);
+  state.timer = null;
+}
+
+function startTimer(seconds, onTick, onExpire){
+  clearTimer();
+  state.timeLeft = seconds;
+  onTick(state.timeLeft, seconds);
+  state.timer = setInterval(() => {
+    state.timeLeft--;
+    onTick(state.timeLeft, seconds);
+    if (state.timeLeft <= 0){
+      clearTimer();
+      onExpire();
+    }
+  }, 1000);
+}
+
+function timerColor(pct){
+  if (pct > 0.5) return getComputedStyle(document.documentElement).getPropertyValue('--chalk-teal');
+  if (pct > 0.2) return getComputedStyle(document.documentElement).getPropertyValue('--chalk-yellow');
+  return getComputedStyle(document.documentElement).getPropertyValue('--chalk-red');
+}
+
+function progressDots(){
+  const total = SENTENCES[state.pattern].length;
+  let html = '<div class="progress-dots">';
+  for (let k = 0; k < total; k++){
+    let cls = 'dot';
+    if (k < state.index) cls += ' done';
+    else if (k === state.index) cls += ' current';
+    html += `<div class="${cls}"></div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderStart(){
+  clearTimer();
+  board.innerHTML = `
+    <h1>Error focus drill</h1>
+    <p class="sub">Find the mistake. Fix it. Do it again — clean.</p>
+    <div class="start-grid">
+      <div class="pattern-card" id="pickA">
+        <h2>Pattern A</h2>
+        <p>Consumption tax · 4 sentences</p>
+      </div>
+      <div class="pattern-card" id="pickB">
+        <h2>Pattern B</h2>
+        <p>Income tax · 4 sentences</p>
+      </div>
+    </div>
+    <footer class="hint">Each sentence: spot the error (${ROUND_TIME}s) → see the fix → retype it clean (${RETYPE_TIME}s).</footer>
+  `;
+  document.getElementById('pickA').onclick = () => beginPattern('A');
+  document.getElementById('pickB').onclick = () => beginPattern('B');
+}
+
+function beginPattern(p){
+  state.pattern = p;
+  state.index = 0;
+  state.results = [];
+  renderFix();
+}
+
+function currentItem(){
+  return SENTENCES[state.pattern][state.index];
+}
+
+function renderFix(){
+  state.phase = 'fix';
+  const item = currentItem();
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="timer-track"><div class="timer-fill" id="fill"></div></div>
+    <div class="phase-label">Spot the mistake and fix it</div>
+    <div class="sentence-box">
+      <textarea id="input" rows="2">${item.wrong}</textarea>
+    </div>
+    <div class="row">
+      <button class="primary" id="submit">Check</button>
+    </div>
+  `;
+  const input = document.getElementById('input');
+  input.focus();
+  input.setSelectionRange(input.value.length, input.value.length);
+  document.getElementById('submit').onclick = submitFix;
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitFix(); }
+  });
+
+  startTimer(ROUND_TIME, (left, total) => {
+    const fill = document.getElementById('fill');
+    if (!fill) return;
+    const pct = left / total;
+    fill.style.width = (pct * 100) + '%';
+    fill.style.background = timerColor(pct);
+  }, () => submitFix(true));
+}
+
+function submitFix(timedOut){
+  clearTimer();
+  const item = currentItem();
+  const input = document.getElementById('input');
+  const userText = input ? input.value : '';
+  const correctNow = !timedOut && normalize(userText) === normalize(item.correct);
+  state._firstTryCorrect = correctNow;
+  renderReveal(userText, timedOut, correctNow);
+}
+
+function renderReveal(userText, timedOut, correctNow){
+  state.phase = 'reveal';
+  const item = currentItem();
+  const tag = timedOut
+    ? '<span class="feedback-tag tag-bad">Time up</span>'
+    : (correctNow
+        ? '<span class="feedback-tag tag-good">Fixed it</span>'
+        : '<span class="feedback-tag tag-bad">Not quite</span>');
+
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="phase-label">Here's the fix</div>
+    ${tag}
+    <div class="sentence-box">${renderDiffHTML(item.wrong, item.correct)}</div>
+    <div class="explain">${item.explain}</div>
+    <div class="row">
+      <button class="primary" id="next">Now type it clean →</button>
+    </div>
+  `;
+  document.getElementById('next').onclick = renderRetype;
+}
+
+function renderRetype(){
+  state.phase = 'retype';
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="timer-track"><div class="timer-fill" id="fill"></div></div>
+    <div class="phase-label">Type the correct sentence from memory</div>
+    <div class="sentence-box">
+      <input type="text" id="retypeInput" placeholder="Start typing…" autocomplete="off" />
+    </div>
+    <div class="row">
+      <button class="primary" id="submitRetype">Submit</button>
+    </div>
+  `;
+  const input = document.getElementById('retypeInput');
+  input.focus();
+  document.getElementById('submitRetype').onclick = submitRetype;
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter'){ e.preventDefault(); submitRetype(); }
+  });
+
+  startTimer(RETYPE_TIME, (left, total) => {
+    const fill = document.getElementById('fill');
+    if (!fill) return;
+    const pct = left / total;
+    fill.style.width = (pct * 100) + '%';
+    fill.style.background = timerColor(pct);
+  }, () => submitRetype(true));
+}
+
+function submitRetype(timedOut){
+  clearTimer();
+  const item = currentItem();
+  const input = document.getElementById('retypeInput');
+  const userText = input ? input.value : '';
+  const clean = !timedOut && normalize(userText) === normalize(item.correct);
+
+  state.results.push({ firstTry: !!state._firstTryCorrect, clean });
+
+  board.innerHTML = `
+    ${progressDots()}
+    <div class="phase-label">${clean ? "Clean." : (timedOut ? "Time up — moving on." : "Close — moving on.")}</div>
+    <div class="sentence-box">${item.correct}</div>
+  `;
+
+  setTimeout(() => {
+    state.index++;
+    if (state.index >= SENTENCES[state.pattern].length){
+      renderResults();
+    } else {
+      renderFix();
+    }
+  }, 900);
+}
+
+function renderResults(){
+  clearTimer();
+  const total = state.results.length;
+  const firstTry = state.results.filter(r => r.firstTry).length;
+  const cleanRetype = state.results.filter(r => r.clean).length;
+
+  let listHTML = '';
+  SENTENCES[state.pattern].forEach((item, k) => {
+    const r = state.results[k];
+    const mark = r.firstTry ? '✓ first try' : (r.clean ? '↻ fixed on retype' : '· needs review');
+    listHTML += `<li><span>${k+1}. ${item.correct.slice(0, 40)}${item.correct.length > 40 ? '…' : ''}</span><span>${mark}</span></li>`;
+  });
+
+  board.innerHTML = `
+    <h1>Set complete</h1>
+    <p class="sub">Pattern ${state.pattern} · ${firstTry}/${total} caught on the first try</p>
+    <ul class="results-list">${listHTML}</ul>
+    <div class="row">
+      <button class="primary" id="again">Do it again</button>
+      <button id="other">Try the other pattern</button>
+      <button id="home">Start over</button>
+    </div>
+  `;
+  document.getElementById('again').onclick = () => beginPattern(state.pattern);
+  document.getElementById('other').onclick = () => beginPattern(state.pattern === 'A' ? 'B' : 'A');
+  document.getElementById('home').onclick = renderStart;
+}
+
+renderStart();
+</script>
+
+</body>
+</html>
