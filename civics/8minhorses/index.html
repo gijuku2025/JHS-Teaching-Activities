@@ -588,7 +588,6 @@
     <div class="timer-actions">
       <button class="btn-gold" id="timerStartBtn">▶ Start</button>
       <button class="btn-ghost" id="timerPauseBtn" style="display:none;">⏸ Pause</button>
-      <button class="btn-ghost" id="timerResetBtn">↺ Reset timer</button>
     </div>
   </div>
 </div>
@@ -699,7 +698,6 @@
   var timerStatus = document.getElementById("timerStatus");
   var timerStartBtn = document.getElementById("timerStartBtn");
   var timerPauseBtn = document.getElementById("timerPauseBtn");
-  var timerResetBtn = document.getElementById("timerResetBtn");
 
   // ---------- Timer & race lock ----------
 
@@ -786,7 +784,6 @@
 
   timerStartBtn.addEventListener("click", startTimer);
   timerPauseBtn.addEventListener("click", pauseTimer);
-  timerResetBtn.addEventListener("click", resetTimer);
 
   // ---------- Winner / lock ----------
 
