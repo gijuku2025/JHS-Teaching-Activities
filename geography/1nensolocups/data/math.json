@@ -1,0 +1,42 @@
+{
+  "chapters": [
+    {
+      "id": "ch2",
+      "name": "Chapter 2",
+      "sentences": [
+        {
+          "chunks": ["A translation", "slides a figure", "in a straight direction"],
+          "answer": "A translation slides a figure in a straight direction."
+        },
+        {
+          "chunks": ["A rotation", "turns a figure", "around a point"],
+          "answer": "A rotation turns a figure around a point."
+        },
+        {
+          "chunks": ["A reflection", "flips a figure", "across a line"],
+          "answer": "A reflection flips a figure across a line."
+        },
+        {
+          "chunks": ["The size and shape", "of a figure", "do not change"],
+          "answer": "The size and shape of a figure do not change."
+        },
+        {
+          "chunks": ["The new figure", "is congruent", "to the original figure"],
+          "answer": "The new figure is congruent to the original figure."
+        },
+        {
+          "chunks": ["A line of symmetry", "divides a figure", "into two matching parts"],
+          "answer": "A line of symmetry divides a figure into two matching parts."
+        },
+        {
+          "chunks": ["A square", "has four", "lines of symmetry"],
+          "answer": "A square has four lines of symmetry."
+        },
+        {
+          "chunks": ["Patterns can be made", "using translations", "rotations", "and reflections"],
+          "answer": "Patterns can be made using translations, rotations, and reflections."
+        }
+      ]
+    }
+  ]
+}

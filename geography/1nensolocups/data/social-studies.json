@@ -1,0 +1,118 @@
+{
+  "chapters": [
+    {
+      "id": "ch15",
+      "name": "Chapter 15",
+      "sentences": [
+        {
+          "chunks": ["Buying and selling commodities", "with other countries", "is called", "trade", "."],
+          "answer": "Buying and selling commodities with other countries is called trade."
+        },
+        {
+          "chunks": ["Countries", "trade", "because they produce", "different", "goods."],
+          "answer": "Countries trade because they produce different goods."
+        },
+        {
+          "chunks": ["International specialization", "means", "countries produce", "the things", "they are good at."],
+          "answer": "International specialization means countries produce the things they are good at."
+        },
+        {
+          "chunks": ["After the war", "Japan", "imported", "raw materials", "and exported manufactured goods."],
+          "answer": "After the war, Japan imported raw materials and exported manufactured goods."
+        },
+        {
+          "chunks": ["A trade surplus", "means", "exports", "are higher than", "imports."],
+          "answer": "A trade surplus means exports are higher than imports."
+        },
+        {
+          "chunks": ["Many companies", "moved", "their factories", "to developing", "countries."],
+          "answer": "Many companies moved their factories to developing countries."
+        },
+        {
+          "chunks": ["The number", "of factories", "in Japan", "decreased", "."],
+          "answer": "The number of factories in Japan decreased."
+        },
+        {
+          "chunks": ["Deindustrialization", "means", "factories move", "to other", "countries."],
+          "answer": "Deindustrialization means factories move to other countries."
+        }
+      ]
+    },
+    {
+      "id": "ch16",
+      "name": "Chapter 16",
+      "sentences": [
+        {
+          "chunks": ["Consumers", "pay", "consumption tax", "to retailers", "and producers."],
+          "answer": "Consumers pay consumption tax to retailers and producers."
+        },
+        {
+          "chunks": ["Consumption tax", "is", "an indirect", "tax", "."],
+          "answer": "Consumption tax is an indirect tax."
+        },
+        {
+          "chunks": ["People with low incomes", "pay", "a higher proportion", "of their income", "in consumption tax."],
+          "answer": "People with low incomes pay a higher proportion of their income in consumption tax."
+        },
+        {
+          "chunks": ["A regressive tax", "means", "people with low incomes", "pay a higher proportion", "of their income."],
+          "answer": "A regressive tax means people with low incomes pay a higher proportion of their income."
+        },
+        {
+          "chunks": ["People with high incomes", "pay", "a higher proportion", "of their income", "in income tax."],
+          "answer": "People with high incomes pay a higher proportion of their income in income tax."
+        },
+        {
+          "chunks": ["A progressive tax", "means", "people with high incomes", "pay a higher proportion", "of their income."],
+          "answer": "A progressive tax means people with high incomes pay a higher proportion of their income."
+        },
+        {
+          "chunks": ["Governments", "combine", "different kinds", "of taxes", "to make taxes fair."],
+          "answer": "Governments combine different kinds of taxes to make taxes fair."
+        },
+        {
+          "chunks": ["People with the same income", "should pay", "the same amount", "of tax", "."],
+          "answer": "People with the same income should pay the same amount of tax."
+        }
+      ]
+    },
+    {
+      "id": "ch17",
+      "name": "Chapter 17",
+      "sentences": [
+        {
+          "chunks": ["Traditional Inuit", "lived in", "igloos", "and", "tents"],
+          "answer": "Traditional Inuit lived in igloos and tents."
+        },
+        {
+          "chunks": ["The Polar Zone", "is", "always cold"],
+          "answer": "The Polar Zone is always cold."
+        },
+        {
+          "chunks": ["Summer has", "no night", "and", "winter has", "no day"],
+          "answer": "Summer has no night, and winter has no day."
+        },
+        {
+          "chunks": ["Inuit people", "used", "the things", "in", "their environment"],
+          "answer": "Inuit people used the things in their environment."
+        },
+        {
+          "chunks": ["In Tundra Climates", "snow melts", "in summer"],
+          "answer": "In Tundra Climates snow melts in summer."
+        },
+        {
+          "chunks": ["Many modern Inuit", "now live", "in towns", "with", "electricity"],
+          "answer": "Many modern Inuit now live in towns with electricity."
+        },
+        {
+          "chunks": ["The sun is low", "in the sky", "so", "solar energy", "is weak"],
+          "answer": "The sun is low in the sky, so solar energy is weak."
+        },
+        {
+          "chunks": ["In Ice Cap climates", "snow", "never melts"],
+          "answer": "In Ice Cap climates snow never melts."
+        }
+      ]
+    }
+  ]
+}
