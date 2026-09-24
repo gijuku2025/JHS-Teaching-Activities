@@ -1,6 +1,6 @@
 {
   "chapters": [
-     {
+    {
       "id": "ch7",
       "name": "Chapter 7",
       "sentences": [
@@ -35,6 +35,44 @@
         {
           "chunks": ["In Ice Cap climates", "snow", "never melts"],
           "answer": "In Ice Cap climates snow never melts."
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "name": "Chapter 8",
+      "sentences": [
+        {
+          "chunks": ["The Tropical Zone", "is always hot", "."],
+          "answer": "The Tropical Zone is always hot."
+        },
+        {
+          "chunks": ["Tropical Rainforest Climates", "are hot and rainy", "all year", "."],
+          "answer": "Tropical Rainforest Climates are hot and rainy all year."
+        },
+        {
+          "chunks": ["Savanna Climates", "have a rainy season", "and a dry season", "."],
+          "answer": "Savanna Climates have a rainy season and a dry season."
+        },
+        {
+          "chunks": ["The rainy season comes", "when the Subsolar Point", "is near", "."],
+          "answer": "The rainy season comes when the Subsolar Point is near."
+        },
+        {
+          "chunks": ["Mangroves and coral reefs", "grow in", "the Tropical Zone", "."],
+          "answer": "Mangroves and coral reefs grow in the Tropical Zone."
+        },
+        {
+          "chunks": ["People use", "the things", "in their environment", "."],
+          "answer": "People use the things in their environment."
+        },
+        {
+          "chunks": ["Samoa exports", "frozen tuna", "to Japan", "."],
+          "answer": "Samoa exports frozen tuna to Japan."
+        },
+        {
+          "chunks": ["Many Samoans", "work", "in tourism", "."],
+          "answer": "Many Samoans work in tourism."
         }
       ]
     }
