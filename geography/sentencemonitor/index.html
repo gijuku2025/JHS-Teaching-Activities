@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentence Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c1512; --panel:#122019; --panel2:#0f1a15; --line:#1d3128;
+    --good:#4ce6a5; --bad:#ff3b30; --amber:#ffb020; --text:#eef2ee; --muted:#7f9184;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  html,body{height:100%; margin:0;}
+  body{
+    background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif;
+    display:flex; align-items:center; justify-content:center; min-height:100%;
+    overflow-x:hidden;
+  }
+  .monitor{
+    width:100%; max-width:640px; margin:16px; background:var(--panel);
+    border:1px solid var(--line); border-radius:6px; padding:20px 20px 24px;
+    box-shadow:0 0 0 6px var(--panel2), 0 20px 60px rgba(0,0,0,.5);
+    position:relative; overflow:hidden;
+  }
+  .hdr{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .hdr h1{font-size:1.05rem; letter-spacing:.02em; margin:0; font-weight:700;}
+  .hdr .sub{font-family:'IBM Plex Mono',monospace; color:var(--muted); font-size:.72rem;}
+  .vitals{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .hearts{display:flex; gap:4px;}
+  .heart{width:16px; height:16px; position:relative; transform:rotate(-45deg);}
+  .heart::before,.heart::after{content:"";position:absolute;width:16px;height:16px;background:var(--good);border-radius:50%;}
+  .heart::before{top:-8px;left:0;}
+  .heart::after{left:8px;top:0;}
+  .heart.dead::before,.heart.dead::after{background:#2a352e;}
+  .beat{animation:beat 1.1s ease-in-out infinite;}
+  @keyframes beat{0%,100%{transform:rotate(-45deg) scale(1);}20%{transform:rotate(-45deg) scale(1.18);}40%{transform:rotate(-45deg) scale(1);}}
+  .readout{font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--muted); margin-left:auto;}
+  .readout b{color:var(--good); font-size:.85rem;}
+  .wave{height:34px; border-radius:4px; background:var(--panel2); border:1px solid var(--line); margin-bottom:18px; overflow:hidden; position:relative;}
+  .wave svg{width:200%; height:100%; animation:scroll 2.6s linear infinite;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .wave.flat svg{animation-play-state:paused;}
+  .screen{display:none;}
+  .screen.active{display:block;}
+  label{display:block; font-size:.78rem; color:var(--muted); margin:14px 0 6px; text-transform:lowercase;}
+  input[type=text], textarea, select{
+    width:100%; background:var(--panel2); border:1px solid var(--line); color:var(--text);
+    font-family:'IBM Plex Mono',monospace; font-size:.85rem; padding:10px; border-radius:4px; resize:vertical;
+  }
+  textarea{min-height:150px; line-height:1.5;}
+  .row{display:flex; gap:10px; flex-wrap:wrap;}
+  .row > *{flex:1; min-width:140px;}
+  button{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer;
+    border:none; border-radius:4px; padding:11px 16px; margin-top:14px;
+  }
+  .primary{background:var(--good); color:#08130e; width:100%;}
+  .primary:hover{filter:brightness(1.08);}
+  .ghost{background:transparent; color:var(--muted); border:1px solid var(--line);}
+  .danger{background:transparent; color:var(--bad); border:1px solid var(--bad);}
+  .prompt{font-size:.75rem; color:var(--muted); margin-bottom:8px;}
+  .built{
+    min-height:48px; border-bottom:2px solid var(--line); padding:6px 0 12px; margin-bottom:18px;
+    display:flex; flex-wrap:wrap; gap:6px; align-items:flex-end; font-size:1.15rem; font-weight:700;
+  }
+  .built span{color:var(--good);}
+  .tray{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px;}
+  .tile{
+    background:var(--panel2); border:1px solid var(--line); color:var(--text);
+    padding:9px 14px; border-radius:4px; font-size:.95rem; cursor:pointer; user-select:none;
+    transition:transform .08s;
+  }
+  .tile:active{transform:scale(.95);}
+  .tile.used{opacity:0; pointer-events:none;}
+  .footer{display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:.72rem; color:var(--muted); font-family:'IBM Plex Mono',monospace;}
+  .flash{position:absolute; inset:0; background:var(--bad); opacity:0; pointer-events:none; z-index:5;}
+  .flash.on{animation:flash .32s ease-out;}
+  @keyframes flash{0%{opacity:.85;}100%{opacity:0;}}
+  .shake{animation:shake .32s ease-in-out;}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-9px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(5px);}}
+  .goodflash{position:absolute; inset:0; background:var(--good); opacity:0; pointer-events:none; z-index:5;}
+  .goodflash.on{animation:gflash .28s ease-out;}
+  @keyframes gflash{0%{opacity:.35;}100%{opacity:0;}}
+  .results h2{font-size:1.3rem; margin:4px 0 2px;}
+  .stat{font-family:'IBM Plex Mono',monospace; font-size:2.4rem; color:var(--good); margin:6px 0;}
+  .missed{font-size:.8rem; color:var(--muted); margin-top:14px; line-height:1.6;}
+  .missed b{color:var(--text);}
+  @media (prefers-reduced-motion: reduce){ .beat,.wave svg,.shake,.flash.on,.goodflash.on{animation:none !important;} }
+</style>
+</head>
+<body>
+<div class="monitor" id="monitor">
+  <div class="flash" id="flash"></div>
+  <div class="goodflash" id="gflash"></div>
+
+  <div class="hdr">
+    <h1>Sentence Monitor</h1>
+    <div class="sub">core-sentence drill</div>
+  </div>
+
+  <!-- SETUP -->
+  <div class="screen active" id="screen-setup">
+    <label>chapter</label>
+    <select id="chapterSelect"></select>
+    <div class="row">
+      <input type="text" id="chapterName" placeholder="new chapter name">
+      <button class="ghost" id="saveChapter" type="button">save as new</button>
+    </div>
+    <label>8 core sentences (one per line, in the order you teach them)</label>
+    <textarea id="sentences" spellcheck="false"></textarea>
+    <div class="row">
+      <button class="primary" id="startBtn" type="button">start round</button>
+      <button class="danger" id="deleteChapter" type="button">delete chapter</button>
+    </div>
+    <div class="footer">tap words in the right order · wrong tap = buzzer</div>
+  </div>
+
+  <!-- GAME -->
+  <div class="screen" id="screen-game">
+    <div class="vitals">
+      <div class="hearts" id="hearts"></div>
+      <div class="readout"><b id="scoreNum">0</b> / <span id="totalNum">8</span> clean</div>
+    </div>
+    <div class="wave" id="wave">
+      <svg viewBox="0 0 200 34" preserveAspectRatio="none">
+        <polyline points="0,17 20,17 26,4 32,30 38,17 60,17 80,17 86,4 92,30 98,17 120,17 140,17 146,4 152,30 158,17 180,17 200,17"
+          fill="none" stroke="#4ce6a5" stroke-width="2"/>
+        <polyline points="200,17 220,17 226,4 232,30 238,17 260,17 280,17 286,4 292,30 298,17 320,17 340,17 346,4 352,30 358,17 380,17 400,17"
+          fill="none" stroke="#4ce6a5" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="prompt" id="prompt">sentence 1 of 8</div>
+    <div class="built" id="built"></div>
+    <div class="tray" id="tray"></div>
+    <div class="footer">
+      <span id="triesLeft">3 tries</span>
+      <button class="ghost" id="quitBtn" type="button" style="margin:0;">end round</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen results" id="screen-results">
+    <h2>round complete</h2>
+    <div class="stat" id="finalScore">0/8</div>
+    <div class="sub" id="finalNote">sentences built clean, no wrong taps</div>
+    <div class="missed" id="missedList"></div>
+    <div class="row">
+      <button class="primary" id="retryBtn" type="button">run it again</button>
+      <button class="ghost" id="backBtn" type="button">back to setup</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORE_KEY = 'sentenceMonitor.chapters.v1';
+  const DEFAULT_CHAPTERS = {
+    "Sample: Triangles": [
+      "A triangle has three sides.",
+      "A triangle has three angles.",
+      "The three angles add up to 180 degrees.",
+      "An equilateral triangle has three equal sides.",
+      "An isosceles triangle has two equal sides.",
+      "A right triangle has one 90 degree angle.",
+      "The longest side is opposite the largest angle.",
+      "We can find the area with base times height divided by two."
+    ]
+  };
+
+  function loadChapters(){
+    try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {...DEFAULT_CHAPTERS}; }
+    catch(e){ return {...DEFAULT_CHAPTERS}; }
+  }
+  function saveChapters(ch){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(ch)); }catch(e){}
+  }
+
+  let chapters = loadChapters();
+
+  const $ = id => document.getElementById(id);
+  const chapterSelect = $('chapterSelect');
+  const sentencesBox = $('sentences');
+
+  function refreshSelect(selectName){
+    chapterSelect.innerHTML = '';
+    Object.keys(chapters).forEach(name=>{
+      const o = document.createElement('option');
+      o.value = name; o.textContent = name;
+      chapterSelect.appendChild(o);
+    });
+    if(selectName && chapters[selectName]) chapterSelect.value = selectName;
+    loadIntoBox();
+  }
+  function loadIntoBox(){
+    const name = chapterSelect.value;
+    sentencesBox.value = (chapters[name]||[]).join('\n');
+  }
+  chapterSelect.addEventListener('change', loadIntoBox);
+
+  $('saveChapter').addEventListener('click', ()=>{
+    const name = $('chapterName').value.trim();
+    if(!name){ alert('give this chapter a name first'); return; }
+    const lines = sentencesBox.value.split('\n').map(s=>s.trim()).filter(Boolean);
+    chapters[name] = lines;
+    saveChapters(chapters);
+    $('chapterName').value = '';
+    refreshSelect(name);
+  });
+  $('deleteChapter').addEventListener('click', ()=>{
+    const name = chapterSelect.value;
+    if(!name) return;
+    if(!confirm('delete "'+name+'"?')) return;
+    delete chapters[name];
+    if(Object.keys(chapters).length===0) chapters = {...DEFAULT_CHAPTERS};
+    saveChapters(chapters);
+    refreshSelect();
+  });
+  sentencesBox.addEventListener('input', ()=>{
+    const name = chapterSelect.value;
+    if(name){ chapters[name] = sentencesBox.value.split('\n').map(s=>s.trim()).filter(Boolean); saveChapters(chapters); }
+  });
+
+  refreshSelect();
+
+  // ---- audio ----
+  let actx;
+  function tone(freq, dur, type, gainPeak){
+    try{
+      actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, actx.currentTime);
+      g.gain.exponentialRampToValueAtTime(gainPeak, actx.currentTime+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime+dur);
+      o.connect(g); g.connect(actx.destination);
+      o.start(); o.stop(actx.currentTime+dur+0.02);
+    }catch(e){}
+  }
+  function buzz(){
+    tone(160,0.22,'square',0.35);
+    setTimeout(()=>tone(140,0.18,'square',0.3),90);
+    if(navigator.vibrate) navigator.vibrate([70,40,70]);
+  }
+  function ding(){ tone(880,0.12,'sine',0.22); }
+  function success(){ tone(660,0.35,'sine',0.28); }
+
+  // ---- game state ----
+  let queue=[], qi=0, tokens=[], order=[], nextIdx=0, tries=3, lives=3, cleanCount=0, missed=[];
+
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    $(id).classList.add('active');
+  }
+
+  $('startBtn').addEventListener('click', ()=>{
+    const list = sentencesBox.value.split('\n').map(s=>s.trim()).filter(Boolean);
+    if(list.length < 1){ alert('add at least one sentence'); return; }
+    queue = list.slice(0,8);
+    qi = 0; cleanCount = 0; missed = [];
+    $('totalNum').textContent = queue.length;
+    showScreen('screen-game');
+    loadSentence();
+  });
+
+  function loadSentence(){
+    const s = queue[qi];
+    tokens = s.split(/\s+/);
+    order = tokens.map((w,i)=>({w,i})).sort(()=>Math.random()-0.5);
+    nextIdx = 0; tries = 3; lives = 3;
+    $('prompt').textContent = 'sentence '+(qi+1)+' of '+queue.length;
+    $('scoreNum').textContent = cleanCount;
+    renderHearts();
+    renderTray();
+    $('built').innerHTML = '';
+  }
+
+  function renderHearts(){
+    const h = $('hearts'); h.innerHTML='';
+    for(let i=0;i<3;i++){
+      const d = document.createElement('div');
+      d.className = 'heart' + (i<lives?' beat':' dead');
+      h.appendChild(d);
+    }
+    $('triesLeft').textContent = tries+' tries';
+  }
+
+  function renderTray(){
+    const tray = $('tray'); tray.innerHTML='';
+    order.forEach(tok=>{
+      const b = document.createElement('div');
+      b.className='tile'; b.textContent = tok.w;
+      b.dataset.idx = tok.i;
+      b.addEventListener('click', ()=>tileTap(b, tok.i));
+      tray.appendChild(b);
+    });
+  }
+
+  function tileTap(el, idx){
+    if(el.classList.contains('used')) return;
+    if(idx === nextIdx){
+      ding();
+      el.classList.add('used');
+      const span = document.createElement('span');
+      span.textContent = tokens[idx] + ' ';
+      $('built').appendChild(span);
+      nextIdx++;
+      if(nextIdx === tokens.length){
+        success();
+        $('gflash').classList.remove('on'); void $('gflash').offsetWidth; $('gflash').classList.add('on');
+        const perfect = tries===3 && lives===3;
+        if(perfect) cleanCount++; else missed.push(queue[qi]);
+        $('scoreNum').textContent = cleanCount;
+        setTimeout(nextSentence, 550);
+      }
+    } else {
+      lives--; tries--;
+      renderHearts();
+      const m = $('monitor'), fl=$('flash');
+      fl.classList.remove('on'); void fl.offsetWidth; fl.classList.add('on');
+      m.classList.remove('shake'); void m.offsetWidth; m.classList.add('shake');
+      buzz();
+      if(lives<=0){
+        missed.push(queue[qi]);
+        // reveal correct next word
+        const correctTile = document.querySelector('.tile[data-idx="'+nextIdx+'"]');
+        if(correctTile){ correctTile.style.background='var(--bad)'; correctTile.style.color='#fff'; }
+        setTimeout(nextSentence, 900);
+      }
+    }
+  }
+
+  function nextSentence(){
+    qi++;
+    if(qi >= queue.length){ finishRound(); return; }
+    loadSentence();
+  }
+
+  $('quitBtn').addEventListener('click', ()=>{ if(confirm('end this round?')) finishRound(); });
+
+  function finishRound(){
+    $('finalScore').textContent = cleanCount+'/'+queue.length;
+    if(missed.length){
+      $('missedList').innerHTML = '<b>needed a retry:</b><br>' + missed.map(s=>'&middot; '+escapeHtml(s)).join('<br>');
+    } else {
+      $('missedList').innerHTML = 'every sentence built clean on the first pass.';
+    }
+    showScreen('screen-results');
+  }
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  $('retryBtn').addEventListener('click', ()=>{ qi=0; cleanCount=0; missed=[]; showScreen('screen-game'); loadSentence(); });
+  $('backBtn').addEventListener('click', ()=>showScreen('screen-setup'));
+})();
+</script>
+</body>
+</html>
