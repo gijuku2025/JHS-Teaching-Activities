@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pair Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --board:#3b2a20; --board2:#2e2117; --card:#f6efe0; --cardback:#8a5a3a;
+    --rule:#c0392b; --ink:#2b2118; --accent:#d98e2b; --muted:#cdbfa8; --match:#4a7c59; --miss:#b6472e;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%; margin:0; scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0 2px, transparent 2px 4px),
+      var(--board);
+    color:var(--muted); font-family:'Space Grotesk',sans-serif;
+    display:flex; align-items:center; justify-content:center; min-height:100%; overflow-x:hidden;
+  }
+  .board{
+    width:100%; max-width:760px; margin:16px; background:var(--board2); border:1px solid #4a382a;
+    border-radius:8px; padding:20px 20px 24px; box-shadow:0 20px 60px rgba(0,0,0,.55);
+  }
+  .hdr{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;}
+  .hdr h1{font-family:'Kalam',cursive; font-size:1.6rem; color:var(--card); margin:0;}
+  .hdr .sub{font-size:.72rem; color:var(--muted);}
+  .screen{display:none;} .screen.active{display:block;}
+  label{display:block; font-size:.78rem; color:var(--muted); margin:14px 0 6px;}
+  select{
+    width:100%; background:#241a12; border:1px solid #4a382a; color:var(--card);
+    font-family:'Space Grotesk',sans-serif; font-size:.85rem; padding:10px; border-radius:5px;
+  }
+  button{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer; border:none; border-radius:5px; padding:11px 16px;}
+  .primary{background:var(--accent); color:#241a12; width:100%; margin-top:16px;}
+  .primary:hover{filter:brightness(1.08);}
+  .primary:disabled{opacity:.35; cursor:not-allowed;}
+  .ghost{background:transparent; color:var(--muted); border:1px solid #4a382a;}
+  .note{font-size:.72rem; color:var(--muted); margin-top:12px; line-height:1.5;}
+  .row{display:flex; gap:10px; flex-wrap:wrap;}
+  .row > *{flex:1; min-width:140px;}
+
+  .status{display:flex; align-items:center; gap:14px; margin-bottom:14px; font-size:.8rem;}
+  .turn{font-family:'Kalam',cursive; font-size:1.15rem; color:var(--accent);}
+  .streak{color:var(--accent); font-size:.75rem;}
+  .readout{margin-left:auto; font-size:.72rem; color:var(--muted);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(110px,1fr)); gap:10px; margin-bottom:8px;}
+  .card{ perspective:600px; height:84px; cursor:pointer; }
+  .card-inner{ position:relative; width:100%; height:100%; transition:transform .35s; transform-style:preserve-3d; }
+  .card.flipped .card-inner, .card.matched .card-inner{ transform:rotateY(180deg); }
+  .face{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:8px;
+    font-size:.82rem; line-height:1.25;
+  }
+  .face.back{
+    background:var(--cardback); border:2px solid #6e4527;
+    background-image:repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 6px, transparent 6px 12px);
+  }
+  .face.front{
+    background:var(--card); color:var(--ink); transform:rotateY(180deg);
+    border-top:4px solid var(--rule); border-radius:6px;
+  }
+  .card.matched .face.front{ background:#e9f2ea; border-top-color:var(--match); }
+  .card.shake .card-inner{ animation:shake .3s ease-in-out; }
+  @keyframes shake{0%,100%{transform:rotateY(180deg) translateX(0);}25%{transform:rotateY(180deg) translateX(-6px);}75%{transform:rotateY(180deg) translateX(6px);}}
+  .card.pulse .face.front{ animation:pulse .4s ease-out; }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,124,89,.6);}100%{box-shadow:0 0 0 14px rgba(74,124,89,0);}}
+
+  .footer{display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:.72rem; color:var(--muted);}
+  .results h2{font-family:'Kalam',cursive; font-size:1.7rem; color:var(--card); margin:4px 0 2px;}
+  .stat{font-size:2.2rem; color:var(--accent); margin:6px 0; font-weight:700;}
+  @media (prefers-reduced-motion: reduce){ .card-inner,.card.shake .card-inner,.card.pulse .face.front{ transition:none; animation:none !important; } }
+</style>
+</head>
+<body>
+<div class="board">
+  <div class="hdr"><h1>Pair Up</h1><div class="sub" id="loadState">loading chapters&hellip;</div></div>
+
+  <!-- SETUP -->
+  <div class="screen active" id="screen-setup">
+    <label>chapter</label>
+    <select id="chapterSelect"></select>
+    <button class="primary" id="startBtn" type="button" disabled>lay out the cards</button>
+    <div class="note">each sentence is split into two halves. take turns flipping two cards — find the half that finishes the sentence. a match means you go again; a miss passes the turn. work together to clear the board in as few flips as possible.</div>
+  </div>
+
+  <!-- GAME -->
+  <div class="screen" id="screen-game">
+    <div class="status">
+      <div class="turn" id="turnLabel">Player 1's turn</div>
+      <div class="streak" id="streakLabel"></div>
+      <div class="readout"><span id="matchedNum">0</span>/<span id="pairTotal">8</span> pairs &middot; <span id="flipNum">0</span> flips</div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="footer">
+      <span id="chapNameLabel"></span>
+      <button class="ghost" id="quitBtn" type="button">end session</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen results" id="screen-results">
+    <h2>board cleared!</h2>
+    <div class="stat" id="finalFlips">0 flips</div>
+    <div class="note" id="finalNote">total flips it took the team to find every pair</div>
+    <div class="row">
+      <button class="primary" id="retryBtn" type="button">shuffle &amp; replay</button>
+      <button class="ghost" id="backBtn" type="button">choose another chapter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const DEFAULT_CHAPTERS = {
+    "Sample: Triangles": [
+      "A triangle has three sides.",
+      "A triangle has three angles.",
+      "The three angles add up to 180 degrees.",
+      "An equilateral triangle has three equal sides.",
+      "An isosceles triangle has two equal sides.",
+      "A right triangle has one 90 degree angle.",
+      "The longest side is opposite the largest angle.",
+      "We can find the area with base times height divided by two."
+    ]
+  };
+  let chapters = DEFAULT_CHAPTERS;
+
+  fetch('chapters.json').then(r=>{ if(!r.ok) throw 0; return r.json(); })
+    .then(data=>{ chapters=data; ready('loaded from chapters.json'); })
+    .catch(()=>ready('using built-in sample (chapters.json not found)'));
+
+  function ready(msg){
+    $('loadState').textContent = msg;
+    const sel=$('chapterSelect'); sel.innerHTML='';
+    Object.keys(chapters).forEach(name=>{ const o=document.createElement('option'); o.value=name; o.textContent=name; sel.appendChild(o); });
+    $('startBtn').disabled = Object.keys(chapters).length===0;
+  }
+
+  function splitSentence(s){
+    if(s.indexOf('||')!==-1){
+      const parts = s.split('||'); return [parts[0].trim(), parts[1].trim()];
+    }
+    const words = s.trim().split(/\s+/);
+    const mid = Math.ceil(words.length/2);
+    return [words.slice(0,mid).join(' '), words.slice(mid).join(' ')];
+  }
+
+  // ---- audio ----
+  let actx;
+  function tone(freq,dur,type,peak,delay){
+    delay=delay||0;
+    setTimeout(()=>{
+      try{
+        actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+        const o=actx.createOscillator(), g=actx.createGain();
+        o.type=type; o.frequency.value=freq;
+        g.gain.setValueAtTime(0.0001,actx.currentTime);
+        g.gain.exponentialRampToValueAtTime(peak,actx.currentTime+0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+dur);
+        o.connect(g); g.connect(actx.destination);
+        o.start(); o.stop(actx.currentTime+dur+0.02);
+      }catch(e){}
+    },delay);
+  }
+  function flipSound(){ tone(300,0.06,'triangle',0.2); }
+  function matchSound(){ tone(660,0.12,'sine',0.25); tone(880,0.18,'sine',0.28,110); }
+  function missSound(){ tone(180,0.16,'square',0.25); }
+  function winSound(){ tone(523,0.14,'sine',0.25); tone(659,0.14,'sine',0.25,130); tone(784,0.28,'sine',0.28,260); }
+
+  // ---- game state ----
+  let cards=[], flippedIdx=[], matchedCount=0, totalPairs=0, currentPlayer=1, streak=0, flips=0, busy=false;
+
+  function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
+
+  $('startBtn').addEventListener('click', ()=>{
+    const chapName = $('chapterSelect').value;
+    const sentences = chapters[chapName]||[];
+    $('chapNameLabel').textContent = chapName;
+    buildDeck(sentences);
+    showScreen('screen-game');
+  });
+
+  function buildDeck(sentences){
+    let deck=[];
+    sentences.forEach((s,i)=>{
+      const parts = splitSentence(s);
+      deck.push({pairId:i, text:parts[0], matched:false});
+      deck.push({pairId:i, text:parts[1], matched:false});
+    });
+    deck.sort(()=>Math.random()-0.5);
+    cards = deck; totalPairs = sentences.length; matchedCount=0; flippedIdx=[];
+    currentPlayer=1; streak=0; flips=0; busy=false;
+    $('pairTotal').textContent = totalPairs;
+    renderStatus(); renderGrid();
+  }
+
+  function renderStatus(){
+    $('turnLabel').textContent = "Player "+currentPlayer+"'s turn";
+    $('streakLabel').textContent = streak>=2 ? ('streak x'+streak) : '';
+    $('matchedNum').textContent = matchedCount;
+    $('flipNum').textContent = flips;
+  }
+
+  function renderGrid(){
+    const g=$('grid'); g.innerHTML='';
+    cards.forEach((c,i)=>{
+      const d=document.createElement('div');
+      d.className='card'+(c.matched?' matched':'')+(flippedIdx.includes(i)?' flipped':'');
+      d.innerHTML = '<div class="card-inner"><div class="face back">?</div><div class="face front">'+escapeHtml(c.text)+'</div></div>';
+      d.addEventListener('click', ()=>flipCard(i));
+      g.appendChild(d);
+    });
+  }
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function flipCard(i){
+    if(busy) return;
+    if(cards[i].matched || flippedIdx.includes(i)) return;
+    if(flippedIdx.length>=2) return;
+    flipSound();
+    flippedIdx.push(i);
+    renderGrid();
+    if(flippedIdx.length===2){
+      flips++;
+      busy=true;
+      const i1=flippedIdx[0], i2=flippedIdx[1];
+      renderStatus();
+      if(cards[i1].pairId === cards[i2].pairId){
+        setTimeout(()=>{
+          cards[i1].matched=true; cards[i2].matched=true;
+          matchedCount++;
+          matchSound();
+          flippedIdx=[]; busy=false;
+          streak++;
+          renderGrid(); renderStatus();
+          pulseCards([i1,i2]);
+          if(matchedCount>=totalPairs){ setTimeout(finish, 700); }
+        }, 500);
+      } else {
+        setTimeout(()=>{
+          missSound();
+          shakeCards([i1,i2]);
+          setTimeout(()=>{
+            flippedIdx=[]; busy=false;
+            currentPlayer = currentPlayer===1?2:1;
+            streak=0;
+            renderGrid(); renderStatus();
+          }, 350);
+        }, 600);
+      }
+    }
+  }
+  function pulseCards(idxs){
+    const els = document.querySelectorAll('.card');
+    idxs.forEach(i=>{ els[i].classList.add('pulse'); setTimeout(()=>els[i].classList.remove('pulse'),450); });
+  }
+  function shakeCards(idxs){
+    const els = document.querySelectorAll('.card');
+    idxs.forEach(i=>{ els[i].classList.add('shake'); setTimeout(()=>els[i].classList.remove('shake'),350); });
+  }
+
+  $('quitBtn').addEventListener('click', ()=>{ if(confirm('end this session?')) showScreen('screen-setup'); });
+
+  function finish(){
+    winSound();
+    $('finalFlips').textContent = flips+' flips';
+    showScreen('screen-results');
+  }
+  $('retryBtn').addEventListener('click', ()=>{
+    const chapName = $('chapterSelect').value;
+    buildDeck(chapters[chapName]||[]);
+    showScreen('screen-game');
+  });
+  $('backBtn').addEventListener('click', ()=>showScreen('screen-setup'));
+})();
+</script>
+</body>
+</html>
