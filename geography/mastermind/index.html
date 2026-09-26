@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentence Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f16; --panel:#121a24; --panel2:#0e151d; --line:#223142;
+    --gold:#caa14d; --green:#3ddc84; --amber:#ffb020; --red:#ff3b30;
+    --text:#edf1f5; --muted:#8592a1;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%; margin:0; scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif;
+    display:flex; align-items:center; justify-content:center; min-height:100%; overflow-x:hidden;
+  }
+  .vault{
+    width:100%; max-width:680px; margin:16px; background:var(--panel); border:1px solid var(--line);
+    border-radius:6px; padding:20px 22px 24px; box-shadow:0 0 0 6px var(--panel2), 0 20px 60px rgba(0,0,0,.55);
+    position:relative; overflow:hidden;
+  }
+  .vault.shake{animation:shake .3s ease-in-out;}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(7px);}60%{transform:translateX(-5px);}80%{transform:translateX(4px);}}
+  .flash{position:absolute; inset:0; opacity:0; pointer-events:none; z-index:5;}
+  .flash.amber{background:var(--amber);} .flash.green{background:var(--green);} .flash.red{background:var(--red);}
+  .flash.on{animation:flashPulse .35s ease-out;}
+  @keyframes flashPulse{0%{opacity:.45;}100%{opacity:0;}}
+  .hdr{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;}
+  .hdr h1{font-size:1.05rem; margin:0; letter-spacing:.02em;}
+  .hdr .sub{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:.72rem;}
+  .screen{display:none;} .screen.active{display:block;}
+  label{display:block; font-size:.78rem; color:var(--muted); margin:14px 0 6px;}
+  select, input[type=text]{
+    width:100%; background:var(--panel2); border:1px solid var(--line); color:var(--text);
+    font-family:'IBM Plex Mono',monospace; font-size:.85rem; padding:10px; border-radius:4px;
+  }
+  .row{display:flex; gap:10px; flex-wrap:wrap;}
+  .row > *{flex:1; min-width:140px;}
+  button{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer; border:none; border-radius:4px; padding:11px 16px;}
+  .primary{background:var(--gold); color:#181206; width:100%; margin-top:16px;}
+  .primary:hover{filter:brightness(1.08);}
+  .primary:disabled{opacity:.35; cursor:not-allowed;}
+  .ghost{background:transparent; color:var(--muted); border:1px solid var(--line);}
+  .note{font-size:.72rem; color:var(--muted); margin-top:12px; line-height:1.5;}
+
+  .status{display:flex; align-items:center; gap:14px; margin-bottom:12px;}
+  .pips{display:flex; gap:5px;}
+  .pip{width:14px; height:14px; border-radius:50%; background:var(--line); border:1px solid var(--line);}
+  .pip.on{background:var(--gold); border-color:var(--gold);}
+  .pip.warn{background:var(--red); border-color:var(--red); animation:pulse .6s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  .readout{font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--muted); margin-left:auto;}
+
+  .log{max-height:150px; overflow-y:auto; margin-bottom:10px; display:flex; flex-direction:column; gap:6px;}
+  .guessrow{display:flex; gap:4px; flex-wrap:wrap;}
+  .peg{
+    padding:6px 10px; border-radius:4px; font-size:.82rem; font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--line); background:var(--panel2); color:var(--muted);
+  }
+  .peg.green{background:rgba(61,220,132,.16); border-color:var(--green); color:var(--green);}
+  .peg.amber{background:rgba(255,176,32,.14); border-color:var(--amber); color:var(--amber);}
+
+  .slots{display:flex; gap:6px; flex-wrap:wrap; min-height:44px; border:1px dashed var(--line); border-radius:5px; padding:8px; margin-bottom:10px;}
+  .slot{min-width:70px; height:36px; border-radius:4px; background:var(--panel2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:.9rem; cursor:pointer;}
+  .slot.filled{border-color:var(--gold); color:var(--text);}
+  .rack{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px;}
+  .tile{background:var(--panel2); border:1px solid var(--line); padding:9px 14px; border-radius:4px; font-size:.95rem; cursor:pointer; user-select:none;}
+  .tile.used{opacity:0; pointer-events:none;}
+  .tile:active{transform:scale(.96);}
+
+  .footer{display:flex; justify-content:space-between; align-items:center; margin-top:14px; font-size:.72rem; color:var(--muted); font-family:'IBM Plex Mono',monospace;}
+  .results h2{font-size:1.25rem; margin:4px 0 2px;}
+  .stat{font-family:'IBM Plex Mono',monospace; font-size:2.3rem; color:var(--green); margin:6px 0;}
+  .missed{font-size:.8rem; color:var(--muted); margin-top:14px; line-height:1.6;}
+  .missed b{color:var(--text);}
+  .vaultdoor{font-size:.85rem; color:var(--muted); margin-bottom:8px; text-align:center;}
+  @media (prefers-reduced-motion: reduce){ .vault.shake,.flash.on,.pip.warn{animation:none !important;} }
+</style>
+</head>
+<body>
+<div class="vault" id="vault">
+  <div class="flash amber" id="flashAmber"></div>
+  <div class="flash green" id="flashGreen"></div>
+  <div class="flash red" id="flashRed"></div>
+
+  <div class="hdr"><h1>Sentence Vault</h1><div class="sub" id="loadState">loading chapters&hellip;</div></div>
+
+  <!-- SETUP -->
+  <div class="screen active" id="screen-setup">
+    <label>chapter</label>
+    <select id="chapterSelect"></select>
+    <label>guesses per sentence</label>
+    <select id="attemptsSelect">
+      <option value="4">4 — hard</option>
+      <option value="6" selected>6 — standard</option>
+      <option value="8">8 — easier</option>
+    </select>
+    <button class="primary" id="startBtn" type="button" disabled>enter the vault</button>
+    <div class="note">both students read the same screen. one lays out a guess, the other checks it, and you decide together what to try next. green = right word, right spot. amber = right word, wrong spot.</div>
+  </div>
+
+  <!-- GAME -->
+  <div class="screen" id="screen-game">
+    <div class="status">
+      <div class="pips" id="pips"></div>
+      <div class="readout"><span id="sentNum">1</span>/<span id="sentTotal">8</span> cracked</div>
+    </div>
+    <div class="vaultdoor" id="doorMsg">unscramble the code &mdash; tap tiles to fill the slots</div>
+    <div class="log" id="log"></div>
+    <div class="slots" id="slots"></div>
+    <div class="rack" id="rack"></div>
+    <div class="row">
+      <button class="primary" id="lockBtn" type="button" disabled>lock in guess</button>
+      <button class="ghost" id="clearBtn" type="button" style="margin-top:16px;">clear</button>
+    </div>
+    <div class="footer">
+      <span id="chapNameLabel"></span>
+      <button class="ghost" id="quitBtn" type="button">end session</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen results" id="screen-results">
+    <h2>vault session complete</h2>
+    <div class="stat" id="finalScore">0/8</div>
+    <div class="sub" id="finalNote" style="color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:.72rem;">sentences cracked</div>
+    <div class="missed" id="missedList"></div>
+    <div class="row">
+      <button class="primary" id="retryBtn" type="button">run it again</button>
+      <button class="ghost" id="backBtn" type="button">choose another chapter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const DEFAULT_CHAPTERS = {
+    "Sample: Triangles": [
+      "A triangle has three sides.",
+      "A triangle has three angles.",
+      "The three angles add up to 180 degrees.",
+      "An equilateral triangle has three equal sides.",
+      "An isosceles triangle has two equal sides.",
+      "A right triangle has one 90 degree angle.",
+      "The longest side is opposite the largest angle.",
+      "We can find the area with base times height divided by two."
+    ]
+  };
+
+  let chapters = DEFAULT_CHAPTERS;
+
+  fetch('chapters.json').then(r=>{ if(!r.ok) throw 0; return r.json(); })
+    .then(data=>{ chapters = data; onChaptersReady('loaded from chapters.json'); })
+    .catch(()=>{ onChaptersReady('using built-in sample (chapters.json not found)'); });
+
+  function onChaptersReady(msg){
+    $('loadState').textContent = msg;
+    const sel = $('chapterSelect');
+    sel.innerHTML = '';
+    Object.keys(chapters).forEach(name=>{
+      const o = document.createElement('option'); o.value=name; o.textContent=name; sel.appendChild(o);
+    });
+    $('startBtn').disabled = Object.keys(chapters).length===0;
+  }
+
+  // ---- audio ----
+  let actx;
+  function tone(freq,dur,type,peak,delay){
+    delay=delay||0;
+    setTimeout(()=>{
+      try{
+        actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+        const o=actx.createOscillator(), g=actx.createGain();
+        o.type=type; o.frequency.value=freq;
+        g.gain.setValueAtTime(0.0001,actx.currentTime);
+        g.gain.exponentialRampToValueAtTime(peak,actx.currentTime+0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+dur);
+        o.connect(g); g.connect(actx.destination);
+        o.start(); o.stop(actx.currentTime+dur+0.02);
+      }catch(e){}
+    },delay);
+  }
+  function clickSound(){ tone(220,0.08,'square',0.25); }
+  function wrongSound(){ tone(180,0.15,'square',0.3); }
+  function unlockSound(){ tone(520,0.14,'sine',0.25); tone(780,0.22,'sine',0.28,120); tone(1040,0.28,'sine',0.25,260); }
+  function alarmSound(){ tone(500,0.22,'sawtooth',0.3); tone(380,0.22,'sawtooth',0.3,220); tone(500,0.22,'sawtooth',0.3,440); if(navigator.vibrate) navigator.vibrate([120,60,120,60,120]); }
+  function flashEl(id){ const el=$(id); el.classList.remove('on'); void el.offsetWidth; el.classList.add('on'); }
+  function shakeVault(){ const v=$('vault'); v.classList.remove('shake'); void v.offsetWidth; v.classList.add('shake'); }
+
+  // ---- game state ----
+  let queue=[], qi=0, maxAttempts=6, attemptsLeft=6, secret=[], rackState=[], slots=[], cracked=0, results=[];
+
+  function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
+
+  $('startBtn').addEventListener('click', ()=>{
+    const chapName = $('chapterSelect').value;
+    queue = (chapters[chapName]||[]).slice();
+    maxAttempts = parseInt($('attemptsSelect').value,10);
+    $('chapNameLabel').textContent = chapName;
+    qi=0; cracked=0; results=[];
+    $('sentTotal').textContent = queue.length;
+    showScreen('screen-game');
+    loadSentence();
+  });
+
+  function loadSentence(){
+    const s = queue[qi];
+    secret = s.split(/\s+/);
+    rackState = secret.map((w,i)=>({w,i,used:false}));
+    rackState.sort(()=>Math.random()-0.5);
+    slots = new Array(secret.length).fill(null);
+    attemptsLeft = maxAttempts;
+    $('sentNum').textContent = qi+1;
+    $('doorMsg').textContent = 'unscramble the code — tap tiles to fill the slots';
+    $('log').innerHTML = '';
+    renderPips(); renderRack(); renderSlots(); updateLockBtn();
+  }
+
+  function renderPips(){
+    const p = $('pips'); p.innerHTML='';
+    for(let i=0;i<maxAttempts;i++){
+      const d=document.createElement('div');
+      const used = i < (maxAttempts-attemptsLeft);
+      d.className='pip'+(used?' on':'') + (attemptsLeft===1 && i===maxAttempts-1 ? ' warn':'');
+      p.appendChild(d);
+    }
+  }
+
+  function renderRack(){
+    const r=$('rack'); r.innerHTML='';
+    rackState.forEach((tok,ri)=>{
+      const b=document.createElement('div');
+      b.className='tile'+(tok.used?' used':'');
+      b.textContent=tok.w;
+      b.addEventListener('click',()=>placeTile(ri));
+      r.appendChild(b);
+    });
+  }
+  function renderSlots(){
+    const s=$('slots'); s.innerHTML='';
+    slots.forEach((val,si)=>{
+      const d=document.createElement('div');
+      d.className='slot'+(val!==null?' filled':'');
+      d.textContent = val!==null ? rackState[val].w : '';
+      d.addEventListener('click',()=>clearSlot(si));
+      s.appendChild(d);
+    });
+  }
+  function placeTile(rackIdx){
+    if(rackState[rackIdx].used) return;
+    const emptySlot = slots.indexOf(null);
+    if(emptySlot===-1) return;
+    slots[emptySlot]=rackIdx;
+    rackState[rackIdx].used=true;
+    clickSound();
+    renderRack(); renderSlots(); updateLockBtn();
+  }
+  function clearSlot(slotIdx){
+    const rackIdx = slots[slotIdx];
+    if(rackIdx===null) return;
+    slots[slotIdx]=null;
+    rackState[rackIdx].used=false;
+    renderRack(); renderSlots(); updateLockBtn();
+  }
+  $('clearBtn').addEventListener('click', ()=>{
+    slots = slots.map(()=>null);
+    rackState.forEach(t=>t.used=false);
+    renderRack(); renderSlots(); updateLockBtn();
+  });
+  function updateLockBtn(){ $('lockBtn').disabled = slots.some(v=>v===null); }
+
+  function scoreGuess(guessWords){
+    const n = secret.length;
+    const result = new Array(n).fill(null);
+    const secretUsed = new Array(n).fill(false);
+    for(let i=0;i<n;i++){ if(guessWords[i]===secret[i]){ result[i]='green'; secretUsed[i]=true; } }
+    for(let i=0;i<n;i++){
+      if(result[i]) continue;
+      for(let j=0;j<n;j++){
+        if(!secretUsed[j] && secret[j]===guessWords[i]){ result[i]='amber'; secretUsed[j]=true; break; }
+      }
+    }
+    return result;
+  }
+
+  $('lockBtn').addEventListener('click', ()=>{
+    const guessWords = slots.map(ri=>rackState[ri].w);
+    const feedback = scoreGuess(guessWords);
+    const row = document.createElement('div'); row.className='guessrow';
+    guessWords.forEach((w,i)=>{
+      const p=document.createElement('div'); p.className='peg'+(feedback[i]?(' '+feedback[i]):'');
+      p.textContent=w; row.appendChild(p);
+    });
+    $('log').appendChild(row);
+    $('log').scrollTop = $('log').scrollHeight;
+
+    const solved = feedback.every(f=>f==='green');
+    if(solved){
+      unlockSound(); flashEl('flashGreen');
+      cracked++;
+      results.push({sentence:secret.join(' '), status:'cracked', attemptsUsed: maxAttempts-attemptsLeft+1});
+      $('doorMsg').textContent = 'cracked: ' + secret.join(' ');
+      setTimeout(nextSentence, 1100);
+      return;
+    }
+    attemptsLeft--;
+    renderPips();
+    if(attemptsLeft<=0){
+      wrongSound(); shakeVault();
+      setTimeout(()=>{
+        alarmSound(); flashEl('flashRed');
+        $('doorMsg').textContent = 'locked — answer: ' + secret.join(' ');
+        results.push({sentence:secret.join(' '), status:'locked', attemptsUsed: maxAttempts});
+        setTimeout(nextSentence, 1300);
+      }, 200);
+    } else {
+      wrongSound(); shakeVault(); flashEl('flashAmber');
+      slots = slots.map(()=>null);
+      rackState.forEach(t=>t.used=false);
+      renderRack(); renderSlots(); updateLockBtn();
+    }
+  });
+
+  function nextSentence(){
+    qi++;
+    if(qi>=queue.length){ finishSession(); return; }
+    loadSentence();
+  }
+
+  $('quitBtn').addEventListener('click', ()=>{ if(confirm('end this session?')) finishSession(); });
+
+  function finishSession(){
+    $('finalScore').textContent = cracked+'/'+queue.length;
+    if(results.length){
+      $('missedList').innerHTML = results.map(r=>{
+        const tag = r.status==='cracked' ? ('cracked in '+r.attemptsUsed+' &mdash; ') : 'locked &mdash; ';
+        return '&middot; '+tag+escapeHtml(r.sentence);
+      }).join('<br>');
+    }
+    showScreen('screen-results');
+  }
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  $('retryBtn').addEventListener('click', ()=>{ qi=0; cracked=0; results=[]; showScreen('screen-game'); loadSentence(); });
+  $('backBtn').addEventListener('click', ()=>showScreen('screen-setup'));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "Sample: Triangles": [
+    "A triangle has three sides.",
+    "A triangle has three angles.",
+    "The three angles add up to 180 degrees.",
+    "An equilateral triangle has three equal sides.",
+    "An isosceles triangle has two equal sides.",
+    "A right triangle has one 90 degree angle.",
+    "The longest side is opposite the largest angle.",
+    "We can find the area with base times height divided by two."
+  ],
+  "Sample: Community Helpers": [
+    "A firefighter puts out dangerous fires.",
+    "A doctor helps sick people get better.",
+    "A teacher helps students learn new things.",
+    "A police officer keeps the community safe.",
+    "A farmer grows food for the whole town.",
+    "A librarian helps people find good books.",
+    "A mail carrier delivers letters to our homes.",
+    "A mayor makes important decisions for the city."
+  ]
+}
