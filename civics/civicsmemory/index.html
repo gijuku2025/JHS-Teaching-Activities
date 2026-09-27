@@ -51,8 +51,11 @@
   .row{display:flex; gap:10px; flex-wrap:wrap;}
   .row > *{flex:1; min-width:140px;}
 
-  .status{display:flex; align-items:center; gap:14px; margin-bottom:16px; font-size:.8rem;}
+  .status{display:flex; align-items:center; gap:12px; margin-bottom:16px; font-size:.8rem; flex-wrap:wrap;}
   .roundlabel{font-family:'Kalam',cursive; font-size:1.2rem; color:var(--gold);}
+  .timer{font-weight:700; font-size:1.05rem; color:var(--gold); background:rgba(224,164,88,.12); padding:4px 11px; border-radius:999px;}
+  .timer.warn{color:#ffb0a2; background:rgba(193,68,45,.2); animation:timerPulse .6s ease-in-out infinite;}
+  @keyframes timerPulse{0%,100%{opacity:1;}50%{opacity:.5;}}
   .streak{color:var(--gold); font-size:.75rem; background:rgba(224,164,88,.12); padding:3px 9px; border-radius:999px;}
   .readout{margin-left:auto; font-size:.72rem; color:var(--dim); text-align:right; line-height:1.5;}
 
@@ -95,16 +98,37 @@
   <div class="screen active" id="screen-setup">
     <label>chapter</label>
     <select id="chapterSelect"></select>
+    <div class="row">
+      <div>
+        <label>seconds per round</label>
+        <select id="timeSelect">
+          <option value="30">30s</option>
+          <option value="45">45s</option>
+          <option value="60" selected>60s</option>
+          <option value="90">90s</option>
+        </select>
+      </div>
+      <div>
+        <label>flip limit per round</label>
+        <select id="flipSelect">
+          <option value="6">6 flips</option>
+          <option value="8" selected>8 flips</option>
+          <option value="10">10 flips</option>
+          <option value="12">12 flips</option>
+        </select>
+      </div>
+    </div>
     <button class="primary" id="startBtn" type="button" disabled>start round 1</button>
-    <div class="note">three rounds, each harder than the last: 4 tiles, then 8, then 12. every round pulls from the start of the chapter's list, so early sentences come back around as the board grows. flip two tiles to find the half that finishes the sentence.</div>
+    <div class="note">three rounds, always 6 tiles (3 pairs), pulling a fresh slice of the chapter each time. every round has a countdown and a limited number of flips &mdash; run out of either and the round ends, so think before you tap instead of flipping at random. 8 flips is about 2&ndash;3x the minimum needed, and 60 seconds gives enough time to read each fragment without feeling rushed &mdash; adjust either if your class needs more or less room.</div>
   </div>
 
   <!-- GAME -->
   <div class="screen" id="screen-game">
     <div class="status">
-      <div class="roundlabel" id="roundLabel">Round 1 &middot; 4 tiles</div>
+      <div class="roundlabel" id="roundLabel">Round 1 &middot; 6 tiles</div>
+      <div class="timer" id="timerLabel">60s</div>
       <div class="streak" id="streakLabel"></div>
-      <div class="readout"><span id="matchedNum">0</span>/<span id="pairTotal">2</span> pairs<br><span id="flipNum">0</span> flips</div>
+      <div class="readout"><span id="matchedNum">0</span>/<span id="pairTotal">3</span> pairs<br><span id="flipNum">0</span>/<span id="flipCapLabel">8</span> flips</div>
     </div>
     <div class="grid" id="grid"></div>
     <div class="footer">
@@ -129,9 +153,9 @@
 <script>
 (function(){
   const $ = id => document.getElementById(id);
-  const ROUND_PAIRS = [2,4,6]; // -> 4, 8, 12 tiles
-  const ROUND_COLS = [2,3,4]; // near-square: 2x2, 3-3-2 centered, 4x3
-  const ROUND_TILEH = [140,110,96]; // bigger tiles when there are fewer of them
+  const ROUND_PAIRS = [3,3,3]; // -> 6 tiles every round
+  const ROUND_COLS = [3,3,3]; // clean 3x2 each time
+  const ROUND_TILEH = [130,130,130];
   const DEFAULT_CHAPTERS = {
     "Sample: Triangles": [
       "A triangle has three sides.",
@@ -188,31 +212,57 @@
   // ---- state ----
   let chapterName='', sentencesAll=[], roundIndex=0, roundHistory=[];
   let cards=[], flippedIdx=[], matchedCount=0, pairTotal=0, streak=0, flips=0, busy=false;
+  let timeLimit=60, flipLimit=8, timeLeft=60, timerInterval=null, roundActive=false;
 
   function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
 
   $('startBtn').addEventListener('click', ()=>{
     chapterName = $('chapterSelect').value;
     sentencesAll = chapters[chapterName]||[];
+    timeLimit = parseInt($('timeSelect').value,10);
+    flipLimit = parseInt($('flipSelect').value,10);
     $('chapNameLabel').textContent = chapterName;
     roundIndex = 0; roundHistory = [];
     showScreen('screen-game');
     buildRound();
   });
 
+  function roundSentences(idx){
+    const n = sentencesAll.length, per = ROUND_PAIRS[idx];
+    const arr=[]; for(let k=0;k<per;k++){ arr.push(sentencesAll[(idx*per+k)%n]); }
+    return arr;
+  }
+
+  function clearRoundTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } }
+
   function buildRound(){
-    const pairs = Math.min(ROUND_PAIRS[roundIndex], sentencesAll.length);
-    const subset = sentencesAll.slice(0, pairs);
+    const subset = roundSentences(roundIndex);
     let deck=[];
     subset.forEach((s,i)=>{ const parts=splitSentence(s); deck.push({pairId:i,text:parts[0],matched:false}); deck.push({pairId:i,text:parts[1],matched:false}); });
     deck.sort(()=>Math.random()-0.5);
-    cards=deck; pairTotal=pairs; matchedCount=0; flippedIdx=[]; streak=0; flips=0; busy=false;
-    $('roundLabel').textContent = 'Round '+(roundIndex+1)+' \u00b7 '+(pairs*2)+' tiles';
+    cards=deck; pairTotal=subset.length; matchedCount=0; flippedIdx=[]; streak=0; flips=0; busy=false;
+    $('roundLabel').textContent = 'Round '+(roundIndex+1)+' \u00b7 '+(subset.length*2)+' tiles';
     $('pairTotal').textContent = pairTotal;
+    $('flipCapLabel').textContent = flipLimit;
     const grid = $('grid');
     grid.style.setProperty('--cols', ROUND_COLS[roundIndex]);
     grid.style.setProperty('--tileh', ROUND_TILEH[roundIndex]+'px');
     renderStatus(); renderGrid();
+
+    clearRoundTimer();
+    timeLeft = timeLimit; roundActive = true;
+    updateTimerLabel();
+    timerInterval = setInterval(()=>{
+      timeLeft--;
+      updateTimerLabel();
+      if(timeLeft<=0){ clearRoundTimer(); roundActive=false; finishRound('timeout'); }
+    },1000);
+  }
+
+  function updateTimerLabel(){
+    const el=$('timerLabel');
+    el.textContent = timeLeft+'s';
+    el.classList.toggle('warn', timeLeft<=10);
   }
 
   function renderStatus(){
@@ -234,13 +284,14 @@
   function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   function flipCard(i){
-    if(busy || cards[i].matched || flippedIdx.includes(i) || flippedIdx.length>=2) return;
+    if(!roundActive || busy || cards[i].matched || flippedIdx.includes(i) || flippedIdx.length>=2) return;
     flipSound();
     flippedIdx.push(i);
     renderGrid();
     if(flippedIdx.length===2){
       flips++; busy=true;
       const i1=flippedIdx[0], i2=flippedIdx[1];
+      const capHit = flips>=flipLimit;
       renderStatus();
       if(cards[i1].pairId===cards[i2].pairId){
         setTimeout(()=>{
@@ -248,12 +299,16 @@
           matchSound(); flippedIdx=[]; busy=false; streak++;
           renderGrid(); renderStatus();
           pulseCards([i1,i2]);
-          if(matchedCount>=pairTotal){ setTimeout(roundComplete, 650); }
+          if(matchedCount>=pairTotal){ roundActive=false; clearRoundTimer(); setTimeout(()=>finishRound('success'), 650); }
+          else if(capHit){ roundActive=false; clearRoundTimer(); setTimeout(()=>finishRound('flipcap'), 650); }
         },500);
       } else {
         setTimeout(()=>{
           missSound(); shakeCards([i1,i2]);
-          setTimeout(()=>{ flippedIdx=[]; busy=false; streak=0; renderGrid(); renderStatus(); },350);
+          setTimeout(()=>{
+            flippedIdx=[]; busy=false; streak=0; renderGrid(); renderStatus();
+            if(capHit){ roundActive=false; clearRoundTimer(); finishRound('flipcap'); }
+          },350);
         },600);
       }
     }
@@ -261,28 +316,38 @@
   function pulseCards(idxs){ const els=document.querySelectorAll('.card'); idxs.forEach(i=>{ els[i].classList.add('pulse'); setTimeout(()=>els[i].classList.remove('pulse'),450); }); }
   function shakeCards(idxs){ const els=document.querySelectorAll('.card'); idxs.forEach(i=>{ els[i].classList.add('shake'); setTimeout(()=>els[i].classList.remove('shake'),350); }); }
 
-  $('quitBtn').addEventListener('click', ()=>{ if(confirm('end this session?')) showScreen('screen-setup'); });
+  $('quitBtn').addEventListener('click', ()=>{
+    if(confirm('end this session?')){ clearRoundTimer(); roundActive=false; showScreen('screen-setup'); }
+  });
 
-  function roundComplete(){
-    roundHistory.push(flips);
-    const isLast = roundIndex >= ROUND_PAIRS.length-1 || ROUND_PAIRS[roundIndex]>=sentencesAll.length;
+  function finishRound(status){
+    const timeUsed = timeLimit - Math.max(timeLeft,0);
+    roundHistory.push({flips, matched:matchedCount, pairTotal, status, timeUsed});
+    const isLast = roundIndex >= ROUND_PAIRS.length-1;
+    if(status==='timeout') missSound();
+
     if(isLast){
-      winSound();
-      $('resultsTitle').textContent = 'chapter cleared!';
-      const total = roundHistory.reduce((a,b)=>a+b,0);
-      $('resultsStat').textContent = total+' total flips';
-      $('resultsNote').textContent = 'every round, fewest flips wins your own record.';
-      $('breakdown').innerHTML = roundHistory.map((f,idx)=>'Round '+(idx+1)+': <b>'+f+'</b> flips').join('<br>');
+      if(status==='success') winSound();
+      $('resultsTitle').textContent = 'session complete!';
+      const totalMatched = roundHistory.reduce((a,r)=>a+r.matched,0);
+      const totalPairs = roundHistory.reduce((a,r)=>a+r.pairTotal,0);
+      $('resultsStat').textContent = totalMatched+'/'+totalPairs+' pairs found';
+      $('resultsNote').textContent = 'fewer flips and more time left both mean sharper recall.';
+      $('breakdown').innerHTML = roundHistory.map((r,idx)=>{
+        const tag = r.status==='success' ? 'cleared' : (r.status==='timeout' ? 'time ran out' : 'flip limit hit');
+        return 'Round '+(idx+1)+': <b>'+r.matched+'/'+r.pairTotal+'</b> pairs &middot; '+r.flips+' flips &middot; '+tag;
+      }).join('<br>');
       $('continueBtn').textContent = 'play again from round 1';
       $('continueBtn').onclick = ()=>{ roundIndex=0; roundHistory=[]; showScreen('screen-game'); buildRound(); };
     } else {
-      tone(440,0.1,'sine',0.2);
-      $('resultsTitle').textContent = 'round '+(roundIndex+1)+' complete!';
-      $('resultsStat').textContent = flips+' flips';
-      $('resultsNote').textContent = 'next round adds more sentences to the board.';
+      const label = status==='success' ? ('round '+(roundIndex+1)+' complete!') : (status==='timeout' ? "time's up!" : 'out of flips!');
+      $('resultsTitle').textContent = label;
+      $('resultsStat').textContent = matchedCount+'/'+pairTotal+' pairs';
+      $('resultsNote').textContent = status==='success'
+        ? 'nice work \u2014 next round is a fresh set of sentences.'
+        : 'no worries \u2014 the next round is a fresh set of sentences.';
       $('breakdown').innerHTML = '';
-      const nextPairs = Math.min(ROUND_PAIRS[roundIndex+1], sentencesAll.length);
-      $('continueBtn').textContent = 'start round '+(roundIndex+2)+' ('+(nextPairs*2)+' tiles)';
+      $('continueBtn').textContent = 'start round '+(roundIndex+2);
       $('continueBtn').onclick = ()=>{ roundIndex++; showScreen('screen-game'); buildRound(); };
     }
     showScreen('screen-results');
