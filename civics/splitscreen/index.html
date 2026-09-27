@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentence Race</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --top-accent:#35c9d1; --bottom-accent:#f0a63a;
+    --good:#4ce6a5; --bad:#ff3b30; --text:#f5f7fa; --dim:#8b93a1; --tile:#161b22; --tile-edge:#2a3140;
+    box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%; margin:0;}
+  body{ background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif; overflow:hidden; }
+  .screen{display:none; height:100dvh;}
+  .screen.active{display:flex; flex-direction:column;}
+  .setup{ align-items:center; justify-content:center; padding:20px; }
+  .card{ width:100%; max-width:420px; }
+  h1{font-size:1.3rem; margin:0 0 4px;}
+  .sub{font-size:.72rem; color:var(--dim); margin-bottom:16px;}
+  label{display:block; font-size:.72rem; color:var(--dim); margin:14px 0 6px; text-transform:uppercase; letter-spacing:.03em;}
+  select{ width:100%; background:#12151c; border:1px solid var(--tile-edge); color:var(--text); font-size:.9rem; padding:11px; border-radius:8px; }
+  button{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:.85rem; cursor:pointer; border:none; border-radius:8px; padding:12px 18px; }
+  .primary{ background:linear-gradient(90deg,var(--top-accent),var(--bottom-accent)); color:#0a0a0f; width:100%; margin-top:16px; }
+  .primary:disabled{opacity:.35;}
+  .note{font-size:.72rem; color:var(--dim); margin-top:12px; line-height:1.55;}
+
+  .race{ position:relative; }
+  .half{ flex:1; display:flex; flex-direction:column; justify-content:center; padding:16px; position:relative; overflow:hidden; min-height:0; }
+  .half.top{ transform:rotate(180deg); background:radial-gradient(ellipse at 50% 120%, rgba(53,201,209,.16), transparent 65%); border-bottom:2px solid var(--top-accent); }
+  .half.bottom{ background:radial-gradient(ellipse at 50% -20%, rgba(240,166,58,.16), transparent 65%); border-top:2px solid var(--bottom-accent); }
+  .half.shake{ animation:shake .3s ease-in-out; }
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+  .half.top.shake{ animation:shaketop .3s ease-in-out; }
+  @keyframes shaketop{0%,100%{transform:rotate(180deg) translateX(0);}25%{transform:rotate(180deg) translateX(-8px);}75%{transform:rotate(180deg) translateX(8px);}}
+  .hrow{display:flex; justify-content:space-between; align-items:center; font-size:.7rem; color:var(--dim); margin-bottom:8px;}
+  .hrow b{color:var(--text); font-family:'IBM Plex Mono',monospace;}
+  .dots{display:flex; gap:4px; margin-bottom:10px;}
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--tile-edge);}
+  .dot.on.top{background:var(--top-accent);} .dot.on.bottom{background:var(--bottom-accent);}
+  .prompt{font-size:.68rem; color:var(--dim); margin-bottom:6px;}
+  .slots{display:flex; flex-wrap:wrap; gap:6px; min-height:38px; border-bottom:2px solid var(--tile-edge); padding-bottom:8px; margin-bottom:10px; font-size:1rem; font-weight:700;}
+  .slots span.filled{color:var(--good);}
+  .rack{display:flex; flex-wrap:wrap; gap:8px;}
+  .tile{background:var(--tile); border:1px solid var(--tile-edge); padding:9px 13px; border-radius:6px; font-size:.9rem; cursor:pointer; user-select:none;}
+  .top .tile{border-color:var(--top-accent);} .bottom .tile{border-color:var(--bottom-accent);}
+  .tile.used{opacity:0; pointer-events:none;}
+  .tile:active{transform:scale(.95);}
+  .endbtn{align-self:flex-start; margin-top:10px; background:transparent; color:var(--dim); border:1px solid var(--tile-edge); font-size:.68rem; padding:6px 10px;}
+
+  .overlay{position:absolute; inset:0; display:none; flex-direction:column; z-index:9;}
+  .overlay.show{display:flex;}
+  .ohalf{flex:1; display:flex; align-items:center; justify-content:center; background:rgba(10,10,15,.94);}
+  .ohalf.top{transform:rotate(180deg);}
+  .bignum{font-family:'IBM Plex Mono',monospace; font-size:4rem; font-weight:700; color:var(--text);}
+  .resulttext{text-align:center; padding:20px;}
+  .resulttext h2{font-size:1.4rem; margin:0 0 6px;}
+  .resulttext .time{font-family:'IBM Plex Mono',monospace; font-size:1.6rem; color:var(--good); margin:6px 0;}
+  .resulttext .stat{font-size:.75rem; color:var(--dim); margin-bottom:14px;}
+  .resulttext button{background:var(--text); color:#0a0a0f;}
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div class="screen active setup" id="screen-setup">
+  <div class="card">
+    <h1>Sentence Race</h1>
+    <div class="sub" id="loadState">loading chapters&hellip;</div>
+    <label>chapter</label>
+    <select id="chapterSelect"></select>
+    <button class="primary" id="startBtn" type="button" disabled>set up the race</button>
+    <div class="note">the tablet lies flat between you. one player reads normally from the bottom, the other reads upright from the top &mdash; each of you builds the same sentences on your own half, in the same order, at the same time. first to finish every sentence wins. mistakes don't cost you the race, but they're tracked for bragging rights.</div>
+  </div>
+</div>
+
+<!-- RACE -->
+<div class="screen race" id="screen-race">
+  <div class="half top" id="halfTop">
+    <div class="hrow"><span>PLAYER TOP</span><b id="timeTop">0.0s</b></div>
+    <div class="dots" id="dotsTop"></div>
+    <div class="prompt">sentence <span id="numTop">1</span> &middot; mistakes: <span id="missTop">0</span></div>
+    <div class="slots" id="slotsTop"></div>
+    <div class="rack" id="rackTop"></div>
+    <button class="endbtn" id="endTop" type="button">end race</button>
+  </div>
+  <div class="half bottom" id="halfBottom">
+    <div class="hrow"><span>PLAYER BOTTOM</span><b id="timeBottom">0.0s</b></div>
+    <div class="dots" id="dotsBottom"></div>
+    <div class="prompt">sentence <span id="numBottom">1</span> &middot; mistakes: <span id="missBottom">0</span></div>
+    <div class="slots" id="slotsBottom"></div>
+    <div class="rack" id="rackBottom"></div>
+    <button class="endbtn" id="endBottom" type="button">end race</button>
+  </div>
+
+  <div class="overlay" id="countdownOverlay">
+    <div class="ohalf top"><div class="bignum" id="cdTop">3</div></div>
+    <div class="ohalf bottom"><div class="bignum" id="cdBottom">3</div></div>
+  </div>
+
+  <div class="overlay" id="resultsOverlay">
+    <div class="ohalf top">
+      <div class="resulttext" id="resultTop"></div>
+    </div>
+    <div class="ohalf bottom">
+      <div class="resulttext" id="resultBottom"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const DEFAULT_CHAPTERS = {
+    "Sample: Triangles": [
+      "A triangle has three sides.","A triangle has three angles.",
+      "The three angles add up to 180 degrees.","An equilateral triangle has three equal sides.",
+      "An isosceles triangle has two equal sides.","A right triangle has one 90 degree angle.",
+      "The longest side is opposite the largest angle.","We can find the area with base times height divided by two."
+    ]
+  };
+  let chapters = DEFAULT_CHAPTERS;
+  fetch('chapters.json').then(r=>{ if(!r.ok) throw 0; return r.json(); })
+    .then(d=>{ chapters=d; ready('loaded from chapters.json'); })
+    .catch(()=>ready('using built-in sample (chapters.json not found)'));
+  function ready(msg){
+    $('loadState').textContent = msg;
+    const sel=$('chapterSelect'); sel.innerHTML='';
+    Object.keys(chapters).forEach(n=>{ const o=document.createElement('option'); o.value=n; o.textContent=n; sel.appendChild(o); });
+    $('startBtn').disabled = Object.keys(chapters).length===0;
+  }
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // audio
+  let actx;
+  function tone(freq,dur,type,peak){
+    try{
+      actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+      const o=actx.createOscillator(), g=actx.createGain();
+      o.type=type; o.frequency.value=freq;
+      g.gain.setValueAtTime(0.0001,actx.currentTime);
+      g.gain.exponentialRampToValueAtTime(peak,actx.currentTime+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+dur);
+      o.connect(g); g.connect(actx.destination);
+      o.start(); o.stop(actx.currentTime+dur+0.02);
+    }catch(e){}
+  }
+  function tickSound(){ tone(500,0.06,'sine',0.18); }
+  function buzzSound(){ tone(180,0.14,'square',0.28); }
+  function winSound(){ tone(660,0.1,'sine',0.22); tone(880,0.16,'sine',0.24); }
+
+  function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
+
+  let sentences=[], raceActive=false, startTime=0, tickInterval=null;
+  function newPlayer(){ return {tokens:[],rack:[],slots:[],expected:0,sentenceIndex:0,mistakes:0,finished:false,finishTime:0}; }
+  let top=newPlayer(), bottom=newPlayer();
+
+  $('startBtn').addEventListener('click', ()=>{
+    sentences = chapters[$('chapterSelect').value]||[];
+    top=newPlayer(); bottom=newPlayer();
+    loadSentence(top,0); loadSentence(bottom,0);
+    renderDots('top'); renderDots('bottom');
+    render('top'); render('bottom');
+    showScreen('screen-race');
+    runCountdown();
+  });
+
+  function loadSentence(p, idx){
+    if(idx>=sentences.length) return;
+    p.sentenceIndex=idx;
+    p.tokens = sentences[idx].split(/\s+/);
+    p.rack = p.tokens.map((w,i)=>({w,i,used:false})).sort(()=>Math.random()-0.5);
+    p.slots = new Array(p.tokens.length).fill(null);
+    p.expected = 0;
+  }
+
+  function renderDots(side){
+    const p = side==='top'?top:bottom;
+    const el = $('dots'+cap(side)); el.innerHTML='';
+    sentences.forEach((s,i)=>{
+      const d=document.createElement('div');
+      d.className='dot'+(i<p.sentenceIndex||(p.finished&&i===p.sentenceIndex)?(' on '+side):'');
+      el.appendChild(d);
+    });
+  }
+  function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+  function render(side){
+    const p = side==='top'?top:bottom;
+    $('num'+cap(side)).textContent = Math.min(p.sentenceIndex+1, sentences.length);
+    $('miss'+cap(side)).textContent = p.mistakes;
+    const rackEl = $('rack'+cap(side)); rackEl.innerHTML='';
+    p.rack.forEach((tok,ri)=>{
+      const b=document.createElement('div');
+      b.className='tile'+(tok.used?' used':'');
+      b.textContent=tok.w;
+      b.addEventListener('click', ()=>tileTap(side,ri));
+      rackEl.appendChild(b);
+    });
+    const slotEl = $('slots'+cap(side)); slotEl.innerHTML='';
+    p.slots.forEach(val=>{
+      const s=document.createElement('span');
+      s.className = val!==null ? 'filled' : '';
+      s.textContent = val!==null ? p.tokens[val]+' ' : '\u2014 ';
+      slotEl.appendChild(s);
+    });
+  }
+
+  function tileTap(side, rackIdx){
+    if(!raceActive) return;
+    const p = side==='top'?top:bottom;
+    if(p.finished) return;
+    const tok = p.rack[rackIdx];
+    if(tok.used) return;
+    if(tok.i === p.expected){
+      tok.used=true; p.slots[p.expected]=tok.i; p.expected++;
+      tickSound();
+      render(side);
+      if(p.expected===p.tokens.length){
+        setTimeout(()=>advance(side), 350);
+      }
+    } else {
+      p.mistakes++; buzzSound();
+      const halfEl = $('half'+cap(side));
+      halfEl.classList.remove('shake'); void halfEl.offsetWidth; halfEl.classList.add('shake');
+      render(side);
+    }
+  }
+
+  function advance(side){
+    const p = side==='top'?top:bottom;
+    renderDots(side);
+    const next = p.sentenceIndex+1;
+    if(next>=sentences.length){
+      p.finished=true; p.finishTime = Date.now()-startTime;
+      renderDots(side);
+      if(raceActive){ raceActive=false; clearInterval(tickInterval); endRace(side); }
+      return;
+    }
+    loadSentence(p, next);
+    render(side);
+  }
+
+  function runCountdown(){
+    const ov=$('countdownOverlay'); ov.classList.add('show');
+    let n=3;
+    $('cdTop').textContent=n; $('cdBottom').textContent=n;
+    const iv = setInterval(()=>{
+      n--;
+      if(n>0){ $('cdTop').textContent=n; $('cdBottom').textContent=n; }
+      else if(n===0){ $('cdTop').textContent='GO!'; $('cdBottom').textContent='GO!'; }
+      else{
+        clearInterval(iv); ov.classList.remove('show');
+        raceActive=true; startTime=Date.now();
+        tickInterval = setInterval(updateClocks, 100);
+      }
+    },700);
+  }
+  function updateClocks(){
+    const el = ((Date.now()-startTime)/1000).toFixed(1)+'s';
+    if(!top.finished) $('timeTop').textContent = el;
+    if(!bottom.finished) $('timeBottom').textContent = el;
+  }
+
+  function endRace(winnerSide){
+    winSound();
+    const loserSide = winnerSide==='top' ? 'bottom' : 'top';
+    const loser = loserSide==='top'?top:bottom;
+    const winner = winnerSide==='top'?top:bottom;
+    $('time'+cap(winnerSide)).textContent = (winner.finishTime/1000).toFixed(1)+'s';
+
+    $('result'+cap(winnerSide)).innerHTML =
+      '<h2>\ud83c\udfc6 you win!</h2><div class="time">'+(winner.finishTime/1000).toFixed(1)+'s</div>'+
+      '<div class="stat">'+winner.mistakes+' mistake'+(winner.mistakes===1?'':'s')+'</div>'+
+      '<button id="again'+cap(winnerSide)+'" type="button">race again</button>';
+    $('result'+cap(loserSide)).innerHTML =
+      '<h2>so close!</h2><div class="stat">you were on sentence '+Math.min(loser.sentenceIndex+1,sentences.length)+' of '+sentences.length+
+      ' with '+loser.mistakes+' mistake'+(loser.mistakes===1?'':'s')+'</div>'+
+      '<button id="again'+cap(loserSide)+'" type="button">race again</button>';
+    $('resultsOverlay').classList.add('show');
+    $('again'+cap(winnerSide)).addEventListener('click', resetToSetup);
+    $('again'+cap(loserSide)).addEventListener('click', resetToSetup);
+  }
+
+  function resetToSetup(){
+    $('resultsOverlay').classList.remove('show');
+    clearInterval(tickInterval);
+    raceActive=false;
+    showScreen('screen-setup');
+  }
+
+  $('endTop').addEventListener('click', ()=>{ if(confirm('end this race?')) resetToSetup(); });
+  $('endBottom').addEventListener('click', ()=>{ if(confirm('end this race?')) resetToSetup(); });
+})();
+</script>
+</body>
+</html>
