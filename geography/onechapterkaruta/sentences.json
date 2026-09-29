@@ -1,0 +1,32 @@
+{
+  "chapters": [
+    {
+      "id": "ch7",
+      "title": "Chapter 7: Polar Climates",
+      "sentences": [
+        { "part1": "The Polar Zone", "part2": "is always cold." },
+        { "part1": "Summer has no night,", "part2": "and winter has no day." },
+        { "part1": "Inuit people used the things", "part2": "in their environment." },
+        { "part1": "In Tundra Climates", "part2": "snow melts in summer." },
+        { "part1": "Traditional Inuit lived in", "part2": "igloos and tents." },
+        { "part1": "Many modern Inuit now live", "part2": "in towns with electricity." },
+        { "part1": "The sun is low in the sky,", "part2": "so solar energy is weak." },
+        { "part1": "In Ice Cap climates", "part2": "snow never melts." }
+      ]
+    },
+    {
+      "id": "ch8",
+      "title": "Chapter 8: Tropical Climates",
+      "sentences": [
+        { "part1": "The Tropical Zone", "part2": "is always hot." },
+        { "part1": "Tropical Rainforest Climates are", "part2": "hot and rainy all year." },
+        { "part1": "Savanna Climates have", "part2": "a rainy season and a dry season." },
+        { "part1": "The rainy season comes", "part2": "when the Subsolar Point is near." },
+        { "part1": "Mangroves and coral reefs", "part2": "grow in the Tropical Zone." },
+        { "part1": "People use the things", "part2": "in their environment." },
+        { "part1": "Samoa exports", "part2": "frozen tuna to Japan." },
+        { "part1": "Many Samoans", "part2": "work in tourism." }
+      ]
+    }
+  ]
+}
