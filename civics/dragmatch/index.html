@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Match It</title>
+<style>
+:root{--ground:#E6EDF1;--ink:#17283D;--en:#1F5FBF;--ja:#C2410C;--ok:#2E8B57;--clock:#F2C230;--line:#9FB1C0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:18px/1.4 system-ui,"Hiragino Sans","Yu Gothic",sans-serif;-webkit-user-select:none;user-select:none}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{margin:0 0 12px;font-size:2rem}
+.card{background:#fff;border:2px solid var(--ink);border-radius:10px;padding:24px;max-width:460px;margin:8vh auto 0}
+.card label{display:block;margin:14px 0;font-weight:600}
+.card input,.card select{display:block;width:100%;margin-top:6px;padding:10px;font:inherit;border:2px solid var(--ink);border-radius:6px;background:#fff}
+button{font:inherit;font-weight:700;padding:12px 22px;border:2px solid var(--ink);border-radius:6px;background:var(--clock);color:var(--ink);cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--en);outline-offset:2px}
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.bar b{font-size:1.3rem}
+.clock{font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.clock.low{color:#C0261B}
+.meter{height:8px;background:#fff;border:2px solid var(--ink);border-radius:6px;overflow:hidden;margin:6px 0 10px}
+.meter i{display:block;height:100%;width:100%;background:var(--clock)}
+.hint{margin:0 0 10px;font-size:.95rem}
+.tray{display:flex;flex-wrap:wrap;gap:8px;padding:12px;min-height:70px;background:#fff;border:2px dashed var(--line);border-radius:10px;margin-bottom:14px}
+.tile{padding:9px 14px;border-radius:6px;color:#fff;font-weight:700;cursor:grab;touch-action:none;white-space:nowrap}
+.tile.en{background:var(--en)}.tile.ja{background:var(--ja)}
+.tile.lifted{opacity:.25}
+.tile.ghost{position:fixed;z-index:50;pointer-events:none;box-shadow:0 8px 18px rgba(0,0,0,.3);transform:rotate(-2deg)}
+.tile.placed{cursor:default;touch-action:auto}
+.board{display:grid;gap:10px}
+.board.cells{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.slot{background:#fff;border:2px solid var(--ink);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px;min-height:84px}
+.slot.row{flex-direction:row;align-items:center;flex-wrap:wrap;min-height:0}
+.slot .lab{font-weight:700}
+.slot.ja .lab{color:var(--ja)}.slot.en .lab{color:var(--en)}
+.well{min-height:40px;min-width:120px;border:2px dashed var(--line);border-radius:6px;display:flex;align-items:center;padding:2px}
+.slot.row .well{flex:1;min-width:200px}
+.slot.done{border-color:var(--ok);background:#EAF6EF}
+.slot.done .well{border:0}
+.slot.hover{border-color:var(--en);background:#EAF1FB}
+.slot.shake{animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.over{position:fixed;inset:0;background:rgba(23,40,61,.6);display:grid;place-items:center;z-index:60;padding:16px}
+.over .card{margin:0;text-align:center}
+.big{font-size:2.6rem;font-weight:800;margin:8px 0}
+.res{width:100%;border-collapse:collapse;margin:14px 0;text-align:left}
+.res td{padding:10px 6px;border-bottom:1px solid var(--line)}
+.res td:last-child{text-align:right;font-weight:800;font-size:1.3rem}
+@media(prefers-reduced-motion:reduce){.slot.shake{animation:none}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+/* ============ EDIT YOUR CONTENT HERE ============
+   vocab:     10 pairs   ["English", "日本語"]
+   sentences:  8 pairs   ["first half shown", "second half to drag"]
+   Add as many chapters as you like.                         */
+const CHAPTERS = {
+  ch1: { title: "Chapter 1: Government (sample)",
+    vocab: [["citizen","市民"],["law","法律"],["election","選挙"],["vote","投票"],["mayor","市長"],
+            ["tax","税金"],["constitution","憲法"],["rights","権利"],["council","議会"],["community","地域社会"]],
+    sentences: [["Citizens vote in","an election to choose leaders."],
+                ["The mayor is the leader of","a city."],
+                ["A law is a rule that","everyone must follow."],
+                ["People pay taxes to","support public services."],
+                ["The constitution is the","highest law of a country."],
+                ["Citizens have rights and","responsibilities."],
+                ["The city council makes","laws for the community."],
+                ["Everyone in a community should","help each other."]] },
+  ch2: { title: "Chapter 2: Maps (sample)",
+    vocab: [["map","地図"],["compass","方位磁針"],["border","国境"],["continent","大陸"],["ocean","海"],
+            ["island","島"],["river","川"],["mountain","山"],["capital","首都"],["population","人口"]],
+    sentences: [["A map shows","where places are."],
+                ["A compass tells us","which way is north."],
+                ["A border is a line that","separates two countries."],
+                ["Asia is the largest","continent in the world."],
+                ["An island is land that is","surrounded by water."],
+                ["A river flows from the mountains","to the ocean."],
+                ["The capital is the city where","the government works."],
+                ["Population means how many","people live in a place."]] }
+};
+const SECONDS = [60, 60, 120];   // time limit for rounds 1, 2, 3
+/* ================================================ */
+
+const app = document.getElementById('app');
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let S = {};
+
+function setup() {
+  app.innerHTML = `<div class="card"><h1>Match It</h1>
+    <label>Your name<input id="name" autocomplete="off" maxlength="40"></label>
+    <label>Chapter<select id="ch">${Object.keys(CHAPTERS).map(k => `<option value="${k}">${esc(CHAPTERS[k].title)}</option>`).join('')}</select></label>
+    <button id="go" disabled>Start</button></div>`;
+  const name = document.getElementById('name'), go = document.getElementById('go');
+  name.oninput = () => go.disabled = !name.value.trim();
+  go.onclick = () => { S = { name: name.value.trim(), ch: document.getElementById('ch').value, scores: [], totals: [], misses: 0 }; round(0); };
+  name.focus();
+}
+
+function round(r) {
+  const ch = CHAPTERS[S.ch], sent = r === 2;
+  let tiles, slots, hint;
+  if (!sent) {
+    const a = r ? 1 : 0, b = r ? 0 : 1, ca = r ? 'ja' : 'en', cb = r ? 'en' : 'ja';
+    tiles = shuffle(ch.vocab.map((v, i) => ({ id: i, text: v[a], cls: ca })));
+    slots = shuffle(ch.vocab.map((v, i) => ({ id: i, text: v[b], cls: cb })));
+    hint = r ? 'Drag each Japanese word onto its English meaning.' : 'Drag each English word onto its Japanese meaning.';
+  } else {
+    tiles = shuffle(ch.sentences.map((s, i) => ({ id: i, text: s[1], cls: 'en' })));
+    slots = ch.sentences.map((s, i) => ({ id: i, text: s[0], cls: 'en' }));
+    hint = 'Drag the missing half to finish each sentence.';
+  }
+  app.innerHTML = `<div class="bar"><b>Round ${r + 1} of 3</b><span class="clock" id="clock">${SECONDS[r]}</span></div>
+    <div class="meter"><i id="meter"></i></div><p class="hint">${hint}</p>
+    <section class="tray" id="tray"></section>
+    <section class="board ${sent ? '' : 'cells'}" id="board">${slots.map(s =>
+      `<div class="slot ${sent ? 'row' : ''} ${s.cls}" data-id="${s.id}"><span class="lab">${esc(s.text)}</span><span class="well"></span></div>`).join('')}</section>`;
+  const tray = document.getElementById('tray');
+  let done = 0, over = false;
+
+  tiles.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'tile ' + t.cls; el.textContent = t.text; el.dataset.id = t.id;
+    el.addEventListener('pointerdown', e => drag(e, el));
+    tray.appendChild(el);
+  });
+
+  function drag(e, el) {
+    if (over || el.classList.contains('placed')) return;
+    e.preventDefault();
+    const box = el.getBoundingClientRect(), dx = e.clientX - box.left, dy = e.clientY - box.top;
+    const ghost = el.cloneNode(true); ghost.classList.add('ghost');
+    ghost.style.width = box.width + 'px';
+    const move = (x, y) => { ghost.style.left = (x - dx) + 'px'; ghost.style.top = (y - dy) + 'px'; };
+    move(e.clientX, e.clientY); document.body.appendChild(ghost); el.classList.add('lifted');
+    let hov = null;
+    const slotAt = (x, y) => { const n = document.elementFromPoint(x, y); const s = n && n.closest('.slot'); return s && !s.classList.contains('done') ? s : null; };
+    const onMove = ev => { move(ev.clientX, ev.clientY); const s = slotAt(ev.clientX, ev.clientY); if (s !== hov) { hov && hov.classList.remove('hover'); hov = s; hov && hov.classList.add('hover'); } };
+    const onUp = ev => {
+      window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); window.removeEventListener('pointercancel', onUp);
+      ghost.remove(); hov && hov.classList.remove('hover'); el.classList.remove('lifted');
+      const s = over ? null : slotAt(ev.clientX, ev.clientY);
+      if (!s) return;
+      if (s.dataset.id === el.dataset.id) {
+        el.classList.add('placed'); s.querySelector('.well').appendChild(el); s.classList.add('done');
+        if (++done === slots.length) setTimeout(() => finish(), 500);
+      } else {
+        S.misses++; s.classList.add('shake'); setTimeout(() => s.classList.remove('shake'), 350);
+      }
+    };
+    window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp); window.addEventListener('pointercancel', onUp);
+  }
+
+  const t0 = Date.now(), total = SECONDS[r], clock = document.getElementById('clock'), meter = document.getElementById('meter');
+  const timer = setInterval(() => {
+    const left = Math.max(0, total - (Date.now() - t0) / 1000);
+    clock.textContent = Math.ceil(left); clock.classList.toggle('low', left <= 10);
+    meter.style.width = (left / total * 100) + '%';
+    if (left <= 0) finish();
+  }, 200);
+
+  function finish() {
+    if (over) return; over = true; clearInterval(timer);
+    S.scores[r] = done; S.totals[r] = slots.length;
+    const ov = document.createElement('div'); ov.className = 'over';
+    const last = r === 2;
+    ov.innerHTML = `<div class="card"><h1>Round ${r + 1} complete</h1><div class="big">${done} / ${slots.length}</div>
+      <button id="next">${last ? 'See results' : 'Start round ' + (r + 2)}</button></div>`;
+    document.body.appendChild(ov);
+    const nx = ov.querySelector('#next'); nx.focus();
+    nx.onclick = () => { ov.remove(); last ? results() : round(r + 1); };
+  }
+}
+
+function results() {
+  const [a, b, c] = S.scores, d = new Date().toLocaleDateString();
+  app.innerHTML = `<div class="card"><h1>Results</h1>
+    <div><b>${esc(S.name)}</b><br>${esc(CHAPTERS[S.ch].title)} &nbsp;(${d})</div>
+    <table class="res">
+      <tr><td>Vocabulary, English to Japanese</td><td>${a} / 10</td></tr>
+      <tr><td>Vocabulary, Japanese to English</td><td>${b} / 10</td></tr>
+      <tr><td>Vocabulary matched in total</td><td>${a + b} / 20</td></tr>
+      <tr><td>Sentences matched</td><td>${c} / 8</td></tr>
+      <tr><td>Wrong drops</td><td>${S.misses}</td></tr>
+    </table><button id="again">Play again</button></div>`;
+  document.getElementById('again').onclick = setup;
+}
+setup();
+</script>
+</body>
+</html>
