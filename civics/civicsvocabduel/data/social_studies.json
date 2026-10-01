@@ -32,6 +32,22 @@
         { "en": "inheritance tax", "jp": "相続税" },
         { "en": "fair", "jp": "公平な" }
       ]
+    },
+    {
+      "id": "ss-ch17",
+      "name": "Chapter 17",
+      "words": [
+        { "en": "social capital", "jp": "社会資本" },
+        { "en": "recession", "jp": "不景気" },
+        { "en": "boom", "jp": "好景気" },
+        { "en": "public investment", "jp": "公共投資" },
+        { "en": "government spending", "jp": "政府支出" },
+        { "en": "government bonds", "jp": "国債" },
+        { "en": "public debt", "jp": "公債" },
+        { "en": "small government", "jp": "小さな政府" },
+        { "en": "big government", "jp": "大きな政府" },
+        { "en": "stable", "jp": "安定した" }
+      ]
     }
   ]
 }
