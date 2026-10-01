@@ -75,6 +75,44 @@
           "answer": "People with the same income should pay the same amount of tax."
         }
       ]
+    },
+    {
+      "id": "ch17",
+      "name": "Chapter 17",
+      "sentences": [
+        {
+          "chunks": ["Social capital", "is important", "for the market", "economy", "."],
+          "answer": "Social capital is important for the market economy."
+        },
+        {
+          "chunks": ["During a recession", "the government", "increases", "spending", "."],
+          "answer": "During a recession, the government increases spending."
+        },
+        {
+          "chunks": ["Public investment", "creates more work", "for", "private companies", "."],
+          "answer": "Public investment creates more work for private companies."
+        },
+        {
+          "chunks": ["During a boom", "the government", "decreases spending", "and increases taxes", "."],
+          "answer": "During a boom, the government decreases spending and increases taxes."
+        },
+        {
+          "chunks": ["Governments", "sell government bonds", "to borrow", "money", "."],
+          "answer": "Governments sell government bonds to borrow money."
+        },
+        {
+          "chunks": ["Public debt", "must be paid back", "with", "interest", "."],
+          "answer": "Public debt must be paid back with interest."
+        },
+        {
+          "chunks": ["Small government", "means the government", "spends less", "to help people", "."],
+          "answer": "Small government means the government spends less to help people."
+        },
+        {
+          "chunks": ["Big government", "means the government", "spends more", "to help people", "."],
+          "answer": "Big government means the government spends more to help people."
+        }
+      ]
     }
   ]
 }
