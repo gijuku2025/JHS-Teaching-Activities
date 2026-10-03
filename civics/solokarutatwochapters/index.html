@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Civics Karuta — Solo Match</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- SETUP -->
+  <section class="screen active" data-screen="setup">
+    <div class="panel">
+      <p class="eyebrow">Civics Karuta — Solo Match</p>
+      <h1>Set up practice</h1>
+      <p class="lede">The app reads the first half of a sentence aloud. Tap the card with the matching second half before time runs out.</p>
+
+      <div class="field">
+        <label for="student-name">Student name</label>
+        <input type="text" id="student-name" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Chapters</label>
+        <div id="subject-groups" class="subject-groups"></div>
+        <p class="hint">Pick one chapter, or several across subjects to mix them together.</p>
+      </div>
+
+      <div class="field">
+        <label for="seconds-select">Seconds to answer each card</label>
+        <select id="seconds-select">
+          <option value="8">8 seconds</option>
+          <option value="10" selected>10 seconds</option>
+          <option value="12">12 seconds</option>
+          <option value="15">15 seconds</option>
+        </select>
+      </div>
+
+      <p class="error-text" id="setup-error"></p>
+
+      <button class="btn-primary section-gap" id="start-game-btn">Start</button>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section class="screen" data-screen="play">
+    <div class="panel">
+      <div class="round-bar">
+        <span id="play-progress">Card 1 of 8</span>
+        <span id="play-score">Score: 0</span>
+      </div>
+
+      <div class="timer-wrap">
+        <div class="timer" id="timer-display">10</div>
+        <div class="timer-bar"><div class="timer-bar-fill" id="timer-bar-fill"></div></div>
+      </div>
+
+      <p class="question-fallback" id="question-fallback" hidden></p>
+
+      <button class="btn-secondary replay-btn" id="replay-btn">&#128266; Replay audio</button>
+
+      <div class="answer-grid" id="answer-grid"></div>
+
+      <button class="btn-quiet center-note" id="end-session-btn">End session early</button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="screen" data-screen="results">
+    <div class="panel">
+      <p class="eyebrow">Session complete</p>
+      <h2 id="results-heading">Results</h2>
+      <p class="results-score" id="results-score">0 / 0 correct</p>
+
+      <div class="center-note">
+        <button class="btn-primary" id="play-again-btn">Practice again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

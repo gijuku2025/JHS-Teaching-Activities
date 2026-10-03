@@ -1,0 +1,189 @@
+{
+  "subject": "Social Studies",
+  "chapters": [
+    {
+      "id": "ch15",
+      "title": "Chapter 15: International Trade",
+      "sentences": [
+        {
+          "part1": "Buying and selling commodities with other countries",
+          "part2": "is called trade.",
+          "audio": "buying_and_selling_commodities_with_other_countries.mp3"
+        },
+        {
+          "part1": "Countries trade because",
+          "part2": "they produce different goods.",
+          "audio": "countries_trade_because.mp3"
+        },
+        {
+          "part1": "International specialization means",
+          "part2": "countries produce the things they are good at.",
+          "audio": "international_specialization_means.mp3"
+        },
+        {
+          "part1": "After the war, Japan imported raw materials",
+          "part2": "and exported manufactured goods.",
+          "audio": "after_the_war_japan_imported_raw_materials.mp3"
+        },
+        {
+          "part1": "A trade surplus means",
+          "part2": "exports are higher than imports.",
+          "audio": "a_trade_surplus_means.mp3"
+        },
+        {
+          "part1": "Many companies moved their factories",
+          "part2": "to developing countries.",
+          "audio": "many_companies_moved_their_factories.mp3"
+        },
+        {
+          "part1": "The number of factories in Japan",
+          "part2": "decreased.",
+          "audio": "the_number_of_factories_in_japan.mp3"
+        },
+        {
+          "part1": "Deindustrialization means",
+          "part2": "factories move to other countries.",
+          "audio": "deindustrialization_means.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ch16",
+      "title": "Chapter 16: Taxes",
+      "sentences": [
+        {
+          "part1": "Consumers pay consumption tax",
+          "part2": "to retailers and producers.",
+          "audio": "consumers_pay_consumption_tax.mp3"
+        },
+        {
+          "part1": "Consumption tax is",
+          "part2": "an indirect tax.",
+          "audio": "consumption_tax_is.mp3"
+        },
+        {
+          "part1": "People with low incomes pay",
+          "part2": "a higher proportion of their income in consumption tax.",
+          "audio": "people_with_low_incomes_pay.mp3"
+        },
+        {
+          "part1": "A regressive tax means people",
+          "part2": "with low incomes pay a higher proportion of their income.",
+          "audio": "a_regressive_tax_means_people.mp3"
+        },
+        {
+          "part1": "People with high incomes",
+          "part2": "pay a higher proportion of their income in income tax.",
+          "audio": "people_with_high_incomes.mp3"
+        },
+        {
+          "part1": "A progressive tax means people",
+          "part2": "with high incomes pay a higher proportion of their income.",
+          "audio": "a_progressive_tax_means_people.mp3"
+        },
+        {
+          "part1": "Governments combine different kinds of taxes",
+          "part2": "to make taxes fair.",
+          "audio": "governments_combine_different_kinds_of_taxes.mp3"
+        },
+        {
+          "part1": "People with the same income",
+          "part2": "should pay the same amount of tax.",
+          "audio": "people_with_the_same_income.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ch7",
+      "title": "Chapter 7: Polar Climates",
+      "sentences": [
+        {
+          "part1": "The Polar Zone",
+          "part2": "is always cold.",
+          "audio": "the_polar_zone.mp3"
+        },
+        {
+          "part1": "Summer has no night,",
+          "part2": "and winter has no day.",
+          "audio": "summer_has_no_night.mp3"
+        },
+        {
+          "part1": "Inuit people used the things",
+          "part2": "in their environment.",
+          "audio": "inuit_people_used_the_things.mp3"
+        },
+        {
+          "part1": "In Tundra Climates",
+          "part2": "snow melts in summer.",
+          "audio": "in_tundra_climates.mp3"
+        },
+        {
+          "part1": "Traditional Inuit lived in",
+          "part2": "igloos and tents.",
+          "audio": "traditional_inuit_lived_in.mp3"
+        },
+        {
+          "part1": "Many modern Inuit now live",
+          "part2": "in towns with electricity.",
+          "audio": "many_modern_inuit_now_live.mp3"
+        },
+        {
+          "part1": "The sun is low in the sky,",
+          "part2": "so solar energy is weak.",
+          "audio": "the_sun_is_low_in_the_sky.mp3"
+        },
+        {
+          "part1": "In Ice Cap climates",
+          "part2": "snow never melts.",
+          "audio": "in_ice_cap_climates.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "title": "Chapter 8: Tropical Climates",
+      "sentences": [
+        {
+          "part1": "The Tropical Zone",
+          "part2": "is always hot.",
+          "audio": "the_tropical_zone.mp3"
+        },
+        {
+          "part1": "Tropical Rainforest Climates are",
+          "part2": "hot and rainy all year.",
+          "audio": "tropical_rainforest_climates_are.mp3"
+        },
+        {
+          "part1": "Savanna Climates have",
+          "part2": "a rainy season and a dry season.",
+          "audio": "savanna_climates_have.mp3"
+        },
+        {
+          "part1": "The rainy season comes",
+          "part2": "when the Subsolar Point is near.",
+          "audio": "the_rainy_season_comes.mp3"
+        },
+        {
+          "part1": "Mangroves and coral reefs",
+          "part2": "grow in the Tropical Zone.",
+          "audio": "mangroves_and_coral_reefs.mp3"
+        },
+        {
+          "part1": "People use the things",
+          "part2": "in their environment.",
+          "audio": "people_use_the_things.mp3"
+        },
+        {
+          "part1": "Samoa exports",
+          "part2": "frozen tuna to Japan.",
+          "audio": "samoa_exports.mp3"
+        },
+        {
+          "part1": "Many Samoans",
+          "part2": "work in tourism.",
+          "audio": "many_samoans.mp3"
+        }
+      ]
+    }
+  ]
+}
