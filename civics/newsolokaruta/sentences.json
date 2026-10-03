@@ -91,6 +91,52 @@
           "audio": "people_with_the_same_income.mp3"
         }
       ]
+    },
+    {
+      "id": "ch17",
+      "title": "Chapter 17",
+      "sentences": [
+        {
+          "part1": "Social capital is important for",
+          "part2": "the market economy.",
+          "audio": "social_capital_is_important_fo.mp3"
+        },
+        {
+          "part1": "During a recession, the government",
+          "part2": "increases spending.",
+          "audio": "during_a_recession_the_governm.mp3"
+        },
+        {
+          "part1": "Public investment creates",
+          "part2": "more work for private companies.",
+          "audio": "public_investment_creates.mp3"
+        },
+        {
+          "part1": "During a boom, the government",
+          "part2": "decreases spending and increases taxes.",
+          "audio": "during_a_boom_the_government.mp3"
+        },
+        {
+          "part1": "Governments sell government bonds",
+          "part2": "to borrow money.",
+          "audio": "governments_sell_government_bo.mp3"
+        },
+        {
+          "part1": "Public debt must be paid back",
+          "part2": "with interest.",
+          "audio": "public_debt_must_be_paid_back_.mp3"
+        },
+        {
+          "part1": "Small government means the government",
+          "part2": "spends less to help people.",
+          "audio": "small_government_means_the_gov.mp3"
+        },
+        {
+          "part1": "Big government means the government",
+          "part2": "spends more to help people.",
+          "audio": "big_government_means_the_gover.mp3"
+        }
+      ]
     }
   ]
 }
