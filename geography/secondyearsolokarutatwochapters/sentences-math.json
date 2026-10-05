@@ -1,0 +1,51 @@
+{
+  "subject": "Math",
+  "chapters": [
+    {
+      "id": "ch2-9",
+      "title": "Chapter 2-9: Congruent Figures",
+      "sentences": [
+        {
+          "part1": "Two figures are congruent when one can be moved",
+          "part2": "so that it fits exactly on the other figure.",
+          "audio": "two_figures_are_congruent_when_one_can_be_moved.mp3"
+        },
+        {
+          "part1": "Matching vertices, sides, and angles are called",
+          "part2": "corresponding vertices, sides, and angles.",
+          "audio": "matching_vertices_sides_and_angles_are_called.mp3"
+        },
+        {
+          "part1": "A triangle is determined when",
+          "part2": "the lengths of its three sides are given.",
+          "audio": "a_triangle_is_determined_when.mp3"
+        },
+        {
+          "part1": "A triangle is determined when the lengths of two sides",
+          "part2": "and the angle between them are given.",
+          "audio": "a_triangle_is_determined_when_the_lengths_of_two_sides.mp3"
+        },
+        {
+          "part1": "A triangle is determined when the length of one side",
+          "part2": "and the two angles at its ends are given.",
+          "audio": "a_triangle_is_determined_when_the_length_of_one_side.mp3"
+        },
+        {
+          "part1": "Two triangles are congruent when three pairs of corresponding sides",
+          "part2": "are equal.",
+          "audio": "two_triangles_are_congruent_when_three_pairs_of_corresponding_sides.mp3"
+        },
+        {
+          "part1": "Two triangles are congruent when two pairs of corresponding sides",
+          "part2": "and the angle between them are equal.",
+          "audio": "two_triangles_are_congruent_when_two_pairs_of_corresponding_sides.mp3"
+        },
+        {
+          "part1": "Two triangles are congruent when one pair of corresponding sides",
+          "part2": "and the two angles at its ends are equal.",
+          "audio": "two_triangles_are_congruent_when_one_pair_of_corresponding_sides.mp3"
+        }
+      ]
+    }
+  ]
+}
