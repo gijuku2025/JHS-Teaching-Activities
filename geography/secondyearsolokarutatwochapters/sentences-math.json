@@ -2,6 +2,52 @@
   "subject": "Math",
   "chapters": [
     {
+      "id": "ch2-1",
+      "title": "Chapter 2-1: Parallel Lines",
+      "sentences": [
+        {
+          "part1": "Parallel lines stay",
+          "part2": "the same distance apart.",
+          "audio": "parallel_lines_stay.mp3"
+        },
+        {
+          "part1": "A transversal is a line",
+          "part2": "that crosses two lines.",
+          "audio": "a_transversal_is_a_line.mp3"
+        },
+        {
+          "part1": "If two lines are parallel, corresponding angles",
+          "part2": "are equal.",
+          "audio": "if_two_lines_are_parallel_corresponding_angles.mp3"
+        },
+        {
+          "part1": "If two lines are parallel, alternate interior angles",
+          "part2": "are equal.",
+          "audio": "if_two_lines_are_parallel_alternate_interior_angles.mp3"
+        },
+        {
+          "part1": "Corresponding angles",
+          "part2": "are in the same position.",
+          "audio": "corresponding_angles.mp3"
+        },
+        {
+          "part1": "Alternate interior angles are inside the parallel lines and on",
+          "part2": "opposite sides of the transversal.",
+          "audio": "alternate_interior_angles_are_inside_the_parallel_lines_and_on.mp3"
+        },
+        {
+          "part1": "If corresponding angles are equal,",
+          "part2": "the two lines are parallel.",
+          "audio": "if_corresponding_angles_are_equal.mp3"
+        },
+        {
+          "part1": "Vertical angles",
+          "part2": "are equal.",
+          "audio": "vertical_angles.mp3"
+        }
+      ]
+    },
+    {
       "id": "ch2-9",
       "title": "Chapter 2-9: Congruent Figures",
       "sentences": [
