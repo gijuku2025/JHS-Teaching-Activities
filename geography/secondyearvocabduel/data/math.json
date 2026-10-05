@@ -1,0 +1,53 @@
+{
+  "subject": "Math",
+  "chapters": [
+    {
+      "id": "math-ch2-1",
+      "name": "2-1",
+      "words": [
+        { "en": "parallel line", "jp": "平行線" },
+        { "en": "transversal", "jp": "横切る直線" },
+        { "en": "corresponding angle", "jp": "同位角" },
+        { "en": "alternate interior angle", "jp": "錯角" },
+        { "en": "vertical angle", "jp": "対頂角" },
+        { "en": "intersect", "jp": "交わる" },
+        { "en": "position", "jp": "位置" },
+        { "en": "property", "jp": "性質" },
+        { "en": "known angle", "jp": "わかっている角" },
+        { "en": "missing angle", "jp": "求める角" }
+      ]
+    },
+    {
+      "id": "math-ch2-9",
+      "name": "2-9",
+      "words": [
+        { "en": "congruent", "jp": "合同な" },
+        { "en": "corresponding", "jp": "対応する" },
+        { "en": "vertex", "jp": "頂点" },
+        { "en": "corresponding vertex", "jp": "対応する頂点" },
+        { "en": "angle", "jp": "角" },
+        { "en": "corresponding angle", "jp": "対応する角" },
+        { "en": "figure", "jp": "図形" },
+        { "en": "equal", "jp": "等しい" },
+        { "en": "side", "jp": "辺" },
+        { "en": "corresponding side", "jp": "対応する辺" }
+      ]
+    },
+    {
+      "id": "math-ch2-11",
+      "name": "2-11",
+      "words": [
+        { "en": "determine", "jp": "決める" },
+        { "en": "length", "jp": "長さ" },
+        { "en": "side", "jp": "辺" },
+        { "en": "angle", "jp": "角" },
+        { "en": "corresponding", "jp": "対応する" },
+        { "en": "corresponding side", "jp": "対応する辺" },
+        { "en": "equal", "jp": "等しい" },
+        { "en": "condition", "jp": "条件" },
+        { "en": "included angle", "jp": "その間の角" },
+        { "en": "position", "jp": "位置" }
+      ]
+    }
+  ]
+}
