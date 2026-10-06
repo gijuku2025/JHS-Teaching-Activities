@@ -1,4 +1,92 @@
 {
   "subject": "Math",
-  "chapters": []
+  "chapters": [
+    {
+      "id": "ch2-5",
+      "title": "Chapter 2-5",
+      "sentences": [
+        {
+          "part1": "A translation slides a figure",
+          "part2": "in a straight direction.",
+          "audio": "a_translation_slides_a_figure.mp3"
+        },
+        {
+          "part1": "A rotation turns a figure",
+          "part2": "around a point.",
+          "audio": "a_rotation_turns_a_figure.mp3"
+        },
+        {
+          "part1": "A reflection flips a figure",
+          "part2": "across a line.",
+          "audio": "a_reflection_flips_a_figure.mp3"
+        },
+        {
+          "part1": "The size and shape of a figure",
+          "part2": "do not change.",
+          "audio": "the_size_and_shape_of_a_figure.mp3"
+        },
+        {
+          "part1": "The new figure is congruent",
+          "part2": "to the original figure.",
+          "audio": "the_new_figure_is_congruent.mp3"
+        },
+        {
+          "part1": "A line of symmetry divides a figure",
+          "part2": "into two matching parts.",
+          "audio": "a_line_of_symmetry_divides_a_figure.mp3"
+        },
+        {
+          "part1": "A square has",
+          "part2": "four lines of symmetry.",
+          "audio": "a_square_has.mp3"
+        },
+        {
+          "part1": "Patterns can be made using",
+          "part2": "translations, rotations, and reflections.",
+          "audio": "patterns_can_be_made_using.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ch3-1",
+      "title": "Chapter 3-1",
+      "sentences": [
+        {
+          "part1": "A perpendicular bisector crosses",
+          "part2": "a segment at its midpoint.",
+          "audio": "a_perpendicular_bisector_crosses.mp3"
+        },
+        {
+          "part1": "A perpendicular bisector is",
+          "part2": "perpendicular to the segment.",
+          "audio": "a_perpendicular_bisector_is.mp3"
+        },
+        {
+          "part1": "A midpoint divides a segment",
+          "part2": "into two equal parts.",
+          "audio": "a_midpoint_divides_a_segment.mp3"
+        },
+        {
+          "part1": "A perpendicular bisector creates",
+          "part2": "two congruent segments.",
+          "audio": "a_perpendicular_bisector_creates.mp3"
+        },
+        {
+          "part1": "We can construct a perpendicular bisector",
+          "part2": "using a compass.",
+          "audio": "we_can_construct_a_perpendicular_bisector.mp3"
+        },
+        {
+          "part1": "Every point on the perpendicular bisector",
+          "part2": "is the same distance from the endpoints.",
+          "audio": "every_point_on_the_perpendicular_bisector.mp3"
+        },
+        {
+          "part1": "If a point is the same distance from both endpoints,",
+          "part2": "it lies on the perpendicular bisector.",
+          "audio": "if_a_point_is_the_same_distance_from_both_endpoints.mp3"
+        }
+      ]
+    }
+  ]
 }
