@@ -54,7 +54,7 @@
         {
           "part1": "A perpendicular bisector crosses",
           "part2": "a segment at its midpoint.",
-          "audio": "a_perpendicular_bisector_crosses.mp3"
+          "audio": "a_perpendicular_bisector_cross.mp3"
         },
         {
           "part1": "A perpendicular bisector is",
@@ -69,7 +69,7 @@
         {
           "part1": "A perpendicular bisector creates",
           "part2": "two congruent segments.",
-          "audio": "a_perpendicular_bisector_creates.mp3"
+          "audio": "a_perpendicular_bisector_creat.mp3"
         },
         {
           "part1": "We can construct a perpendicular bisector",
@@ -79,12 +79,12 @@
         {
           "part1": "Every point on the perpendicular bisector",
           "part2": "is the same distance from the endpoints.",
-          "audio": "every_point_on_the_perpendicular_bisector.mp3"
+          "audio": "every_point_on_the_perpendicul.mp3"
         },
         {
           "part1": "If a point is the same distance from both endpoints,",
           "part2": "it lies on the perpendicular bisector.",
-          "audio": "if_a_point_is_the_same_distance_from_both_endpoints.mp3"
+          "audio": "if_a_point_is_the_same_distanc.mp3"
         }
       ]
     }
