@@ -32,6 +32,22 @@
         { "en": "export", "jp": "輸出" },
         { "en": "temperature", "jp": "温度" }
       ]
+    },
+    {
+      "id": "ss-ch9",
+      "name": "Chapter 9",
+      "words": [
+        { "en": "Arid Zone", "jp": "乾燥帯" },
+        { "en": "Desert Climate", "jp": "砂漠気候" },
+        { "en": "Steppe Climate", "jp": "ステップ気候" },
+        { "en": "oasis", "jp": "オアシス" },
+        { "en": "well", "jp": "井戸" },
+        { "en": "camel", "jp": "ラクダ" },
+        { "en": "Sahel", "jp": "サヘル" },
+        { "en": "fertiliser", "jp": "肥料" },
+        { "en": "desertification", "jp": "砂漠化" },
+        { "en": "slash and burn agriculture", "jp": "焼き畑農業" }
+      ]
     }
   ]
 }
