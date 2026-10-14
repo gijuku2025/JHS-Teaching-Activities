@@ -75,6 +75,44 @@
           "answer": "Many Samoans work in tourism."
         }
       ]
+    },
+    {
+      "id": "ch9",
+      "name": "Chapter 9",
+      "sentences": [
+        {
+          "chunks": ["Camels can live", "in hot deserts", "without much water", "."],
+          "answer": "Camels can live in hot deserts without much water."
+        },
+        {
+          "chunks": ["Steppe Climates", "have more rain", "than Desert Climates", "."],
+          "answer": "Steppe Climates have more rain than Desert Climates."
+        },
+        {
+          "chunks": ["Nomads move", "with the rainy", "and dry seasons", "."],
+          "answer": "Nomads move with the rainy and dry seasons."
+        },
+        {
+          "chunks": ["Desertification", "makes the land", "poor for farming", "."],
+          "answer": "Desertification makes the land poor for farming."
+        },
+        {
+          "chunks": ["The Arid Zone", "has very little", "rain", "."],
+          "answer": "The Arid Zone has very little rain."
+        },
+        {
+          "chunks": ["Warm moist air", "rises near the Equator,", "and dry air", "comes down", "."],
+          "answer": "Warm moist air rises near the Equator, and dry air comes down."
+        },
+        {
+          "chunks": ["Desert Climates", "are hot, dry,", "and have almost", "no plants", "."],
+          "answer": "Desert Climates are hot, dry, and have almost no plants."
+        },
+        {
+          "chunks": ["People gather", "around oases", "because there is", "water", "."],
+          "answer": "People gather around oases because there is water."
+        }
+      ]
     }
   ]
 }
