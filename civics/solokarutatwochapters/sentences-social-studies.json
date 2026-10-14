@@ -92,6 +92,52 @@
           "audio": "many_samoans.mp3"
         }
       ]
+    },
+    {
+      "id": "ch9",
+      "title": "Chapter 9: Arid Climates",
+      "sentences": [
+        {
+          "part1": "Camels can live in hot deserts",
+          "part2": "without much water.",
+          "audio": "camels_can_live_in_hot_deserts.mp3"
+        },
+        {
+          "part1": "Steppe Climates have more rain",
+          "part2": "than Desert Climates.",
+          "audio": "steppe_climates_have_more_rain.mp3"
+        },
+        {
+          "part1": "Nomads move with the rainy",
+          "part2": "and dry seasons.",
+          "audio": "nomads_move_with_the_rainy.mp3"
+        },
+        {
+          "part1": "Desertification makes the land",
+          "part2": "poor for farming.",
+          "audio": "desertification_makes_the_land.mp3"
+        },
+        {
+          "part1": "The Arid Zone has",
+          "part2": "very little rain.",
+          "audio": "the_arid_zone_has_very_little_.mp3"
+        },
+        {
+          "part1": "Warm moist air rises near the Equator,",
+          "part2": "and dry air comes down.",
+          "audio": "warm_moist_air_rises_near_the_.mp3"
+        },
+        {
+          "part1": "Desert Climates are hot, dry, and",
+          "part2": "have almost no plants.",
+          "audio": "desert_climates_are_hot_dry_an.mp3"
+        },
+        {
+          "part1": "People gather around oases because",
+          "part2": "there is water.",
+          "audio": "people_gather_around_oases_bec.mp3"
+        }
+      ]
     }
   ]
 }
