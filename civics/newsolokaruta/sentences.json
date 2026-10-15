@@ -137,6 +137,52 @@
           "audio": "big_government_means_the_gover.mp3"
         }
       ]
+    },
+    {
+      "id": "ch18",
+      "title": "Chapter 18: Social Security",
+      "sentences": [
+        {
+          "part1": "Social security means the government",
+          "part2": "helps people who cannot help themselves.",
+          "audio": "social_security_means_the_gove.mp3"
+        },
+        {
+          "part1": "Health insurance helps people pay",
+          "part2": "for medical costs.",
+          "audio": "health_insurance_helps_people_.mp3"
+        },
+        {
+          "part1": "Pension insurance helps people over 65",
+          "part2": "and people with disabilities.",
+          "audio": "pension_insurance_helps_people.mp3"
+        },
+        {
+          "part1": "Public subsidies help people pay",
+          "part2": "for basic living costs and education.",
+          "audio": "public_subsidies_help_people_p.mp3"
+        },
+        {
+          "part1": "Public health helps stop infectious diseases",
+          "part2": "and improve living conditions.",
+          "audio": "public_health_helps_stop_infec.mp3"
+        },
+        {
+          "part1": "Social security in Japan",
+          "part2": "has four pillars.",
+          "audio": "social_security_in_japan.mp3"
+        },
+        {
+          "part1": "The four pillars come from",
+          "part2": "the right to life in the Japanese Constitution.",
+          "audio": "the_four_pillars_come_from.mp3"
+        },
+        {
+          "part1": "Social insurance protects older people, sick people,",
+          "part2": "and unemployed people.",
+          "audio": "social_insurance_protects_olde.mp3"
+        }
+      ]
     }
   ]
 }
