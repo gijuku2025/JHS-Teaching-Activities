@@ -48,6 +48,22 @@
         { "en": "big government", "jp": "大きな政府" },
         { "en": "stable", "jp": "安定した" }
       ]
+    },
+    {
+      "id": "ss-ch18",
+      "name": "Chapter 18",
+      "words": [
+        { "en": "social security", "jp": "社会保障" },
+        { "en": "social insurance", "jp": "社会保険" },
+        { "en": "health insurance", "jp": "健康保険" },
+        { "en": "pension insurance", "jp": "年金保険" },
+        { "en": "public subsidies", "jp": "公的扶助" },
+        { "en": "social welfare", "jp": "社会福祉" },
+        { "en": "public health", "jp": "公衆衛生" },
+        { "en": "right to life", "jp": "生存権" },
+        { "en": "Constitution", "jp": "憲法" },
+        { "en": "unemployed", "jp": "失業している" }
+      ]
     }
   ]
 }
