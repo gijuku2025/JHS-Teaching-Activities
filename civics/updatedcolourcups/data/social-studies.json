@@ -113,6 +113,44 @@
           "answer": "Big government means the government spends more to help people."
         }
       ]
+    },
+    {
+      "id": "ch18",
+      "name": "Chapter 18",
+      "sentences": [
+        {
+          "chunks": ["Social security", "means the government", "helps people", "who cannot help themselves", "."],
+          "answer": "Social security means the government helps people who cannot help themselves."
+        },
+        {
+          "chunks": ["Health insurance", "helps people", "pay for medical costs", "."],
+          "answer": "Health insurance helps people pay for medical costs."
+        },
+        {
+          "chunks": ["Pension insurance", "helps people", "over 65", "and people with disabilities", "."],
+          "answer": "Pension insurance helps people over 65 and people with disabilities."
+        },
+        {
+          "chunks": ["Public subsidies", "help people", "pay for basic living costs", "and education", "."],
+          "answer": "Public subsidies help people pay for basic living costs and education."
+        },
+        {
+          "chunks": ["Public health", "helps stop", "infectious diseases", "and improve living conditions", "."],
+          "answer": "Public health helps stop infectious diseases and improve living conditions."
+        },
+        {
+          "chunks": ["Social security in Japan", "has", "four pillars", "."],
+          "answer": "Social security in Japan has four pillars."
+        },
+        {
+          "chunks": ["The four pillars", "come from", "the right to life", "in the Japanese Constitution", "."],
+          "answer": "The four pillars come from the right to life in the Japanese Constitution."
+        },
+        {
+          "chunks": ["Social insurance", "protects", "older people", "sick people", "and unemployed people."],
+          "answer": "Social insurance protects older people, sick people, and unemployed people."
+        }
+      ]
     }
   ]
 }
