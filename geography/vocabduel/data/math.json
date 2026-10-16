@@ -16,6 +16,22 @@
         { "en": "center of rotation", "jp": "回転の中心" },
         { "en": "angle", "jp": "角" }
       ]
+    },
+    {
+      "id": "math-ch3",
+      "name": "Chapter 3",
+      "words": [
+        { "en": "perpendicular bisector", "jp": "垂直二等分線" },
+        { "en": "midpoint", "jp": "中点" },
+        { "en": "segment", "jp": "線分" },
+        { "en": "endpoint", "jp": "端点" },
+        { "en": "perpendicular", "jp": "垂直な" },
+        { "en": "congruent", "jp": "合同な" },
+        { "en": "distance", "jp": "距離" },
+        { "en": "property", "jp": "性質" },
+        { "en": "compass", "jp": "コンパス" },
+        { "en": "arc", "jp": "弧" }
+      ]
     }
   ]
 }
