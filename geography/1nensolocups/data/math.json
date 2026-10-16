@@ -37,6 +37,40 @@
           "answer": "Patterns can be made using translations, rotations, and reflections."
         }
       ]
+    },
+    {
+      "id": "ch3",
+      "name": "Chapter 3",
+      "sentences": [
+        {
+          "chunks": ["A perpendicular bisector", "crosses a segment", "at its midpoint", "."],
+          "answer": "A perpendicular bisector crosses a segment at its midpoint."
+        },
+        {
+          "chunks": ["We can construct", "a perpendicular bisector", "using a compass", "."],
+          "answer": "We can construct a perpendicular bisector using a compass."
+        },
+        {
+          "chunks": ["Every point", "on the perpendicular bisector", "is the same distance", "from the endpoints", "."],
+          "answer": "Every point on the perpendicular bisector is the same distance from the endpoints."
+        },
+        {
+          "chunks": ["If a point", "is the same distance", "from both endpoints", "it lies on the perpendicular bisector", "."],
+          "answer": "If a point is the same distance from both endpoints, it lies on the perpendicular bisector."
+        },
+        {
+          "chunks": ["A perpendicular bisector", "is perpendicular", "to the segment", "."],
+          "answer": "A perpendicular bisector is perpendicular to the segment."
+        },
+        {
+          "chunks": ["A midpoint", "divides a segment", "into two equal parts", "."],
+          "answer": "A midpoint divides a segment into two equal parts."
+        },
+        {
+          "chunks": ["A perpendicular bisector", "creates", "two congruent segments", "."],
+          "answer": "A perpendicular bisector creates two congruent segments."
+        }
+      ]
     }
   ]
 }
