@@ -43,6 +43,44 @@
           "answer": "If two lines are parallel, alternate interior angles are equal."
         }
       ]
+    },
+    {
+      "id": "2-9",
+      "name": "Chapter 2-9",
+      "sentences": [
+        {
+          "chunks": ["Two figures", "are congruent", "when they fit exactly", "on each other", "."],
+          "answer": "Two figures are congruent when they fit exactly on each other."
+        },
+        {
+          "chunks": ["Matching angles", "are called", "corresponding angles", "."],
+          "answer": "Matching angles are called corresponding angles."
+        },
+        {
+          "chunks": ["Congruent figures", "have", "the same shape", "and the same size", "."],
+          "answer": "Congruent figures have the same shape and the same size."
+        },
+        {
+          "chunks": ["Corresponding side lengths", "and angle sizes", "are equal", "."],
+          "answer": "Corresponding side lengths and angle sizes are equal."
+        },
+        {
+          "chunks": ["We can use", "corresponding parts", "to find unknown side lengths", "and angle sizes", "."],
+          "answer": "We can use corresponding parts to find unknown side lengths and angle sizes."
+        },
+        {
+          "chunks": ["Matching parts", "are called", "corresponding parts", "."],
+          "answer": "Matching parts are called corresponding parts."
+        },
+        {
+          "chunks": ["Matching vertices", "are called", "corresponding vertices", "."],
+          "answer": "Matching vertices are called corresponding vertices."
+        },
+        {
+          "chunks": ["Matching sides", "are called", "corresponding sides", "."],
+          "answer": "Matching sides are called corresponding sides."
+        }
+      ]
     }
   ]
 }
