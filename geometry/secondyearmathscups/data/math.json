@@ -1,0 +1,90 @@
+{
+  "chapters": [
+    {
+      "id": "ch2-1",
+      "name": "Chapter 2-1",
+      "sentences": [
+        {
+          "chunks": ["Parallel lines", "stay", "the same distance apart", "."],
+          "answer": "Parallel lines stay the same distance apart."
+        }
+      ]
+    },
+    {
+      "id": "ch2-2",
+      "name": "Chapter 2-2",
+      "sentences": [
+        {
+          "chunks": ["Corresponding angles", "are", "in the same position", "."],
+          "answer": "Corresponding angles are in the same position."
+        }
+      ]
+    },
+    {
+      "id": "ch2-3",
+      "name": "Chapter 2-3",
+      "sentences": [
+        {
+          "chunks": [
+            "Alternate interior angles",
+            "are inside",
+            "the parallel lines",
+            "and on opposite sides",
+            "of the transversal"
+          ],
+          "answer": "Alternate interior angles are inside the parallel lines and on opposite sides of the transversal."
+        }
+      ]
+    },
+    {
+      "id": "ch2-4",
+      "name": "Chapter 2-4",
+      "sentences": [
+        {
+          "chunks": ["If corresponding angles", "are equal,", "the two lines", "are parallel", "."],
+          "answer": "If corresponding angles are equal, the two lines are parallel."
+        }
+      ]
+    },
+    {
+      "id": "ch2-5",
+      "name": "Chapter 2-5",
+      "sentences": [
+        {
+          "chunks": ["Vertical angles", "are equal", "."],
+          "answer": "Vertical angles are equal."
+        }
+      ]
+    },
+    {
+      "id": "ch2-6",
+      "name": "Chapter 2-6",
+      "sentences": [
+        {
+          "chunks": ["A transversal", "is a line", "that crosses", "two lines", "."],
+          "answer": "A transversal is a line that crosses two lines."
+        }
+      ]
+    },
+    {
+      "id": "ch2-7",
+      "name": "Chapter 2-7",
+      "sentences": [
+        {
+          "chunks": ["If two lines", "are parallel,", "corresponding angles", "are equal", "."],
+          "answer": "If two lines are parallel, corresponding angles are equal."
+        }
+      ]
+    },
+    {
+      "id": "ch2-8",
+      "name": "Chapter 2-8",
+      "sentences": [
+        {
+          "chunks": ["If two lines", "are parallel,", "alternate interior angles", "are equal", "."],
+          "answer": "If two lines are parallel, alternate interior angles are equal."
+        }
+      ]
+    }
+  ]
+}
