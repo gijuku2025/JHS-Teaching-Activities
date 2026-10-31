@@ -1,0 +1,218 @@
+{
+ "chapters": [
+  {
+   "id": "geo-01",
+   "subject": "Geography",
+   "title": "Ch.1 Earth, Oceans and Regions",
+   "questions": [
+    {
+     "q": "Which is the largest ocean on Earth?",
+     "ja": "地球で最も大きい海洋は?",
+     "a": "Pacific Ocean",
+     "w": [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean"
+     ]
+    },
+    {
+     "q": "Which ocean lies between Africa and Australia?",
+     "ja": "アフリカとオーストラリアの間の海洋は?",
+     "a": "Indian Ocean",
+     "w": [
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Arctic Ocean"
+     ]
+    },
+    {
+     "q": "Which ocean lies between the Americas and Europe?",
+     "ja": "南北アメリカとヨーロッパの間の海洋は?",
+     "a": "Atlantic Ocean",
+     "w": [
+      "Pacific Ocean",
+      "Indian Ocean",
+      "Southern Ocean"
+     ]
+    },
+    {
+     "q": "Which is the largest region of the world?",
+     "ja": "世界で最も大きい州は?",
+     "a": "Asia",
+     "w": [
+      "Africa",
+      "Europe",
+      "Oceania"
+     ]
+    },
+    {
+     "q": "Japan is in which region?",
+     "ja": "日本はどの州にある?",
+     "a": "Asia",
+     "w": [
+      "Oceania",
+      "Europe",
+      "North America"
+     ]
+    },
+    {
+     "q": "Brazil is in which region?",
+     "ja": "ブラジルはどの州にある?",
+     "a": "South America",
+     "w": [
+      "North America",
+      "Africa",
+      "Oceania"
+     ]
+    },
+    {
+     "q": "Egypt is in which region?",
+     "ja": "エジプトはどの州にある?",
+     "a": "Africa",
+     "w": [
+      "Asia",
+      "Europe",
+      "South America"
+     ]
+    },
+    {
+     "q": "Which is the largest island in the world?",
+     "ja": "世界最大の島は?",
+     "a": "Greenland",
+     "w": [
+      "Honshu",
+      "Madagascar",
+      "Borneo"
+     ]
+    },
+    {
+     "q": "Which continent is covered in ice at the South Pole?",
+     "ja": "南極にある氷の大陸は?",
+     "a": "Antarctica",
+     "w": [
+      "Australia",
+      "Greenland",
+      "Africa"
+     ]
+    },
+    {
+     "q": "About how much of Earth's surface is ocean?",
+     "ja": "地球の表面の約何%が海?",
+     "a": "About 70%",
+     "w": [
+      "About 30%",
+      "About 50%",
+      "About 90%"
+     ]
+    },
+    {
+     "q": "The line of 0° latitude is called the ...",
+     "ja": "緯度0度の線は?",
+     "a": "Equator",
+     "w": [
+      "Prime meridian",
+      "Tropic of Cancer",
+      "Date line"
+     ]
+    },
+    {
+     "q": "The line of 0° longitude is called the ...",
+     "ja": "経度0度の線は?",
+     "a": "Prime meridian",
+     "w": [
+      "Equator",
+      "Tropic of Capricorn",
+      "Arctic Circle"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-tri-05",
+   "subject": "Geometry",
+   "title": "Ch.5 Triangles",
+   "questions": [
+    {
+     "q": "A triangle with two equal sides is called ...",
+     "ja": "2つの辺が等しい三角形は?",
+     "a": "isosceles",
+     "w": [
+      "equilateral",
+      "scalene",
+      "right"
+     ]
+    },
+    {
+     "q": "A triangle with three equal sides is called ...",
+     "ja": "3つの辺が等しい三角形は?",
+     "a": "equilateral",
+     "w": [
+      "isosceles",
+      "scalene",
+      "obtuse"
+     ]
+    },
+    {
+     "q": "The angles of a triangle add up to ...",
+     "ja": "三角形の内角の和は?",
+     "a": "180°",
+     "w": [
+      "90°",
+      "270°",
+      "360°"
+     ]
+    },
+    {
+     "q": "In an isosceles triangle, the two base angles are ...",
+     "ja": "二等辺三角形の底角は?",
+     "a": "equal",
+     "w": [
+      "right angles",
+      "supplementary",
+      "always 60°"
+     ]
+    },
+    {
+     "q": "Each angle of an equilateral triangle is ...",
+     "ja": "正三角形の1つの角は?",
+     "a": "60°",
+     "w": [
+      "30°",
+      "45°",
+      "90°"
+     ]
+    },
+    {
+     "q": "The longest side of a right triangle is the ...",
+     "ja": "直角三角形の最も長い辺は?",
+     "a": "hypotenuse",
+     "w": [
+      "leg",
+      "base",
+      "vertex"
+     ]
+    },
+    {
+     "q": "HL congruence means hypotenuse and one ... are equal.",
+     "ja": "直角三角形の合同条件HL:斜辺と何が等しい?",
+     "a": "leg",
+     "w": [
+      "angle",
+      "vertex",
+      "height"
+     ]
+    },
+    {
+     "q": "Two figures with the same shape and size are ...",
+     "ja": "形も大きさも同じ図形は?",
+     "a": "congruent",
+     "w": [
+      "similar",
+      "parallel",
+      "symmetric"
+     ]
+    }
+   ]
+  }
+ ]
+}
