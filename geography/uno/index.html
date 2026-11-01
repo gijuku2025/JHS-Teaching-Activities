@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Social Studies UNO</title>
+<style>
+:root{--zh:min(22vh,20vw);--ch:calc(var(--zh) - 40px);--cw:calc(var(--ch)*.78);--c0:#e63946;--c1:#2a6fdb;--c2:#2a9d4b;--c3:#e9a800}
+*{box-sizing:border-box;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#1d3b2f;font-family:-apple-system,"Hiragino Sans",sans-serif;touch-action:manipulation}
+button{font:inherit;cursor:pointer}
+#setup{position:absolute;inset:0;background:#f4f1e8;overflow:auto;padding:24px;display:flex;flex-direction:column;align-items:center;gap:14px;z-index:9}
+#setup h1{margin:0}#setup .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+.opt{padding:10px 20px;border:3px solid #444;border-radius:10px;background:#fff;font-size:20px;font-weight:700}
+.opt.on{background:#2a6fdb;color:#fff;border-color:#2a6fdb}
+#setup input[type=text]{font-size:20px;padding:8px;border:2px solid #888;border-radius:8px;width:170px;-webkit-user-select:text;user-select:text}
+#setup p{max-width:640px;margin:0;font-size:16px;line-height:1.5}
+.go{padding:14px 50px;font-size:26px;font-weight:800;background:#2a9d4b;color:#fff;border:0;border-radius:14px}
+.zone{position:absolute;width:var(--W);height:var(--zh);display:flex;flex-direction:column;background:rgba(255,255,255,.1);border-radius:14px;padding:4px 8px}
+.zone.act{background:rgba(255,230,100,.4);box-shadow:0 0 0 4px #ffd84d}
+#bottom{--W:calc(100vw - 2*var(--zh));left:var(--zh);bottom:0}
+#top{--W:calc(100vw - 2*var(--zh));left:var(--zh);top:0;transform:rotate(180deg)}
+#left{--W:calc(100vh - 2*var(--zh));left:var(--zh);top:calc(50% - var(--W)/2);transform-origin:top left;transform:rotate(90deg)}
+#right{--W:calc(100vh - 2*var(--zh));left:calc(100% - var(--zh));top:calc(50% + var(--W)/2);transform-origin:top left;transform:rotate(-90deg)}
+.zh{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#fff;font-weight:700;height:32px;font-size:15px;white-space:nowrap}
+.zh .msg{font-weight:400;font-size:13px;opacity:.85;overflow:hidden;text-overflow:ellipsis}
+.chip{display:inline-block;min-width:26px;text-align:center;border-radius:6px;padding:0 6px;color:#fff}
+.drawbtn{background:#fff;color:#222;border:0;border-radius:8px;padding:3px 14px;font-weight:800}
+.hand{display:flex;gap:6px;overflow-x:auto;flex:1;align-items:center;padding:2px}
+.pickrow{flex:1;display:flex;gap:10px;align-items:center;justify-content:center}
+.pk{width:70px;height:70px;border-radius:50%;border:4px solid #fff;color:#fff;font-size:30px}
+.card{flex:none;width:var(--cw);height:var(--ch);border-radius:10px;background:#fff;border:5px solid var(--cc);padding:4px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;font-size:calc(var(--cw)*.16);line-height:1.15;color:#222;box-shadow:0 2px 5px rgba(0,0,0,.4)}
+.card b{font-size:1.1em}.card .ja{font-size:.7em;color:#555}
+.card.s{font-size:calc(var(--cw)*.105);font-weight:500}.card.s u{font-weight:800;text-decoration-color:var(--cc);text-decoration-thickness:2px}
+.card.sp{background:var(--cc);color:#fff;font-weight:800}
+.card.wild{background:conic-gradient(var(--c0) 0 25%,var(--c1) 0 50%,var(--c2) 0 75%,var(--c3) 0);text-shadow:0 0 4px #000,0 0 4px #000}
+.card .sym{position:absolute;top:0;left:4px;font-style:normal;font-size:.75em;color:var(--cc)}.card.sp .sym{color:#fff}
+.card.dim{opacity:.4}
+#mid{--ch:min(36vh,30vw);--cw:calc(var(--ch)*.78);position:absolute;left:var(--zh);right:var(--zh);top:var(--zh);bottom:var(--zh);display:flex;align-items:center;justify-content:center;gap:6vmin}
+#disc{position:relative;width:var(--cw);height:var(--ch)}#disc .card{position:absolute;inset:0}
+.back{background:#26408b;border-color:#fff;color:#fff;font-size:28px;font-weight:800}
+#col{position:absolute;right:6px;top:6px;color:#fff;font-weight:800;font-size:14px;text-align:center}
+#quit{position:absolute;left:6px;bottom:6px;font-size:12px;opacity:.6;background:none;border:1px solid #fff;color:#fff;border-radius:6px}
+#win{position:absolute;inset:0;background:rgba(0,0,0,.75);z-index:8;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;color:#fff;font-size:48px;font-weight:800}
+</style></head><body>
+<div id="setup"></div>
+<div id="bottom" class="zone"></div><div id="left" class="zone"></div><div id="top" class="zone"></div><div id="right" class="zone"></div>
+<div id="mid"></div>
+<div id="win"></div>
+<script>
+const COL=['#e63946','#2a6fdb','#2a9d4b','#e9a800'],SYM=['▲','●','■','★'];
+const SEATS={3:['bottom','top','right'],4:['bottom','left','top','right']},ANG={bottom:0,left:90,top:180,right:-90};
+const SAMPLE={chapters:[
+{title:"Ch 1 Earth",pairs:[
+{word:"continent",ja:"大陸",sentence:"Asia is the largest continent."},
+{word:"ocean",ja:"海洋",sentence:"The Pacific is the largest ocean."},
+{word:"island",ja:"島",sentence:"Japan is a country made of islands."},
+{word:"equator",ja:"赤道",sentence:"The equator divides Earth into north and south."},
+{word:"hemisphere",ja:"半球",sentence:"Japan is in the Northern Hemisphere."},
+{word:"latitude",ja:"緯度",sentence:"Lines of latitude run east to west."}]},
+{title:"Ch 2 Regions",pairs:[
+{word:"region",ja:"地域",sentence:"Asia is divided into several regions."},
+{word:"capital",ja:"首都",sentence:"Tokyo is the capital of Japan."},
+{word:"population",ja:"人口",sentence:"India has a very large population."},
+{word:"climate",ja:"気候",sentence:"Okinawa has a warm climate."},
+{word:"border",ja:"国境",sentence:"A river can be a border between countries."},
+{word:"tropical",ja:"熱帯の",sentence:"Tropical areas are hot and rainy."}]}]};
+let DATA=SAMPLE,S,N=4,VOICE=false,SEL=new Set([0,1]);
+fetch('cards.json').then(r=>r.json()).then(d=>{if(d.chapters&&d.chapters.length){DATA=d;SEL=new Set(d.chapters.map((_,i)=>i).slice(0,4))}}).catch(()=>{}).finally(setup);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'),rnd=(a,b)=>a+Math.random()*(b-a);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function setup(){const el=document.getElementById('setup');el.style.display='flex';
+ el.innerHTML=`<h1>🃏 Social Studies UNO</h1>
+ <div class=row>Players: ${[3,4].map(n=>`<button class="opt ${N==n?'on':''}" onclick="N=${n};setup()">${n}</button>`).join('')}</div>
+ <div class=row>${[0,1,2,3].slice(0,N).map(i=>`<input type=text id=n${i} placeholder="Player ${i+1}" value="${esc(window['nm'+i]||'')}" oninput="window['nm${i}']=this.value">`).join('')}</div>
+ <div class=row>${DATA.chapters.map((c,i)=>`<button class="opt ${SEL.has(i)?'on':''}" onclick="SEL.has(${i})?SEL.delete(${i}):SEL.add(${i});setup()">${esc(c.title)}</button>`).join('')}</div>
+ <div class=row><button class="opt ${VOICE?'on':''}" onclick="VOICE=!VOICE;setup()">🔊 Read played cards aloud: ${VOICE?'ON':'OFF'}</button></div>
+ <p><b>How to play:</b> Put the iPad flat in the middle. Play a card that matches the <b>colour/shape</b> of the top card, or a <b>word ↔ its sentence</b> partner. <b>Read your card aloud</b> when you play it! Can't play? Tap <b>Draw</b>. Skip, Reverse, +2 and Wild work like UNO. First to empty their hand wins.</p>
+ <button class=go onclick="start()">Start!</button>`}
+function start(){const chs=[...SEL].sort((a,b)=>a-b).map(i=>DATA.chapters[i]);
+ if(chs.reduce((n,c)=>n+c.pairs.length,0)<6)return alert('Choose more chapters (need at least 6 word pairs).');
+ let deck=[],i=0;chs.forEach((ch,ci)=>ch.pairs.forEach(p=>{const c=chs.length>=4?ci%4:i%4;
+  deck.push({c,t:'w',pair:i,word:p.word,ja:p.ja,en:p.word},{c,t:'s',pair:i,word:p.word,en:p.sentence});i++}));
+ for(let c=0;c<4;c++)['skip','rev','d2'].forEach(t=>deck.push({c,t}));
+ for(let k=0;k<4;k++)deck.push({c:4,t:'wild'});
+ shuffle(deck);const seats=SEATS[N];
+ const pl=seats.map((s,k)=>({seat:s,name:(window['nm'+k]||'').trim()||'Player '+(k+1),hand:[]}));
+ pl.forEach(p=>{for(let k=0;k<5;k++)p.hand.push(deck.pop())});
+ let f;do{f=deck.pop();if(f.c==4||!['w','s'].includes(f.t)){deck.unshift(f);f=null}}while(!f);
+ f.rot=rnd(-15,15);
+ S={pl,deck,pile:[f],turn:0,dir:1,color:f.c,pend:null,over:null,msg:'Game start!'};
+ document.getElementById('setup').style.display='none';
+ document.getElementById('win').style.display='none';
+ ['bottom','left','top','right'].forEach(s=>document.getElementById(s).style.display=seats.includes(s)?'flex':'none');
+ render()}
+const top_=()=>S.pile[S.pile.length-1];
+function playable(k){const t=top_();return k.t=='wild'||k.c==S.color||(k.pair!=null&&k.pair===t.pair)||(['skip','rev','d2'].includes(k.t)&&k.t==t.t)}
+function cardH(k,x=''){const cc=k.c<4?`var(--c${k.c})`:'#333';let inn;
+ if(k.t=='w')inn=`<b>${esc(k.en)}</b><span class=ja>${esc(k.ja||'')}</span>`;
+ else if(k.t=='s'){const e=esc(k.en),w=esc(k.word),i=e.toLowerCase().indexOf(w.toLowerCase());inn=i<0?e:e.slice(0,i)+'<u>'+e.slice(i,i+w.length)+'</u>'+e.slice(i+w.length)}
+ else inn={skip:'⛔<br>SKIP',rev:'🔄<br>REVERSE',d2:'+2<br>DRAW 2',wild:'🌈<br>WILD'}[k.t];
+ const cl=k.t=='w'?'':k.t=='s'?'s':'sp'+(k.t=='wild'?' wild':'');
+ return `<div class="card ${cl} ${x}" style="--cc:${cc}">${k.c<4?`<i class=sym>${SYM[k.c]}</i>`:''}${inn}</div>`}
+function render(){S.pl.forEach((p,pi)=>{const act=S.turn==pi&&!S.over,el=document.getElementById(p.seat);
+ el.className='zone'+(act?' act':'');
+ const body=S.pend===pi?`<div class=pickrow>${[0,1,2,3].map(c=>`<button class=pk style="background:${COL[c]}" onclick="pick(${c})">${SYM[c]}</button>`).join('')}</div>`
+  :`<div class=hand>${p.hand.map((k,i)=>`<div onclick="play(${pi},${i})">${cardH(k,act&&!playable(k)?'dim':'')}</div>`).join('')}</div>`;
+ el.innerHTML=`<div class=zh><span>${esc(p.name)} · ${p.hand.length} cards</span><span class=msg>${esc(S.msg)}</span><span><span class=chip style="background:${COL[S.color]}">${SYM[S.color]}</span> ${act&&S.pend==null?`<button class=drawbtn onclick="draw(${pi})">Draw</button>`:''}</span></div>${body}`});
+ document.getElementById('mid').innerHTML=`<div class="card back" style="--cc:#fff;width:var(--cw);height:var(--ch);justify-content:center" onclick="draw(S.turn)">DECK<br>${S.deck.length}</div>
+ <div id=disc>${S.pile.slice(-3).map(k=>cardH(k).replace('style="','style="transform:rotate('+(k.rot||0)+'deg);'))}</div>
+ <div id=col>Colour<br><span class=chip style="background:${COL[S.color]};font-size:26px">${SYM[S.color]}</span></div>
+ <button id=quit onclick="confirm('Quit this game?')&&setup()">Quit</button>`;
+ if(S.over!=null){const w=document.getElementById('win');w.style.display='flex';w.innerHTML=`<div>🎉 ${esc(S.pl[S.over].name)} wins!</div><div><button class=go onclick="start()">Play again</button> <button class="go" style="background:#2a6fdb" onclick="document.getElementById('win').style.display='none';setup()">Menu</button></div>`}}
+function give(pi,n){for(let i=0;i<n;i++){if(!S.deck.length){const t=S.pile.pop();S.deck=shuffle(S.pile);S.pile=[t]}if(S.deck.length)S.pl[pi].hand.push(S.deck.pop())}}
+const L=()=>S.pl.length,at=n=>((S.turn+S.dir*n)%L()+L())%L(),step=n=>{S.turn=at(n)};
+function say(k){if(VOICE&&window.speechSynthesis&&(k.t=='w'||k.t=='s')){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(k.en);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u)}}
+function play(pi,ci){if(S.over!=null||S.turn!=pi||S.pend!=null)return;const p=S.pl[pi],k=p.hand[ci];
+ if(!playable(k)){S.msg='That card does not match.';return render()}
+ p.hand.splice(ci,1);k.rot=ANG[p.seat]+rnd(-14,14);S.pile.push(k);say(k);S.msg=p.name+' played a card.';
+ if(!p.hand.length){S.over=pi;return render()}
+ if(p.hand.length==1)S.msg=p.name+': UNO!';
+ if(k.t=='wild'){S.pend=pi;return render()}
+ S.color=k.c;fx(k)}
+function pick(c){S.color=c;S.pend=null;fx(top_())}
+function fx(k){let n=1;if(k.t=='skip')n=2;if(k.t=='rev')S.dir*=-1;if(k.t=='d2'){give(at(1),2);n=2}step(n);render()}
+function draw(pi){if(S.over!=null||S.turn!=pi||S.pend!=null)return;give(pi,1);S.msg=S.pl[pi].name+' drew a card.';step(1);render()}
+</script></body></html>
