@@ -1,0 +1,395 @@
+{
+ "timeLimit": 180,
+ "chapters": [
+  {
+   "id": "civ-15",
+   "title": "Ch.15 Trade and Industry",
+   "questions": [
+    {
+     "q": "A trade surplus means exports are ___ than imports.",
+     "a": "higher",
+     "w": [
+      "lower",
+      "the same",
+      "cheaper"
+     ]
+    },
+    {
+     "q": "Buying and selling commodities with other countries is called ___.",
+     "a": "trade",
+     "w": [
+      "specialization",
+      "a surplus",
+      "deindustrialization"
+     ]
+    },
+    {
+     "q": "Countries trade because they produce ___ goods.",
+     "a": "different",
+     "w": [
+      "the same",
+      "only cheap",
+      "only old"
+     ]
+    },
+    {
+     "q": "___ means countries produce the things they are good at.",
+     "a": "International specialization",
+     "w": [
+      "Deindustrialization",
+      "A trade surplus",
+      "Public investment"
+     ]
+    },
+    {
+     "q": "After the war, Japan imported raw materials and exported ___ goods.",
+     "a": "manufactured",
+     "w": [
+      "raw",
+      "used",
+      "foreign"
+     ]
+    },
+    {
+     "q": "Many companies moved their factories to ___ countries.",
+     "a": "developing",
+     "w": [
+      "developed",
+      "rich",
+      "small"
+     ]
+    },
+    {
+     "q": "The number of factories in Japan ___.",
+     "a": "decreased",
+     "w": [
+      "increased",
+      "stayed the same",
+      "doubled"
+     ]
+    },
+    {
+     "q": "___ means factories move to other countries.",
+     "a": "Deindustrialization",
+     "w": [
+      "International specialization",
+      "A trade surplus",
+      "Trade"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "civ-16",
+   "title": "Ch.16 Taxes",
+   "questions": [
+    {
+     "q": "Consumers pay consumption tax to ___ and producers.",
+     "a": "retailers",
+     "w": [
+      "the government",
+      "banks",
+      "schools"
+     ]
+    },
+    {
+     "q": "People with ___ incomes pay a higher proportion of their income in income tax.",
+     "a": "high",
+     "w": [
+      "low",
+      "very low",
+      "no"
+     ]
+    },
+    {
+     "q": "A ___ tax means people with high incomes pay a higher proportion of their income.",
+     "a": "progressive",
+     "w": [
+      "regressive",
+      "indirect",
+      "public"
+     ]
+    },
+    {
+     "q": "Governments combine different kinds of taxes to make taxes ___.",
+     "a": "fair",
+     "w": [
+      "higher",
+      "lower",
+      "secret"
+     ]
+    },
+    {
+     "q": "People with the same income should pay the ___ amount of tax.",
+     "a": "same",
+     "w": [
+      "biggest",
+      "smallest",
+      "different"
+     ]
+    },
+    {
+     "q": "Consumption tax is ___.",
+     "a": "an indirect tax",
+     "w": [
+      "a direct tax",
+      "an income tax",
+      "a progressive tax"
+     ]
+    },
+    {
+     "q": "People with ___ incomes pay a higher proportion of their income in consumption tax.",
+     "a": "low",
+     "w": [
+      "high",
+      "no",
+      "very high"
+     ]
+    },
+    {
+     "q": "A ___ tax means people with low incomes pay a higher proportion of their income.",
+     "a": "regressive",
+     "w": [
+      "progressive",
+      "direct",
+      "income"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "civ-17",
+   "title": "Ch.17 Government Finance",
+   "questions": [
+    {
+     "q": "___ is important for the market economy.",
+     "a": "Social capital",
+     "w": [
+      "Public debt",
+      "Small government",
+      "A recession"
+     ]
+    },
+    {
+     "q": "Governments sell ___ to borrow money.",
+     "a": "government bonds",
+     "w": [
+      "commodities",
+      "insurance",
+      "subsidies"
+     ]
+    },
+    {
+     "q": "Public debt must be paid back with ___.",
+     "a": "interest",
+     "w": [
+      "tax cuts",
+      "a subsidy",
+      "a pension"
+     ]
+    },
+    {
+     "q": "Small government means the government spends ___ to help people.",
+     "a": "less",
+     "w": [
+      "more",
+      "the same",
+      "nothing"
+     ]
+    },
+    {
+     "q": "___ government means the government spends more to help people.",
+     "a": "Big",
+     "w": [
+      "Small",
+      "Local",
+      "Foreign"
+     ]
+    },
+    {
+     "q": "During a recession, the government ___ spending.",
+     "a": "increases",
+     "w": [
+      "decreases",
+      "stops",
+      "never changes"
+     ]
+    },
+    {
+     "q": "Public investment creates more ___ for private companies.",
+     "a": "work",
+     "w": [
+      "debt",
+      "taxes",
+      "imports"
+     ]
+    },
+    {
+     "q": "During a boom, the government ___ spending and increases taxes.",
+     "a": "decreases",
+     "w": [
+      "increases",
+      "stops",
+      "ignores"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "civ-18",
+   "title": "Ch.18 Social Security",
+   "questions": [
+    {
+     "q": "Social security means the government helps people who ___ help themselves.",
+     "a": "cannot",
+     "w": [
+      "can",
+      "will",
+      "always"
+     ]
+    },
+    {
+     "q": "___ helps people pay for medical costs.",
+     "a": "Health insurance",
+     "w": [
+      "Pension insurance",
+      "Public subsidies",
+      "Public health"
+     ]
+    },
+    {
+     "q": "___ helps people over 65 and people with disabilities.",
+     "a": "Pension insurance",
+     "w": [
+      "Health insurance",
+      "Public health",
+      "Public subsidies"
+     ]
+    },
+    {
+     "q": "Public subsidies help people pay for basic living costs and ___.",
+     "a": "education",
+     "w": [
+      "factories",
+      "interest",
+      "exports"
+     ]
+    },
+    {
+     "q": "___ helps stop infectious diseases and improve living conditions.",
+     "a": "Public health",
+     "w": [
+      "Health insurance",
+      "Pension insurance",
+      "Public subsidies"
+     ]
+    },
+    {
+     "q": "Social security in Japan has ___ pillars.",
+     "a": "four",
+     "w": [
+      "two",
+      "three",
+      "five"
+     ]
+    },
+    {
+     "q": "The four pillars come from the right to life in the Japanese ___.",
+     "a": "Constitution",
+     "w": [
+      "Parliament",
+      "Cabinet",
+      "Court"
+     ]
+    },
+    {
+     "q": "Social insurance protects older people, sick people, and ___ people.",
+     "a": "unemployed",
+     "w": [
+      "young",
+      "rich",
+      "foreign"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "civ-19",
+   "title": "Ch.19 Aging Society and Government",
+   "questions": [
+    {
+     "q": "Fewer babies are born and there are more ___ people.",
+     "a": "older",
+     "w": [
+      "younger",
+      "rich",
+      "foreign"
+     ]
+    },
+    {
+     "q": "Big government raises taxes and gives ___ social security.",
+     "a": "more",
+     "w": [
+      "less",
+      "no",
+      "the same"
+     ]
+    },
+    {
+     "q": "Small government keeps taxes ___ and gives less social security.",
+     "a": "low",
+     "w": [
+      "high",
+      "rising",
+      "unfair"
+     ]
+    },
+    {
+     "q": "The government needs more money to pay for social ___.",
+     "a": "security",
+     "w": [
+      "trade",
+      "specialization",
+      "investment"
+     ]
+    },
+    {
+     "q": "The government must balance social security and economic ___.",
+     "a": "growth",
+     "w": [
+      "debt",
+      "pillars",
+      "insurance"
+     ]
+    },
+    {
+     "q": "Everyone over ___ must pay for nursing care insurance.",
+     "a": "40",
+     "w": [
+      "20",
+      "50",
+      "65"
+     ]
+    },
+    {
+     "q": "Japan has a universal health insurance system and a universal ___ system.",
+     "a": "pension",
+     "w": [
+      "bond",
+      "tax",
+      "trade"
+     ]
+    },
+    {
+     "q": "Everyone has ___ and everyone gets a pension.",
+     "a": "health insurance",
+     "w": [
+      "a factory",
+      "public debt",
+      "a tax cut"
+     ]
+    }
+   ]
+  }
+ ]
+}
