@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Quiz Othello – Face to Face (JSON)</title>
+<title>Geography Othello – Face to Face</title>
 <style>
 :root{
   --bg:#0f1f18; --panel:#1a2a22; --felt:#1f6b45; --felt-dark:#154d31;
@@ -90,6 +90,9 @@ input,select{font:inherit;font-size:22px;padding:14px 16px;border-radius:12px;bo
 .chap.on small::before{content:"\2713  "}
 .sub.bad{color:var(--bad)}
 .big:disabled{opacity:.4}
+
+.timer{flex:none;font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;background:#101b15;border-radius:12px;padding:6px 14px;min-width:96px;text-align:center}
+.timer.low{color:var(--bad)}
 @media (prefers-reduced-motion:reduce){.bead.flip,.cell.legal::after{animation:none}}
 </style>
 </head>
@@ -97,8 +100,8 @@ input,select{font:inherit;font-size:22px;padding:14px 16px;border-radius:12px;bo
 
 <section id="setup" class="screen">
   <div class="card wide">
-    <h1>Quiz Othello · Face to Face</h1>
-    <p class="sub">Lay the iPad flat between you. Player 1 sits at the bottom edge, Player 2 at the top. Answer correctly to place a bead; answer wrongly and you lose your turn.</p>
+    <h1>Geography Othello</h1>
+    <p class="sub">Lay the iPad flat between you. Player 1 sits at the bottom edge, Player 2 at the top. Answer correctly to place a bead; answer wrongly and you lose your turn. One shared timer runs for the whole game: when it reaches zero, the player with more beads wins.</p>
     <div class="names">
       <label>Player 1 (black, bottom)<input id="n1" value="Player 1" maxlength="14" autocomplete="off"></label>
       <label>Player 2 (white, top)<input id="n2" value="Player 2" maxlength="14" autocomplete="off"></label>
@@ -147,7 +150,7 @@ for(let i=0;i<64;i++){
 const P={};
 [1,2].forEach(p=>{
   const el=$("p"+p);
-  el.innerHTML='<div class="row1"><div class="chip"></div><div class="text"></div></div><div class="row2"></div>';
+  el.innerHTML='<div class="row1"><div class="chip"></div><div class="text"></div><div class="timer">3:00</div></div><div class="row2"></div>';
   P[p]={el,chip:el.querySelector(".chip"),text:el.querySelector(".text"),row:el.querySelector(".row2")};
 });
 
@@ -175,11 +178,11 @@ function startGame(){
   names=[$("n1").value.trim()||"Player 1",$("n2").value.trim()||"Player 2"];
   pool=CHAPTERS.filter(c=>sel.has(c.id)).flatMap(c=>c.questions);
   if(!pool.length)return;
-  LS.set("qo-sel",[...sel]);LS.set("qo-names",[$("n1").value,$("n2").value]);
+  LS.set("qc-sel",[...sel]);LS.set("qc-names",[$("n1").value,$("n2").value]);
   deck=[];board=Array(64).fill(0);
   board[27]=2;board[28]=1;board[35]=1;board[36]=2;
   cur=1;lastIdx=-1;legal=[];
-  show("game");turn();
+  show("game");startTimer();turn();
 }
 
 function renderBoard(flipped=[]){
@@ -201,7 +204,7 @@ function paint(){
     o.chip.querySelector("span").textContent=names[p-1];
     const t=o.text;t.className="text";
     if(mine&&(state==="ask")){
-      t.innerHTML=esc(current.q)+(current.ja?`<small>${esc(current.ja)}</small>`:"");
+      t.textContent=current.q;
     }else if(!mine&&(state==="ask"||state==="place")){
       t.textContent=`Waiting for ${names[cur-1]}…`;
     }else{
@@ -217,7 +220,7 @@ function paint(){
       else b.addEventListener("click",()=>answer(b,x.t));
       a.appendChild(b);
     });
-  }else{
+  }else if(state!=="over"){
     const n=document.createElement("button");n.className="big next";
     n.textContent=state==="pass"?"Continue":"Next player";
     n.addEventListener("click",nextPlayer);a.appendChild(n);
@@ -262,6 +265,7 @@ function tapCell(i){
   legal=[];lastIdx=i;flippedNow=f.concat(i);
   state="busy";
   msg=`${names[cur-1]} flipped ${f.length} bead${f.length>1?"s":""}.`;msgCls="good";
+  if(timeUp){state="over";msg+=" Time's up!";paint();setTimeout(()=>finish("time"),1500);return}
   paint();
 }
 
@@ -269,56 +273,65 @@ function nextPlayer(){
   if(state==="busy"||state==="wrong"||state==="pass"){cur=3-cur;turn()}
 }
 
-function finish(){
+function finish(reason){
+  stopTimer();
   const a=count(1),b=count(2);
   const w=a===b?"It's a draw!":`${names[a>b?0:1]} wins!`;
-  const f=`${names[0]} (black): ${a}   ·   ${names[1]} (white): ${b}`;
+  const f=(reason==="time"?"Time's up!  ":"")+`${names[0]} (black): ${a}   ·   ${names[1]} (white): ${b}`;
   $("win").textContent=$("win2").textContent=w;
   $("final").textContent=$("final2").textContent=f;
   show("end");
 }
 
 
-/* ---------- load quiz sets from questions.json ---------- */
+/* ---------- shared game timer ---------- */
+let endAt=0,tick=null,timeUp=false,limit=180;
+const fmt=ms=>{const t=Math.max(0,Math.ceil(ms/1000));return Math.floor(t/60)+":"+String(t%60).padStart(2,"0")};
+function stopTimer(){clearInterval(tick);tick=null}
+function startTimer(){
+  stopTimer();timeUp=false;endAt=Date.now()+limit*1000;
+  tick=setInterval(onTick,250);onTick();
+}
+function onTick(){
+  const left=endAt-Date.now();
+  document.querySelectorAll(".timer").forEach(t=>{t.textContent=fmt(left);t.classList.toggle("low",left<=30000)});
+  if(left>0||timeUp)return;
+  timeUp=true;
+  if(state==="place"){msg="Time's up! Place this last bead.";msgCls="bad";paint()}
+  else finish("time");
+}
+
+/* ---------- load quiz sets from geography.json ---------- */
 let CHAPTERS=[],sel=new Set();
 const LS={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
 function updateCount(){
   const ch=CHAPTERS.filter(c=>sel.has(c.id));
   const n=ch.reduce((t,c)=>t+c.questions.length,0);
-  $("count").textContent=`${ch.length} chapter${ch.length===1?"":"s"} · ${n} questions`;
+  $("count").textContent=`${ch.length} chapter${ch.length===1?"":"s"} · ${n} questions · timer ${fmt(limit*1000)}`;
   $("start").disabled=!n;
   document.querySelectorAll(".chap").forEach(b=>b.classList.toggle("on",sel.has(b.dataset.id)));
 }
 function buildChapters(){
   const box=$("chapters");box.innerHTML="";
-  const groups=new Map();
-  CHAPTERS.forEach(c=>{if(!groups.has(c.subject))groups.set(c.subject,[]);groups.get(c.subject).push(c)});
-  groups.forEach((list,k)=>{
-    if(k){
-      const g=document.createElement("button");g.className="grp";g.textContent=k+"  · tap to select or clear all";
-      g.addEventListener("click",()=>{const all=list.every(c=>sel.has(c.id));list.forEach(c=>all?sel.delete(c.id):sel.add(c.id));updateCount()});
-      box.appendChild(g);
-    }
-    const grid=document.createElement("div");grid.className="grid";
-    list.forEach(c=>{
-      const b=document.createElement("button");b.className="chap";b.dataset.id=c.id;
-      b.innerHTML="<b></b><small></small>";
-      b.firstChild.textContent=c.title;b.lastChild.textContent=c.questions.length+" questions";
-      b.addEventListener("click",()=>{sel.has(c.id)?sel.delete(c.id):sel.add(c.id);updateCount()});
-      grid.appendChild(b);
-    });
-    box.appendChild(grid);
+  const grid=document.createElement("div");grid.className="grid";
+  CHAPTERS.forEach(c=>{
+    const b=document.createElement("button");b.className="chap";b.dataset.id=c.id;
+    b.innerHTML="<b></b><small></small>";
+    b.firstChild.textContent=c.title;b.lastChild.textContent=c.questions.length+" questions";
+    b.addEventListener("click",()=>{sel.has(c.id)?sel.delete(c.id):sel.add(c.id);updateCount()});
+    grid.appendChild(b);
   });
-  updateCount();
+  box.appendChild(grid);updateCount();
 }
 async function load(){
-  const nm=LS.get("qo-names");if(Array.isArray(nm)){$("n1").value=nm[0]||"Player 1";$("n2").value=nm[1]||"Player 2"}
+  const nm=LS.get("qc-names");if(Array.isArray(nm)){$("n1").value=nm[0]||"Player 1";$("n2").value=nm[1]||"Player 2"}
   try{
-    const r=await fetch("questions.json",{cache:"no-cache"});
+    const r=await fetch("geography.json",{cache:"no-cache"});
     if(!r.ok)throw new Error("HTTP "+r.status);
     const data=await r.json();
     const list=Array.isArray(data)?data:data.chapters;
+    if(!Array.isArray(data)&&Number(data.timeLimit)>0)limit=Math.round(Number(data.timeLimit));
     if(!Array.isArray(list))throw new Error('the file needs a "chapters" list');
     let skipped=0;const seen=new Set();
     CHAPTERS=list.map((c,n)=>{
@@ -330,13 +343,13 @@ async function load(){
       return{id,title:String(c.title||"Chapter "+(n+1)),subject:String(c.subject||""),questions:qs};
     }).filter(c=>c.questions.length);
     if(!CHAPTERS.length)throw new Error("no usable questions found");
-    (LS.get("qo-sel")||[]).forEach(id=>{if(CHAPTERS.some(c=>c.id===id))sel.add(id)});
+    (LS.get("qc-sel")||[]).forEach(id=>{if(CHAPTERS.some(c=>c.id===id))sel.add(id)});
     buildChapters();
-    if(skipped)$("warn").textContent=`${skipped} question${skipped>1?"s":""} in questions.json were skipped because they are incomplete.`;
+    if(skipped)$("warn").textContent=`${skipped} question${skipped>1?"s":""} in geography.json were skipped because they are incomplete.`;
   }catch(e){
     $("chapters").innerHTML="";
     const p=document.createElement("p");p.className="sub bad";
-    p.textContent=`Couldn't load questions.json (${e.message}). Keep it in the same folder as this page and open the game from your GitHub Pages link, not by double-clicking the file.`;
+    p.textContent=`Couldn't load geography.json (${e.message}). Keep it in the same folder as this page and open the game from your GitHub Pages link, not by double-clicking the file.`;
     $("chapters").appendChild(p);
   }
 }
@@ -344,9 +357,19 @@ $("all").addEventListener("click",()=>{CHAPTERS.forEach(c=>sel.add(c.id));update
 $("none").addEventListener("click",()=>{sel.clear();updateCount()});
 load();
 
-$("start").addEventListener("click",startGame);
+
+/* try to enter full screen when Start is tapped (iPad Safari allows it from a tap) */
+function goFull(){
+  try{
+    if(document.fullscreenElement||document.webkitFullscreenElement)return;
+    const d=document.documentElement,f=d.requestFullscreen||d.webkitRequestFullscreen;
+    if(f){const r=f.call(d);if(r&&r.catch)r.catch(()=>{})}
+  }catch(e){}
+}
+["fullscreenchange","webkitfullscreenchange"].forEach(ev=>document.addEventListener(ev,()=>setTimeout(fit,250)));
+$("start").addEventListener("click",()=>{goFull();startGame()});
 $("again").addEventListener("click",startGame);
-$("menu").addEventListener("click",()=>show("setup"));
+$("menu").addEventListener("click",()=>{stopTimer();show("setup")});
 document.addEventListener("gesturestart",e=>e.preventDefault());
 </script>
 </body>
