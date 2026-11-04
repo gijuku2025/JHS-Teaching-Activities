@@ -1,0 +1,863 @@
+{
+ "timeLimit": 180,
+ "chapters": [
+  {
+   "id": "geo-11-3",
+   "title": "11-3 Subtropical Climates",
+   "questions": [
+    {
+     "q": "Places near the ___ Zone have Subtropical Climates.",
+     "a": "Tropical",
+     "w": [
+      "Polar",
+      "Desert",
+      "Mountain"
+     ]
+    },
+    {
+     "q": "___ Climates have very hot summers and mild winters.",
+     "a": "Humid Subtropical",
+     "w": [
+      "Subpolar",
+      "Polar",
+      "Oceanic"
+     ]
+    },
+    {
+     "q": "Humid Subtropical Climates have very ___ summers.",
+     "a": "hot",
+     "w": [
+      "cold",
+      "mild",
+      "short"
+     ]
+    },
+    {
+     "q": "Humid Subtropical Climates have ___ winters.",
+     "a": "mild",
+     "w": [
+      "very cold",
+      "very hot",
+      "dry"
+     ]
+    },
+    {
+     "q": "In Humid Subtropical Climates, rain falls ___, but a lot falls in summer.",
+     "a": "all year",
+     "w": [
+      "only in winter",
+      "never",
+      "only in autumn"
+     ]
+    },
+    {
+     "q": "In Humid Subtropical Climates, a lot of rain falls in ___.",
+     "a": "summer",
+     "w": [
+      "winter",
+      "spring",
+      "autumn"
+     ]
+    },
+    {
+     "q": "Places near the Tropical Zone have ___ Climates.",
+     "a": "Subtropical",
+     "w": [
+      "Subpolar",
+      "Polar",
+      "Oceanic"
+     ]
+    },
+    {
+     "q": "Humid Subtropical Climates have mild ___.",
+     "a": "winters",
+     "w": [
+      "summers",
+      "storms",
+      "rivers"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-4",
+   "title": "11-4 Naha",
+   "questions": [
+    {
+     "q": "Naha is the ___ city of Okinawa.",
+     "a": "capital",
+     "w": [
+      "oldest",
+      "smallest",
+      "coldest"
+     ]
+    },
+    {
+     "q": "Naha has a Humid ___ Climate.",
+     "a": "Subtropical",
+     "w": [
+      "Subpolar",
+      "Polar",
+      "Oceanic"
+     ]
+    },
+    {
+     "q": "Naha is in the ___ Zone.",
+     "a": "Temperate",
+     "w": [
+      "Tropical",
+      "Polar",
+      "Frozen"
+     ]
+    },
+    {
+     "q": "The summer in Naha is ___.",
+     "a": "hot",
+     "w": [
+      "mild",
+      "cold",
+      "dry"
+     ]
+    },
+    {
+     "q": "The winter in Naha is ___.",
+     "a": "mild",
+     "w": [
+      "very cold",
+      "hot",
+      "snowy"
+     ]
+    },
+    {
+     "q": "Naha has no ___ season.",
+     "a": "dry",
+     "w": [
+      "rainy",
+      "hot",
+      "summer"
+     ]
+    },
+    {
+     "q": "The capital city of Okinawa is ___.",
+     "a": "Naha",
+     "w": [
+      "Irkutsk",
+      "Tokyo",
+      "Oymyakon"
+     ]
+    },
+    {
+     "q": "In Naha, there is ___ dry season.",
+     "a": "no",
+     "w": [
+      "a long",
+      "a short",
+      "a snowy"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-5",
+   "title": "11-5 Subpolar Climates",
+   "questions": [
+    {
+     "q": "Places near the ___ Zone have Subpolar Climates.",
+     "a": "Polar",
+     "w": [
+      "Tropical",
+      "Humid",
+      "Equator"
+     ]
+    },
+    {
+     "q": "Subpolar Climates have ___ summers.",
+     "a": "mild",
+     "w": [
+      "very hot",
+      "dry",
+      "very cold"
+     ]
+    },
+    {
+     "q": "Subpolar Climates have ___ winters.",
+     "a": "very cold",
+     "w": [
+      "mild",
+      "hot",
+      "rainy"
+     ]
+    },
+    {
+     "q": "Irkutsk is a city in ___.",
+     "a": "Siberia",
+     "w": [
+      "Okinawa",
+      "Africa",
+      "Japan"
+     ]
+    },
+    {
+     "q": "Irkutsk has a ___ Climate.",
+     "a": "Subpolar",
+     "w": [
+      "Subtropical",
+      "Oceanic",
+      "Tropical"
+     ]
+    },
+    {
+     "q": "Irkutsk does not have much rain or snow in ___.",
+     "a": "winter",
+     "w": [
+      "summer",
+      "spring",
+      "autumn"
+     ]
+    },
+    {
+     "q": "Most ___ falls in summer in Irkutsk.",
+     "a": "rain",
+     "w": [
+      "snow",
+      "wind",
+      "fog"
+     ]
+    },
+    {
+     "q": "Irkutsk does not have much ___ or snow in winter.",
+     "a": "rain",
+     "w": [
+      "sun",
+      "wind",
+      "fog"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-6",
+   "title": "11-6 Irkutsk",
+   "questions": [
+    {
+     "q": "The rainiest month in Irkutsk is ___.",
+     "a": "July",
+     "w": [
+      "January",
+      "April",
+      "December"
+     ]
+    },
+    {
+     "q": "In July, the weather in Irkutsk is the ___.",
+     "a": "warmest",
+     "w": [
+      "coldest",
+      "driest",
+      "windiest"
+     ]
+    },
+    {
+     "q": "Irkutsk is in the ___ Zone.",
+     "a": "Temperate",
+     "w": [
+      "Tropical",
+      "Polar",
+      "Frozen"
+     ]
+    },
+    {
+     "q": "Irkutsk has a ___ Climate.",
+     "a": "Subpolar",
+     "w": [
+      "Subtropical",
+      "Oceanic",
+      "Mediterranean"
+     ]
+    },
+    {
+     "q": "The summer in Irkutsk is ___.",
+     "a": "mild",
+     "w": [
+      "very hot",
+      "very cold",
+      "dry"
+     ]
+    },
+    {
+     "q": "The winter in Irkutsk is ___.",
+     "a": "very cold",
+     "w": [
+      "mild",
+      "hot",
+      "warm"
+     ]
+    },
+    {
+     "q": "The ___ month in Irkutsk is July.",
+     "a": "rainiest",
+     "w": [
+      "coldest",
+      "driest",
+      "snowiest"
+     ]
+    },
+    {
+     "q": "The summer in Irkutsk is mild, but the ___ is very cold.",
+     "a": "winter",
+     "w": [
+      "spring",
+      "July",
+      "summer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-7",
+   "title": "11-7 Winter Life",
+   "questions": [
+    {
+     "q": "In Irkutsk, most rain falls in ___.",
+     "a": "summer",
+     "w": [
+      "winter",
+      "spring",
+      "autumn"
+     ]
+    },
+    {
+     "q": "Temperatures in summer and winter are very ___.",
+     "a": "different",
+     "w": [
+      "similar",
+      "mild",
+      "wet"
+     ]
+    },
+    {
+     "q": "Winter temperatures go ___ minus 10 degrees.",
+     "a": "below",
+     "w": [
+      "above",
+      "up to",
+      "over"
+     ]
+    },
+    {
+     "q": "People wear ___ coats in winter.",
+     "a": "fur",
+     "w": [
+      "rain",
+      "cotton",
+      "summer"
+     ]
+    },
+    {
+     "q": "People cover their heads with fur ___.",
+     "a": "hats",
+     "w": [
+      "gloves",
+      "boots",
+      "scarves"
+     ]
+    },
+    {
+     "q": "In winter, people go ___.",
+     "a": "skiing",
+     "w": [
+      "swimming",
+      "surfing",
+      "hiking"
+     ]
+    },
+    {
+     "q": "In winter, people play ___ hockey.",
+     "a": "ice",
+     "w": [
+      "field",
+      "table",
+      "street"
+     ]
+    },
+    {
+     "q": "People wear fur coats and cover their ___ with fur hats.",
+     "a": "heads",
+     "w": [
+      "hands",
+      "feet",
+      "faces"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-8",
+   "title": "11-8 The Coldest Village",
+   "questions": [
+    {
+     "q": "Thick ice covers rivers and ___.",
+     "a": "lakes",
+     "w": [
+      "roads",
+      "houses",
+      "fields"
+     ]
+    },
+    {
+     "q": "___ can drive on the ice.",
+     "a": "Trucks",
+     "w": [
+      "Boats",
+      "Trains",
+      "Planes"
+     ]
+    },
+    {
+     "q": "The shops display fish without putting them in a ___.",
+     "a": "freezer",
+     "w": [
+      "oven",
+      "bag",
+      "river"
+     ]
+    },
+    {
+     "q": "The temperature was once minus ___ degrees in Oymyakon Village.",
+     "a": "67.7",
+     "w": [
+      "17.7",
+      "37.7",
+      "47.7"
+     ]
+    },
+    {
+     "q": "The temperature of minus 67.7 degrees was in ___ Village.",
+     "a": "Oymyakon",
+     "w": [
+      "Irkutsk",
+      "Naha",
+      "Taiga"
+     ]
+    },
+    {
+     "q": "Summer temperatures sometimes go close to ___ degrees.",
+     "a": "30",
+     "w": [
+      "10",
+      "50",
+      "67"
+     ]
+    },
+    {
+     "q": "The shops display ___ without putting them in a freezer.",
+     "a": "fish",
+     "w": [
+      "vegetables",
+      "bread",
+      "meat"
+     ]
+    },
+    {
+     "q": "Trucks can drive on the ___ on rivers and lakes.",
+     "a": "ice",
+     "w": [
+      "road",
+      "grass",
+      "bridge"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-9",
+   "title": "11-9 Houses in Irkutsk",
+   "questions": [
+    {
+     "q": "They now make apartment blocks with ___.",
+     "a": "concrete",
+     "w": [
+      "logs",
+      "ice",
+      "fur"
+     ]
+    },
+    {
+     "q": "They used to build traditional houses with ___.",
+     "a": "logs",
+     "w": [
+      "concrete",
+      "fur",
+      "ice"
+     ]
+    },
+    {
+     "q": "Traditional houses had ___ windows.",
+     "a": "double",
+     "w": [
+      "single",
+      "round",
+      "no"
+     ]
+    },
+    {
+     "q": "They now make apartment blocks in ___.",
+     "a": "Irkutsk",
+     "w": [
+      "Naha",
+      "Okinawa",
+      "Oymyakon"
+     ]
+    },
+    {
+     "q": "They ___ build traditional houses with logs.",
+     "a": "used to",
+     "w": [
+      "are going to",
+      "never",
+      "always"
+     ]
+    },
+    {
+     "q": "Houses made with logs and double windows are ___ houses.",
+     "a": "traditional",
+     "w": [
+      "modern",
+      "new",
+      "tall"
+     ]
+    },
+    {
+     "q": "They now make apartment blocks ___ concrete.",
+     "a": "with",
+     "w": [
+      "without",
+      "above",
+      "against"
+     ]
+    },
+    {
+     "q": "They now make ___ blocks in Irkutsk.",
+     "a": "apartment",
+     "w": [
+      "school",
+      "office",
+      "shopping"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-10",
+   "title": "11-10 Taiga",
+   "questions": [
+    {
+     "q": "Subpolar Climates have forests because of the warm ___.",
+     "a": "summers",
+     "w": [
+      "winters",
+      "rains",
+      "snows"
+     ]
+    },
+    {
+     "q": "Coniferous trees are trees with ___.",
+     "a": "cones",
+     "w": [
+      "leaves that fall",
+      "flowers",
+      "logs"
+     ]
+    },
+    {
+     "q": "Fir and pine are ___ trees.",
+     "a": "coniferous",
+     "w": [
+      "deciduous",
+      "tropical",
+      "frozen"
+     ]
+    },
+    {
+     "q": "The coniferous forests in Siberia are called ___.",
+     "a": "Taiga",
+     "w": [
+      "Permafrost",
+      "Dacha",
+      "Tundra"
+     ]
+    },
+    {
+     "q": "In southern Siberia, coniferous trees grow together with ___ trees.",
+     "a": "deciduous",
+     "w": [
+      "tropical",
+      "fur",
+      "frozen"
+     ]
+    },
+    {
+     "q": "Deciduous trees are trees with ___ that fall.",
+     "a": "leaves",
+     "w": [
+      "cones",
+      "fur",
+      "windows"
+     ]
+    },
+    {
+     "q": "The coniferous forests in ___ are called Taiga.",
+     "a": "Siberia",
+     "w": [
+      "Okinawa",
+      "Naha",
+      "Africa"
+     ]
+    },
+    {
+     "q": "In ___ Siberia, coniferous and deciduous trees grow together.",
+     "a": "southern",
+     "w": [
+      "northern",
+      "eastern",
+      "western"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-11",
+   "title": "11-11 Permafrost",
+   "questions": [
+    {
+     "q": "Permafrost is the soil under the ___.",
+     "a": "Taiga",
+     "w": [
+      "sea",
+      "desert",
+      "city"
+     ]
+    },
+    {
+     "q": "Permafrost is soil that is always ___.",
+     "a": "frozen",
+     "w": [
+      "wet",
+      "warm",
+      "dry"
+     ]
+    },
+    {
+     "q": "When the permafrost ___, land sinks.",
+     "a": "melts",
+     "w": [
+      "freezes",
+      "grows",
+      "moves"
+     ]
+    },
+    {
+     "q": "When the permafrost melts, land ___.",
+     "a": "sinks",
+     "w": [
+      "rises",
+      "freezes",
+      "burns"
+     ]
+    },
+    {
+     "q": "When the permafrost melts, buildings become ___.",
+     "a": "distorted",
+     "w": [
+      "taller",
+      "colder",
+      "bigger"
+     ]
+    },
+    {
+     "q": "They build houses on ___.",
+     "a": "stilts",
+     "w": [
+      "logs",
+      "concrete",
+      "ice"
+     ]
+    },
+    {
+     "q": "They build houses on stilts so that the permafrost won’t ___.",
+     "a": "melt",
+     "w": [
+      "freeze",
+      "grow",
+      "fall"
+     ]
+    },
+    {
+     "q": "Permafrost is a kind of ___.",
+     "a": "soil",
+     "w": [
+      "tree",
+      "house",
+      "rain"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-12",
+   "title": "11-12 Forestry and Food",
+   "questions": [
+    {
+     "q": "Many people in Siberia work in forestry and ___.",
+     "a": "mining",
+     "w": [
+      "fishing",
+      "tourism",
+      "skiing"
+     ]
+    },
+    {
+     "q": "Many people in Siberia work in ___ and mining.",
+     "a": "forestry",
+     "w": [
+      "fishing",
+      "tourism",
+      "shopping"
+     ]
+    },
+    {
+     "q": "With global ___, cutting down the forests causes problems.",
+     "a": "warming",
+     "w": [
+      "cooling",
+      "freezing",
+      "raining"
+     ]
+    },
+    {
+     "q": "Cutting down the ___ causes problems.",
+     "a": "forests",
+     "w": [
+      "rivers",
+      "houses",
+      "shops"
+     ]
+    },
+    {
+     "q": "The sun shining on the ground is ___ the permafrost.",
+     "a": "melting",
+     "w": [
+      "freezing",
+      "building",
+      "growing"
+     ]
+    },
+    {
+     "q": "___ and potatoes grow well in the cold.",
+     "a": "Rye",
+     "w": [
+      "Rice",
+      "Bananas",
+      "Beans"
+     ]
+    },
+    {
+     "q": "People eat rye ___.",
+     "a": "bread",
+     "w": [
+      "tea",
+      "juice",
+      "cake"
+     ]
+    },
+    {
+     "q": "Rye and potatoes grow well in the ___.",
+     "a": "cold",
+     "w": [
+      "heat",
+      "desert",
+      "sun"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "geo-11-13",
+   "title": "11-13 Dachas",
+   "questions": [
+    {
+     "q": "Dachas are small ___ houses.",
+     "a": "country",
+     "w": [
+      "city",
+      "apartment",
+      "ice"
+     ]
+    },
+    {
+     "q": "Dachas have vegetable ___.",
+     "a": "gardens",
+     "w": [
+      "windows",
+      "forests",
+      "freezers"
+     ]
+    },
+    {
+     "q": "Many people move to dachas in the ___.",
+     "a": "summer",
+     "w": [
+      "winter",
+      "autumn",
+      "spring"
+     ]
+    },
+    {
+     "q": "At dachas, people grow ___.",
+     "a": "vegetables",
+     "w": [
+      "fur",
+      "logs",
+      "fish"
+     ]
+    },
+    {
+     "q": "In winter, people eat ___ vegetables.",
+     "a": "pickled",
+     "w": [
+      "fresh",
+      "tropical",
+      "rainy"
+     ]
+    },
+    {
+     "q": "In winter, people eat frozen preserved ___.",
+     "a": "food",
+     "w": [
+      "coats",
+      "logs",
+      "houses"
+     ]
+    },
+    {
+     "q": "Life in Siberia is much ___ now.",
+     "a": "easier",
+     "w": [
+      "harder",
+      "colder",
+      "shorter"
+     ]
+    },
+    {
+     "q": "There are ___ vegetables in supermarkets all year.",
+     "a": "fresh",
+     "w": [
+      "pickled",
+      "wild",
+      "small"
+     ]
+    }
+   ]
+  }
+ ]
+}
