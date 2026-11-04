@@ -2,391 +2,313 @@
  "timeLimit": 180,
  "chapters": [
   {
-   "id": "civ-15",
-   "title": "Ch.15 Trade and Industry",
+   "id": "geo-34-1",
+   "title": "34-1 The Amazon Basin: Farming",
    "questions": [
     {
-     "q": "A trade surplus means exports are ___ than imports.",
-     "a": "higher",
+     "q": "There is tropical rainforest all over the Amazon ___.",
+     "a": "Basin",
      "w": [
-      "lower",
-      "the same",
-      "cheaper"
+      "Islands",
+      "Desert",
+      "Museum"
      ]
     },
     {
-     "q": "Buying and selling commodities with other countries is called ___.",
-     "a": "trade",
+     "q": "Farmers cut down trees at the end of the ___ season.",
+     "a": "rainy",
      "w": [
-      "specialization",
-      "a surplus",
-      "deindustrialization"
+      "dry",
+      "summer",
+      "winter"
      ]
     },
     {
-     "q": "Countries trade because they produce ___ goods.",
-     "a": "different",
+     "q": "In the dry season, farmers dry the trees and ___ them.",
+     "a": "burn",
      "w": [
-      "the same",
-      "only cheap",
-      "only old"
+      "eat",
+      "sell",
+      "plant"
      ]
     },
     {
-     "q": "___ means countries produce the things they are good at.",
-     "a": "International specialization",
+     "q": "In the next rainy season, farmers use the ashes for ___.",
+     "a": "fertilizer",
      "w": [
-      "Deindustrialization",
-      "A trade surplus",
-      "Public investment"
+      "fuel",
+      "medicine",
+      "soap"
      ]
     },
     {
-     "q": "After the war, Japan imported raw materials and exported ___ goods.",
-     "a": "manufactured",
+     "q": "Farmers grow crops such as bananas, potatoes, corn, and ___.",
+     "a": "beans",
      "w": [
-      "raw",
-      "used",
-      "foreign"
+      "rice",
+      "wheat",
+      "tomatoes"
      ]
     },
     {
-     "q": "Many companies moved their factories to ___ countries.",
-     "a": "developing",
+     "q": "After a few years, the soil loses its ___.",
+     "a": "nutrition",
      "w": [
-      "developed",
-      "rich",
-      "small"
+      "water",
+      "color",
+      "ashes"
      ]
     },
     {
-     "q": "The number of factories in Japan ___.",
-     "a": "decreased",
+     "q": "The old fields slowly become ___ again.",
+     "a": "forest",
      "w": [
-      "increased",
-      "stayed the same",
-      "doubled"
+      "rivers",
+      "cities",
+      "deserts"
      ]
     },
     {
-     "q": "___ means factories move to other countries.",
-     "a": "Deindustrialization",
+     "q": "Slash-and-burn agriculture protects the ___.",
+     "a": "forests",
      "w": [
-      "International specialization",
-      "A trade surplus",
-      "Trade"
+      "rivers",
+      "fish",
+      "farmers"
      ]
     }
    ]
   },
   {
-   "id": "civ-16",
-   "title": "Ch.16 Taxes",
+   "id": "geo-34-4",
+   "title": "34-4 Fish of the Amazon River",
    "questions": [
     {
-     "q": "Consumers pay consumption tax to ___ and producers.",
-     "a": "retailers",
+     "q": "There are many ___ of fish in the Amazon River.",
+     "a": "kinds",
      "w": [
-      "the government",
-      "banks",
-      "schools"
+      "farms",
+      "boats",
+      "islands"
      ]
     },
     {
-     "q": "People with ___ incomes pay a higher proportion of their income in income tax.",
-     "a": "high",
+     "q": "Some fish, such as the ___, are more than three meters long.",
+     "a": "Arapaima",
      "w": [
-      "low",
-      "very low",
-      "no"
+      "Piranha",
+      "shark",
+      "eel"
      ]
     },
     {
-     "q": "A ___ tax means people with high incomes pay a higher proportion of their income.",
-     "a": "progressive",
+     "q": "Some fish are more than three ___ long.",
+     "a": "meters",
      "w": [
-      "regressive",
-      "indirect",
-      "public"
+      "centimeters",
+      "kilograms",
+      "years"
      ]
     },
     {
-     "q": "Governments combine different kinds of taxes to make taxes ___.",
-     "a": "fair",
+     "q": "Fish are very ___ for the people in the Amazon Basin.",
+     "a": "important",
      "w": [
-      "higher",
-      "lower",
-      "secret"
+      "useless",
+      "unknown",
+      "slow"
      ]
     },
     {
-     "q": "People with the same income should pay the ___ amount of tax.",
-     "a": "same",
+     "q": "People eat fish to get ___.",
+     "a": "protein",
      "w": [
-      "biggest",
-      "smallest",
-      "different"
+      "fertilizer",
+      "ashes",
+      "fuel"
      ]
     },
     {
-     "q": "Consumption tax is ___.",
-     "a": "an indirect tax",
+     "q": "People can even eat ___.",
+     "a": "Piranha",
      "w": [
-      "a direct tax",
-      "an income tax",
-      "a progressive tax"
+      "ashes",
+      "soil",
+      "fertilizer"
      ]
     },
     {
-     "q": "People with ___ incomes pay a higher proportion of their income in consumption tax.",
-     "a": "low",
+     "q": "People in the Amazon Basin have many fishing ___.",
+     "a": "methods",
      "w": [
-      "high",
-      "no",
-      "very high"
+      "seasons",
+      "boats",
+      "rules"
      ]
     },
     {
-     "q": "A ___ tax means people with low incomes pay a higher proportion of their income.",
-     "a": "regressive",
+     "q": "One old method uses ___ plants to make fish unconscious.",
+     "a": "poisonous",
      "w": [
-      "progressive",
-      "direct",
-      "income"
+      "beautiful",
+      "strict",
+      "expensive"
      ]
     }
    ]
   },
   {
-   "id": "civ-17",
-   "title": "Ch.17 Government Finance",
+   "id": "geo-34-6",
+   "title": "34-6 The Galapagos Islands",
    "questions": [
     {
-     "q": "___ is important for the market economy.",
-     "a": "Social capital",
+     "q": "The Galapagos Islands are to the ___ of the South American continent.",
+     "a": "west",
      "w": [
-      "Public debt",
-      "Small government",
-      "A recession"
+      "east",
+      "north",
+      "south"
      ]
     },
     {
-     "q": "Governments sell ___ to borrow money.",
-     "a": "government bonds",
+     "q": "The islands are the result of ___ activity under the sea.",
+     "a": "volcanic",
      "w": [
-      "commodities",
-      "insurance",
-      "subsidies"
+      "tropical",
+      "human",
+      "seasonal"
      ]
     },
     {
-     "q": "Public debt must be paid back with ___.",
-     "a": "interest",
+     "q": "The islands have many living things that don’t live in other ___.",
+     "a": "areas",
      "w": [
-      "tax cuts",
-      "a subsidy",
-      "a pension"
+      "years",
+      "museums",
+      "tourists"
      ]
     },
     {
-     "q": "Small government means the government spends ___ to help people.",
-     "a": "less",
+     "q": "The islands were never ___ other areas.",
+     "a": "near",
      "w": [
-      "more",
-      "the same",
-      "nothing"
+      "behind",
+      "above",
+      "inside"
      ]
     },
     {
-     "q": "___ government means the government spends more to help people.",
-     "a": "Big",
+     "q": "Life ___ very differently on the islands.",
+     "a": "evolved",
      "w": [
-      "Small",
-      "Local",
-      "Foreign"
+      "protected",
+      "disappeared",
+      "burned"
      ]
     },
     {
-     "q": "During a recession, the government ___ spending.",
-     "a": "increases",
+     "q": "The Galapagos Islands are called “a living ___”.",
+     "a": "museum",
      "w": [
-      "decreases",
-      "stops",
-      "never changes"
+      "forest",
+      "school",
+      "farm"
      ]
     },
     {
-     "q": "Public investment creates more ___ for private companies.",
-     "a": "work",
+     "q": "People can see examples of ___ on the islands.",
+     "a": "evolution",
      "w": [
-      "debt",
-      "taxes",
-      "imports"
+      "slash-and-burn",
+      "fertilizer",
+      "taxes"
      ]
     },
     {
-     "q": "During a boom, the government ___ spending and increases taxes.",
-     "a": "decreases",
+     "q": "The Galapagos Islands are a World Natural ___ site.",
+     "a": "Heritage",
      "w": [
-      "increases",
-      "stops",
-      "ignores"
+      "Museum",
+      "Government",
+      "Environment"
      ]
     }
    ]
   },
   {
-   "id": "civ-18",
-   "title": "Ch.18 Social Security",
+   "id": "geo-34-8",
+   "title": "34-8 Protecting the Islands",
    "questions": [
     {
-     "q": "Social security means the government helps people who ___ help themselves.",
-     "a": "cannot",
+     "q": "There was damage to the environment because there were too many ___.",
+     "a": "tourists",
      "w": [
-      "can",
-      "will",
-      "always"
+      "guides",
+      "animals",
+      "rules"
      ]
     },
     {
-     "q": "___ helps people pay for medical costs.",
-     "a": "Health insurance",
+     "q": "Some people brought animals from other places and took away ___ animals.",
+     "a": "local",
      "w": [
-      "Pension insurance",
-      "Public subsidies",
-      "Public health"
+      "strict",
+      "official",
+      "dangerous"
      ]
     },
     {
-     "q": "___ helps people over 65 and people with disabilities.",
-     "a": "Pension insurance",
+     "q": "The ___ made strict rules.",
+     "a": "government",
      "w": [
-      "Health insurance",
-      "Public health",
-      "Public subsidies"
+      "tourists",
+      "guides",
+      "farmers"
      ]
     },
     {
-     "q": "Public subsidies help people pay for basic living costs and ___.",
-     "a": "education",
+     "q": "The government made ___ rules.",
+     "a": "strict",
      "w": [
-      "factories",
-      "interest",
-      "exports"
+      "easy",
+      "free",
+      "few"
      ]
     },
     {
-     "q": "___ helps stop infectious diseases and improve living conditions.",
-     "a": "Public health",
+     "q": "Now tourists must pay ___ fees.",
+     "a": "entrance",
      "w": [
-      "Health insurance",
-      "Pension insurance",
-      "Public subsidies"
+      "fishing",
+      "school",
+      "tax"
      ]
     },
     {
-     "q": "Social security in Japan has ___ pillars.",
-     "a": "four",
+     "q": "The government uses the money to ___ the environment.",
+     "a": "protect",
      "w": [
-      "two",
-      "three",
-      "five"
+      "damage",
+      "sell",
+      "burn"
      ]
     },
     {
-     "q": "The four pillars come from the right to life in the Japanese ___.",
-     "a": "Constitution",
+     "q": "Tourists must move together with official ___.",
+     "a": "guides",
      "w": [
-      "Parliament",
-      "Cabinet",
-      "Court"
+      "animals",
+      "fees",
+      "rules"
      ]
     },
     {
-     "q": "Social insurance protects older people, sick people, and ___ people.",
-     "a": "unemployed",
+     "q": "Tourists must not ___ in plants that are bad for the environment.",
+     "a": "bring",
      "w": [
-      "young",
-      "rich",
-      "foreign"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "civ-19",
-   "title": "Ch.19 Aging Society and Government",
-   "questions": [
-    {
-     "q": "Fewer babies are born and there are more ___ people.",
-     "a": "older",
-     "w": [
-      "younger",
-      "rich",
-      "foreign"
-     ]
-    },
-    {
-     "q": "Big government raises taxes and gives ___ social security.",
-     "a": "more",
-     "w": [
-      "less",
-      "no",
-      "the same"
-     ]
-    },
-    {
-     "q": "Small government keeps taxes ___ and gives less social security.",
-     "a": "low",
-     "w": [
-      "high",
-      "rising",
-      "unfair"
-     ]
-    },
-    {
-     "q": "The government needs more money to pay for social ___.",
-     "a": "security",
-     "w": [
-      "trade",
-      "specialization",
-      "investment"
-     ]
-    },
-    {
-     "q": "The government must balance social security and economic ___.",
-     "a": "growth",
-     "w": [
-      "debt",
-      "pillars",
-      "insurance"
-     ]
-    },
-    {
-     "q": "Everyone over ___ must pay for nursing care insurance.",
-     "a": "40",
-     "w": [
-      "20",
-      "50",
-      "65"
-     ]
-    },
-    {
-     "q": "Japan has a universal health insurance system and a universal ___ system.",
-     "a": "pension",
-     "w": [
-      "bond",
-      "tax",
-      "trade"
-     ]
-    },
-    {
-     "q": "Everyone has ___ and everyone gets a pension.",
-     "a": "health insurance",
-     "w": [
-      "a factory",
-      "public debt",
-      "a tax cut"
+      "grow",
+      "pay",
+      "sell"
      ]
     }
    ]
