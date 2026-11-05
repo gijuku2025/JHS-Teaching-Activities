@@ -138,6 +138,52 @@
           "audio": "people_gather_around_oases_bec.mp3"
         }
       ]
+    },
+    {
+      "id": "ch10",
+      "title": "Chapter 10: Temperate Climates",
+      "sentences": [
+        {
+          "part1": "The Temperate Zone has",
+          "part2": "four seasons.",
+          "audio": "the_temperate_zone_has.mp3"
+        },
+        {
+          "part1": "Stone walls help keep houses",
+          "part2": "cool in summer.",
+          "audio": "stone_walls_help_keep_houses.mp3"
+        },
+        {
+          "part1": "Grapes, olives, and tomatoes grow well",
+          "part2": "in the hot, dry summer.",
+          "audio": "grapes_olives_and_tomatoes_gro.mp3"
+        },
+        {
+          "part1": "Traditional Italian families spent",
+          "part2": "a long time eating lunch together.",
+          "audio": "traditional_italian_families_s.mp3"
+        },
+        {
+          "part1": "Ferragosto is",
+          "part2": "a summer holiday in Italy.",
+          "audio": "ferragosto_is.mp3"
+        },
+        {
+          "part1": "Temperatures and rainfall are",
+          "part2": "mostly mild.",
+          "audio": "temperatures_and_rainfall_are.mp3"
+        },
+        {
+          "part1": "Oceanic Climates have mild summers,",
+          "part2": "mild winters, and rain all year.",
+          "audio": "oceanic_climates_have_mild_summers.mp3"
+        },
+        {
+          "part1": "Mediterranean Climates have hot, dry summers",
+          "part2": "and mild, rainy winters.",
+          "audio": "mediterranean_climates_have_ho.mp3"
+        }
+      ]
     }
   ]
 }
