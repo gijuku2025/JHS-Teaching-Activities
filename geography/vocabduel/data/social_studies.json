@@ -48,6 +48,22 @@
         { "en": "desertification", "jp": "砂漠化" },
         { "en": "slash and burn agriculture", "jp": "焼き畑農業" }
       ]
+    },
+    {
+      "id": "ss-ch10",
+      "name": "Chapter 10",
+      "words": [
+        { "en": "Temperate Zone", "jp": "温帯" },
+        { "en": "season", "jp": "季節" },
+        { "en": "mild", "jp": "穏やかな" },
+        { "en": "Oceanic Climate", "jp": "西岸海洋性気候" },
+        { "en": "Mediterranean Climate", "jp": "地中海性気候" },
+        { "en": "eating customs", "jp": "食習慣" },
+        { "en": "vacation", "jp": "休暇" },
+        { "en": "clothing", "jp": "衣服" },
+        { "en": "traditional", "jp": "伝統的な" },
+        { "en": "lunch", "jp": "昼食" }
+      ]
     }
   ]
 }
