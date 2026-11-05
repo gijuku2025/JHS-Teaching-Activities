@@ -113,6 +113,44 @@
           "answer": "People gather around oases because there is water."
         }
       ]
+    },
+    {
+      "id": "ch10",
+      "name": "Chapter 10",
+      "sentences": [
+        {
+          "chunks": ["The Temperate Zone", "has", "four", "seasons", "."],
+          "answer": "The Temperate Zone has four seasons."
+        },
+        {
+          "chunks": ["Stone walls", "help keep", "houses cool", "in summer", "."],
+          "answer": "Stone walls help keep houses cool in summer."
+        },
+        {
+          "chunks": ["Grapes, olives, and tomatoes", "grow", "well", "in the hot, dry summer", "."],
+          "answer": "Grapes, olives, and tomatoes grow well in the hot, dry summer."
+        },
+        {
+          "chunks": ["Traditional Italian families", "spent", "a long time", "eating lunch", "together"],
+          "answer": "Traditional Italian families spent a long time eating lunch together."
+        },
+        {
+          "chunks": ["Ferragosto", "is", "a summer holiday", "in Italy", "."],
+          "answer": "Ferragosto is a summer holiday in Italy."
+        },
+        {
+          "chunks": ["Temperatures and rainfall", "are", "mostly", "mild", "."],
+          "answer": "Temperatures and rainfall are mostly mild."
+        },
+        {
+          "chunks": ["Oceanic Climates", "have", "mild summers, mild winters,", "and rain", "all year"],
+          "answer": "Oceanic Climates have mild summers, mild winters, and rain all year."
+        },
+        {
+          "chunks": ["Mediterranean Climates", "have", "hot, dry summers", "and mild, rainy winters", "."],
+          "answer": "Mediterranean Climates have hot, dry summers and mild, rainy winters."
+        }
+      ]
     }
   ]
 }
