@@ -1,0 +1,139 @@
+{
+ "timeLimit": 180,
+ "chapters": [
+  {
+   "id": "geo-01",
+   "title": "Ch.1 Earth, Oceans and Regions",
+   "questions": [
+    {
+     "q": "Which is the largest ocean on Earth?",
+     "a": "Pacific Ocean",
+     "w": [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean"
+     ]
+    },
+    {
+     "q": "Which ocean lies between Africa and Australia?",
+     "a": "Indian Ocean",
+     "w": [
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Arctic Ocean"
+     ]
+    },
+    {
+     "q": "Which ocean lies between the Americas and Europe?",
+     "a": "Atlantic Ocean",
+     "w": [
+      "Pacific Ocean",
+      "Indian Ocean",
+      "Southern Ocean"
+     ]
+    },
+    {
+     "q": "Which is the largest region of the world?",
+     "a": "Asia",
+     "w": [
+      "Africa",
+      "Europe",
+      "Oceania"
+     ]
+    },
+    {
+     "q": "Japan is in which region?",
+     "a": "Asia",
+     "w": [
+      "Oceania",
+      "Europe",
+      "North America"
+     ]
+    },
+    {
+     "q": "Brazil is in which region?",
+     "a": "South America",
+     "w": [
+      "North America",
+      "Africa",
+      "Oceania"
+     ]
+    },
+    {
+     "q": "Egypt is in which region?",
+     "a": "Africa",
+     "w": [
+      "Asia",
+      "Europe",
+      "South America"
+     ]
+    },
+    {
+     "q": "Which is the largest island in the world?",
+     "a": "Greenland",
+     "w": [
+      "Honshu",
+      "Madagascar",
+      "Borneo"
+     ]
+    },
+    {
+     "q": "Which continent is covered in ice at the South Pole?",
+     "a": "Antarctica",
+     "w": [
+      "Australia",
+      "Greenland",
+      "Africa"
+     ]
+    },
+    {
+     "q": "About how much of Earth's surface is ocean?",
+     "a": "About 70%",
+     "w": [
+      "About 30%",
+      "About 50%",
+      "About 90%"
+     ]
+    },
+    {
+     "q": "The line of 0° latitude is called the ...",
+     "a": "Equator",
+     "w": [
+      "Prime meridian",
+      "Tropic of Cancer",
+      "Date line"
+     ]
+    },
+    {
+     "q": "The line of 0° longitude is called the ...",
+     "a": "Prime meridian",
+     "w": [
+      "Equator",
+      "Tropic of Capricorn",
+      "Arctic Circle"
+     ]
+    },
+    {
+     "q": "Look at the globe. Which line is the equator?",
+     "img": "globe-lines.svg",
+     "a": "B",
+     "w": [
+      "A",
+      "C",
+      "D"
+     ]
+    },
+    {
+     "q": "Look at the globe. Which line is the prime meridian?",
+     "img": "globe-lines.svg",
+     "a": "A",
+     "w": [
+      "B",
+      "C",
+      "D"
+     ]
+    }
+   ]
+  }
+ ]
+}
