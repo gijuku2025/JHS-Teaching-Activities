@@ -1,0 +1,138 @@
+{
+ "timeLimit": 180,
+ "chapters": [
+  {
+   "id": "geom-04",
+   "title": "4-1 & 4-2 Parts of a Circle",
+   "questions": [
+    {
+     "q": "A circle is a special geometric ___.",
+     "a": "figure",
+     "w": [
+      "polygon",
+      "sides",
+      "points"
+     ]
+    },
+    {
+     "q": "A circle is made of ___.",
+     "a": "points",
+     "w": [
+      "sides",
+      "polygons",
+      "vertices"
+     ]
+    },
+    {
+     "q": "The ___ is the middle point of the circle.",
+     "a": "center",
+     "w": [
+      "radius",
+      "diameter",
+      "circle"
+     ]
+    },
+    {
+     "q": "A ___ connects the center to a point on the circle.",
+     "a": "radius",
+     "w": [
+      "diameter",
+      "center",
+      "polygon"
+     ]
+    },
+    {
+     "q": "All ___ in the same circle are equal.",
+     "a": "radii",
+     "w": [
+      "radius",
+      "centers",
+      "sides"
+     ]
+    },
+    {
+     "q": "A ___ passes through the center of the circle.",
+     "a": "diameter",
+     "w": [
+      "radius",
+      "point",
+      "polygon"
+     ]
+    },
+    {
+     "q": "A circle is different from a ___.",
+     "a": "polygon",
+     "w": [
+      "figure",
+      "center",
+      "radius"
+     ]
+    },
+    {
+     "q": "The diameter is ___ the radius.",
+     "a": "twice",
+     "w": [
+      "half",
+      "the same as",
+      "three times"
+     ]
+    },
+    {
+     "q": "Look at the diagram. Which part of the circle is marked with a ?",
+     "img": "circle-part-circle.svg",
+     "a": "circle",
+     "w": [
+      "center",
+      "radius",
+      "diameter",
+      "point on the circle"
+     ]
+    },
+    {
+     "q": "Look at the diagram. Which part of the circle is marked with a ?",
+     "img": "circle-part-center.svg",
+     "a": "center",
+     "w": [
+      "circle",
+      "radius",
+      "diameter",
+      "point on the circle"
+     ]
+    },
+    {
+     "q": "Look at the diagram. Which part of the circle is marked with a ?",
+     "img": "circle-part-radius.svg",
+     "a": "radius",
+     "w": [
+      "circle",
+      "center",
+      "diameter",
+      "point on the circle"
+     ]
+    },
+    {
+     "q": "Look at the diagram. Which part of the circle is marked with a ?",
+     "img": "circle-part-diameter.svg",
+     "a": "diameter",
+     "w": [
+      "circle",
+      "center",
+      "radius",
+      "point on the circle"
+     ]
+    },
+    {
+     "q": "Look at the diagram. Which part of the circle is marked with a ?",
+     "img": "circle-part-point.svg",
+     "a": "point on the circle",
+     "w": [
+      "circle",
+      "center",
+      "radius",
+      "diameter"
+     ]
+    }
+   ]
+  }
+ ]
+}
