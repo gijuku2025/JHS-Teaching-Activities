@@ -1,0 +1,131 @@
+{
+  "timeLimit": 180,
+  "chapters": [
+    {
+      "id": "geom-06",
+      "title": "Chapter 6 Properties of Parallelograms",
+      "questions": [
+        {
+          "q": "Look at Figure 1. Which pair of sides are opposite sides?",
+          "img": "parallelogram-figure-1.svg",
+          "a": "AB and DC",
+          "w": [
+            "AB and BC",
+            "AB and AD",
+            "AD and DC"
+          ]
+        },
+        {
+          "q": "Look at Figure 2. Which pair of angles are opposite angles?",
+          "img": "parallelogram-figure-2.svg",
+          "a": "∠A and ∠C",
+          "w": [
+            "∠A and ∠B",
+            "∠A and ∠D",
+            "∠B and ∠C"
+          ]
+        },
+        {
+          "q": "Look at Figure 3. Which answer is correct?",
+          "img": "parallelogram-figure-3.svg",
+          "a": "AB ∥ DC, and AD ∥ BC.",
+          "w": [
+            "AB ∥ BC, and AD ∥ DC.",
+            "AB = BC, and AD = DC.",
+            "All four sides are perpendicular."
+          ]
+        },
+        {
+          "q": "Look at Figure 4. If AB = 8 cm, what is DC?",
+          "img": "parallelogram-figure-4.svg",
+          "a": "8 cm",
+          "w": [
+            "4 cm",
+            "6 cm",
+            "16 cm"
+          ]
+        },
+        {
+          "q": "Look at Figure 5. If ∠A = 65°, what is ∠C?",
+          "img": "parallelogram-figure-5.svg",
+          "a": "65°",
+          "w": [
+            "90°",
+            "115°",
+            "130°"
+          ]
+        },
+        {
+          "q": "Look at Figure 6. Which line is the diagonal of parallelogram ABCD?",
+          "img": "parallelogram-figure-6.svg",
+          "a": "AC",
+          "w": [
+            "AB",
+            "BC",
+            "AD"
+          ]
+        },
+        {
+          "q": "Look at Figure 7. Which two triangles are formed by diagonal AC?",
+          "img": "parallelogram-figure-7.svg",
+          "a": "△ABC and △CDA",
+          "w": [
+            "△ABD and △BCD",
+            "△ABC and △BCD",
+            "△ABD and △CDA"
+          ]
+        },
+        {
+          "q": "Look at Figure 8. Which two angles are equal because AB is parallel to DC and AC is a transversal?",
+          "img": "parallelogram-figure-8.svg",
+          "a": "∠BAC and ∠ACD",
+          "w": [
+            "∠BAC and ∠ABC",
+            "∠ACD and ∠BCD",
+            "∠ABC and ∠BCD"
+          ]
+        },
+        {
+          "q": "Look at Figure 9. If AO = 5 cm, what is OC?",
+          "img": "parallelogram-figure-9.svg",
+          "a": "5 cm",
+          "w": [
+            "2.5 cm",
+            "10 cm",
+            "15 cm"
+          ]
+        },
+        {
+          "q": "Look at Figure 10. If BO = 4 cm, what is BD?",
+          "img": "parallelogram-figure-10.svg",
+          "a": "8 cm",
+          "w": [
+            "2 cm",
+            "4 cm",
+            "12 cm"
+          ]
+        },
+        {
+          "q": "Look at Figure 11. Which statement is correct?",
+          "img": "parallelogram-figure-11.svg",
+          "a": "AO = OC",
+          "w": [
+            "AO = BO",
+            "AO = OD",
+            "AC = BO"
+          ]
+        },
+        {
+          "q": "Look at Figure 12. What is point O?",
+          "img": "parallelogram-figure-12.svg",
+          "a": "The midpoint of both diagonals",
+          "w": [
+            "An endpoint of AC",
+            "The midpoint of AC only",
+            "The midpoint of BD only"
+          ]
+        }
+      ]
+    }
+  ]
+}
