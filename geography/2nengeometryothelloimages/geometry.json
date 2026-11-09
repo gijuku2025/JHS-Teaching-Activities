@@ -6,6 +6,78 @@
       "title": "Chapter 6 Properties of Parallelograms",
       "questions": [
         {
+          "q": "A quadrilateral is a shape with ___.",
+          "a": "four sides",
+          "w": [
+            "three sides",
+            "five sides",
+            "six sides"
+          ]
+        },
+        {
+          "q": "A parallelogram is a quadrilateral with two pairs of ___ opposite sides.",
+          "a": "parallel",
+          "w": [
+            "equal",
+            "perpendicular",
+            "adjacent"
+          ]
+        },
+        {
+          "q": "The two pairs of ___ sides are equal in length.",
+          "a": "opposite",
+          "w": [
+            "parallel",
+            "adjacent",
+            "diagonal"
+          ]
+        },
+        {
+          "q": "The two pairs of opposite ___ are equal in size.",
+          "a": "angles",
+          "w": [
+            "sides",
+            "triangles",
+            "diagonals"
+          ]
+        },
+        {
+          "q": "A diagonal divides a quadrilateral into two ___.",
+          "a": "triangles",
+          "w": [
+            "squares",
+            "rectangles",
+            "parallelograms"
+          ]
+        },
+        {
+          "q": "Corresponding sides and angles of ___ triangles are equal.",
+          "a": "congruent",
+          "w": [
+            "different",
+            "parallel",
+            "opposite"
+          ]
+        },
+        {
+          "q": "The diagonals of a parallelogram meet at the ___ of each diagonal.",
+          "a": "midpoint",
+          "w": [
+            "endpoint",
+            "corner",
+            "outside"
+          ]
+        },
+        {
+          "q": "Each diagonal is divided into two ___ parts.",
+          "a": "equal",
+          "w": [
+            "different",
+            "longer",
+            "shorter"
+          ]
+        },
+        {
           "q": "Look at Figure 1. Which pair of sides are opposite sides?",
           "img": "parallelogram-figure-1.svg",
           "a": "AB and DC",
