@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Quest of the Lost Words</title>
+<style>
+:root{--bg:#0e2a2b;--moss:#3f7d58;--stone:#3a4a52;--gold:#f2b632;--ink:#10262a;--sheet:#e4f1e6;--red:#d6452f;--t:min(calc((100vw - 12px)/13),46px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--sheet);font-family:"Trebuchet MS",Verdana,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;touch-action:manipulation;user-select:none;-webkit-user-select:none;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+h1{font-size:1.1rem;margin:8px 0 2px;letter-spacing:.5px;color:var(--gold)}
+#hud{display:flex;gap:16px;font-size:1.05rem;margin:4px 0 6px}
+#map{display:grid;grid-template-columns:repeat(13,var(--t));border:3px solid var(--gold);border-radius:6px;overflow:hidden}
+.c{width:var(--t);height:var(--t);display:flex;align-items:center;justify-content:center;font-size:calc(var(--t)*.68);background:var(--moss)}
+.c.w{background:var(--stone)}
+.c.p{background:#2b6a4a}
+#pad{display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(2,58px);gap:6px;margin:12px 0}
+#pad button{font-size:1.5rem;border-radius:12px;border:2px solid var(--gold);background:#123c3d;color:var(--gold)}
+#pad button:active{background:var(--gold);color:var(--ink)}
+#msg{min-height:1.4em;font-size:.95rem;color:#bfe3c7;text-align:center;padding:0 10px}
+#modal{position:fixed;inset:0;background:rgba(5,20,20,.82);display:flex;align-items:center;justify-content:center;padding:12px;z-index:5}
+#modal[hidden]{display:none}
+.p{}
+.sheet{background:var(--sheet);color:var(--ink);border:4px solid var(--gold);border-radius:14px;max-width:560px;width:100%;max-height:92vh;overflow:auto;padding:16px 18px}
+.sheet h2{margin:0 0 8px;font-size:1.25rem}
+.big{font-size:1.2rem;line-height:1.5;margin:8px 0 12px}
+.b{display:block;width:100%;margin:7px 0;padding:12px;font-size:1.05rem;border-radius:10px;border:2px solid var(--ink);background:#fff;color:var(--ink);text-align:left;font-family:inherit}
+.b.go{background:var(--gold);text-align:center;font-weight:bold}
+.b.ghost{background:transparent;border-color:#6d8a80;color:#46605a;text-align:center;font-size:.9rem;padding:7px}
+.b.x{background:var(--red);color:#fff;border-color:var(--red)}
+.b.ok{background:#8fd19e;border-color:#2b6a4a}
+.b.sel{background:#ffe38a}
+.cols{display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
+.cols .b{font-size:.92rem;padding:9px}
+.bar{height:10px;background:#b7cfc0;border-radius:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--moss)}
+.tm{font-size:1.1rem;margin:6px 0}
+.tiles{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;padding:6px;border:2px dashed #6d8a80;border-radius:10px;margin:8px 0}
+.tiles .b{display:inline-block;width:auto;margin:0;padding:8px 11px}
+.w3{border-bottom:1px solid #b7cfc0;padding:6px 0}
+.jp{color:#2b6a4a;font-weight:bold}
+</style></head><body>
+<h1>⚔️ Quest of the Lost Words</h1>
+<div id="hud"></div>
+<div id="map"></div>
+<div id="msg"></div>
+<div id="pad"><span></span><button data-d="u">▲</button><span></span><button data-d="l">◀</button><button data-d="d">▼</button><button data-d="r">▶</button></div>
+<div id="modal" hidden></div>
+<script>
+/* ===== TEACHERS: edit the words here. [word, Japanese, meaning, sentence with ___] =====
+   Every 3 words belong to one villager (and one chest). Keep exactly 12 words. */
+const V=[
+["government","政府","the group of people who rule a country","The ___ makes laws for the country."],
+["tax","税金","money people pay to the government","We pay a ___ when we buy things."],
+["citizen","市民・国民","a person who belongs to a country","Every ___ can vote at age eighteen."],
+["law","法律","a rule made by the government","It is against the ___ to steal."],
+["vote","投票する","to choose a leader or an idea","We ___ in an election."],
+["economy","経済","the system of money, work and trade","A strong ___ gives people more jobs."],
+["trade","貿易","to buy and sell things between places","Japan and Australia ___ with each other."],
+["rights","権利","things every person is free to have or do","People have the ___ to go to school."],
+["budget","予算","a plan for how to spend money","The city has a ___ for new schools."],
+["election","選挙","a time when people vote for a leader","The ___ is on Sunday."],
+["population","人口","the number of people in a place","The ___ of Tokyo is very large."],
+["public","公共の","for everyone to use","A park is a ___ place."]];
+const MAP=["#############","#@..T.....A.#","#..#..#.N...#","#N.....T..#.#","#..T.#...T..#","#B...#.N...C#","#..T.....#..#","#...N.T....X#","#############"];
+const NPC={"2,8":0,"3,1":1,"5,7":2,"7,4":3},CH={A:0,B:1,C:2};
+const NAME=["Elder Mori","Guard Aiko","Trader Ken","Scholar Yui"];
+/* ===== engine ===== */
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5);
+const W=V.map((v,i)=>({w:v[0],j:v[1],d:v[2],s:v[3],i}));
+const grp=g=>W.slice(g*3,g*3+3);
+const fresh=()=>({h:5,k:[],x:1,y:1,t:[],boss:false});
+let S=fresh(),T=null;
+try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem("qlw5")))}catch(e){}
+const save=()=>{try{localStorage.setItem("qlw5",JSON.stringify(S))}catch(e){}};
+const tile=(x,y)=>MAP[y][x];
+function render(){
+ let h="";
+ MAP.forEach((r,y)=>[...r].forEach((c,x)=>{
+  let e="",k="c";
+  if(c=="#")k+=" w",e="🧱";
+  else if(c=="T")e="🌲";
+  else if("ABC".includes(c))e=S.k.includes(c)?"🔓":"🎁";
+  else if(c=="N")e="👴";
+  else if(c=="X")e=S.boss?"🏆":"🐲";
+  if(x==S.x&&y==S.y)e="🧝",k+=" p";
+  h+=`<div class="${k}">${e}</div>`}));
+ $("#map").innerHTML=h;
+ $("#hud").innerHTML=`<span>${"❤️".repeat(S.h)||"💔"}</span><span>🗝️ ${S.k.length}/3</span><span>📖 ${S.t.length*3}/12</span>`;
+}
+const say=t=>$("#msg").textContent=t;
+const M=h=>{$("#modal").innerHTML=`<div class="sheet">${h}</div>`;$("#modal").hidden=false};
+const close=()=>{clearInterval(T);$("#modal").hidden=true;save();render()};
+function lose(){
+ S.h--;render();
+ if(S.h<=0){clearInterval(T);S.h=5;S.x=1;S.y=1;save();
+  M(`<h2>💫 You fainted!</h2><p class=big>Do not give up. You keep your keys and the words you learned. Talk to the villagers again to review.</p><button class="b go" id=ok>Try again</button>`);
+  $("#ok").onclick=close;return true}
+ return false}
+function move(dx,dy){
+ if(!$("#modal").hidden)return;
+ const x=S.x+dx,y=S.y+dy,c=tile(x,y);
+ if(c=="#"||c=="T")return;
+ if(c=="N")return talk(NPC[y+","+x]);
+ if("ABC".includes(c))return chest(c);
+ if(c=="X")return boss();
+ S.x=x;S.y=y;save();render();say("")}
+function talk(i){
+ if(!S.t.includes(i))S.t.push(i);
+ const heal=i==3&&S.h<5;if(heal)S.h=5;
+ M(`<h2>👴 ${NAME[i]}</h2><p>“Learn these words. They are the keys to the ${i<3?"chest":"Guardian"}!”</p>`+
+  grp(i).map(w=>`<div class=w3><b>${w.w}</b> <span class=jp>${w.j}</span><br>${w.d}.<br><i>${w.s.replace("___","<b>"+w.w+"</b>")}</i></div>`).join("")+
+  (heal?"<p>❤️ Your hearts are full again!</p>":"")+`<button class="b go" id=ok>I am ready</button>`);
+ $("#ok").onclick=close;save()}
+function won(id){
+ S.k.push(id);save();
+ M(`<h2>🗝️ You found a key!</h2><p class=big>${S.k.length} of 3 keys. ${S.k.length==3?"Go to the Guardian 🐲 in the bottom right corner!":"Find the next chest."}</p><button class="b go" id=ok>Continue</button>`);
+ $("#ok").onclick=close}
+function chest(id){
+ const g=CH[id];
+ if(S.k.includes(id))return say("This chest is already open.");
+ if(!S.t.includes(g))return say("The chest is locked by a riddle. Learn the words from a villager first. 👴");
+ if(id=="A")match(grp(0).concat(sh(W.slice(3))[0]),()=>won(id));
+ if(id=="B")order(sh(grp(1)),()=>won(id));
+ if(id=="C")quiz("Riddle of the Gate",sh(grp(2)).map(qFill),0,()=>won(id))}
+/* puzzle 1: match */
+function match(ws,done){
+ const L=sh(ws),R=sh(ws);let sel=null,n=0;
+ M(`<h2>Match each word to its meaning</h2><div class=cols><div>${L.map(w=>`<button class=b data-s=L data-i=${w.i}>${w.w}</button>`).join("")}</div><div>${R.map(w=>`<button class=b data-s=R data-i=${w.i}>${w.d}</button>`).join("")}</div></div><button class="b ghost" id=lv>Leave</button>`);
+ $("#lv").onclick=close;
+ document.querySelectorAll(".cols .b").forEach(b=>b.onclick=()=>{
+  if(b.classList.contains("ok"))return;
+  if(b.dataset.s=="L"){document.querySelectorAll(".sel").forEach(x=>x.classList.remove("sel"));sel=b;b.classList.add("sel");return}
+  if(!sel)return;
+  if(sel.dataset.i==b.dataset.i){sel.classList.remove("sel");sel.classList.add("ok");b.classList.add("ok");sel=null;if(++n==ws.length)setTimeout(done,500)}
+  else{b.classList.add("x");setTimeout(()=>b.classList.remove("x"),500);lose()}})}
+/* puzzle 2: put words in order */
+function order(ws,done){
+ let i=0;
+ (function next(){
+  if(i>=ws.length)return done();
+  const s=ws[i].s.replace("___",ws[i].w),pool=sh(s.slice(0,-1).split(" ")),built=[];
+  const draw=()=>{
+   M(`<h2>Build the sentence (${i+1}/${ws.length})</h2><p>Tap the words in the correct order.</p><div class=tiles id=bt>${built.map((w,k)=>`<button class=b data-k=${k}>${w}</button>`).join("")}</div><div class=tiles>${pool.map((w,k)=>`<button class=b data-p=${k}>${w}</button>`).join("")}</div><button class="b go" id=ck>Check</button><button class="b ghost" id=lv>Leave</button>`);
+   $("#lv").onclick=close;
+   document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{built.push(pool.splice(+b.dataset.p,1)[0]);draw()});
+   document.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{pool.push(built.splice(+b.dataset.k,1)[0]);draw()});
+   $("#ck").onclick=()=>{
+    if(built.join(" ")+"."==s){i++;next()}
+    else{if(lose())return;pool.push(...built.splice(0));draw()}}};
+  draw()})()}
+/* puzzle 3 and boss: multiple choice, optional timer */
+const opts=w=>sh([w,...sh(W.filter(x=>x!==w)).slice(0,2)]).map(x=>x.w);
+const qFill=w=>({p:w.s,o:opts(w),a:w.w});
+const qDef=w=>({p:"Which word means: “"+w.d+"”?",o:opts(w),a:w.w});
+function quiz(title,qs,sec,done,top){
+ let q=[...qs],tot=qs.length,ok=0,left=0;
+ const stop=()=>clearInterval(T);
+ function wrong(){stop();q.push(q.shift());if(!lose())ask()}
+ function ask(){
+  if(!q.length){stop();return done()}
+  const c=q[0];
+  M(`<h2>${title}</h2>${top||""}<div class=bar><i style="width:${ok/tot*100}%"></i></div><p class=big>${c.p.replace("___","_____")}</p>${c.o.map(o=>`<button class="b o">${o}</button>`).join("")}${sec?'<div class=tm>⏱ <b id=tt></b></div>':""}<button class="b ghost" id=lv>Leave</button>`);
+  $("#lv").onclick=close;
+  document.querySelectorAll(".o").forEach(b=>b.onclick=()=>{
+   stop();
+   if(b.textContent==c.a){b.classList.add("ok");ok++;q.shift();setTimeout(ask,450)}
+   else{b.classList.add("x");setTimeout(wrong,550)}});
+  if(sec){left=sec;$("#tt").textContent=left;T=setInterval(()=>{left--;$("#tt").textContent=left;if(left<=0)wrong()},1000)}}
+ ask()}
+function boss(){
+ if(S.boss)return win();
+ if(S.k.length<3)return say("🐲 The Guardian is sealed. You need 3 keys ("+S.k.length+"/3).");
+ const pick=sh(grp(3)).slice(0,2).concat(sh(W.slice(0,9)).slice(0,4));
+ const qs=sh(pick.map((w,k)=>k%2?qDef(w):qFill(w)));
+ quiz("🐲 Guardian of Words",qs,15,()=>{S.boss=true;save();win()},"<p>Answer 6 questions before time runs out!</p>")}
+function win(){
+ M(`<h2>🏆 You restored the Lost Words!</h2><p>You learned 12 words:</p><p class=big>${W.map(w=>w.w).join(", ")}.</p><button class="b go" id=nw>Play again</button><button class="b ghost" id=ok>Close</button>`);
+ $("#nw").onclick=()=>{S=fresh();save();close()};$("#ok").onclick=close}
+/* controls */
+const D={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]};
+document.querySelectorAll("#pad button").forEach(b=>b.onclick=()=>move(...D[b.dataset.d]));
+addEventListener("keydown",e=>{const m={ArrowUp:"u",w:"u",ArrowDown:"d",s:"d",ArrowLeft:"l",a:"l",ArrowRight:"r",d:"r"}[e.key];if(m){e.preventDefault();move(...D[m])}});
+render();
+M(`<h2>⚔️ Quest of the Lost Words</h2><p class=big>The words of the kingdom are lost! Talk to the villagers 👴 to learn words. Use the words to open the chests 🎁. Find 3 keys 🗝️ and defeat the Guardian 🐲.</p><button class="b go" id=st>${S.t.length||S.k.length?"Continue":"Start"}</button>${S.t.length||S.k.length?'<button class="b ghost" id=nw>New game</button>':""}`);
+$("#st").onclick=close;if($("#nw"))$("#nw").onclick=()=>{S=fresh();save();close()};
+</script></body></html>
