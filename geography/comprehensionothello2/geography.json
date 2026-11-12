@@ -477,6 +477,245 @@
      ]
     }
    ]
+  },
+  {
+   "id": "geo-36",
+   "title": "Ch.36 Bioethanol and Immigrants",
+   "passages": {
+    "p1": "Many people in South America want to protect the environment. The United States and Brazil make most of the world’s bioethanol.",
+    "p2": "The United States uses corn to make bioethanol, and Brazil uses sugarcane. In Brazil, people use bioethanol as fuel for cars.",
+    "p3": "Bioethanol is a sustainable energy because corn and sugarcane grow every year. It doesn’t increase CO₂ in the air.",
+    "p4": "Bioethanol isn’t good for the environment if they have to cut down more forests to grow more sugarcane.",
+    "p5": "If they grow crops for fuel instead of food, there may not be enough food. The price of food may also increase.",
+    "p6": "South America needs a growing economy that doesn’t destroy the environment.",
+    "p7": "From the beginning of the 20th century, many Japanese people went to South America as immigrants. In 1908, the ship Kasatomaru took the first immigrants from Kobe Harbor to Brazil.",
+    "p8": "Many Japanese immigrants worked on coffee plantations in the state of Sao Paulo. Later, they built farms and started businesses.",
+    "p9": "Many children and grandchildren of the immigrants now work as doctors, lawyers, and politicians. Sao Paulo is the center of the Japanese community in Brazil.",
+    "p10": "Japantown in the city of Sao Paulo has many Japanese shops, restaurants, and cultural activities. Japanese immigrants brought their traditions, religion, and culture to South America.",
+    "p11": "Japanese immigrants used Japanese farming methods to grow crops from Japan. Japanese food and sports like Judo became popular. Many Japanese companies have branches in South America."
+   },
+   "questions": [
+    {
+     "q": "What do many people in South America want to do?",
+     "passage": "p1",
+     "a": "protect the environment",
+     "w": [
+      "cut down forests",
+      "make more cars",
+      "grow only corn"
+     ]
+    },
+    {
+     "q": "Which two countries make most of the world’s bioethanol?",
+     "passage": "p1",
+     "a": "the United States and Brazil",
+     "w": [
+      "Japan and Brazil",
+      "the United States and Japan",
+      "Brazil and Peru"
+     ]
+    },
+    {
+     "q": "What does Brazil use to make bioethanol?",
+     "passage": "p2",
+     "a": "sugarcane",
+     "w": [
+      "corn",
+      "coffee",
+      "soybeans"
+     ]
+    },
+    {
+     "q": "How do people in Brazil use bioethanol?",
+     "passage": "p2",
+     "a": "as fuel for cars",
+     "w": [
+      "as food for animals",
+      "to make coffee",
+      "to build houses"
+     ]
+    },
+    {
+     "q": "Why is bioethanol a sustainable energy?",
+     "passage": "p3",
+     "a": "corn and sugarcane grow every year",
+     "w": [
+      "it comes from oil",
+      "it is very cheap",
+      "it is made in Japan"
+     ]
+    },
+    {
+     "q": "What does bioethanol not increase in the air?",
+     "passage": "p3",
+     "a": "CO₂",
+     "w": [
+      "oxygen",
+      "rain",
+      "snow"
+     ]
+    },
+    {
+     "q": "Why isn’t bioethanol good for the environment?",
+     "passage": "p4",
+     "a": "they cut down more forests",
+     "w": [
+      "it increases CO₂",
+      "it uses too much oil",
+      "it makes cars slow"
+     ]
+    },
+    {
+     "q": "Why do they cut down more forests?",
+     "passage": "p4",
+     "a": "to grow more sugarcane",
+     "w": [
+      "to grow more corn",
+      "to build more cars",
+      "to make more coffee"
+     ]
+    },
+    {
+     "q": "What may happen if they grow crops for fuel instead of food?",
+     "passage": "p5",
+     "a": "there may not be enough food",
+     "w": [
+      "there will be too much food",
+      "food will become free",
+      "there will be more forests"
+     ]
+    },
+    {
+     "q": "What may happen to the price of food?",
+     "passage": "p5",
+     "a": "it may increase",
+     "w": [
+      "it may decrease",
+      "it may stay the same",
+      "it may be free"
+     ]
+    },
+    {
+     "q": "What does South America need?",
+     "passage": "p6",
+     "a": "a growing economy",
+     "w": [
+      "a smaller economy",
+      "more bioethanol",
+      "less food"
+     ]
+    },
+    {
+     "q": "What should the economy not destroy?",
+     "passage": "p6",
+     "a": "the environment",
+     "w": [
+      "the fuel",
+      "the food",
+      "the farms"
+     ]
+    },
+    {
+     "q": "Where did Kasatomaru take the first Japanese immigrants?",
+     "passage": "p7",
+     "a": "Brazil",
+     "w": [
+      "Peru",
+      "Argentina",
+      "the United States"
+     ]
+    },
+    {
+     "q": "In which year did Kasatomaru leave Kobe Harbor?",
+     "passage": "p7",
+     "a": "1908",
+     "w": [
+      "1808",
+      "1918",
+      "1980"
+     ]
+    },
+    {
+     "q": "Where did many Japanese immigrants work at first?",
+     "passage": "p8",
+     "a": "on coffee plantations",
+     "w": [
+      "in banks",
+      "in hospitals",
+      "on ships"
+     ]
+    },
+    {
+     "q": "What did they do later?",
+     "passage": "p8",
+     "a": "built farms and started businesses",
+     "w": [
+      "went back to Japan",
+      "cut down all the forests",
+      "built ships"
+     ]
+    },
+    {
+     "q": "What do many of their children and grandchildren now work as?",
+     "passage": "p9",
+     "a": "doctors, lawyers, and politicians",
+     "w": [
+      "farmers, sailors, and cooks",
+      "drivers, artists, and bakers",
+      "pilots, singers, and judges"
+     ]
+    },
+    {
+     "q": "What is the center of the Japanese community in Brazil?",
+     "passage": "p9",
+     "a": "Sao Paulo",
+     "w": [
+      "Kobe",
+      "Okinawa",
+      "Rio de Janeiro"
+     ]
+    },
+    {
+     "q": "What does Japantown in Sao Paulo have?",
+     "passage": "p10",
+     "a": "Japanese shops and restaurants",
+     "w": [
+      "coffee plantations",
+      "bioethanol factories",
+      "tall mountains"
+     ]
+    },
+    {
+     "q": "What did Japanese immigrants bring to South America?",
+     "passage": "p10",
+     "a": "traditions, religion, and culture",
+     "w": [
+      "corn, sugarcane, and oil",
+      "cars, ships, and trucks",
+      "forests, rivers, and lakes"
+     ]
+    },
+    {
+     "q": "What did Japanese immigrants use to grow crops from Japan?",
+     "passage": "p11",
+     "a": "Japanese farming methods",
+     "w": [
+      "bioethanol",
+      "Brazilian farming methods",
+      "coffee plantations"
+     ]
+    },
+    {
+     "q": "What became popular in South America?",
+     "passage": "p11",
+     "a": "Japanese food and Judo",
+     "w": [
+      "Japanese cars and ships",
+      "Brazilian coffee and sugar",
+      "American corn and rice"
+     ]
+    }
+   ]
   }
  ]
 }
