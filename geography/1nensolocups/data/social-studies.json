@@ -1,3 +1,4 @@
+
 {
   "chapters": [
     {
@@ -149,6 +150,44 @@
         {
           "chunks": ["Mediterranean Climates", "have", "hot, dry summers", "and mild, rainy winters", "."],
           "answer": "Mediterranean Climates have hot, dry summers and mild, rainy winters."
+        }
+      ]
+    },
+    {
+      "id": "ch11",
+      "name": "Chapter 11",
+      "sentences": [
+        {
+          "chunks": ["Humid Subtropical Climates", "have", "very hot summers", "and mild winters", "."],
+          "answer": "Humid Subtropical Climates have very hot summers and mild winters."
+        },
+        {
+          "chunks": ["Permafrost", "is", "soil", "that is always frozen", "."],
+          "answer": "Permafrost is soil that is always frozen."
+        },
+        {
+          "chunks": ["Buildings", "are built", "on stilts", "so the permafrost does not melt", "."],
+          "answer": "Buildings are built on stilts so the permafrost does not melt."
+        },
+        {
+          "chunks": ["Many people", "in Siberia", "work", "in forestry and mining", "."],
+          "answer": "Many people in Siberia work in forestry and mining."
+        },
+        {
+          "chunks": ["Global warming", "is melting", "the permafrost", "."],
+          "answer": "Global warming is melting the permafrost."
+        },
+        {
+          "chunks": ["Subpolar Climates", "have", "mild summers", "and very cold winters", "."],
+          "answer": "Subpolar Climates have mild summers and very cold winters."
+        },
+        {
+          "chunks": ["Most rain", "falls", "in summer", "in Subpolar Climates", "."],
+          "answer": "Most rain falls in summer in Subpolar Climates."
+        },
+        {
+          "chunks": ["Coniferous forests", "in Siberia", "are called", "Taiga", "."],
+          "answer": "Coniferous forests in Siberia are called Taiga."
         }
       ]
     }
