@@ -1,3 +1,4 @@
+
 {
   "subject": "Social Studies",
   "chapters": [
@@ -182,6 +183,52 @@
           "part1": "Mediterranean Climates have hot, dry summers",
           "part2": "and mild, rainy winters.",
           "audio": "mediterranean_climates_have_ho.mp3"
+        }
+      ]
+    },
+    {
+      "id": "ch11",
+      "title": "Chapter 11: Subtropical and Subpolar Climates",
+      "sentences": [
+        {
+          "part1": "Humid Subtropical Climates have",
+          "part2": "very hot summers and mild winters.",
+          "audio": "humid_subtropical_climates_have.mp3"
+        },
+        {
+          "part1": "Permafrost is soil",
+          "part2": "that is always frozen.",
+          "audio": "permafrost_is_soil.mp3"
+        },
+        {
+          "part1": "Buildings are built on stilts",
+          "part2": "so the permafrost does not melt.",
+          "audio": "buildings_are_built_on_stilts.mp3"
+        },
+        {
+          "part1": "Many people in Siberia work in forestry",
+          "part2": "and mining.",
+          "audio": "many_people_in_siberia_work_in_forestry.mp3"
+        },
+        {
+          "part1": "Global warming",
+          "part2": "is melting the permafrost.",
+          "audio": "global_warming.mp3"
+        },
+        {
+          "part1": "Subpolar Climates have mild summers",
+          "part2": "and very cold winters.",
+          "audio": "subpolar_climates_have_mild_summers.mp3"
+        },
+        {
+          "part1": "Most rain falls in summer",
+          "part2": "in Subpolar Climates.",
+          "audio": "most_rain_falls_in_summer.mp3"
+        },
+        {
+          "part1": "Coniferous forests in Siberia are called",
+          "part2": "Taiga.",
+          "audio": "coniferous_forests_in_siberia_are_called.mp3"
         }
       ]
     }
