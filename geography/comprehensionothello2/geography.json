@@ -1,0 +1,222 @@
+{
+ "chapters": [
+  {
+   "id": "geo-35",
+   "title": "Ch.35 South America",
+   "passages": {
+    "p1": "Many farmers still use old methods to grow potatoes and corn. Agricultural corporations use advanced technology to grow cash crops such as coffee and sugarcane.",
+    "p2": "Corporations received a lot of money from the government and from countries such as the United States and Japan.",
+    "p3": "Coffee, soybeans, meat, sugar, and bioethanol are important exports. South America also has a lot of minerals, such as oil, copper, and iron ore.",
+    "p4": "The governments of South America worked hard to mine minerals. Their economies grew by exporting them.",
+    "p5": "Japan imports a lot of iron ore and copper from South America. Brazil now makes cars and airplanes.",
+    "p6": "Many people are worried about environmental problems, such as forest areas decreasing. After 1970, corporations cut down large areas of tropical rainforest in the Amazon Basin.",
+    "p7": "Traditional farmers cut down trees but protected the forests. Corporations cut down many more trees and destroyed the forests.",
+    "p8": "Growing the same crops on the same land makes the soil poor. Crops don’t grow well, and agriculture is hard to continue.",
+    "p9": "Tropical rainforests have many kinds of plants and animals, but many of them are disappearing. Once they are gone, they will never return.",
+    "p10": "Too much mining destroys the environment. When the minerals are gone, the mining industry will also disappear."
+   },
+   "questions": [
+    {
+     "q": "What do many farmers use to grow potatoes and corn?",
+     "passage": "p1",
+     "a": "old methods",
+     "w": [
+      "advanced technology",
+      "big machines",
+      "government money"
+     ]
+    },
+    {
+     "q": "What do corporations use to grow cash crops?",
+     "passage": "p1",
+     "a": "advanced technology",
+     "w": [
+      "old methods",
+      "slash-and-burn",
+      "small farms"
+     ]
+    },
+    {
+     "q": "Which countries gave money to the corporations?",
+     "passage": "p2",
+     "a": "the United States and Japan",
+     "w": [
+      "Brazil and Chile",
+      "China and Korea",
+      "Spain and Italy"
+     ]
+    },
+    {
+     "q": "What did the corporations receive?",
+     "passage": "p2",
+     "a": "a lot of money",
+     "w": [
+      "a lot of land",
+      "a lot of cars",
+      "a lot of workers"
+     ]
+    },
+    {
+     "q": "What are coffee, soybeans, meat, sugar, and bioethanol?",
+     "passage": "p3",
+     "a": "important exports",
+     "w": [
+      "rare metals",
+      "old methods",
+      "important imports"
+     ]
+    },
+    {
+     "q": "Which minerals does South America have a lot of?",
+     "passage": "p3",
+     "a": "oil, copper, and iron ore",
+     "w": [
+      "coffee, sugar, and meat",
+      "potatoes and corn",
+      "cars and airplanes"
+     ]
+    },
+    {
+     "q": "How did the economies of South America grow?",
+     "passage": "p4",
+     "a": "by exporting minerals",
+     "w": [
+      "by importing cars",
+      "by cutting trees",
+      "by growing potatoes"
+     ]
+    },
+    {
+     "q": "What did the governments work hard to do?",
+     "passage": "p4",
+     "a": "mine minerals",
+     "w": [
+      "grow potatoes",
+      "cut down trees",
+      "build airplanes"
+     ]
+    },
+    {
+     "q": "What does Japan import a lot of from South America?",
+     "passage": "p5",
+     "a": "iron ore and copper",
+     "w": [
+      "cars and airplanes",
+      "oil and bauxite",
+      "rare metals and meat"
+     ]
+    },
+    {
+     "q": "What does Brazil make now?",
+     "passage": "p5",
+     "a": "cars and airplanes",
+     "w": [
+      "iron ore and copper",
+      "coffee and sugar",
+      "oil and bauxite"
+     ]
+    },
+    {
+     "q": "What are many people worried about?",
+     "passage": "p6",
+     "a": "environmental problems",
+     "w": [
+      "old methods",
+      "cash crops",
+      "low prices"
+     ]
+    },
+    {
+     "q": "Who cut down large areas of rainforest after 1970?",
+     "passage": "p6",
+     "a": "corporations",
+     "w": [
+      "traditional farmers",
+      "the government",
+      "Japan"
+     ]
+    },
+    {
+     "q": "What did traditional farmers do to the forests?",
+     "passage": "p7",
+     "a": "protected them",
+     "w": [
+      "destroyed them",
+      "sold them",
+      "planted them"
+     ]
+    },
+    {
+     "q": "What did corporations do to the forests?",
+     "passage": "p7",
+     "a": "destroyed them",
+     "w": [
+      "protected them",
+      "planted them",
+      "ignored them"
+     ]
+    },
+    {
+     "q": "What happens when people grow the same crops on the same land?",
+     "passage": "p8",
+     "a": "the soil becomes poor",
+     "w": [
+      "the soil becomes rich",
+      "the crops grow faster",
+      "the farms grow bigger"
+     ]
+    },
+    {
+     "q": "What is hard to continue when crops don’t grow well?",
+     "passage": "p8",
+     "a": "agriculture",
+     "w": [
+      "mining",
+      "trade",
+      "industry"
+     ]
+    },
+    {
+     "q": "What do tropical rainforests have many kinds of?",
+     "passage": "p9",
+     "a": "plants and animals",
+     "w": [
+      "minerals and oil",
+      "farms and roads",
+      "cars and airplanes"
+     ]
+    },
+    {
+     "q": "What will happen once the plants and animals are gone?",
+     "passage": "p9",
+     "a": "they will never return",
+     "w": [
+      "they will return soon",
+      "they will grow faster",
+      "they will move away"
+     ]
+    },
+    {
+     "q": "What destroys the environment?",
+     "passage": "p10",
+     "a": "too much mining",
+     "w": [
+      "too much rain",
+      "too many people",
+      "too many roads"
+     ]
+    },
+    {
+     "q": "What will happen when the minerals are gone?",
+     "passage": "p10",
+     "a": "the mining industry will disappear",
+     "w": [
+      "the mining industry will grow",
+      "new minerals will appear",
+      "farms will disappear"
+     ]
+    }
+   ]
+  }
+ ]
+}
