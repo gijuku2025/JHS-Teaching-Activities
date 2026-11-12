@@ -1,6 +1,266 @@
 {
  "chapters": [
   {
+   "id": "geo-11",
+   "title": "Ch.11 Climates and Siberia",
+   "passages": {
+    "p1": "The Temperate Zone has four seasons: spring, summer, autumn, and winter. Temperature and rainfall are mostly mild. Mild means not too hot and not too cold.",
+    "p2": "Oceanic Climates have mild summers and mild winters, with mild rainfall all year. Mediterranean Climates are dry in summer, with mild rainfall in winter.",
+    "p3": "Places near the Tropical Zone have Subtropical Climates. Humid Subtropical Climates have very hot summers and mild winters. Rain falls all year, but a lot falls in summer.",
+    "p4": "Naha is the capital city of Okinawa. It has a Humid Subtropical Climate. The summer is hot and the winter is mild. There is no dry season.",
+    "p5": "Places near the Polar Zone have Subpolar Climates. Subpolar Climates have mild summers and very cold winters. Irkutsk is a city in Siberia with a Subpolar Climate.",
+    "p6": "Irkutsk does not have much rain or snow in winter. Most rain falls in summer. The rainiest month is July, when the weather is warmest.",
+    "p7": "In winter, temperatures go below minus 10 degrees. People wear fur coats and fur hats. They go skiing and play ice hockey.",
+    "p8": "Thick ice covers rivers and lakes, and trucks can drive on them. Once, the temperature was minus 67.7 degrees in Oymyakon Village. Summer temperatures sometimes go close to 30 degrees.",
+    "p9": "Subpolar Climates have forests because of the warm summers. Coniferous trees, such as fir and pine, have cones. The coniferous forests in Siberia are called Taiga.",
+    "p10": "Under the Taiga, there is soil called permafrost that is always frozen. When the permafrost melts, land sinks. People build houses on stilts so that the permafrost won’t melt.",
+    "p11": "Many people in Siberia work in forestry and mining. But with global warming, cutting down the forests causes problems. The sun shining on the ground is melting the permafrost.",
+    "p12": "Dachas are small country houses with vegetable gardens. Many people move to dachas in the summer and grow vegetables. Now life is easier, with fresh vegetables in supermarkets all year."
+   },
+   "questions": [
+    {
+     "q": "How many seasons does the Temperate Zone have?",
+     "passage": "p1",
+     "a": "four",
+     "w": [
+      "two",
+      "three",
+      "six"
+     ]
+    },
+    {
+     "q": "What does mild mean?",
+     "passage": "p1",
+     "a": "not too hot, not too cold",
+     "w": [
+      "very hot and very wet",
+      "very cold and very dry",
+      "always hot"
+     ]
+    },
+    {
+     "q": "Which climate has mild summers and mild winters?",
+     "passage": "p2",
+     "a": "Oceanic Climate",
+     "w": [
+      "Mediterranean Climate",
+      "Subpolar Climate",
+      "Humid Subtropical Climate"
+     ]
+    },
+    {
+     "q": "When is a Mediterranean Climate dry?",
+     "passage": "p2",
+     "a": "in summer",
+     "w": [
+      "in winter",
+      "all year",
+      "in autumn"
+     ]
+    },
+    {
+     "q": "Where are Subtropical Climates?",
+     "passage": "p3",
+     "a": "near the Tropical Zone",
+     "w": [
+      "near the Polar Zone",
+      "near the ocean",
+      "near Siberia"
+     ]
+    },
+    {
+     "q": "What are summers like in Humid Subtropical Climates?",
+     "passage": "p3",
+     "a": "very hot",
+     "w": [
+      "mild",
+      "very cold",
+      "dry"
+     ]
+    },
+    {
+     "q": "Which climate does Naha have?",
+     "passage": "p4",
+     "a": "Humid Subtropical Climate",
+     "w": [
+      "Oceanic Climate",
+      "Subpolar Climate",
+      "Mediterranean Climate"
+     ]
+    },
+    {
+     "q": "Is there a dry season in Naha?",
+     "passage": "p4",
+     "a": "No, there is no dry season.",
+     "w": [
+      "Yes, in summer.",
+      "Yes, in winter.",
+      "Yes, in autumn."
+     ]
+    },
+    {
+     "q": "Where are Subpolar Climates?",
+     "passage": "p5",
+     "a": "near the Polar Zone",
+     "w": [
+      "near the Tropical Zone",
+      "near Okinawa",
+      "near the equator"
+     ]
+    },
+    {
+     "q": "Which city in Siberia has a Subpolar Climate?",
+     "passage": "p5",
+     "a": "Irkutsk",
+     "w": [
+      "Naha",
+      "Tokyo",
+      "Rome"
+     ]
+    },
+    {
+     "q": "Which month is the rainiest in Irkutsk?",
+     "passage": "p6",
+     "a": "July",
+     "w": [
+      "January",
+      "April",
+      "October"
+     ]
+    },
+    {
+     "q": "When does most rain fall in Irkutsk?",
+     "passage": "p6",
+     "a": "in summer",
+     "w": [
+      "in winter",
+      "in spring",
+      "all year"
+     ]
+    },
+    {
+     "q": "What do people wear in winter?",
+     "passage": "p7",
+     "a": "fur coats and fur hats",
+     "w": [
+      "thin T-shirts",
+      "straw hats",
+      "rain boots"
+     ]
+    },
+    {
+     "q": "What do people do in winter?",
+     "passage": "p7",
+     "a": "go skiing and play ice hockey",
+     "w": [
+      "go swimming and surfing",
+      "play baseball and tennis",
+      "grow vegetables"
+     ]
+    },
+    {
+     "q": "Why can trucks drive on rivers and lakes?",
+     "passage": "p8",
+     "a": "thick ice covers them",
+     "w": [
+      "they have no water",
+      "they are very small",
+      "they have bridges"
+     ]
+    },
+    {
+     "q": "What was the lowest temperature in Oymyakon Village?",
+     "passage": "p8",
+     "a": "minus 67.7 degrees",
+     "w": [
+      "minus 10 degrees",
+      "minus 30 degrees",
+      "minus 76.7 degrees"
+     ]
+    },
+    {
+     "q": "Why do Subpolar Climates have forests?",
+     "passage": "p9",
+     "a": "because of the warm summers",
+     "w": [
+      "because of the cold winters",
+      "because of the thick ice",
+      "because of the dry season"
+     ]
+    },
+    {
+     "q": "What are the coniferous forests in Siberia called?",
+     "passage": "p9",
+     "a": "Taiga",
+     "w": [
+      "Dacha",
+      "Permafrost",
+      "Rye"
+     ]
+    },
+    {
+     "q": "What is permafrost?",
+     "passage": "p10",
+     "a": "soil that is always frozen",
+     "w": [
+      "a tree with cones",
+      "a small country house",
+      "a kind of fur coat"
+     ]
+    },
+    {
+     "q": "Why do people build houses on stilts?",
+     "passage": "p10",
+     "a": "so the permafrost won’t melt",
+     "w": [
+      "so trucks can drive under",
+      "so the forests grow",
+      "so the rivers freeze"
+     ]
+    },
+    {
+     "q": "What do many people in Siberia work in?",
+     "passage": "p11",
+     "a": "forestry and mining",
+     "w": [
+      "farming and fishing",
+      "trade and tourism",
+      "banking and shopping"
+     ]
+    },
+    {
+     "q": "What is melting the permafrost?",
+     "passage": "p11",
+     "a": "the sun shining on the ground",
+     "w": [
+      "the thick ice",
+      "the fur hats",
+      "the July rain"
+     ]
+    },
+    {
+     "q": "What are dachas?",
+     "passage": "p12",
+     "a": "small country houses",
+     "w": [
+      "fur coats",
+      "apartment blocks",
+      "coniferous forests"
+     ]
+    },
+    {
+     "q": "Why is life easier now?",
+     "passage": "p12",
+     "a": "there are fresh vegetables all year",
+     "w": [
+      "there are no winters",
+      "the sun melts the ice",
+      "there are more forests"
+     ]
+    }
+   ]
+  },
+  {
    "id": "geo-35",
    "title": "Ch.35 South America",
    "passages": {
