@@ -1,3 +1,4 @@
+
 {
   "subject": "Social Studies",
   "chapters": [
@@ -63,6 +64,22 @@
         { "en": "clothing", "jp": "衣服" },
         { "en": "traditional", "jp": "伝統的な" },
         { "en": "lunch", "jp": "昼食" }
+      ]
+    },
+    {
+      "id": "ss-ch11",
+      "name": "Chapter 11",
+      "words": [
+        { "en": "Subtropical Climate", "jp": "亜熱帯気候" },
+        { "en": "Humid Subtropical Climate", "jp": "温暖湿潤気候" },
+        { "en": "Subpolar Climate", "jp": "亜寒帯気候" },
+        { "en": "Taiga", "jp": "タイガ" },
+        { "en": "coniferous forest", "jp": "針葉樹林" },
+        { "en": "permafrost", "jp": "永久凍土" },
+        { "en": "global warming", "jp": "地球温暖化" },
+        { "en": "forestry", "jp": "林業" },
+        { "en": "mining", "jp": "鉱業" },
+        { "en": "dacha", "jp": "ダーチャ" }
       ]
     }
   ]
