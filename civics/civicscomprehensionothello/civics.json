@@ -5,60 +5,16 @@
    "title": "Government and Social Security: Fix the Sentence",
    "passages": {},
    "questions": [
-    {
-     "q": "During a recession, the government ____ spending.",
-     "a": "increases",
-     "w": ["decreases", "stops", "cuts"]
-    },
-    {
-     "q": "Health insurance helps people pay for ____ costs.",
-     "a": "medical",
-     "w": ["education", "housing", "food"]
-    },
-    {
-     "q": "The government needs ____ money to pay for social security.",
-     "a": "more",
-     "w": ["less", "no", "the same"]
-    },
-    {
-     "q": "Many countries need to ____ to solve environmental problems.",
-     "a": "cooperate",
-     "w": ["compete", "argue", "work alone"]
-    },
-    {
-     "q": "Small government means the government spends ____ to help people.",
-     "a": "less",
-     "w": ["more", "all its money", "nothing"]
-    },
-    {
-     "q": "Public debt must be paid back ____.",
-     "a": "with interest",
-     "w": ["without interest", "only by businesses", "never"]
-    },
-    {
-     "q": "Big government means the government spends ____ to help people.",
-     "a": "more",
-     "w": ["less", "nothing", "only on roads"]
-    },
-    {
-     "q": "Social security in Japan has ____ pillars.",
-     "a": "four",
-     "w": ["two", "three", "six"]
-    },
-    {
-     "q": "Which sentence is correct?",
-     "a": "Economic growth is not always bad for the environment.",
-     "w": [
-      "Economic growth is always bad for the environment.",
-      "Economic growth is always good for the environment.",
-      "Economic growth never changes the environment."
-     ]
-    },
-    {
-     "q": "Social insurance protects older people, sick people, and ____ people.",
-     "a": "unemployed",
-     "w": ["student", "rich", "foreign"]
-    }
+    {"q": "During a recession, the government ____ spending.", "a": "increases", "w": ["decreases", "stops", "cuts"]},
+    {"q": "Health insurance helps people pay for ____ costs.", "a": "medical", "w": ["education", "housing", "food"]},
+    {"q": "The government needs ____ money to pay for social security.", "a": "more", "w": ["less", "no", "the same"]},
+    {"q": "Many countries need to ____ to solve environmental problems.", "a": "cooperate", "w": ["compete", "argue", "work alone"]},
+    {"q": "Small government means the government spends ____ to help people.", "a": "less", "w": ["more", "all its money", "nothing"]},
+    {"q": "Public debt must be paid back ____.", "a": "with interest", "w": ["without interest", "only by businesses", "never"]},
+    {"q": "Big government means the government spends ____ to help people.", "a": "more", "w": ["less", "nothing", "only on roads"]},
+    {"q": "Social security in Japan has ____ pillars.", "a": "four", "w": ["two", "three", "six"]},
+    {"q": "Which sentence is correct?", "a": "Economic growth is not always bad for the environment.", "w": ["Economic growth is always bad for the environment.", "Economic growth is always good for the environment.", "Economic growth never changes the environment."]},
+    {"q": "Social insurance protects older people, sick people, and ____ people.", "a": "unemployed", "w": ["student", "rich", "foreign"]}
    ]
   },
   {
@@ -66,284 +22,69 @@
    "title": "Budget Committee: Closing the Funding Gap",
    "passages": {},
    "questions": [
-    {
-     "q": "Why does the government have a funding gap?",
-     "a": "It cut the consumption tax, so it has less money.",
-     "w": [
-      "It raised the consumption tax.",
-      "It borrowed too much money.",
-      "It reduced social security."
-     ]
-    },
-    {
-     "q": "Which option means people or businesses pay higher taxes?",
-     "a": "Raise other taxes",
-     "w": ["Borrow money", "Reduce spending", "Cut the consumption tax"]
-    },
-    {
-     "q": "Which option makes government debt increase?",
-     "a": "Borrow money",
-     "w": ["Raise other taxes", "Reduce spending", "Cut the consumption tax"]
-    },
-    {
-     "q": "Which option may mean some programs provide fewer services?",
-     "a": "Reduce spending",
-     "w": ["Raise other taxes", "Borrow money", "Cut the consumption tax"]
-    },
-    {
-     "q": "What is a benefit of raising other taxes?",
-     "a": "The government has more money to pay for social security.",
-     "w": [
-      "The government has more debt.",
-      "Programs receive less money.",
-      "Nobody pays higher taxes."
-     ]
-    },
-    {
-     "q": "What is a benefit of borrowing money?",
-     "a": "The government can pay for services now without immediately raising other taxes.",
-     "w": [
-      "The government never has to pay the money back.",
-      "The government spends less on services.",
-      "People pay much higher taxes."
-     ]
-    },
-    {
-     "q": "What is a disadvantage of borrowing money?",
-     "a": "Debt increases and interest may need to be paid.",
-     "w": [
-      "People pay higher taxes.",
-      "Some programs stop providing support.",
-      "The government has less money now."
-     ]
-    },
-    {
-     "q": "What is a disadvantage of borrowing 10 units instead of 5?",
-     "a": "More debt may mean higher interest costs in the future.",
-     "w": [
-      "People pay much higher taxes.",
-      "Government programs have to stop.",
-      "The government has less money now."
-     ]
-    },
-    {
-     "q": "What is a benefit of reducing spending by 5 units?",
-     "a": "The government can borrow less and may not need to raise taxes as much.",
-     "w": [
-      "The government has more debt.",
-      "People pay much higher taxes.",
-      "Programs receive more money."
-     ]
-    },
-    {
-     "q": "What is a disadvantage of reducing spending by 10 units?",
-     "a": "Some programs may have to cut services or stop providing some support.",
-     "w": [
-      "Government debt increases.",
-      "People or businesses pay much higher taxes.",
-      "Interest costs get higher."
-     ]
-    },
-    {
-     "q": "How is raising other taxes by 10 units different from raising them by 5 units?",
-     "a": "The government gets a lot more money, but people pay much higher taxes.",
-     "w": [
-      "The government gets less money, and people pay lower taxes.",
-      "The government borrows more money.",
-      "The government cuts more services."
-     ]
-    }
+    {"q": "Why does the government have a funding gap?", "a": "It cut the consumption tax, so it has less money.", "w": ["It raised the consumption tax.", "It borrowed too much money.", "It reduced social security."]},
+    {"q": "Which option means people or businesses pay higher taxes?", "a": "Raise other taxes", "w": ["Borrow money", "Reduce spending", "Cut the consumption tax"]},
+    {"q": "Which option makes government debt increase?", "a": "Borrow money", "w": ["Raise other taxes", "Reduce spending", "Cut the consumption tax"]},
+    {"q": "Which option may mean some programs provide fewer services?", "a": "Reduce spending", "w": ["Raise other taxes", "Borrow money", "Cut the consumption tax"]},
+    {"q": "What is a benefit of raising other taxes?", "a": "The government has more money to pay for social security.", "w": ["The government has more debt.", "Programs receive less money.", "Nobody pays higher taxes."]},
+    {"q": "What is a benefit of borrowing money?", "a": "The government can pay for services now without immediately raising other taxes.", "w": ["The government never has to pay the money back.", "The government spends less on services.", "People pay much higher taxes."]},
+    {"q": "What is a disadvantage of borrowing money?", "a": "Debt increases and interest may need to be paid.", "w": ["People pay higher taxes.", "Some programs stop providing support.", "The government has less money now."]},
+    {"q": "What is a disadvantage of borrowing 10 units instead of 5?", "a": "More debt may mean higher interest costs in the future.", "w": ["People pay much higher taxes.", "Government programs have to stop.", "The government has less money now."]},
+    {"q": "What is a benefit of reducing spending by 5 units?", "a": "The government can borrow less and may not need to raise taxes as much.", "w": ["The government has more debt.", "People pay much higher taxes.", "Programs receive more money."]},
+    {"q": "What is a disadvantage of reducing spending by 10 units?", "a": "Some programs may have to cut services or stop providing some support.", "w": ["Government debt increases.", "People or businesses pay much higher taxes.", "Interest costs get higher."]},
+    {"q": "How is raising other taxes by 10 units different from raising them by 5 units?", "a": "The government gets a lot more money, but people pay much higher taxes.", "w": ["The government gets less money, and people pay lower taxes.", "The government borrows more money.", "The government cuts more services."]}
    ]
   },
   {
    "id": "civ-q3",
    "title": "Japan's Pension System",
    "passages": {
-    "p1": "Japan’s pension system helps people after they retire from work. Every month, people who are working pay money into the system. When they become older—usually at age 65—they can receive money to help with living costs. This system gives older people economic security and helps them live even if they no longer work.",
-    "p2": "There are two main kinds of pensions. The National Pension is for everyone, including students, farmers, and self-employed people. The Employees’ Pension is for company workers, and the employer also pays part of the money.",
-    "p3": "The money collected from working people today is used to support older people who have already retired. In the future, younger workers will pay for today’s workers when they retire.",
-    "p4": "Japan’s population is aging. There are fewer young people and more elderly people than before. This means fewer workers are paying in, but more people are receiving money. This creates a big challenge for the pension system.",
-    "p5": "The government is trying to make the system fair and sustainable so that future generations can also receive pensions."
+    "p1": "Japan’s pension system helps people after they retire from work.",
+    "p2": "Every month, people who are working pay money into the system.",
+    "p3": "When they become older—usually at age 65—they can receive money to help with living costs.",
+    "p4": "This system gives older people economic security.",
+    "p5": "There are two main kinds of pensions. The National Pension is for everyone, including students, farmers, and self-employed people. The Employees’ Pension is for company workers.",
+    "p6": "The Employees’ Pension is for company workers, and the employer also pays part of the money.",
+    "p7": "The money collected from working people today is used to support older people who have already retired.",
+    "p8": "There are fewer young people and more elderly people than before. This means fewer workers are paying in, but more people are receiving money.",
+    "p9": "The government is trying to make the system fair and sustainable so that future generations can also receive pensions."
    },
    "questions": [
-    {
-     "q": "What is the purpose of Japan’s pension system?",
-     "passage": "p1",
-     "a": "to help people after they retire",
-     "w": [
-      "to help people find jobs",
-      "to help students pay for school",
-      "to help companies make money"
-     ]
-    },
-    {
-     "q": "Who pays money into the pension system every month?",
-     "passage": "p1",
-     "a": "people who are working",
-     "w": [
-      "people who are retired",
-      "only the government",
-      "only older people"
-     ]
-    },
-    {
-     "q": "At what age do people usually start to receive a pension?",
-     "passage": "p1",
-     "a": "65",
-     "w": ["45", "55", "75"]
-    },
-    {
-     "q": "What does the pension system give older people?",
-     "passage": "p1",
-     "a": "economic security",
-     "w": ["free houses", "new jobs", "free food"]
-    },
-    {
-     "q": "What are the two main kinds of pensions?",
-     "passage": "p2",
-     "a": "the National Pension and the Employees’ Pension",
-     "w": [
-      "the National Pension and the Farmers’ Pension",
-      "the Student Pension and the Company Pension",
-      "the Employees’ Pension and the Health Pension"
-     ]
-    },
-    {
-     "q": "Who is the National Pension for?",
-     "passage": "p2",
-     "a": "everyone, including students, farmers, and self-employed people",
-     "w": [
-      "only company workers",
-      "only farmers",
-      "only retired people"
-     ]
-    },
-    {
-     "q": "Who also pays part of the money for the Employees’ Pension?",
-     "passage": "p2",
-     "a": "the employer",
-     "w": ["the students", "the farmers", "the retired workers"]
-    },
-    {
-     "q": "Who receives money from the pension system?",
-     "passage": "p3",
-     "a": "older people who have already retired",
-     "w": [
-      "young workers",
-      "students",
-      "companies"
-     ]
-    },
-    {
-     "q": "What problem does Japan face because of its aging population?",
-     "passage": "p4",
-     "a": "fewer workers are paying in, but more people are receiving money",
-     "w": [
-      "more workers are paying in, but fewer people are receiving money",
-      "there are too many young people",
-      "nobody wants to retire"
-     ]
-    },
-    {
-     "q": "What is the government trying to make the pension system?",
-     "passage": "p5",
-     "a": "fair and sustainable",
-     "w": [
-      "bigger and more expensive",
-      "only for young people",
-      "free for companies"
-     ]
-    }
+    {"q": "What is the purpose of Japan’s pension system?", "passage": "p1", "a": "to help people after they retire", "w": ["to help people find jobs", "to help students pay for school", "to help companies make money"]},
+    {"q": "Who pays money into the pension system every month?", "passage": "p2", "a": "people who are working", "w": ["people who are retired", "only the government", "only older people"]},
+    {"q": "At what age do people usually start to receive a pension?", "passage": "p3", "a": "65", "w": ["45", "55", "75"]},
+    {"q": "What does the pension system give older people?", "passage": "p4", "a": "economic security", "w": ["free houses", "new jobs", "free food"]},
+    {"q": "What are the two main kinds of pensions?", "passage": "p5", "a": "the National Pension and the Employees’ Pension", "w": ["the National Pension and the Farmers’ Pension", "the Student Pension and the Company Pension", "the Employees’ Pension and the Health Pension"]},
+    {"q": "Who is the National Pension for?", "passage": "p5", "a": "everyone, including students, farmers, and self-employed people", "w": ["only company workers", "only farmers", "only retired people"]},
+    {"q": "Who also pays part of the money for the Employees’ Pension?", "passage": "p6", "a": "the employer", "w": ["the students", "the farmers", "the retired workers"]},
+    {"q": "Who receives money from the pension system?", "passage": "p7", "a": "older people who have already retired", "w": ["young workers", "students", "companies"]},
+    {"q": "What problem does Japan face because of its aging population?", "passage": "p8", "a": "fewer workers are paying in, but more people are receiving money", "w": ["more workers are paying in, but fewer people are receiving money", "there are too many young people", "nobody wants to retire"]},
+    {"q": "What is the government trying to make the pension system?", "passage": "p9", "a": "fair and sustainable", "w": ["bigger and more expensive", "only for young people", "free for companies"]}
    ]
   },
   {
    "id": "civ-minamata",
    "title": "Minamata Disease",
    "passages": {
-    "p1": "In the 1950s, people in Minamata City, Kumamoto Prefecture, began to see strange things. Cats started to run in circles, jump into the sea, and die. People called it “dancing cat fever.”",
-    "p2": "Soon, people also became sick. They had trouble walking and talking. Their hands and feet felt numb, and some lost their sight or hearing.",
-    "p3": "Doctors later found that even babies were affected. Some were born with brain damage, muscle problems, or difficulty speaking and moving. These disabilities made it hard for them to live normal lives.",
-    "p4": "The cause was mercury poisoning. A chemical factory had been releasing waste water with mercury into Minamata Bay. The poison built up in fish and shellfish, and people who ate the seafood got sick.",
-    "p5": "Even after people got sick, it took many years for the problem to be recognised. The factory continued to release polluted water for more than 10 years before the government finally stopped it. Many people suffered, and many families lost loved ones.",
-    "p6": "Minamata Disease became a symbol of industrial pollution in Japan. Later, the government made strict environmental laws and worked to clean up the bay, so that such a tragedy would never happen again."
+    "p1": "In the 1950s, people in Minamata began to see strange things. Cats started to run in circles, jump into the sea, and die. People called it “dancing cat fever.”",
+    "p2": "People became sick. They had trouble walking and talking. Their hands and feet felt numb, and some lost their sight or hearing.",
+    "p3": "Some babies were born with brain damage, muscle problems, or difficulty speaking and moving.",
+    "p4": "The cause was mercury poisoning. A chemical factory had been releasing waste water with mercury into Minamata Bay.",
+    "p5": "The poison built up in fish and shellfish, and people who ate the seafood got sick.",
+    "p6": "The factory continued to release polluted water for more than 10 years before the government finally stopped it.",
+    "p7": "Later, the government made strict environmental laws and worked to clean up the bay."
    },
    "questions": [
-    {
-     "q": "What strange thing did people first notice in Minamata?",
-     "passage": "p1",
-     "a": "Cats ran in circles, jumped into the sea, and died.",
-     "w": [
-      "Fish jumped out of the sea.",
-      "Birds stopped flying.",
-      "Dogs stopped eating."
-     ]
-    },
-    {
-     "q": "What did people call the cats’ sickness?",
-     "passage": "p1",
-     "a": "dancing cat fever",
-     "w": ["running cat disease", "sea cat fever", "mercury fever"]
-    },
-    {
-     "q": "Which was a symptom of Minamata Disease in adults?",
-     "passage": "p2",
-     "a": "trouble walking and talking",
-     "w": ["a very high fever", "a lot of coughing", "turning green"]
-    },
-    {
-     "q": "What did some adults lose because of the disease?",
-     "passage": "p2",
-     "a": "their sight or hearing",
-     "w": ["their homes", "their hair", "their voices forever"]
-    },
-    {
-     "q": "Which was a disability that some babies had?",
-     "passage": "p3",
-     "a": "brain damage",
-     "w": ["a broken leg", "bad teeth", "a skin disease"]
-    },
-    {
-     "q": "What caused Minamata Disease?",
-     "passage": "p4",
-     "a": "mercury poisoning",
-     "w": ["a virus from cats", "dirty drinking water", "smoke from cars"]
-    },
-    {
-     "q": "Where did the mercury come from?",
-     "passage": "p4",
-     "a": "waste water from a chemical factory",
-     "w": [
-      "rain from the mountains",
-      "a ship that sank",
-      "a farm"
-     ]
-    },
-    {
-     "q": "How did people get sick?",
-     "passage": "p4",
-     "a": "They ate fish and shellfish with mercury in them.",
-     "w": [
-      "They drank milk from cows.",
-      "They breathed factory smoke.",
-      "They touched sick cats."
-     ]
-    },
-    {
-     "q": "How long did the factory continue to release polluted water before the government stopped it?",
-     "passage": "p5",
-     "a": "more than 10 years",
-     "w": ["one year", "about 3 years", "less than 5 years"]
-    },
-    {
-     "q": "What did the government do afterward?",
-     "passage": "p6",
-     "a": "It made strict environmental laws and cleaned up the bay.",
-     "w": [
-      "It closed all the fish markets.",
-      "It moved all the people to other cities.",
-      "It built more chemical factories."
-     ]
-    }
+    {"q": "What strange thing did people first notice in Minamata?", "passage": "p1", "a": "Cats ran in circles, jumped into the sea, and died.", "w": ["Fish jumped out of the sea.", "Birds stopped flying.", "Dogs stopped eating."]},
+    {"q": "What did people call the cats’ sickness?", "passage": "p1", "a": "dancing cat fever", "w": ["running cat disease", "sea cat fever", "mercury fever"]},
+    {"q": "Which was a symptom of Minamata Disease in adults?", "passage": "p2", "a": "trouble walking and talking", "w": ["a very high fever", "a lot of coughing", "turning green"]},
+    {"q": "What did some adults lose because of the disease?", "passage": "p2", "a": "their sight or hearing", "w": ["their homes", "their hair", "their voices forever"]},
+    {"q": "Which was a disability that some babies had?", "passage": "p3", "a": "brain damage", "w": ["a broken leg", "bad teeth", "a skin disease"]},
+    {"q": "What caused Minamata Disease?", "passage": "p4", "a": "mercury poisoning", "w": ["a virus from cats", "dirty drinking water", "smoke from cars"]},
+    {"q": "Where did the mercury come from?", "passage": "p4", "a": "waste water from a chemical factory", "w": ["rain from the mountains", "a ship that sank", "a farm"]},
+    {"q": "How did people get sick?", "passage": "p5", "a": "They ate fish and shellfish with mercury in them.", "w": ["They drank milk from cows.", "They breathed factory smoke.", "They touched sick cats."]},
+    {"q": "How long did the factory continue to release polluted water before the government stopped it?", "passage": "p6", "a": "more than 10 years", "w": ["one year", "about 3 years", "less than 5 years"]},
+    {"q": "What did the government do afterward?", "passage": "p7", "a": "It made strict environmental laws and cleaned up the bay.", "w": ["It closed all the fish markets.", "It moved all the people to other cities.", "It built more chemical factories."]}
    ]
   }
  ]
