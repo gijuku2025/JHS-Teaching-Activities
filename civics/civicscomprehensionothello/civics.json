@@ -29,11 +29,10 @@
     {"q": "What is a benefit of raising other taxes?", "a": "The government has more money to pay for social security.", "w": ["The government has more debt.", "Programs receive less money.", "Nobody pays higher taxes."]},
     {"q": "What is a benefit of borrowing money?", "a": "The government can pay for services now without immediately raising other taxes.", "w": ["The government never has to pay the money back.", "The government spends less on services.", "People pay much higher taxes."]},
     {"q": "What is a disadvantage of borrowing money?", "a": "Debt increases and interest may need to be paid.", "w": ["People pay higher taxes.", "Some programs stop providing support.", "The government has less money now."]},
-    {"q": "What is a disadvantage of borrowing 10 units instead of 5?", "a": "More debt may mean higher interest costs in the future.", "w": ["People pay much higher taxes.", "Government programs have to stop.", "The government has less money now."]},
-    {"q": "What is a benefit of reducing spending by 5 units?", "a": "The government can borrow less and may not need to raise taxes as much.", "w": ["The government has more debt.", "People pay much higher taxes.", "Programs receive more money."]},
-    {"q": "What is a disadvantage of reducing spending by 10 units?", "a": "Some programs may have to cut services or stop providing some support.", "w": ["Government debt increases.", "People or businesses pay much higher taxes.", "Interest costs get higher."]},
-    {"q": "How is raising other taxes by 10 units different from raising them by 5 units?", "a": "The government gets a lot more money, but people pay much higher taxes.", "w": ["The government gets less money, and people pay lower taxes.", "The government borrows more money.", "The government cuts more services."]}
-   ]
+    {"q": "What is a disadvantage of borrowing?", "a": "More debt may mean higher interest costs in the future.", "w": ["People pay much higher taxes.", "Government programs have to stop.", "The government has less money now."]},
+    {"q": "What is a benefit of reducing spending", "a": "The government can borrow less and may not need to raise taxes as much.", "w": ["The government has more debt.", "People pay much higher taxes.", "Programs receive more money."]},
+    {"q": "What is a disadvantage of reducing spending?", "a": "Some programs may have to cut services or stop providing some support.", "w": ["Government debt increases.", "People or businesses pay much higher taxes.", "Interest costs get higher."]}
+    ]
   },
   {
    "id": "civ-q3",
