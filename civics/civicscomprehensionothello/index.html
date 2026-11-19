@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Geography Othello – Face to Face</title>
+<title>Civics Othello – Face to Face</title>
 <style>
 :root{
   --bg:#0f1f18; --panel:#1a2a22; --felt:#1f6b45; --felt-dark:#154d31;
@@ -108,7 +108,7 @@ input,select{font:inherit;font-size:22px;padding:14px 16px;border-radius:12px;bo
 
 <section id="setup" class="screen">
   <div class="card wide">
-    <h1>Geography Othello</h1>
+    <h1>civics Othello</h1>
     <p class="sub">Lay the iPad flat between you in landscape. Player 1 (black) sits at the left edge, Player 2 (white) at the right. Each player's passage, question and answers face their own seat. Read the passage, then answer: a correct answer lets you place a bead, a wrong answer loses your turn. The game ends when the board is full or neither player can move, and the player with more beads wins.</p>
     <div class="names">
       <label>Player 1 (black, left side)<input id="n1" value="Player 1" maxlength="14" autocomplete="off"></label>
@@ -306,7 +306,7 @@ function finish(){
 }
 
 
-/* ---------- load quiz sets from geography.json ---------- */
+/* ---------- load quiz sets from civics.json ---------- */
 let CHAPTERS=[],sel=new Set();
 const LS={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
@@ -332,7 +332,7 @@ function buildChapters(){
 async function load(){
   const nm=LS.get("qg-names");if(Array.isArray(nm)){$("n1").value=nm[0]||"Player 1";$("n2").value=nm[1]||"Player 2"}
   try{
-    const r=await fetch("geography.json",{cache:"no-cache"});
+    const r=await fetch("civics.json",{cache:"no-cache"});
     if(!r.ok)throw new Error("HTTP "+r.status);
     const data=await r.json();
     const list=Array.isArray(data)?data:data.chapters;
@@ -349,11 +349,11 @@ async function load(){
     if(!CHAPTERS.length)throw new Error("no usable questions found");
     (LS.get("qg-sel")||[]).forEach(id=>{if(CHAPTERS.some(c=>c.id===id))sel.add(id)});
     buildChapters();
-    if(skipped)$("warn").textContent=`${skipped} question${skipped>1?"s":""} in geography.json were skipped because they are incomplete.`;
+    if(skipped)$("warn").textContent=`${skipped} question${skipped>1?"s":""} in civics.json were skipped because they are incomplete.`;
   }catch(e){
     $("chapters").innerHTML="";
     const p=document.createElement("p");p.className="sub bad";
-    p.textContent=`Couldn't load geography.json (${e.message}). Keep it in the same folder as this page and open the game from your GitHub Pages link, not by double-clicking the file.`;
+    p.textContent=`Couldn't load civics.json (${e.message}). Keep it in the same folder as this page and open the game from your GitHub Pages link, not by double-clicking the file.`;
     $("chapters").appendChild(p);
   }
 }
