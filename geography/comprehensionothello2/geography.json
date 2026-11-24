@@ -716,6 +716,310 @@
      ]
     }
    ]
+  },
+  {
+   "id": "test3-q1",
+   "title": "Test 3: Fix the Sentence",
+   "passages": {},
+   "questions": [
+    {
+     "q": "Which sentence is correct?",
+     "a": "The Tropical Zone is always hot.",
+     "w": [
+      "The Tropical Zone is always cold.",
+      "The Tropical Zone has four seasons.",
+      "The Tropical Zone is always dry."
+     ]
+    },
+    {
+     "q": "Which sentence is correct?",
+     "a": "The Arid Zone has very little rain.",
+     "w": [
+      "The Arid Zone has a lot of rain all year.",
+      "The Arid Zone has rain every day.",
+      "The Arid Zone has a rainy season and a snowy season."
+     ]
+    },
+    {
+     "q": "Which sentence is correct?",
+     "a": "The Temperate Zone has four seasons.",
+     "w": [
+      "The Temperate Zone has two seasons.",
+      "The Temperate Zone has three seasons.",
+      "The Temperate Zone has no seasons."
+     ]
+    },
+    {
+     "q": "Which sentence is correct?",
+     "a": "Tropical Rainforest Climates are hot and rainy all year.",
+     "w": [
+      "Tropical Rainforest Climates are hot and rainy all winter.",
+      "Tropical Rainforest Climates are cold and dry all year.",
+      "Tropical Rainforest Climates are hot and dry all year."
+     ]
+    },
+    {
+     "q": "Which sentence is correct?",
+     "a": "Warm moist air rises near the Equator, and dry air comes down.",
+     "w": [
+      "Warm moist air rises near the North Pole, and dry air comes down.",
+      "Warm moist air comes down near the Equator, and dry air rises.",
+      "Cold dry air rises near the Equator, and moist air comes down."
+     ]
+    },
+    {
+     "q": "Where does warm moist air rise?",
+     "a": "near the Equator",
+     "w": [
+      "near the North Pole",
+      "near the South Pole",
+      "only over deserts"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "test3-q2",
+   "title": "Test 3: True or False",
+   "passages": {},
+   "questions": [
+    {
+     "q": "Which statement is true?",
+     "a": "Savanna Climates have a rainy season and a dry season.",
+     "w": [
+      "Savanna Climates have a rainy season and a winter season.",
+      "Savanna Climates are rainy all year.",
+      "Savanna Climates have no seasons."
+     ]
+    },
+    {
+     "q": "Which statement is true?",
+     "a": "Ferragosto is a summer holiday in Italy.",
+     "w": [
+      "Ferragosto is a summer holiday in Nuuk.",
+      "Ferragosto is a summer holiday in Samoa.",
+      "Ferragosto is a winter holiday in Italy."
+     ]
+    },
+    {
+     "q": "Which statement is true?",
+     "a": "People gather around oases because there is water.",
+     "w": [
+      "People gather around oases because there is food.",
+      "People gather around oases because it is cold.",
+      "People gather around oases because there is snow."
+     ]
+    },
+    {
+     "q": "Which statement is true?",
+     "a": "Stone walls help keep houses cool in summer.",
+     "w": [
+      "Stone walls make houses hotter in summer.",
+      "Stone walls only help in winter.",
+      "Stone walls help keep houses wet."
+     ]
+    },
+    {
+     "q": "True or false? Savanna Climates have a rainy season and a winter season.",
+     "a": "False",
+     "w": [
+      "True"
+     ]
+    },
+    {
+     "q": "True or false? Ferragosto is a summer holiday in Nuuk.",
+     "a": "False",
+     "w": [
+      "True"
+     ]
+    },
+    {
+     "q": "True or false? Many Samoans work in farming.",
+     "a": "False",
+     "w": [
+      "True"
+     ]
+    },
+    {
+     "q": "True or false? People gather around oases because there is food.",
+     "a": "False",
+     "w": [
+      "True"
+     ]
+    },
+    {
+     "q": "True or false? Stone walls help keep houses cool in summer.",
+     "a": "True",
+     "w": [
+      "False"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "test3-q3",
+   "title": "Test 3: Match the Halves",
+   "passages": {},
+   "questions": [
+    {
+     "q": "Mangroves and coral reefs ____",
+     "a": "grow in the Tropical Zone.",
+     "w": [
+      "without much water.",
+      "to Japan.",
+      "and mild, rainy winters."
+     ]
+    },
+    {
+     "q": "Camels can live in hot deserts ____",
+     "a": "without much water.",
+     "w": [
+      "grow in the Tropical Zone.",
+      "eating lunch together.",
+      "to Japan."
+     ]
+    },
+    {
+     "q": "Traditional Italian families spent a long time ____",
+     "a": "eating lunch together.",
+     "w": [
+      "to Japan.",
+      "without much water.",
+      "grow in the Tropical Zone."
+     ]
+    },
+    {
+     "q": "Samoa exports frozen tuna ____",
+     "a": "to Japan.",
+     "w": [
+      "eating lunch together.",
+      "without much water.",
+      "and mild, rainy winters."
+     ]
+    },
+    {
+     "q": "Mediterranean Climates have hot, dry summers ____",
+     "a": "and mild, rainy winters.",
+     "w": [
+      "to Japan.",
+      "grow in the Tropical Zone.",
+      "without much water."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "test3-q4",
+   "title": "Test 3: Short Answers",
+   "passages": {},
+   "questions": [
+    {
+     "q": "Where do mangroves and coral reefs grow?",
+     "a": "in the Tropical Zone",
+     "w": [
+      "in the Arid Zone",
+      "in the Temperate Zone",
+      "near the North Pole"
+     ]
+    },
+    {
+     "q": "What makes the land poor for farming?",
+     "a": "desertification",
+     "w": [
+      "coral reefs",
+      "oases",
+      "stone walls"
+     ]
+    },
+    {
+     "q": "Which zone has four seasons?",
+     "a": "the Temperate Zone",
+     "w": [
+      "the Tropical Zone",
+      "the Arid Zone",
+      "the Polar Zone"
+     ]
+    },
+    {
+     "q": "Which climate is hot and rainy all year?",
+     "a": "Tropical Rainforest Climate",
+     "w": [
+      "Desert Climate",
+      "Mediterranean Climate",
+      "Savanna Climate"
+     ]
+    },
+    {
+     "q": "What animal can live in hot deserts without much water?",
+     "a": "camels",
+     "w": [
+      "tuna",
+      "dolphins",
+      "reindeer"
+     ]
+    },
+    {
+     "q": "Which climates are hot, dry, and have almost no plants?",
+     "a": "Desert Climates",
+     "w": [
+      "Savanna Climates",
+      "Mediterranean Climates",
+      "Tropical Rainforest Climates"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "test3-q5",
+   "title": "Test 3: Fill in the Blanks",
+   "passages": {},
+   "questions": [
+    {
+     "q": "The rainy season comes when the ____ is near.",
+     "a": "Subsolar Point",
+     "w": [
+      "Camels",
+      "Italy",
+      "Desert Climates"
+     ]
+    },
+    {
+     "q": "____ are hot, dry, and have almost no plants.",
+     "a": "Desert Climates",
+     "w": [
+      "Subsolar Point",
+      "Camels",
+      "Italy"
+     ]
+    },
+    {
+     "q": "Grapes, olives, and tomatoes grow well in the hot dry ____.",
+     "a": "summer",
+     "w": [
+      "Italy",
+      "Camels",
+      "Subsolar Point"
+     ]
+    },
+    {
+     "q": "____ can live in hot deserts without much water.",
+     "a": "Camels",
+     "w": [
+      "Italy",
+      "Summer",
+      "Desert Climates"
+     ]
+    },
+    {
+     "q": "Ferragosto is a summer holiday in ____.",
+     "a": "Italy",
+     "w": [
+      "Camels",
+      "Summer",
+      "Subsolar Point"
+     ]
+    }
+   ]
   }
  ]
 }
