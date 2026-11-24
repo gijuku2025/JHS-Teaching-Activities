@@ -56,11 +56,15 @@ input,select{font:inherit;font-size:22px;padding:14px 16px;border-radius:12px;bo
 #s1 .panel{transform:translate(-50%,-50%) rotate(90deg)}
 #s2 .panel{transform:translate(-50%,-50%) rotate(-90deg)}
 .panel.hastext{grid-template-columns:minmax(0,42%) minmax(0,1fr)}
+.panel.hastext.hasimg{grid-template-columns:minmax(0,58%) minmax(0,1fr)}
 .panel.on{border-color:var(--brass)}
 .panel:not(.on) .text{color:var(--muted)}
 .pass{display:none;background:#f4efe2;color:#1d1a14;border-radius:12px;padding:12px 14px;font-size:20px;line-height:1.4;font-weight:500;min-height:0;min-width:0;overflow:auto;-webkit-overflow-scrolling:touch}
 .panel.hastext .pass{display:block}
 .pass::before{content:"READ  ·  the answers are in the text";display:block;font-size:12px;font-weight:700;letter-spacing:.06em;color:#7a6f58;margin-bottom:6px}
+.pass.img{background:#fff;padding:8px 10px}
+.pass.img::before{content:"LOOK  ·  use the diagram"}
+.pass img{display:block;width:100%;height:calc(var(--ph) - 84px);object-fit:contain;-webkit-user-drag:none;pointer-events:none}
 .panel.hastext .ans{font-size:19px}
 .main{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:8px;min-width:0;min-height:0}
 .head{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -220,10 +224,18 @@ function paint(){
     const o=P[p],mine=p===cur;
     o.el.classList.toggle("on",mine);
     o.el.classList.toggle("idle",!mine);
-    const showText=mine&&current&&current.passage&&state!=="pass";
+    const showText=mine&&current&&(current.passage||current.image)&&state!=="pass";
+    const hasImg=!!(showText&&current.image);
     o.el.classList.toggle("hastext",!!showText);
-    const pt=showText?current.passage:"";
-    if(o.pass.dataset.t!==pt){o.pass.dataset.t=pt;o.pass.textContent=pt;o.pass.scrollTop=0}
+    o.el.classList.toggle("hasimg",hasImg);
+    o.pass.classList.toggle("img",hasImg);
+    const pt=showText?(current.passage||"")+"\u0001"+(current.image||""):"";
+    if(o.pass.dataset.t!==pt){
+      o.pass.dataset.t=pt;o.pass.textContent="";
+      if(showText&&current.passage){const s=document.createElement("div");s.textContent=current.passage;o.pass.appendChild(s)}
+      if(hasImg){const im=document.createElement("img");im.src=current.image;im.alt="Diagram";o.pass.appendChild(im)}
+      o.pass.scrollTop=0;
+    }
     o.chip.innerHTML=`<i class="dot d${p}"></i><span></span><b>${count(p)}</b>`;
     o.chip.querySelector("span").textContent=names[p-1];
     const t=o.text;t.className="text";
