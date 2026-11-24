@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 346" width="780" height="346" font-family="Arial, sans-serif" font-size="19">
+<rect width="780" height="346" fill="#fff"/>
+
+<!-- Row 1, col 1: ABC -->
+<g transform="translate(0,0)">
+<rect x="2" y="2" width="256" height="168" fill="none" stroke="#ccc"/>
+<polygon points="146.5,62.2 64,135 196,135" fill="#eef4ff" stroke="#222" stroke-width="2.5"/>
+<text x="146.5" y="52" text-anchor="middle">A</text>
+<text x="48" y="141" text-anchor="middle">B</text>
+<text x="212" y="141" text-anchor="middle">C</text>
+<text x="94" y="96" text-anchor="end">5 cm</text>
+<text x="130" y="160" text-anchor="middle">6 cm</text>
+<text x="180" y="96" text-anchor="start">4 cm</text>
+</g>
+
+<!-- Row 1, col 2: DEF -->
+<g transform="translate(260,0)">
+<rect x="2" y="2" width="256" height="168" fill="none" stroke="#ccc"/>
+<polygon points="64,135 196,135 113.5,49.3" fill="#fff4e5" stroke="#222" stroke-width="2.5"/>
+<text x="48" y="141" text-anchor="middle">D</text>
+<text x="212" y="141" text-anchor="middle">E</text>
+<text x="113.5" y="40" text-anchor="middle">F</text>
+<text x="130" y="160" text-anchor="middle">6 cm</text>
+<text x="80" y="88" text-anchor="end">4.5 cm</text>
+<text x="98" y="126" text-anchor="middle" font-size="16">60°</text>
+</g>
+
+<!-- Row 1, col 3: GHI -->
+<g transform="translate(520,0)">
+<rect x="2" y="2" width="256" height="168" fill="none" stroke="#ccc"/>
+<polygon points="103.9,25.2 64,135 196,135" fill="#eaf7ea" stroke="#222" stroke-width="2.5"/>
+<text x="103.9" y="16" text-anchor="middle">G</text>
+<text x="48" y="141" text-anchor="middle">H</text>
+<text x="212" y="141" text-anchor="middle">I</text>
+<text x="130" y="160" text-anchor="middle">6 cm</text>
+<text x="96" y="126" text-anchor="middle" font-size="16">70°</text>
+<text x="160" y="126" text-anchor="middle" font-size="16">50°</text>
+</g>
+
+<!-- Row 2, col 1: JKL -->
+<g transform="translate(0,176)">
+<rect x="2" y="2" width="256" height="168" fill="none" stroke="#ccc"/>
+<polygon points="196,135 64,135 146.5,49.3" fill="#fff4e5" stroke="#222" stroke-width="2.5"/>
+<text x="212" y="141" text-anchor="middle">J</text>
+<text x="48" y="141" text-anchor="middle">K</text>
+<text x="146.5" y="40" text-anchor="middle">L</text>
+<text x="130" y="160" text-anchor="middle">6 cm</text>
+<text x="180" y="88" text-anchor="start">4.5 cm</text>
+<text x="162" y="126" text-anchor="middle" font-size="16">60°</text>
+</g>
+
+<!-- Row 2, col 2: MNO -->
+<g transform="translate(260,176)">
+<rect x="2" y="2" width="256" height="168" fill="none" stroke="#ccc"/>
+<polygon points="156.1,25.2 196,135 64,135" fill="#eaf7ea" stroke="#222" stroke-width="2.5"/>
+<text x="156.1" y="16" text-anchor="middle">M</text>
+<text x="212" y="141" text-anchor="middle">N</text>
+<text x="48" y="141" text-anchor="middle">O</text>
+<text x="130" y="160" text-anchor="middle">6 cm</text>
+<text x="164" y="126" text-anchor="middle" font-size="16">70°</text>
+<text x="100" y="126" text-anchor="middle" font-size="16">50°</text>
+</g>
+
+<!-- Row 2, col 3: PQR -->
+<g transform="translate(520,176)">
+<rect x="2" y="2" width="256" height="168" fill="none" stroke="#ccc"/>
+<polygon points="113.5,62.2 196,135 64,135" fill="#eef4ff" stroke="#222" stroke-width="2.5"/>
+<text x="113.5" y="52" text-anchor="middle">P</text>
+<text x="212" y="141" text-anchor="middle">Q</text>
+<text x="48" y="141" text-anchor="middle">R</text>
+<text x="164" y="96" text-anchor="start">5 cm</text>
+<text x="130" y="160" text-anchor="middle">6 cm</text>
+<text x="80" y="96" text-anchor="end">4 cm</text>
+</g>
+</svg>
