@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" width="300" height="220" font-family="Arial, sans-serif" font-size="18">
+<rect width="300" height="220" fill="#fff"/>
+<polygon points="60,35 60,190 190,190" fill="#eef4ff" stroke="#222" stroke-width="2.5"/>
+<polyline points="74,190 74,176 60,176" fill="none" stroke="#222" stroke-width="2"/>
+<text x="60" y="26" text-anchor="middle" fill="#222">A</text>
+<text x="204" y="206" text-anchor="middle" fill="#222">B</text>
+<text x="44" y="206" text-anchor="middle" fill="#222">C</text>
+<text x="76" y="74" font-style="italic" fill="#c0392b">x</text>
+<text x="158" y="181" text-anchor="middle" font-size="15" fill="#c0392b">50°</text>
+</svg>

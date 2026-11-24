@@ -1,0 +1,70 @@
+{
+ "chapters": [
+  {
+   "id": "geo-q1",
+   "title": "Triangles: Fix the Sentence",
+   "passages": {},
+   "questions": [
+    {"q": "Which sentence about when a triangle is determined (by sides) is correct?", "a": "A triangle is determined when the lengths of its three sides are given.", "w": ["A triangle is determined when the lengths of its two sides are given.", "A triangle is determined when the length of one side is given.", "A triangle is determined when the lengths of its four sides are given."]},
+    {"q": "Which sentence about when a triangle is determined (by two sides and an angle) is correct?", "a": "A triangle is determined when the lengths of two sides and the angle between them are given.", "w": ["A triangle is determined when the lengths of two sides and the two angles between them are given.", "A triangle is determined when the lengths of two sides and an angle that is not between them are given.", "A triangle is determined when the lengths of two sides are given and no angle."]},
+    {"q": "Which sentence about when a triangle is determined (by a side and angles) is correct?", "a": "A triangle is determined when the length of one side and the two angles at its ends are given.", "w": ["A triangle is determined when the length of one side and the two angles at its middle are given.", "A triangle is determined when the length of one side and any one angle are given.", "A triangle is determined when only the three angles are given."]},
+    {"q": "Which sentence is correct?", "a": "There are three triangle congruence conditions.", "w": ["There are four triangle congruence conditions.", "There are two triangle congruence conditions.", "There are five triangle congruence conditions."]},
+    {"q": "Which sentence is correct?", "a": "An isosceles triangle is a triangle with two equal sides.", "w": ["An isosceles triangle is a triangle with three equal sides.", "An isosceles triangle is a triangle with no equal sides.", "An isosceles triangle is a triangle with one right angle."]},
+    {"q": "Which sentence is correct?", "image": "geo-iso-triangle.svg", "a": "The angle between the two equal sides is called the vertex angle.", "w": ["The angle between the two equal sides is called the base angle.", "The angle between the two equal sides is called the exterior angle.", "The angle between the two equal sides is called the right angle."]},
+    {"q": "Which sentence is correct?", "image": "geo-iso-triangle.svg", "a": "The two angles at the ends of the base are called the base angles.", "w": ["The two angles at the ends of the base are called the vertex angles.", "The two angles at the ends of the base are called the exterior angles.", "The two angles at the ends of the base are called the middle angles."]},
+    {"q": "Which sentence is correct?", "image": "geo-iso-triangle.svg", "a": "The two base angles of an isosceles triangle are equal.", "w": ["The two base angles of an isosceles triangle are different.", "The two base angles of an isosceles triangle are always 90°.", "The two base angles of an isosceles triangle are always 60°."]},
+    {"q": "Which sentence is correct?", "image": "geo-iso-bisector.svg", "a": "We can prove that the base angles are equal using congruent triangles.", "w": ["We can prove that the base angles are equal using parallel triangles.", "We can prove that the base angles are equal using bigger triangles.", "We can prove that the base angles are equal using only a protractor."]},
+    {"q": "Which sentence is correct?", "a": "Congruent triangles have equal corresponding sides and equal corresponding angles.", "w": ["Congruent triangles have equal corresponding sides only.", "Congruent triangles have equal corresponding angles only.", "Congruent triangles have equal perimeters only."]},
+    {"q": "Which sentence is correct?", "image": "geo-iso-bisector.svg", "a": "The angle bisector of the vertex angle bisects the base.", "w": ["The angle bisector of the vertex angle does not bisect the base.", "The angle bisector of the vertex angle is twice as long as the base.", "The angle bisector of the vertex angle cuts the base in a 1 : 2 ratio."]},
+    {"q": "Which sentence is correct?", "image": "geo-iso-bisector.svg", "a": "The angle bisector of the vertex angle is perpendicular to the base.", "w": ["The angle bisector of the vertex angle is parallel to the base.", "The angle bisector of the vertex angle is equal to the base.", "The angle bisector of the vertex angle never meets the base."]}
+   ]
+  },
+  {
+   "id": "geo-q2",
+   "title": "Finding Congruent Triangles",
+   "passages": {},
+   "questions": [
+    {"q": "Which triangle is congruent to △ABC?", "image": "geo-six-triangles.svg", "a": "△PQR", "w": ["△DEF", "△GHI", "△MNO"]},
+    {"q": "Which triangle is congruent to △DEF?", "image": "geo-six-triangles.svg", "a": "△JKL", "w": ["△ABC", "△MNO", "△PQR"]},
+    {"q": "Which triangle is congruent to △GHI?", "image": "geo-six-triangles.svg", "a": "△MNO", "w": ["△JKL", "△PQR", "△DEF"]},
+    {"q": "△ABC and △PQR have sides of 5 cm, 6 cm, and 4 cm. Which congruence condition do they satisfy?", "image": "geo-six-triangles.svg", "a": "Three sides equal (SSS)", "w": ["Two sides and the angle between them equal (SAS)", "Two angles and the side between them equal (ASA)", "Three angles equal (AAA)"]},
+    {"q": "Why is △DEF congruent to △JKL?", "image": "geo-six-triangles.svg", "a": "Two sides and the angle between them are equal (SAS).", "w": ["Three sides are equal (SSS).", "Two angles and the side between them are equal (ASA).", "Two sides and any angle are equal."]},
+    {"q": "Why is △GHI congruent to △MNO?", "image": "geo-six-triangles.svg", "a": "Two angles and the side between them are equal (ASA).", "w": ["Three sides are equal (SSS).", "Two sides and the angle between them are equal (SAS).", "They look the same."]},
+    {"q": "Which is a correct congruence statement?", "image": "geo-six-triangles.svg", "a": "△DEF ≡ △JKL", "w": ["△DEF ≡ △PQR", "△ABC ≡ △MNO", "△GHI ≡ △JKL"]},
+    {"q": "Which pair of triangles has sides of 6 cm and 4.5 cm with a 60° angle between them?", "image": "geo-six-triangles.svg", "a": "△DEF and △JKL", "w": ["△ABC and △PQR", "△GHI and △MNO", "△DEF and △MNO"]},
+    {"q": "How many pairs of congruent triangles are there among the six triangles?", "image": "geo-six-triangles.svg", "a": "3", "w": ["2", "4", "6"]},
+    {"q": "In △GHI and △MNO, where is the 6 cm side?", "image": "geo-six-triangles.svg", "a": "Between the 70° angle and the 50° angle", "w": ["Opposite the 70° angle", "Opposite the 50° angle", "It is not shown"]}
+   ]
+  },
+  {
+   "id": "geo-q3",
+   "title": "Angle Calculations",
+   "passages": {},
+   "questions": [
+    {"q": "In △ABC, AB = AC and ∠A = 50°. What is ∠B?", "image": "geo-iso-50.svg", "a": "65°", "w": ["50°", "75°", "130°"]},
+    {"q": "In △ABC (AB = AC), why is ∠B = ∠C?", "image": "geo-iso-50.svg", "a": "The base angles of an isosceles triangle are equal.", "w": ["The vertex angle is 50°.", "All triangles have equal angles.", "∠B and ∠C are right angles."]},
+    {"q": "In △ABC (AB = AC, ∠A = 50°), what is ∠B + ∠C?", "image": "geo-iso-50.svg", "a": "130°", "w": ["50°", "100°", "180°"]},
+    {"q": "Which side is the hypotenuse of this right triangle?", "image": "geo-right-triangle.svg", "a": "AB", "w": ["AC", "BC", "∠C"]},
+    {"q": "Which angle is the right angle in this triangle?", "image": "geo-right-triangle.svg", "a": "∠C", "w": ["∠A", "∠B", "x"]},
+    {"q": "Find x in this right triangle.", "image": "geo-right-triangle.svg", "a": "40°", "w": ["50°", "90°", "130°"]},
+    {"q": "Why does x + 50° + 90° = 180°?", "image": "geo-right-triangle.svg", "a": "The angles in a triangle add up to 180°.", "w": ["The angles in a triangle add up to 90°.", "The angles in a triangle add up to 360°.", "A right triangle has two equal angles."]},
+    {"q": "AB = AC and ∠A = 40°. Find x.", "image": "geo-iso-straight-line.svg", "a": "70°", "w": ["40°", "100°", "140°"]},
+    {"q": "AB = AC and ∠A = 40°. Find y.", "image": "geo-iso-straight-line.svg", "a": "110°", "w": ["70°", "40°", "140°"]},
+    {"q": "Why is y = 180° − ∠C?", "image": "geo-iso-straight-line.svg", "a": "B, C, and D are on a straight line, so the angles add up to 180°.", "w": ["The angles in a triangle add up to 180°.", "AB = AC.", "∠A is 40°."]}
+   ]
+  },
+  {
+   "id": "geo-q5",
+   "title": "Triangle Vocabulary",
+   "passages": {},
+   "questions": [
+    {"q": "What do we call a triangle with two equal sides?", "image": "geo-iso-triangle.svg", "a": "An isosceles triangle", "w": ["An equilateral triangle", "A right triangle", "A congruent triangle"]},
+    {"q": "What do we call a triangle with three equal sides?", "image": "geo-equilateral.svg", "a": "An equilateral triangle", "w": ["An isosceles triangle", "A right triangle", "A scalene triangle"]},
+    {"q": "What do we call the angle between the two equal sides in an isosceles triangle?", "image": "geo-iso-triangle.svg", "a": "The vertex angle", "w": ["The base angle", "The exterior angle", "The right angle"]},
+    {"q": "What do we call ∠B and ∠C in this isosceles triangle?", "image": "geo-iso-triangle.svg", "a": "The base angles", "w": ["The vertex angles", "The exterior angles", "The corresponding angles"]},
+    {"q": "What do we call the longest side of a right triangle?", "image": "geo-right-triangle.svg", "a": "The hypotenuse", "w": ["The base", "The vertex", "The bisector"]},
+    {"q": "In an equilateral triangle, how are the three sides marked in a diagram?", "image": "geo-equilateral.svg", "a": "Each side has the same tick mark.", "w": ["Each side has a different number of tick marks.", "Only the base has a tick mark.", "Sides are never marked."]}
+   ]
+  }
+ ]
+}
